@@ -10,9 +10,13 @@ import CoreData
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
+    
     let statusItem = NSStatusBar.system().statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
     var eventMonitor : EventMonitor?
+    
+    static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
+    static var SessionNumber = [Int]()
     
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
     
@@ -28,6 +32,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentDirectoryPath = paths[0] as String
         
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let current = String(year) + "-" + String(month) + "-" + String(day)
+        
         // Add the plist filename to the document directory path to obtain an absolute path to the plist filename
         let plistFilePathInDocumentDirectory = documentDirectoryPath + "/filename.plist"
         let fileManager = FileManager.default
@@ -36,6 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             /*
              here is where we are going to create the plist file
              */
+           
+            //print(length)
             let dicContent:[String: [Int]] = [time: [0]]
             let plistContent = NSDictionary(dictionary: dicContent)
             let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
@@ -45,19 +58,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 print("unable to create the file")
             }
         }else{
-//            let dicContent:[String: [Int]] = [time: [0]]
-//            let plistContent = NSDictionary(dictionary: dicContent)
-//            let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
-//            if success {
-//                print("date data write successed!")
-//            }else{
-//                print("unable to write the date data")
-//            }
-            //error
-            
-            let dicContent:[String: [Int]] = [time: [0]]
-            let plistContent = NSDictionary(dictionary: dicContent)
-            let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
+            //file exist, but if it is a new day, it dont contain today,
+            if AppDelegate.applicationDelegate.fileNameDictionary.allKeys(for: time) == nil {
+                //print("the key 'someKey' is NOT in the dictionary")
+                let dicContent:[String: [Int]] = [time: [0]]
+                let plistContent = NSDictionary(dictionary: dicContent)
+                let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
+            }
             print("filename plist file already exist")
         }
         /*

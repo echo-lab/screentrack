@@ -74,6 +74,46 @@ class classify : NSObject{
         return output.stringValue!
     }
     
+    //pages, Numbers, Keynots, Xcode
+    func ProductivityFilePath() -> String{
+        //example is Pages
+        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        return output.stringValue!
+        
+    }
+    //return the file name of these productivity
+    func ProductivityFileName() -> String{
+        let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        return output.stringValue!
+    }
+    
+    //return the browser first active page
+    func BrowserFirstPage() -> String{
+        let MyAppleScript = "tell application \"Google Chrome\" return URL of active tab of first window end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        return output.stringValue!
+    }
+    
     
 }
 

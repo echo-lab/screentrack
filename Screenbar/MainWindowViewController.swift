@@ -2,6 +2,7 @@
 //TimeInterval and TimerInterval2 are for the size of image caputre
 
 import Cocoa
+import AppKit
 
 protocol buttonchange {
     associatedtype Buttonclick: NSObject = Self
@@ -53,6 +54,7 @@ class MainWindowViewController: NSViewController {
     
     
     lazy var window: NSWindow = self.view.window!
+    
     
     var mouseLocation: NSPoint {
         return NSEvent.mouseLocation()
@@ -294,12 +296,18 @@ class MainWindowViewController: NSViewController {
     // This funciton aims to open a new window for future options
     
     //lazy var windowOne : NSWindow
-    @IBAction func MoreInforWindow(_ sender: Any) {
-        //open a new window for replaying method one
-        //NSApp.runModal(for: windowOne)
+
+    
+    //click button for the display method one
+    
+
+    
+    @IBAction func Visual_One(_ sender: Any) {
         
-        
+        let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()
+        self.presentViewControllerAsModalWindow(Method_One_Display_ViewControl_Handler)
     }
+    
     // Quit this program
     @IBAction func ClickQuitButton(_ sender: Any) {
         NSApplication.shared().terminate(self)

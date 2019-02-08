@@ -23,9 +23,6 @@ class ReplayingOne: NSViewController {
 //        // Do view setup here.
 //    }
 
-    required init(coder: NSCoder){
-        super.init(coder: coder)!
-    }
     
     @available(OSX 10.13, *)
     func FetchPhotoToday() -> Array<Any>{
@@ -51,8 +48,9 @@ class ReplayingOne: NSViewController {
         }
         //let first = 1
         let last = length - 1
+        //print(last)
         // last = 4
-        for i in 1..<last{
+        for i in 1...last{
             // string format path
             let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
             let URLfilepath = NSURL(string : Stringfilepath)
@@ -79,22 +77,8 @@ class ReplayingOne: NSViewController {
     }
     
     //@IBAction func replayone(_ sender: Any) {
-        
-    func SliderValueSet(){
-        
-    }
     //}
-    @IBAction func DisplayOne(_ sender: Any) {
-        let photolist = FetchPhotoToday()
-        
-    }
-    
-    @IBAction func Slider(_ sender: Any) {
-        
-        let number = FetchPhotoToday().count
-        
-        
-    }
+
     
     
     

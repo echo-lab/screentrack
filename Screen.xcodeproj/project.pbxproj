@@ -25,6 +25,8 @@
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
 		EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE57E982197C9DD001C90B0 /* ImageCompress.swift */; };
+		EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */; };
+		EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */; };
 		EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9A03A21C04DAD0071DDCD /* OpeningDocumentInfor.swift */; };
 		EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EAF9CE3F21FBA54B0024739D /* SessionNameCoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -50,6 +52,8 @@
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
 		EAE57E982197C9DD001C90B0 /* ImageCompress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCompress.swift; sourceTree = "<group>"; };
+		EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_One_Display_ViewControl.swift; sourceTree = "<group>"; };
+		EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Method_One_Display_ViewControl.xib; sourceTree = "<group>"; };
 		EAF9A03A21C04DAD0071DDCD /* OpeningDocumentInfor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningDocumentInfor.swift; sourceTree = "<group>"; };
 		EAF9CE4021FBA54B0024739D /* SessionNameCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SessionNameCoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +103,8 @@
 				EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */,
 				EAF9CE3F21FBA54B0024739D /* SessionNameCoreData.xcdatamodeld */,
 				EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */,
+				EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */,
+				EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -169,7 +175,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3DA791F41CDBC45C00F60252 /* Build configuration list for PBXProject "Screenbar" */;
+			buildConfigurationList = 3DA791F41CDBC45C00F60252 /* Build configuration list for PBXProject "Screen" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -193,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8AF31822079CA200D343E3 /* method_one.xib in Resources */,
+				EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */,
 				3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */,
 				3D1C2F2C1CE235AF00FB8AB8 /* MainWindowView.xib in Resources */,
 				3DA792021CDBC45C00F60252 /* MainMenu.xib in Resources */,
@@ -214,6 +221,7 @@
 				EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */,
 				EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */,
 				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
+				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
 				3D1C2F2E1CE2546900FB8AB8 /* EventMonitor.swift in Sources */,
 				3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */,
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,
@@ -355,7 +363,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3DA791F41CDBC45C00F60252 /* Build configuration list for PBXProject "Screenbar" */ = {
+		3DA791F41CDBC45C00F60252 /* Build configuration list for PBXProject "Screen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DA792041CDBC45C00F60252 /* Debug */,
