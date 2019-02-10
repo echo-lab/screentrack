@@ -18,7 +18,7 @@ class classify : NSObject{
     static var Category_three = ["Google Chrome"]
     
     @available(OSX 10.13, *)
-    func SoftwareDetect(SoftwareName : String){
+    func SoftwareDetect(SoftwareName : String, ScreenshotName : String){
         //(filepath: URL(string: MyVariables.yourVariable)!)
         if (SoftwareName == "apple.Preview"){
             print("apple Preview")
@@ -26,8 +26,8 @@ class classify : NSObject{
             print(PreviewFilePath())
             print(PreviewFileName())
             print(jpath.absoluteURL)
-            print(".")
             let dictionary : [String : Any] = ["software-name":"Preview",
+                                               "photo-name" : ScreenshotName,
                                               "file-path": PreviewFilePath(),
                                               "file-name": PreviewFileName()
                                               //"open-frontmost-website":
@@ -41,8 +41,12 @@ class classify : NSObject{
                 let current_path = "file://" + jpath.absoluteString
                 let url = URL(string: current_path as String)
                 //let file = FileManager.default
-                try jsonData.write(to: url!, options: .atomic)
-                print(jsonString)
+                //let handle = try FileHandle(forWritingTo: url!)
+                //handle.write(jsonData)
+                //try jsonString.write(to: url!, atomically: true, encoding: String.Encoding.utf8)
+                try jsonData.write(to: url!, options : .atomic)
+                //print(jsonString)
+                
             } catch {
                 print(error.localizedDescription)
             }

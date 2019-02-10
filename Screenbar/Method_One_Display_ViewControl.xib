@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_ViewControl" customModule="Screenbar" customModuleProvider="target">
             <connections>
+                <outlet property="ImageDisplayArea" destination="XpO-Sy-MzU" id="xBB-dw-dDJ"/>
                 <outlet property="SilderMoving" destination="MUq-pG-rtv" id="7sU-8V-B1J"/>
                 <outlet property="Slider" destination="MUq-pG-rtv" id="gU5-LI-Rk9"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -39,8 +40,13 @@
                         <action selector="TodayPhotoButton:" target="-2" id="rEg-ht-51z"/>
                     </connections>
                 </button>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XpO-Sy-MzU">
+                    <rect key="frame" x="28" y="46" width="283" height="206"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="GQk-gh-Kbc"/>
+                </imageView>
             </subviews>
-            <point key="canvasLocation" x="-83" y="163"/>
+            <point key="canvasLocation" x="-220" y="149"/>
         </customView>
         <slider verticalHuggingPriority="750" id="Giv-Te-t9X">
             <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>

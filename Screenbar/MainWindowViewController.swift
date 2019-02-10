@@ -306,8 +306,21 @@ class MainWindowViewController: NSViewController {
         
         let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()
         self.presentViewControllerAsModalWindow(Method_One_Display_ViewControl_Handler)
+        self.view.window?.close()
     }
     
+    open var windowController: NSWindowController?
+    var sub1WindowController: NSWindowController?
+    
+    @IBAction func Visual_One_Window_Method(_ sender: Any) {
+        let sub1ViewController = NSViewController(nibName: "Method_One_Display_Window", bundle: Bundle.main)
+        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
+        sub1WindowController = NSWindowController(window: sub1Window)
+        sub1WindowController?.showWindow(nil)
+
+    }
+    
+
     // Quit this program
     @IBAction func ClickQuitButton(_ sender: Any) {
         NSApplication.shared().terminate(self)

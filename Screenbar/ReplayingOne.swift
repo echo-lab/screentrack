@@ -43,6 +43,7 @@ class ReplayingOne: NSViewController {
         let length = ReplayingOne.SessionNumber.count
         var PhotoNameArray = [String]()
         let fileManager = FileManager.default
+        let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
         if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
             print("today, you have not started recording")
         }
@@ -61,11 +62,13 @@ class ReplayingOne: NSViewController {
                 let number = filelist.count
                 for j in 0..<number{
                     if filelist[j].contains(".jpg"){
+                        let temp = Stringfilepath + "/" + filelist[j]
                         //means it is a photo, instead of a json file
-                        PhotoNameArray.append(filelist[j])
+                        PhotoNameArray.append(temp)
                     }
                 }
-                //print(files)
+                //PhotoNameArray contains file path + file name
+                //print(PhotoNameArray)
             } catch {
                 print(error)
             }

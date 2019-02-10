@@ -59,12 +59,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }else{
             //file exist, but if it is a new day, it dont contain today,
-            if AppDelegate.applicationDelegate.fileNameDictionary.allKeys(for: time) == nil {
-                //print("the key 'someKey' is NOT in the dictionary")
+
+
+            var nsDictionary: NSDictionary?
+            nsDictionary = NSDictionary(contentsOfFile: plistFilePathInDocumentDirectory)
+            
+            if nsDictionary?.value(forKey: time) == nil{
                 let dicContent:[String: [Int]] = [time: [0]]
                 let plistContent = NSDictionary(dictionary: dicContent)
                 let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
             }
+//            if AppDelegate.applicationDelegate.fileNameDictionary.value(forKey: time) == nil{
+//                let dicContent:[String: [Int]] = [time: [0]]
+//                let plistContent = NSDictionary(dictionary: dicContent)
+//                let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
+//            }
+            
             print("filename plist file already exist")
         }
         /*

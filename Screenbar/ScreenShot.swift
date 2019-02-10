@@ -7,7 +7,7 @@ class ScreenShot : NSObject {
     
     lazy var dateFormatter = DateFormatter();
     let ImageCompressHandler = ImageCompress()
-    let softwareclassifyHandler = classify()
+    
     
     @available(OSX 10.13, *)
     func take() {
@@ -50,7 +50,12 @@ class ScreenShot : NSObject {
         print("after screenshot")
         let FrontmostApphandler = FrontmostApp()
         print(FrontmostApphandler.CurrentFrontMostApp)
-        softwareclassifyHandler.SoftwareDetect(SoftwareName: FrontmostApphandler.CurrentFrontMostApp)
+        
+        let softwareclassifyHandler = classify()
+        //classify different software running
+        let photoname = "/Screenshot-" + dateString + ".jpg"
+        softwareclassifyHandler.SoftwareDetect(SoftwareName: FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
+        
         //print(URL(fileURLWithPath: OriginialimageName))
         let Newimage = NSImage(contentsOf: URL(fileURLWithPath: OriginialimageName))
         //print(Newimage?.size.height)
