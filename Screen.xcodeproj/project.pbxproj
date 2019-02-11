@@ -24,6 +24,7 @@
 		EA8AF31A2208BAE800D343E3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */; };
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
+		EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */; };
 		EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE57E982197C9DD001C90B0 /* ImageCompress.swift */; };
 		EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */; };
 		EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */; };
@@ -53,6 +54,7 @@
 		EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
+		EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRelatedInformation.swift; sourceTree = "<group>"; };
 		EAE57E982197C9DD001C90B0 /* ImageCompress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCompress.swift; sourceTree = "<group>"; };
 		EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_One_Display_ViewControl.swift; sourceTree = "<group>"; };
 		EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Method_One_Display_ViewControl.xib; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */,
 				EAF5EFDF220E3C2900BDBF7D /* Method_One_Display_Window.swift */,
 				EAF5EFE0220E3C2900BDBF7D /* Method_One_Display_Window.xib */,
+				EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			files = (
 				EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */,
 				3D1C2F331CE2670400FB8AB8 /* Settings.swift in Sources */,
+				EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */,
 				3DA791FD1CDBC45C00F60252 /* AppDelegate.swift in Sources */,
 				EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */,
 				EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */,

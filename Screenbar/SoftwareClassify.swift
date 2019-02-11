@@ -20,8 +20,8 @@ class classify : NSObject{
                                                "apple.iWork.Pages"      : "2",
                                                "apple.iWork.Numbers"    : "2",
                                                "apple.iWork.Keynots"    : "2",
-                                               "apple.dt.Xcode"         : "2",
-                                               "Google Chrome"          : "3"
+                                               "apple.dt.Xcode"         : "3",
+                                               "Google Chrome"          : "4"
     ]
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String){
@@ -128,7 +128,56 @@ class classify : NSObject{
                 print(Error.self)
             }
         }
-        else if number == "3"{}
+        else if number == "3"{
+            let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
+            let dictionary : [String : Any] = ["software-name" : SoftwareName,
+                                               "photo-name" : ScreenshotName,
+                                               "file-path": ProductivityFilePath(softwarename : newname),
+                                               "file-name": ProductivityFileName(softwarename: newname)
+            ]
+            do {
+                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+                let current_path = "file://" + jpath.absoluteString
+                let url = URL(string: current_path as String)
+                
+                var fileSize : UInt64
+                do {
+                    //return [FileAttributeKey : Any]
+                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    fileSize = attr[FileAttributeKey.size] as! UInt64
+                    if fileSize == 0{
+                        print("json file is empty")
+                        try jsonData.write(to: url!, options : .atomic)
+                    }
+                    else{
+                        print("json file has other data inside")
+                        //read insdie data out
+                        if FileManager.default.fileExists(atPath: jpath.absoluteString){
+                            var err:NSError?
+                            if let fileHandle = FileHandle(forWritingAtPath: jpath.absoluteString){
+                                fileHandle.seekToEndOfFile()
+                                fileHandle.write(jsonData)
+                                fileHandle.closeFile()
+                            }
+                            else {
+                                print("Can't open fileHandle \(String(describing: err))")
+                            }
+                        }
+                        //try jsonData.write(to: url!, options : .atomic)
+                    }
+                } catch {
+                    print("Error: \(error)")
+                }
+                
+            }
+            catch{
+                print(Error.self)
+            }
+        }
+        else if number == "4" {
+            
+        }
         
         // end of this function
     }
@@ -237,8 +286,13 @@ class classify : NSObject{
     func ProductivityFilePath(softwarename : String) -> String{
         //example is Pages
         let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
+        let first = "tell application \""
+        let second = "\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for f7path) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \""
+        let third = "\" to return "
+        let final = first + softwarename + second + softwarename + third
         var error: NSDictionary?
-        let scriptObject = NSAppleScript(source: MyAppleScript)
+        //let scriptObject = NSAppleScript(source: MyAppleScript)
+        let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
@@ -251,7 +305,7 @@ class classify : NSObject{
     func ProductivityFileName(softwarename : String) -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = " tell application \"System Events\" \n tell process \""
-        let third = "\" \n set fileName to name of window 1 \n tell end tell \n end tell"
+        let third = "\" \n set fileName to name of window 1 \n end tell \n end tell"
         let final = first + softwarename + third
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)

@@ -14,6 +14,7 @@ class Method_One_Display_ViewControl: NSViewController {
     var photonumber = 0
     var PhotoNameList = [String]()
     
+
     @IBOutlet weak var ImageDisplayArea: NSImageView!
     
     
@@ -51,20 +52,11 @@ class Method_One_Display_ViewControl: NSViewController {
         print(photoname)
         //photo name is the silder's current position corresponding photo
         //photo name is paht now
-        
         let nsImage = NSImage(contentsOfFile: photoname)
-//
         ImageDisplayArea.image = nsImage as! NSImage
         
         //photoname is the name of screenshot
     }
-    
-    func ReadImageFromPath(){
-        let filemanager = FileManager.default
-        //let path = DefaultFolder() + ""
-        
-    }
-    
     
     
 }
