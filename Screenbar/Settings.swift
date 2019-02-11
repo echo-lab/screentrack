@@ -103,8 +103,8 @@ class Settings : NSObject {
     }
     static func DefaultFolder() -> URL{
         let defaultpath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
-        print("default file path")
-        print(defaultpath!)
+        //print("default file path")
+        //print(defaultpath!)
         return defaultpath!
     }
     
@@ -123,8 +123,8 @@ class Settings : NSObject {
         let current = String(year) + "-" + String(month) + "-" + String(day)
         // after the second click(or more clicks), here has one bug
         SessionNumber = applicationDelegate.fileNameDictionary[current] as! [Int]
-        print("this is the session number that is already sotred")
-        print(SessionNumber)
+        //print("this is the session number that is already sotred")
+        //print(SessionNumber)
         let length = SessionNumber.count
         if SessionNumber[length - 1] == 0 {
             //if the first and only number is 0

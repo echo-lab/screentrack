@@ -55,7 +55,7 @@ class ScreenShot : NSObject {
         //classify different software running
         let photoname = "/Screenshot-" + dateString + ".jpg"
         softwareclassifyHandler.SoftwareDetect(SoftwareName: FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
-        
+//        softwareclassifyHandler.SoftwareBasedOnCategory(SoftwareName : FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
         //print(URL(fileURLWithPath: OriginialimageName))
         let Newimage = NSImage(contentsOf: URL(fileURLWithPath: OriginialimageName))
         //print(Newimage?.size.height)

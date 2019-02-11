@@ -125,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Write the NSMutableDictionary to the CountryCities.plist file in the Document directory
         fileNameDictionary.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
-        print("write into plist")
+        //print("write into plist")
     }
     
     
@@ -138,7 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Write the NSMutableDictionary to the CountryCities.plist file in the Document directory
         fileNameDictionary.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
-        print("write into plist")
+        //print("write into plist")
     }
     
     //Using plist to store filename
