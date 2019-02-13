@@ -36,6 +36,7 @@ class Method_One_Display_ViewControl: NSViewController {
         photonumber = PhotoNameList.count - 1
         SliderValueSet()
         print(Slider.maxValue)
+        Slider.doubleValue = Slider.maxValue/2
         //print(PhotoNameList)
     }
     
@@ -49,7 +50,7 @@ class Method_One_Display_ViewControl: NSViewController {
     @IBAction func SliderAction(_ sender: Any) {
         let index = Int((sender as AnyObject).doubleValue)
         let photoname = PhotoNameList[index]
-        print(photoname)
+        //print(photoname)
         //photo name is the silder's current position corresponding photo
         //photo name is paht now
         let nsImage = NSImage(contentsOfFile: photoname)
@@ -59,4 +60,30 @@ class Method_One_Display_ViewControl: NSViewController {
     }
     
     
+    @IBAction func PreviousButton(_ sender: Any) {
+        var temp = Int(Slider.doubleValue)
+        print(temp)
+        if temp > 0 {
+            let photoname = PhotoNameList[temp - 1]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage as! NSImage
+            Slider.doubleValue -= 1
+        }
+    }
+    
+    @IBAction func NextButton(_ sender: Any) {
+        var temp = Int(Slider.doubleValue)
+        print(temp)
+        if temp < Int(Slider.maxValue) {
+            let photoname = PhotoNameList[temp + 1]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage as! NSImage
+            Slider.doubleValue += 1
+        }
+        
+
+    }
+    
+    
+    //end of the class
 }
