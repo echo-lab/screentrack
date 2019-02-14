@@ -8,7 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_ViewControl" customModule="Screenbar" customModuleProvider="target">
             <connections>
+                <outlet property="DisplayFilePath" destination="0KC-ZM-yNB" id="gh2-kl-qVP"/>
                 <outlet property="ImageDisplayArea" destination="XpO-Sy-MzU" id="xBB-dw-dDJ"/>
+                <outlet property="InformationDisplayArea" destination="aio-we-XEO" id="ZFP-r2-v9M"/>
                 <outlet property="SilderMoving" destination="MUq-pG-rtv" id="7sU-8V-B1J"/>
                 <outlet property="Slider" destination="MUq-pG-rtv" id="gU5-LI-Rk9"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -30,7 +32,7 @@
                     </sliderCell>
                 </slider>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Tx-x2-M7j">
-                    <rect key="frame" x="509" y="362" width="77" height="32"/>
+                    <rect key="frame" x="496" y="13" width="77" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Today" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uum-lg-oKD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -40,11 +42,6 @@
                         <action selector="TodayPhotoButton:" target="-2" id="rEg-ht-51z"/>
                     </connections>
                 </button>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XpO-Sy-MzU">
-                    <rect key="frame" x="28" y="54" width="427" height="336"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="GQk-gh-Kbc"/>
-                </imageView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQg-uH-vzN">
                     <rect key="frame" x="1" y="13" width="93" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -67,6 +64,29 @@
                         <action selector="NextButton:" target="-2" id="pRy-LU-aZb"/>
                     </connections>
                 </button>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XpO-Sy-MzU">
+                    <rect key="frame" x="7" y="51" width="427" height="336"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="GQk-gh-Kbc"/>
+                </imageView>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aio-we-XEO">
+                    <rect key="frame" x="507" y="133" width="122" height="248"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="DNi-fF-hR6">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0KC-ZM-yNB">
+                    <rect key="frame" x="519" y="69" width="92" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="a1M-Xe-6dU">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="-727.5" y="151"/>
         </customView>

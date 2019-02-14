@@ -255,7 +255,8 @@ class MainWindowViewController: NSViewController {
         _ = Settings.TimeIntervalSecondGet()
         // take a photo instantly
         let screenshotHandler = ScreenShot()
-        screenshotHandler.take()
+        //not take a screenshot at the start of the application
+        //screenshotHandler.take()
         //useless
         NotificationCenter.default.addObserver(self, selector: #selector(abd(notification:)), name:NSNotification.Name.NSApplicationDidBecomeActive, object: (Any).self)
         

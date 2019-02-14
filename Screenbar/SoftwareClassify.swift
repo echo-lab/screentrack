@@ -286,7 +286,7 @@ class classify : NSObject{
         if (error != nil) {
             print("error: \(String(describing: error))")
         }
-            return output.stringValue!
+            return (output.stringValue?.description)!
     }
     //preview open file name
     func PreviewFileName() -> String{
@@ -304,7 +304,7 @@ class classify : NSObject{
         if (error != nil) {
             print("error: \(String(describing: error))")
         }
-        return output.stringValue!
+        return (output.stringValue?.description)!
     }
     
     //pages, Numbers, Keynots, Xcode
@@ -323,7 +323,9 @@ class classify : NSObject{
         if (error != nil) {
             print("error: \(String(describing: error))")
         }
-        return output.stringValue!
+        //print(output.stringValue)
+        //print(output.stringValue?.description)
+        return (output.stringValue?.description)!
         
     }
     //return the file name of these productivity
@@ -340,7 +342,7 @@ class classify : NSObject{
         if (error != nil) {
             print("error: \(String(describing: error))")
         }
-        return output.stringValue!
+        return (output.stringValue?.description)!
     }
     
     //return the browser first active page
