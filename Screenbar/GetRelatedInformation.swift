@@ -52,9 +52,31 @@ class RelatedInformation{
         return String(imagename)
     }
 
+    //unfinish, need to code later
     func BasedOnJsonPath(jsonpath : String){
         //open this json path
-        
+        //use a string array to store information
+        let informationarray = [String]()
+        let rawData : NSData = try! NSData(contentsOf: URL(fileURLWithPath: jsonpath))
+        do{
+            let jsonDataDictionary = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
+            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String: Any]]
+            let length = jsonarray.count
+            print(length)
+            //the first is initial information, which should not be considered
+            for i in 1..<length{
+                
+                //print(jsonarray[i])
+                let photoname = jsonarray[i]["photo-name"] as! String
+                print(photoname)
+                //var tem = current as! String
+                //print(tem)
+                
+            }
+            
+            
+        }catch{print(error)}
 
         
     }

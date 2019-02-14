@@ -62,7 +62,7 @@ class Method_One_Display_ViewControl: NSViewController {
     
     @IBAction func PreviousButton(_ sender: Any) {
         var temp = Int(Slider.doubleValue)
-        print(temp)
+        //print(temp)
         if temp > 0 {
             let photoname = PhotoNameList[temp - 1]
             let nsImage = NSImage(contentsOfFile: photoname)
@@ -73,9 +73,10 @@ class Method_One_Display_ViewControl: NSViewController {
     
     @IBAction func NextButton(_ sender: Any) {
         var temp = Int(Slider.doubleValue)
-        print(temp)
+        //print(temp)
         if temp < Int(Slider.maxValue) {
             let photoname = PhotoNameList[temp + 1]
+            //photoname is the path of screenshots
             let nsImage = NSImage(contentsOfFile: photoname)
             ImageDisplayArea.image = nsImage as! NSImage
             Slider.doubleValue += 1

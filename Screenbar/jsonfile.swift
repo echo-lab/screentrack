@@ -20,6 +20,8 @@ class json: NSObject{
             let created = fileManager.createFile(atPath: (jsonFilePath.absoluteString), contents: nil, attributes: nil)
             if created {
                 print("Json file created ")
+                WriteInitialData(Filepath: (jsonFilePath.absoluteString))
+                
             } else {
                 print("Couldn't create json file for some reason")
             }
@@ -27,6 +29,32 @@ class json: NSObject{
             print("File already exists")
         }
         return jsonFilePath
+    }
+    //write some start information into json file
+    func WriteInitialData(Filepath : String){
+        var ArrayOfDictionary = [Dictionary<String, Any>]()
+        let dictionary : [String : Any] =
+            [
+                "Introduction" : "Hello, world"
+        ]
+        ArrayOfDictionary.append(dictionary)
+        var temp : [String : Any] =
+            [
+                "Information" : ArrayOfDictionary
+        ]
+        let jsonData = try! JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.prettyPrinted)
+        if FileManager.default.fileExists(atPath: Filepath){
+            var err:NSError?
+            if let fileHandle = FileHandle(forWritingAtPath: Filepath){
+                fileHandle.write(jsonData)
+                fileHandle.closeFile()
+            }
+            else {
+                print("Can't open fileHandle \(String(describing: err))")
+            }
+        }
+        
+        
     }
     
     
