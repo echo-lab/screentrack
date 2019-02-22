@@ -318,8 +318,10 @@ class MainWindowViewController: NSViewController {
         let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
         sub1WindowController = NSWindowController(window: sub1Window)
         sub1WindowController?.showWindow(nil)
+        self.view.window?.close()
 
     }
+    
     
 
     // Quit this program

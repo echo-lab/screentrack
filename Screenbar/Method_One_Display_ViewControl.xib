@@ -11,6 +11,7 @@
                 <outlet property="DisplayFilePath" destination="0KC-ZM-yNB" id="gh2-kl-qVP"/>
                 <outlet property="ImageDisplayArea" destination="XpO-Sy-MzU" id="xBB-dw-dDJ"/>
                 <outlet property="InformationDisplayArea" destination="aio-we-XEO" id="ZFP-r2-v9M"/>
+                <outlet property="PlayButton" destination="OYg-yc-swc" id="RCa-BS-M9r"/>
                 <outlet property="SilderMoving" destination="MUq-pG-rtv" id="7sU-8V-B1J"/>
                 <outlet property="Slider" destination="MUq-pG-rtv" id="gU5-LI-Rk9"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUq-pG-rtv">
-                    <rect key="frame" x="94" y="18" width="298" height="19"/>
+                    <rect key="frame" x="138" y="18" width="298" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="47.564865252293572" tickMarkPosition="above" sliderType="linear" id="0cH-kA-WAu">
                         <connections>
@@ -31,30 +32,8 @@
                         </connections>
                     </sliderCell>
                 </slider>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Tx-x2-M7j">
-                    <rect key="frame" x="496" y="13" width="77" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Today" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uum-lg-oKD">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="TodayPhotoButton:" target="-2" id="rEg-ht-51z"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQg-uH-vzN">
-                    <rect key="frame" x="1" y="13" width="93" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Previous" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8zu-JU-ycX">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="PreviousButton:" target="-2" id="RhO-Gx-NoV"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KXQ-hk-2Oa">
-                    <rect key="frame" x="392" y="13" width="69" height="32"/>
+                    <rect key="frame" x="429" y="13" width="69" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Next" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gur-5P-ESX">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -70,7 +49,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="GQk-gh-Kbc"/>
                 </imageView>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aio-we-XEO">
-                    <rect key="frame" x="507" y="133" width="122" height="248"/>
+                    <rect key="frame" x="507" y="166" width="122" height="215"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="DNi-fF-hR6">
                         <font key="font" metaFont="system"/>
@@ -79,7 +58,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0KC-ZM-yNB">
-                    <rect key="frame" x="519" y="69" width="92" height="56"/>
+                    <rect key="frame" x="519" y="88" width="92" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="a1M-Xe-6dU">
                         <font key="font" metaFont="system"/>
@@ -87,6 +66,50 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKT-Gk-0Ju">
+                    <rect key="frame" x="567" y="13" width="73" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5rV-HD-v38">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="OpenRelatedFile:" target="-2" id="JDL-xb-0Qc"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Tx-x2-M7j">
+                    <rect key="frame" x="486" y="13" width="77" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Today" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uum-lg-oKD">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="TodayPhotoButton:" target="-2" id="rEg-ht-51z"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-yc-swc">
+                    <rect key="frame" x="-6" y="10" width="65" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="play" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Y8c-bE-p3g">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="PlayButtonClick:" target="-2" id="3Ea-Wt-8c4"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQg-uH-vzN">
+                    <rect key="frame" x="54" y="10" width="93" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Previous" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8zu-JU-ycX">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="PreviousButton:" target="-2" id="RhO-Gx-NoV"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-727.5" y="151"/>
         </customView>

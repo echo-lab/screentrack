@@ -23,7 +23,9 @@
 		EA8AF31822079CA200D343E3 /* method_one.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF31722079CA200D343E3 /* method_one.xib */; };
 		EA8AF31A2208BAE800D343E3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */; };
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
+		EAD877FE221757DE0042FF78 /* Method_Two.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD877FD221757DE0042FF78 /* Method_Two.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
+		EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */; };
 		EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */; };
 		EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE57E982197C9DD001C90B0 /* ImageCompress.swift */; };
 		EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */; };
@@ -53,7 +55,9 @@
 		EA8AF31722079CA200D343E3 /* method_one.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = method_one.xib; sourceTree = "<group>"; };
 		EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
+		EAD877FD221757DE0042FF78 /* Method_Two.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
+		EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageView_Rectangle.swift; sourceTree = "<group>"; };
 		EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRelatedInformation.swift; sourceTree = "<group>"; };
 		EAE57E982197C9DD001C90B0 /* ImageCompress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCompress.swift; sourceTree = "<group>"; };
 		EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_One_Display_ViewControl.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				EAF5EFDF220E3C2900BDBF7D /* Method_One_Display_Window.swift */,
 				EAF5EFE0220E3C2900BDBF7D /* Method_One_Display_Window.xib */,
 				EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */,
+				EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */,
+				EAD877FD221757DE0042FF78 /* Method_Two.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -230,6 +236,7 @@
 				EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */,
 				3DA791FD1CDBC45C00F60252 /* AppDelegate.swift in Sources */,
 				EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */,
+				EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */,
 				EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */,
 				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
 				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
@@ -240,6 +247,7 @@
 				EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */,
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
 				EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */,
+				EAD877FE221757DE0042FF78 /* Method_Two.swift in Sources */,
 				3D1C2F2B1CE235AF00FB8AB8 /* MainWindowViewController.swift in Sources */,
 				EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */,
 			);
