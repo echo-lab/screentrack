@@ -239,6 +239,8 @@ class MainWindowViewController: NSViewController {
             //print(SessionNumber.count)
             Settings.PathCreate()
             jpath = jsonfileHandler.createjson(filepath: URL(string: MyVariables.yourVariable)!)
+            //print(MyVariables.yourVariable)
+            ///Users/donghanhu/Documents/Reflect/2019-2-23-1
             appdelegateHandler.changeicon()
             self.startAutomaticScreenshot()
 
@@ -281,6 +283,8 @@ class MainWindowViewController: NSViewController {
         self.timerCurrentAppList.invalidate()
         self.timerFrontmost.invalidate()
         self.ChangeTitleOfButton("Capture automatic screenshot")
+        let AddingDataAfterStopingHandler = JsondataAfterTracking()
+        AddingDataAfterStopingHandler.DataAfterRecording(filepath: URL(string: MyVariables.yourVariable)!)
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
     }
@@ -322,6 +326,11 @@ class MainWindowViewController: NSViewController {
 
     }
     
+    @IBAction func LternativeFuncitonTwo(_ sender: Any) {
+        let Method_Two_Display_ViewControl_Handler : NSViewController = Method_Two_Display_ViewControl()
+        self.presentViewControllerAsModalWindow(Method_Two_Display_ViewControl_Handler)
+        self.view.window?.close()
+    }
     
 
     // Quit this program

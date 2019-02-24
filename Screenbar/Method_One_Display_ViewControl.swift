@@ -14,7 +14,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     var photonumber = 0
     var PhotoNameList = [String]()
     
-    var TimerPlayButton : Timer = Timer()
+    var TimerPlayButton = Timer()
 
     @IBOutlet weak var ImageDisplayArea: NSImageView!
     
@@ -167,76 +167,49 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     @IBAction func PlayButtonClick(_ sender: Any) {
 
-//        TimerPlayButton = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(self.SliderValuePlusOne),
-        
- //      self.SliderValuePlusOne()
-
-//        if(Int(Slider.doubleValue) < Int(Slider.maxValue))&&(PlayButton.title == "play"){
-//            PlayButton.title = "stop"
-//            while(Int(Slider.doubleValue) < Int(Slider.maxValue)){
-//                print("in the while loop")
-//        while(Slider.doubleValue < Slider.maxValue){
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-//                    // Put your code which should be executed with a delay here
-//                    self.SliderValuePlusOne()
-//                })
-//        }
-//                usleep(1000000)
-//                let photoname = PhotoNameList[Int(Slider.doubleValue)]
-//                let nsImage = NSImage(contentsOfFile: photoname)
-//                print(photoname)
-//                ImageDisplayArea.image = nsImage
-//                Slider.doubleValue += 1
-//                sleep(1)
-//                self.SliderValuePlusOne()
-//            }
-//        }
-//        else if (Int(Slider.doubleValue) == Int(Slider.maxValue)){
-//            self.PlayButton.title = "paly"
-//        }
-//        else{
-//            self.PlayButton.title = "paly"
-//        }
-        
-//
-        if (Int(Slider.doubleValue) <= Int(Slider.maxValue))&&(PlayButton.title == "play"){
-            PlayButton.title = "stop"
-//            TimerPlayButton = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.SliderValuePlusOne), userInfo: (Any).self, repeats: true)
-//            while (Int(Slider.doubleValue) < Int(Slider.maxValue)){
-//            delay(1.0){
-//
-//                let temp = Int(self.Slider.doubleValue)
-//                let photoname = self.PhotoNameList[temp]
-//                let nsImage = NSImage(contentsOfFile: photoname)
-//                print(photoname)
-//                self.ImageDisplayArea.image = nsImage
-//                print("yoyo")
-//                self.Slider.doubleValue += 1
-//            }
-//
-//            }
-            
+        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
+            self.AutomaticPlayFunc()
         }
-        else if(Int(Slider.doubleValue) < Int(Slider.maxValue)) && (PlayButton.title == "stop"){
-            PlayButton.title = "play"
-        }
-        else if (Int(Slider.doubleValue) == Int(Slider.maxValue)){
-            PlayButton.title = "End"
-        }
-        
     }
     
+    func AutomaticPlayFunc(){
+        if(self.TimerPlayButton.isValid){
+            self.stopPlaying()
+        }
+        else{
+            self.startPlaying()
+        }
+    }
     
-    func SliderValuePlusOne(){
-        let temp = Int(Slider.doubleValue)
-            let photoname = PhotoNameList[temp]
-            let nsImage = NSImage(contentsOfFile: photoname)
-            print(photoname)
-            ImageDisplayArea.image = nsImage
-        print("yoyo")
-            Slider.doubleValue += 1
+    func startPlaying(){
+        self.TimerPlayButton = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
         
-            //sleep(1)
+
+    }
+    
+    func printtext(){
+        print("print text")
+    }
+    @objc func PlayNextImage(){
+        print("in the playnextiamge func")
+        if(Int(Slider.doubleValue) < Int(Slider.maxValue)){
+            let index = Int(Slider.doubleValue)
+            let photoname = PhotoNameList[index]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage
+            Slider.doubleValue += 1
+        }
+        else if(Int(Slider.doubleValue) == Int(Slider.maxValue)){
+            let index = Int(Slider.doubleValue)
+            let photoname = PhotoNameList[index]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage
+            self.stopPlaying()
+            
+        }
+        else{
+            PlayButton.title = "Stop"
+        }
         
     }
     
@@ -247,6 +220,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     func stopPlaying(){
         self.TimerPlayButton.invalidate()
+        PlayButton.title = "play"
     }
     //end of the class
 }

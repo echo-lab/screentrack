@@ -32,21 +32,38 @@ class json: NSObject{
     }
     //write some start information into json file
     func WriteInitialData(Filepath : String){
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let current = String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour)
         var ArrayOfDictionary = [Dictionary<String, Any>]()
         let dictionary : [String : Any] =
             [
                 "Introduction" : "Hello, world"
         ]
+        let NameofSession = Filepath.replacingOccurrences(of: "/test.json", with: "")
+//        let SessionNameOfDictionary : [String : Any] = [
+//            "name of session" : NameofSession
+//        ]
+            
         ArrayOfDictionary.append(dictionary)
         var temp : [String : Any] =
             [
-                "Information" : ArrayOfDictionary
+                "name of session"   : NameofSession,
+                "start of time"     : current,
+                "Information"       : ArrayOfDictionary
         ]
+        
         let jsonData = try! JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.prettyPrinted)
+//        let jsonDataName = try! JSONSerialization.data(withJSONObject: SessionNameOfDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
         if FileManager.default.fileExists(atPath: Filepath){
             var err:NSError?
             if let fileHandle = FileHandle(forWritingAtPath: Filepath){
                 fileHandle.write(jsonData)
+                //fileHandle.write(jsonDataName)
                 fileHandle.closeFile()
             }
             else {

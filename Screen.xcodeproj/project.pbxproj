@@ -17,6 +17,9 @@
 		3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */; };
 		EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03B5AA218CF32100023472 /* MosePosition.swift */; };
 		EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */; };
+		EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */; };
+		EA2A381922206678008D5EDD /* Method_Two_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */; };
+		EA2A381A22206678008D5EDD /* Method_Two_Display_ViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */; };
 		EA2C56C721FE481900178AFF /* folderName.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2C56C621FE481900178AFF /* folderName.plist */; };
 		EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */; };
 		EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */; };
@@ -49,6 +52,9 @@
 		3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
 		EA03B5AA218CF32100023472 /* MosePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosePosition.swift; sourceTree = "<group>"; };
 		EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonfile.swift; sourceTree = "<group>"; };
+		EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonfileDataAfterTracking.swift; sourceTree = "<group>"; };
+		EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two_Display_ViewControl.swift; sourceTree = "<group>"; };
+		EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Method_Two_Display_ViewControl.xib; sourceTree = "<group>"; };
 		EA2C56C621FE481900178AFF /* folderName.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = folderName.plist; sourceTree = "<group>"; };
 		EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplication.swift; sourceTree = "<group>"; };
 		EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontMostApplication.swift; sourceTree = "<group>"; };
@@ -120,6 +126,9 @@
 				EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */,
 				EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */,
 				EAD877FD221757DE0042FF78 /* Method_Two.swift */,
+				EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */,
+				EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */,
+				EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -215,6 +224,7 @@
 			files = (
 				EA8AF31822079CA200D343E3 /* method_one.xib in Resources */,
 				EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */,
+				EA2A381A22206678008D5EDD /* Method_Two_Display_ViewControl.xib in Resources */,
 				3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */,
 				3D1C2F2C1CE235AF00FB8AB8 /* MainWindowView.xib in Resources */,
 				EAF5EFE2220E3C2900BDBF7D /* Method_One_Display_Window.xib in Resources */,
@@ -232,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */,
+				EA2A381922206678008D5EDD /* Method_Two_Display_ViewControl.swift in Sources */,
 				3D1C2F331CE2670400FB8AB8 /* Settings.swift in Sources */,
 				EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */,
 				3DA791FD1CDBC45C00F60252 /* AppDelegate.swift in Sources */,
@@ -241,6 +252,7 @@
 				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
 				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
 				3D1C2F2E1CE2546900FB8AB8 /* EventMonitor.swift in Sources */,
+				EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */,
 				EAF5EFE1220E3C2900BDBF7D /* Method_One_Display_Window.swift in Sources */,
 				3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */,
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,

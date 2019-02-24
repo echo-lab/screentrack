@@ -21,7 +21,7 @@ class classify : NSObject{
                                                "apple.iWork.Numbers"    : "2",
                                                "apple.iWork.Keynots"    : "2",
                                                "apple.dt.Xcode"         : "3",
-                                               "Google Chrome"          : "4",
+                                               "google.Chrome"          : "4",
                                                "Safari"                 : "5",
                                                "icrosoft.Word"          : "6",
                                                "icrosoft.Excel"         : "6",
@@ -30,15 +30,17 @@ class classify : NSObject{
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String){
         let number = ClassDictionary[SoftwareName]
+        print(number)
         if number == "1" {
             //print("apple Preview")
             //            print(PreviewFilePath())
             //            print(PreviewFileName())
             //            print(jpath.absoluteURL)
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
-                                               "file-path": PreviewFilePath(),
-                                               "file-name": PreviewFileName()
+            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
+                                               "photo-name"     : ScreenshotName,
+                                               "file-path"      : PreviewFilePath(),
+                                               "file-name"      : PreviewFileName(),
+                                               "category"       : "Productivity"
                 //"open-frontmost-website":
             ]
             do {
@@ -104,10 +106,11 @@ class classify : NSObject{
             //substring the software name here
             let newname = SoftwareName.replacingOccurrences(of: "apple.iWork.", with: "")
             
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
-                                               "file-path": ProductivityFilePath(softwarename : newname),
-                                               "file-name": ProductivityFileName(softwarename: newname)
+            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
+                                               "photo-name"     : ScreenshotName,
+                                               "file-path"      : ProductivityFilePath(softwarename : newname),
+                                               "file-name"      : ProductivityFileName(softwarename: newname),
+                                               "category"       : "Productivity"
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -155,10 +158,11 @@ class classify : NSObject{
         }
         else if number == "3"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
-                                               "file-path": ProductivityFilePath(softwarename : newname),
-                                               "file-name": ProductivityFileName(softwarename: newname)
+            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
+                                               "photo-name"             : ScreenshotName,
+                                               "file-path"              : ProductivityFilePath(softwarename : newname),
+                                               "file-name"              : ProductivityFileName(softwarename: newname),
+                                               "category"               : "Coding"
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -207,12 +211,14 @@ class classify : NSObject{
         //for google chrome, now
         else if number == "4" {
             //let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
+            
+            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
+                                               "photo-name"             : ScreenshotName,
                                                //"file-path": ProductivityFilePath(softwarename : newname),
                                                //"file-name": ProductivityFileName(softwarename: newname)
-                                               "frontmost-page-url" : BrowserFirstPageURL(),
-                                               "frontmost-page-title" : BrowserFirstPageTitle()
+                                               "frontmost-page-url"     : BrowserFirstPageURL(),
+                                               "frontmost-page-title"   : BrowserFirstPageTitle(),
+                                               "category"               : "Browser"
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -262,10 +268,11 @@ class classify : NSObject{
         //apple.Safari
         else if number == "5"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.", with: "")
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
-                                               "frontmost-page-url" : SafariBrowserFirstPageURL(),
-                                               "frontmost-page-title" : SafariBrowserFirstPageTitle()
+            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
+                                               "photo-name"             : ScreenshotName,
+                                               "frontmost-page-url"     : SafariBrowserFirstPageURL(),
+                                               "frontmost-page-title"   : SafariBrowserFirstPageTitle(),
+                                               "category"               : "Browser"
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -315,10 +322,11 @@ class classify : NSObject{
         else if number == "6"{
             let newname = SoftwareName.replacingOccurrences(of: "icrosoft.", with: "")
             let fullname = "Microsoft " + newname
-            let dictionary : [String : Any] = ["software-name" : SoftwareName,
-                                               "photo-name" : ScreenshotName,
-                                               "file-path": MicrosoftSoftwareFilePath(name: fullname),
-                                               "file-name": ProductivityFileName(softwarename: newname)
+            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
+                                               "photo-name"     : ScreenshotName,
+                                               "file-path"      : MicrosoftSoftwareFilePath(name: fullname),
+                                               "file-name"      : ProductivityFileName(softwarename: newname),
+                                               "category"       : "Productivity"
                 
             ]
             do {
@@ -367,6 +375,52 @@ class classify : NSObject{
         }
         else if number == "7"{
             
+        }
+        //could not identify this software name into any catogoriy
+        else{
+            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
+                                               "photo-name"     : ScreenshotName,
+                                               "category"       : "Dont know"
+            ]
+            do {
+                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+                let current_path = "file://" + jpath.absoluteString
+                //url is the json file
+                let url = URL(string: current_path as String)
+                var fileSize : UInt64
+                do {
+                    //return [FileAttributeKey : Any]
+                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    fileSize = attr[FileAttributeKey.size] as! UInt64
+                    if fileSize == 0{
+                        print("json file is empty")
+                        try jsonData.write(to: url!, options : .atomic)
+                    }
+                    else{
+                        print("json file has other data inside")
+                        let rawData : NSData = try! NSData(contentsOf: url!)
+                        do{
+                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
+                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
+                            jsonarray.append(dictionary)
+                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
+                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                                file.write(jsonData)
+                                file.closeFile()
+                            }
+                            
+                        }catch {print(error)}
+                    }
+                } catch {
+                    print("Error: \(error)")
+                }
+            }
+            catch{
+                print(Error.self)
+            }
         }
         
         // end of this function
@@ -533,7 +587,7 @@ class classify : NSObject{
     
     //return the browser first active page url
     func BrowserFirstPageURL() -> String{
-        let MyAppleScript = "tell application \"Google Chrome\" return URL of active tab of first window end tell"
+        let MyAppleScript = "tell application \"Google Chrome\" to return URL of active tab of first window end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
@@ -550,7 +604,7 @@ class classify : NSObject{
     }
     //return the browser first active page title
     func BrowserFirstPageTitle() -> String{
-        let MyAppleScript = "tell application \"Google Chrome\" return title of active tab of first window end tell"
+        let MyAppleScript = "tell application \"Google Chrome\" to return title of active tab of first window end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
@@ -566,7 +620,7 @@ class classify : NSObject{
     }
     //return the browser first active page title of Safari
     func SafariBrowserFirstPageTitle() -> String{
-        let MyAppleScript = "tell application \"Safari\" return name of front document "
+        let MyAppleScript = "tell application \"Safari\" to return name of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
@@ -582,7 +636,7 @@ class classify : NSObject{
     }
     //return the browser first active page url of Safari
     func SafariBrowserFirstPageURL() -> String{
-        let MyAppleScript = "tell application \"Safari\" return URL of front document "
+        let MyAppleScript = "tell application \"Safari\" to return URL of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)

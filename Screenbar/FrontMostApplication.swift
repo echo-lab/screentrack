@@ -46,6 +46,8 @@ class FrontmostApp : NSObject{
         return CurrentFrontMostApp
 
     }
+    func windowlocation(){}
+
         
 }
     
