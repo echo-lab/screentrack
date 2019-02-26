@@ -58,7 +58,7 @@ class ReplayingTwo{
                 //jsonarray is the whole data contains in this json file
                 let length = jsonarray.count
                 for j in 1 ..< length{
-                    let tempname = String(describing: jsonarray[j]["software-name"])
+                    let tempname = String(describing: jsonarray[j]["SoftwareName"])
                     var tempvalue = HashmapOfJsonResult[tempname]
                     if tempvalue == nil{
                         HashmapOfJsonResult[tempname] = 1

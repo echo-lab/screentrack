@@ -20,11 +20,20 @@ class JsondataAfterTracking : NSObject{
         let hour = calendar.component(.hour, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour)
         let documentsDirectoryPath = filepath
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        //new temp date, (Date())
+        let tempdate = Calendar.current.date(byAdding: .hour, value: 0, to: Date())
+        let dateString = dateFormatter.string(from: tempdate!)
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
+        let date24 = dateFormatter.string(from: final!)
         let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
         
         let dictionary : [String : Any] =
             [
-                "end of time"       : current,
+                "EndTime"       : date24,
                 "number of imaeges" : NumberOfImages(SessionFolderPath: filepath.absoluteString)
         ]
         //write this dictionary into json file
@@ -43,7 +52,7 @@ class JsondataAfterTracking : NSObject{
                 //dont need the array now
                 //just add one one more new dictionary into it
                 dictionaryOfReturnedJsonData.updateValue(NumberOfImages(SessionFolderPath: filepath.absoluteString) as AnyObject, forKey: "number of images")
-                dictionaryOfReturnedJsonData.updateValue(current as AnyObject, forKey: "end of time")
+                dictionaryOfReturnedJsonData.updateValue(date24 as AnyObject, forKey: "EndTime")
                 //var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
                 
                 //print(jsonarray)

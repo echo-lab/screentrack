@@ -22,7 +22,7 @@ class classify : NSObject{
                                                "apple.iWork.Keynots"    : "2",
                                                "apple.dt.Xcode"         : "3",
                                                "google.Chrome"          : "4",
-                                               "Safari"                 : "5",
+                                               "apple.Safari"           : "5",
                                                "icrosoft.Word"          : "6",
                                                "icrosoft.Excel"         : "6",
                                                "icrosoft.PowerPoint"    : "6"
@@ -36,10 +36,10 @@ class classify : NSObject{
             //            print(PreviewFilePath())
             //            print(PreviewFileName())
             //            print(jpath.absoluteURL)
-            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
-                                               "photo-name"     : ScreenshotName,
-                                               "file-path"      : PreviewFilePath(),
-                                               "file-name"      : PreviewFileName(),
+            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
+                                               "PhotoName"     : ScreenshotName,
+                                               "FilePath"      : PreviewFilePath(),
+                                               "FileName"      : PreviewFileName(),
                                                "category"       : "Productivity"
                 //"open-frontmost-website":
             ]
@@ -106,10 +106,10 @@ class classify : NSObject{
             //substring the software name here
             let newname = SoftwareName.replacingOccurrences(of: "apple.iWork.", with: "")
             
-            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
-                                               "photo-name"     : ScreenshotName,
-                                               "file-path"      : ProductivityFilePath(softwarename : newname),
-                                               "file-name"      : ProductivityFileName(softwarename: newname),
+            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
+                                               "PhotoName"     : ScreenshotName,
+                                               "FilePath"      : ProductivityFilePath(softwarename : newname),
+                                               "FileName"      : ProductivityFileName(softwarename: newname),
                                                "category"       : "Productivity"
             ]
             do {
@@ -158,10 +158,10 @@ class classify : NSObject{
         }
         else if number == "3"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
-                                               "photo-name"             : ScreenshotName,
-                                               "file-path"              : ProductivityFilePath(softwarename : newname),
-                                               "file-name"              : ProductivityFileName(softwarename: newname),
+            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
+                                               "PhotoName"             : ScreenshotName,
+                                               "FilePath"              : ProductivityFilePath(softwarename : newname),
+                                               "FileName"              : ProductivityFileName(softwarename: newname),
                                                "category"               : "Coding"
             ]
             do {
@@ -212,12 +212,12 @@ class classify : NSObject{
         else if number == "4" {
             //let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
             
-            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
-                                               "photo-name"             : ScreenshotName,
+            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
+                                               "PhotoName"             : ScreenshotName,
                                                //"file-path": ProductivityFilePath(softwarename : newname),
                                                //"file-name": ProductivityFileName(softwarename: newname)
-                                               "frontmost-page-url"     : BrowserFirstPageURL(),
-                                               "frontmost-page-title"   : BrowserFirstPageTitle(),
+                                               "FrontmostPageUrl"     : BrowserFirstPageURL(),
+                                               "FrontmostPageTitle"   : BrowserFirstPageTitle(),
                                                "category"               : "Browser"
             ]
             do {
@@ -268,10 +268,10 @@ class classify : NSObject{
         //apple.Safari
         else if number == "5"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.", with: "")
-            let dictionary : [String : Any] = ["software-name"          : SoftwareName,
-                                               "photo-name"             : ScreenshotName,
-                                               "frontmost-page-url"     : SafariBrowserFirstPageURL(),
-                                               "frontmost-page-title"   : SafariBrowserFirstPageTitle(),
+            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
+                                               "PhotoName"             : ScreenshotName,
+                                               "FrontmostPageUrl"     : SafariBrowserFirstPageURL(),
+                                               "FrontmostPageTitle"   : SafariBrowserFirstPageTitle(),
                                                "category"               : "Browser"
             ]
             do {
@@ -322,10 +322,10 @@ class classify : NSObject{
         else if number == "6"{
             let newname = SoftwareName.replacingOccurrences(of: "icrosoft.", with: "")
             let fullname = "Microsoft " + newname
-            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
-                                               "photo-name"     : ScreenshotName,
-                                               "file-path"      : MicrosoftSoftwareFilePath(name: fullname),
-                                               "file-name"      : ProductivityFileName(softwarename: newname),
+            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
+                                               "PhotoName"     : ScreenshotName,
+                                               "FilePath"      : MicrosoftSoftwareFilePath(name: fullname),
+                                               "FileName"      : ProductivityFileName(softwarename: newname),
                                                "category"       : "Productivity"
                 
             ]
@@ -378,8 +378,8 @@ class classify : NSObject{
         }
         //could not identify this software name into any catogoriy
         else{
-            let dictionary : [String : Any] = ["software-name"  : SoftwareName,
-                                               "photo-name"     : ScreenshotName,
+            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
+                                               "PhotoName"     : ScreenshotName,
                                                "category"       : "Dont know"
             ]
             do {
@@ -587,7 +587,7 @@ class classify : NSObject{
     
     //return the browser first active page url
     func BrowserFirstPageURL() -> String{
-        let MyAppleScript = "tell application \"Google Chrome\" to return URL of active tab of first window end tell"
+        let MyAppleScript = "tell application \"Google Chrome\" to return URL of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
@@ -604,7 +604,7 @@ class classify : NSObject{
     }
     //return the browser first active page title
     func BrowserFirstPageTitle() -> String{
-        let MyAppleScript = "tell application \"Google Chrome\" to return title of active tab of first window end tell"
+        let MyAppleScript = "tell application \"Google Chrome\" to return title of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)

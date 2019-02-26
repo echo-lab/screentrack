@@ -65,15 +65,15 @@ class RelatedInformation{
             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String: Any]]
             let length = jsonarray.count
-            print(length)
+            //print(length)
             //the first is initial information, which should not be considered
             for i in 1..<length{
                 
                 //print(jsonarray[i])
-                var photoname = jsonarray[i]["photo-name"] as! String
-                print(photoname)
+                var photoname = jsonarray[i]["PhotoName"] as! String
+                //print(photoname)
                 photoname.remove(at: photoname.startIndex)
-                print(photoname)
+                //print(photoname)
                 if photoname == screenshot{
                     returnDictionary = jsonarray[i]
                     //print("dictionary")

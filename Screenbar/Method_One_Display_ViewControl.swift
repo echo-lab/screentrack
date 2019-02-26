@@ -20,14 +20,25 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     @IBOutlet weak var InformationDisplayArea: NSTextField!
     
+    @IBOutlet weak var ComboBoxOfMenu: NSComboBoxCell!
     @IBOutlet weak var PlayButton: NSButton!
     @IBOutlet weak var DisplayFilePath: NSTextField!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         DefaultImageDisplay()
         DefaultInformationDisplay()
+       DefaultComboMenu()
+        
+    }
+    func DefaultComboMenu(){
+        let singularNouns = ["1 hour", "3 hour", "5 hour", "8 hour", "today", "3 days", "5 days", "this week" ]
+        ComboBoxOfMenu.removeAllItems()
+        ComboBoxOfMenu.addItems(withObjectValues: singularNouns)
+        //let number = singularNouns.count
+        ComboBoxOfMenu.selectItem(at: 0)
     }
     
     func DefaultImageDisplay(){
@@ -48,7 +59,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         let ReplayingOneHandler = ReplayingOne()
         PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
         //let RelatedInformationHandler = RelatedInformation()
-        
+        //ReplayingOneHandler.FetchThreeHours()
         photonumber = PhotoNameList.count - 1
         SliderValueSet()
         //print(Slider.maxValue)
@@ -93,11 +104,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         //DicMessage.description
         //InformationDisplayArea.textStorage?.append(NSAttributedString(string: DicMessage.description))
         InformationDisplayArea.stringValue = DicMessage.description
-        if DicMessage["file-path"] != nil{
-            DisplayFilePath.stringValue = DicMessage["file-path"] as! String
+        if DicMessage["FilePath"] != nil{
+            DisplayFilePath.stringValue = DicMessage["FilePath"] as! String
         }
-        else if DicMessage["frontmost-page-url"] != nil{
-            DisplayFilePath.stringValue = DicMessage["frontmost-page-url"] as! String
+        else if DicMessage["FrontmostPageUrl"] != nil{
+            DisplayFilePath.stringValue = DicMessage["FrontmostPageUrl"] as! String
         }
         else{
             DisplayFilePath.stringValue = "null"
@@ -120,11 +131,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             InformationDisplayArea.stringValue = DicMessage.description
-            if DicMessage["file-path"] != nil{
-                DisplayFilePath.stringValue = DicMessage["file-path"] as! String
+            if DicMessage["FilePath"] != nil{
+                DisplayFilePath.stringValue = DicMessage["FilePath"] as! String
             }
-            else if DicMessage["frontmost-page-url"] != nil{
-                DisplayFilePath.stringValue = DicMessage["frontmost-page-url"] as! String
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                DisplayFilePath.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
                 DisplayFilePath.stringValue = "null"
@@ -146,11 +157,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             InformationDisplayArea.stringValue = DicMessage.description
-            if DicMessage["file-path"] != nil{
-                DisplayFilePath.stringValue = DicMessage["file-path"] as! String
+            if DicMessage["FilePath"] != nil{
+                DisplayFilePath.stringValue = DicMessage["FilePath"] as! String
             }
-            else if DicMessage["frontmost-page-url"] != nil{
-                DisplayFilePath.stringValue = DicMessage["frontmost-page-url"] as! String
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                DisplayFilePath.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
                 DisplayFilePath.stringValue = "null"
@@ -221,6 +232,44 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     func stopPlaying(){
         self.TimerPlayButton.invalidate()
         PlayButton.title = "play"
+    }
+    
+    @IBAction func TimeIntervalCheckButton(_ sender: Any) {
+        let timeinterval = ComboBoxOfMenu.stringValue
+        if (timeinterval == "3 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchThreeHours() as! [String]
+            //ReplayingOneHandler.FetchThreeHours()
+            photonumber = PhotoNameList.count - 1
+            SliderValueSet()
+            Slider.doubleValue = Slider.minValue
+            let photoname = PhotoNameList[Int(Slider.minValue)]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage
+        }
+        else if (timeinterval == "today"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
+            //let RelatedInformationHandler = RelatedInformation()
+            photonumber = PhotoNameList.count - 1
+            SliderValueSet()
+            Slider.doubleValue = Slider.minValue
+            let photoname = PhotoNameList[Int(Slider.minValue)]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage
+        }
+        else if (timeinterval == "8 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
+            photonumber = PhotoNameList.count - 1
+            SliderValueSet()
+            Slider.doubleValue = Slider.minValue
+            let photoname = PhotoNameList[Int(Slider.minValue)]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.image = nsImage
+        }
+
+        print(timeinterval)
     }
     //end of the class
 }

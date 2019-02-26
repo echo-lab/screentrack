@@ -233,7 +233,7 @@ class MainWindowViewController: NSViewController {
             let day = calendar.component(.day, from: date)
             let month = calendar.component(.month, from: date)
             let year = calendar.component(.year, from: date)
-            let current = String(year) + "-" + String(month) + "-" + String(day)
+            //let current = String(year) + "-" + String(month) + "-" + String(day)
             //var SessionNumber = MainWindowViewController.applicationDelegate.fileNameDictionary[current] as! [Int]
             //print("this is the session number that is already sotred before create path")
             //print(SessionNumber.count)

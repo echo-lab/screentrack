@@ -39,6 +39,14 @@ class json: NSObject{
         let year = calendar.component(.year, from: date)
         let hour = calendar.component(.hour, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempdate = Calendar.current.date(byAdding: .hour, value: 0, to: Date())
+        var dateString = dateFormatter.string(from: tempdate!)
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
+        let date24 = dateFormatter.string(from: final!)
         var ArrayOfDictionary = [Dictionary<String, Any>]()
         let dictionary : [String : Any] =
             [
@@ -53,7 +61,7 @@ class json: NSObject{
         var temp : [String : Any] =
             [
                 "name of session"   : NameofSession,
-                "start of time"     : current,
+                "StartTime"     : date24,
                 "Information"       : ArrayOfDictionary
         ]
         

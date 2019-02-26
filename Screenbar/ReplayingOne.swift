@@ -13,11 +13,12 @@ import CoreImage
 @available(OSX 10.13, *)
 
 
-class ReplayingOne: NSViewController {
+class ReplayingOne: NSViewController{
 
     
     static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
     static var SessionNumber = [Int]()
+    static var SessionNumberForThreeHour = [Int]()
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //        // Do view setup here.
@@ -82,9 +83,353 @@ class ReplayingOne: NSViewController {
     //@IBAction func replayone(_ sender: Any) {
     //}
 
+    func FetchThreeHours() -> Array<Any>{
+        let Defaultpath = Settings.DefaultFolder
+        var PhotoNameArray = [String]()
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let current = String(year) + "-" + String(month) + "-" + String(day)
+        let fileManager = FileManager.default
+        
+        let pastdate = GetDateOfPastTime(date : date, Hour : 3)
+        let pasttime = GetTimeOfPastTime(date: date, Hour: 3)
+        let currentTime = GetTimeOfCurrentTime(date : date)
+        //print(currentTime)
+        //print("in fetch 3 hour function")
+        let Initialsession = 1
+        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
+        // past date is the same as today
+        if (pastdate == current){
+            ReplayingOne.SessionNumberForThreeHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
+            var last = ReplayingOne.SessionNumberForThreeHour.count - 1
+            if (last == 0){
+                print("no recording last three hour")
+            }else{
+                //has at least one folder, the last one is "current-last"
+                //several session folders, at least one folder
+                //for i in (1...last).reversed(){
+                while(last > 0){
+                    //iterate from last to first
+                    let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(last)
+                    let jsonFilePath = Stringfilepath + "/" + "test.json"
+                    //josnfile path
+                    //let URLfilepath = NSURL(string : Stringfilepath)
+                    do{
+                        //into the folder
+                        let timeOfStart = BasedonJsonFilePathReadStartTime(jsonpath : jsonFilePath)
+                        let timeOfEnd = BasedonJsonFilePathReadEndTime(jsonpath : jsonFilePath)
+                        print(timeOfStart)
+                        //read out the start time
+                        //2019-2-25-16:05:57
+                        //compare with past time
+                        //
+                        let hourOfStartTime = ReturnHour(str: timeOfStart)
+                        let hourOfPastTime = ReturnHour(str: pasttime)
+                        if (hourOfStartTime > hourOfPastTime){
+                            //current time is 14, past time is 11, start time is before past time, then check end of time
+                            let hourOfEndTime = ReturnHour(str: timeOfEnd)
+                            // this if statement is impossible, because psttime< starttime, starttime< end time, so end time must > pasttime
+                            if (hourOfEndTime <= hourOfPastTime ){
+                                //not recording
+                                break
+                            }
+                            else {
+                                //start time < past time < end time, the recording is in this period of time
+                                //read screenshot
+                                //need to code
+                                do {
+                                    let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    let number = filelist.count
+                                    for j in 0..<number{
+                                        if filelist[j].contains(".jpg"){
+                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + filelist[j]
+                                                PhotoNameArray.append(temp)
+                                            }
+                                        }
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                                
+                            }
+                            break
+                        }else if (hourOfStartTime == hourOfPastTime){
+                            //read all photo out in this json file
+                            do {
+                                let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                let number = filelist.count
+                                for j in 0..<number{
+                                    if filelist[j].contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + filelist[j]
+                                        //means it is a photo, instead of a json file
+                                        PhotoNameArray.append(temp)
+                                    }
+                                }
+                            } catch {
+                                print(error)
+                            }
+                            break
+                            
+                        }else{
+                            //hour of start time > past time
+                            // go to previous file to read again
+                            last -= 1
+                        }
+                        
+                    }catch{
+                        print(error)
+                    }
+                    //last -= 1
+                    //end of the while loop
+                }
+            }
+            
+        }
+        // past date is yesterday
+        // go to yesterday
+        else{
+            
+            
+        }
+        //if it doesnot exist, go to previous day
+        
+        return PhotoNameArray
+    }
+    
+    //
+    func FetchEightHours() -> Array<Any>{
+        let Defaultpath = Settings.DefaultFolder
+        var PhotoNameArray = [String]()
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let current = String(year) + "-" + String(month) + "-" + String(day)
+        let fileManager = FileManager.default
+        
+        let pastdate = GetDateOfPastTime(date : date, Hour : 8)
+        let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
+        let currentTime = GetTimeOfCurrentTime(date : date)
+        //print(currentTime)
+        //print("in fetch 3 hour function")
+        let Initialsession = 1
+        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
+        // past date is the same as today
+        if (pastdate == current){
+            ReplayingOne.SessionNumberForThreeHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
+            var last = ReplayingOne.SessionNumberForThreeHour.count - 1
+            if (last == 0){
+                print("no recording last three hour")
+            }else{
+                //has at least one folder, the last one is "current-last"
+                //several session folders, at least one folder
+                //for i in (1...last).reversed(){
+                while(last > 0){
+                    //iterate from last to first
+                    let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(last)
+                    let jsonFilePath = Stringfilepath + "/" + "test.json"
+                    //josnfile path
+                    //let URLfilepath = NSURL(string : Stringfilepath)
+                    do{
+                        //into the folder
+                        let timeOfStart = BasedonJsonFilePathReadStartTime(jsonpath : jsonFilePath)
+                        let timeOfEnd = BasedonJsonFilePathReadEndTime(jsonpath : jsonFilePath)
+                        print(timeOfStart)
+                        //read out the start time
+                        //2019-2-25-16:05:57
+                        //compare with past time
+                        //
+                        let hourOfStartTime = ReturnHour(str: timeOfStart)
+                        let hourOfPastTime = ReturnHour(str: pasttime)
+                        if (hourOfStartTime > hourOfPastTime){
+                            //current time is 14, past time is 11, start time is before past time, then check end of time
+                            let hourOfEndTime = ReturnHour(str: timeOfEnd)
+                            // this if statement is impossible, because psttime< starttime, starttime< end time, so end time must > pasttime
+                            if (hourOfEndTime <= hourOfPastTime ){
+                                //not recording
+                                break
+                            }
+                            else {
+                                //start time < past time < end time, the recording is in this period of time
+                                //read screenshot
+                                //need to code
+                                do {
+                                    let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    let number = filelist.count
+                                    for j in 0..<number{
+                                        if filelist[j].contains(".jpg"){
+                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + filelist[j]
+                                                PhotoNameArray.append(temp)
+                                            }
+                                        }
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                                
+                            }
+                            break
+                        }else if (hourOfStartTime == hourOfPastTime){
+                            //read all photo out in this json file
+                            do {
+                                let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                let number = filelist.count
+                                for j in 0..<number{
+                                    if filelist[j].contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + filelist[j]
+                                        //means it is a photo, instead of a json file
+                                        PhotoNameArray.append(temp)
+                                    }
+                                }
+                            } catch {
+                                print(error)
+                            }
+                            break
+                            
+                        }else{
+                            //hour of start time > past time
+                            // go to previous file to read again
+                            last -= 1
+                        }
+                        
+                    }catch{
+                        print(error)
+                    }
+                    //last -= 1
+                    //end of the while loop
+                }
+            }
+            
+        }
+            // past date is yesterday
+            // go to yesterday
+        else{
+            
+            
+        }
+        //if it doesnot exist, go to previous day
+        
+        return PhotoNameArray
+    }
+    
+    // get the current time
+    //useless, change to following two functions
+    func PastTimeFewHoursAgo( valueOfHour : Int) -> String {
+        _ = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempHourValue = (-1) * valueOfHour
+        let tempdate = Calendar.current.date(byAdding: .hour, value: tempHourValue, to: Date())
+        let dateString = dateFormatter.string(from: tempdate!)
+        //5:06:52 PM
+        dateFormatter.dateFormat = "h:mm:ss a"
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "MM.dd, HH:mm:ss"
+        //hour, minute, and second
+        //dateFormatter.dateFormat = "HH"
+        let date24 = dateFormatter.string(from: final!)
+        //print(date24)
+        return date24
+    }
+    // get the time of severl hours ago
+    func GetDateOfPastTime( date : Date, Hour : Int) -> String {
+
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempHourValue = (-1) * Hour
+        let tempdate = Calendar.current.date(byAdding: .hour, value: tempHourValue, to: Date())
+        var dateString = dateFormatter.string(from: tempdate!)
+        //print(dateString)
+        //dateFormatter.dateFormat = "h:mm:ss a"
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-M-d"
+        let date24 = dateFormatter.string(from: final!)
+        //print(date24)
+        return date24
+    }
+    //the time
+    func GetTimeOfPastTime( date : Date, Hour : Int) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempHourValue = (-1) * Hour
+        let tempdate = Calendar.current.date(byAdding: .hour, value: tempHourValue, to: Date())
+        let dateString = dateFormatter.string(from: tempdate!)
+        //dateFormatter.dateFormat = "h:mm:ss a"
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
+        let date24 = dateFormatter.string(from: final!)
+        return date24
+    }
+    //
+    func GetTimeOfCurrentTime( date : Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempdate = Calendar.current.date(byAdding: .hour, value: 0, to: Date())
+        let dateString = dateFormatter.string(from: tempdate!)
+        //dateFormatter.dateFormat = "h:mm:ss a"
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
+        let date24 = dateFormatter.string(from: final!)
+        return date24
+    }
+    //based on json file path to get start time as string
+    func BasedonJsonFilePathReadStartTime(jsonpath : String) -> String{
+        let rawData : NSData = try! NSData(contentsOf: URL(fileURLWithPath: jsonpath))
+        var startTime = ""
+        do{
+            let jsonDataDictionary = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
+            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+            startTime = dictionaryOfReturnedJsonData["StartTime"] as! String
+
+        }catch{print(error)}
+        return startTime
+    }
+    func BasedonJsonFilePathReadEndTime(jsonpath : String) -> String{
+        let rawData : NSData = try! NSData(contentsOf: URL(fileURLWithPath: jsonpath))
+        var endTime = ""
+        do{
+            let jsonDataDictionary = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
+            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+            endTime = dictionaryOfReturnedJsonData["EndTime"] as! String
+            
+        }catch{print(error)}
+        return endTime
+    }
+    //
+    func ReturnHour(str : String) -> Int{
+        let start = str.index(str.startIndex, offsetBy: 10)
+        let end = str.index(str.endIndex, offsetBy: -6)
+        let range = start..<end
+        let mySubstring = str[range]
+        return Int(mySubstring)!
+    }
+    //
+    func ReturnMinute(str : String) -> Int{
+        let start = str.index(str.startIndex, offsetBy: 13)
+        let end = str.index(str.endIndex, offsetBy: -3)
+        let range = start..<end
+        let mySubstring = str[range]
+        return Int(mySubstring)!
+    }
+    func DealWithScreenShotName(str : String) -> Int{
+        let start = str.index(str.startIndex, offsetBy: 11)
+        let end = str.index(str.endIndex, offsetBy: -10)
+        let range = start..<end
+        let mySubstring = str[range]
+        return Int(mySubstring)!
+    }
     
     
-    
-    
-    
+    //end of the class
 }
