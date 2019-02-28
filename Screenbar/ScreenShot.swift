@@ -71,7 +71,6 @@ class ScreenShot : NSObject {
         )
         
     }
-
     
     // getDate function, return a string value
     private func getDate() -> String {

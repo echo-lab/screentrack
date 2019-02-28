@@ -24,17 +24,22 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     @IBOutlet weak var PlayButton: NSButton!
     @IBOutlet weak var DisplayFilePath: NSTextField!
     
+    
+    let GetListOfFilesHandler = FindScreenShot()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         DefaultImageDisplay()
         DefaultInformationDisplay()
-       DefaultComboMenu()
+        DefaultComboMenu()
+        GetListOfFilesHandler.GetListOfFiles()
         
     }
     func DefaultComboMenu(){
-        let singularNouns = ["1 hour", "3 hour", "5 hour", "8 hour", "today", "3 days", "5 days", "this week" ]
+        let singularNouns = ["1 hour", "3 hour", "5 hour", "8 hour", "today", "3 days", "5 days" ]
         ComboBoxOfMenu.removeAllItems()
         ComboBoxOfMenu.addItems(withObjectValues: singularNouns)
         //let number = singularNouns.count
@@ -236,16 +241,67 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
         let timeinterval = ComboBoxOfMenu.stringValue
-        if (timeinterval == "3 hour"){
+        if (timeinterval == "1 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "5 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchFiveHours() as! [String]
+            //ReplayingOneHandler.FetchThreeHours()
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "3 hour"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchThreeHours() as! [String]
             //ReplayingOneHandler.FetchThreeHours()
-            photonumber = PhotoNameList.count - 1
-            SliderValueSet()
-            Slider.doubleValue = Slider.minValue
-            let photoname = PhotoNameList[Int(Slider.minValue)]
-            let nsImage = NSImage(contentsOfFile: photoname)
-            ImageDisplayArea.image = nsImage
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "8 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
+
         }
         else if (timeinterval == "today"){
             let ReplayingOneHandler = ReplayingOne()
@@ -258,16 +314,37 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let nsImage = NSImage(contentsOfFile: photoname)
             ImageDisplayArea.image = nsImage
         }
-        else if (timeinterval == "8 hour"){
+        else if (timeinterval == "3 days"){
             let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
-            photonumber = PhotoNameList.count - 1
-            SliderValueSet()
-            Slider.doubleValue = Slider.minValue
-            let photoname = PhotoNameList[Int(Slider.minValue)]
-            let nsImage = NSImage(contentsOfFile: photoname)
-            ImageDisplayArea.image = nsImage
+            PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
         }
+        else if (timeinterval == "5 days"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                
+            }else{
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.minValue
+                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        
 
         print(timeinterval)
     }

@@ -51,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //print(length)
             let dicContent:[String: [Int]] = [time: [0]]
             let plistContent = NSDictionary(dictionary: dicContent)
+
             let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
             if success {
                 print("file has been created!")
@@ -67,7 +68,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if nsDictionary?.value(forKey: time) == nil{
                 let dicContent:[String: [Int]] = [time: [0]]
                 let plistContent = NSDictionary(dictionary: dicContent)
-                let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
+                
+                //
+                do{
+                    let temp = "file://" + plistFilePathInDocumentDirectory
+                    let urlofplist = URL(string : temp)
+                    let data = try Data(contentsOf: urlofplist!)
+                    print("data")
+                    var plist = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String : [Int]]
+                    plist?.updateValue([0], forKey: time)
+                    let plistData = try PropertyListSerialization.data(fromPropertyList: plist!, format: .xml, options: 0)
+                    try plistData.write(to: urlofplist!)
+                    
+                }catch{
+                    print(error.localizedDescription)
+                }
+                
+
+                
+                
+                
+                //
+                //let success:Bool = plistContent.write(toFile: plistFilePathInDocumentDirectory, atomically: true)
+                
+                
+                
+//                var propertyListForamt =  PropertyListSerialization.PropertyListFormat.xml //Format of the Property List.
+//                var plistData: [String: AnyObject] = [:] //Our data
+//                let plistPath = plistFilePathInDocumentDirectory //the path of the data
+//                let plistXML = FileManager.default.contents(atPath: plistPath)!
+//                do {//convert the data to a dictionary and handle errors.
+//                    plistData = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &propertyListForamt) as! [String:AnyObject]
+//                    plistData.
+//
+//                } catch {
+//                    print("Error reading plist: \(error), format: \(propertyListForamt)")
+//                }
+                
             }
 //            if AppDelegate.applicationDelegate.fileNameDictionary.value(forKey: time) == nil{
 //                let dicContent:[String: [Int]] = [time: [0]]

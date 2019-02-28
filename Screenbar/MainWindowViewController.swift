@@ -335,7 +335,8 @@ class MainWindowViewController: NSViewController {
 
     // Quit this program
     @IBAction func ClickQuitButton(_ sender: Any) {
-        NSApplication.shared().terminate(self)
+        //NSApplication.shared().terminate(self)
+        exit(0)
     }
     
     

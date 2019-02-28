@@ -40,7 +40,7 @@ class classify : NSObject{
                                                "PhotoName"     : ScreenshotName,
                                                "FilePath"      : PreviewFilePath(),
                                                "FileName"      : PreviewFileName(),
-                                               "category"       : "Productivity"
+                                               "category"      : "Productivity"
                 //"open-frontmost-website":
             ]
             do {

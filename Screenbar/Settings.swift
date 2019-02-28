@@ -130,6 +130,7 @@ class Settings : NSObject {
             //if the first and only number is 0
             //save a new number "1" into plist
             SessionNumber.append(Int(1))
+            
             applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
             //create a new folder and return this folder path
             let temp = url + current + "-" + String(1)

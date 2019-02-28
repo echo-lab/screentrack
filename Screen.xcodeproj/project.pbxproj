@@ -26,6 +26,7 @@
 		EA8AF31822079CA200D343E3 /* method_one.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF31722079CA200D343E3 /* method_one.xib */; };
 		EA8AF31A2208BAE800D343E3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */; };
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
+		EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */; };
 		EAD877FE221757DE0042FF78 /* Method_Two.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD877FD221757DE0042FF78 /* Method_Two.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
 		EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */; };
@@ -61,6 +62,7 @@
 		EA8AF31722079CA200D343E3 /* method_one.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = method_one.xib; sourceTree = "<group>"; };
 		EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
+		EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTheLatestScreenShot.swift; sourceTree = "<group>"; };
 		EAD877FD221757DE0042FF78 /* Method_Two.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
 		EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageView_Rectangle.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */,
 				EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */,
 				EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */,
+				EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */,
 				EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */,
 				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
+				EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */,
 				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
 				3D1C2F2E1CE2546900FB8AB8 /* EventMonitor.swift in Sources */,
 				EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */,

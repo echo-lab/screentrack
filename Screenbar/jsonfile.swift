@@ -48,7 +48,7 @@ class json: NSObject{
         dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
         let date24 = dateFormatter.string(from: final!)
         var ArrayOfDictionary = [Dictionary<String, Any>]()
-        let dictionary : [String : Any] =
+        let dictionary : [String : Any] = 
             [
                 "Introduction" : "Hello, world"
         ]
@@ -61,7 +61,7 @@ class json: NSObject{
         var temp : [String : Any] =
             [
                 "name of session"   : NameofSession,
-                "StartTime"     : date24,
+                "StartTime"         : date24,
                 "Information"       : ArrayOfDictionary
         ]
         
