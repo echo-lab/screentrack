@@ -46,7 +46,10 @@ class FrontmostApp : NSObject{
         return CurrentFrontMostApp
 
     }
-    func windowlocation(){}
+    func LocalNameOfFrontMostSoftware(){
+        let DetectFrontMost = NSWorkspace.shared().frontmostApplication?.localizedName
+        print(DetectFrontMost)
+    }
 
         
 }

@@ -52,7 +52,7 @@ class MainWindowViewController: NSViewController {
     let jsonfileHandler = json()
     let appdelegateHandler = AppDelegate()
     
-    
+
     lazy var window: NSWindow = self.view.window!
     
     

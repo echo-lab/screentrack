@@ -35,7 +35,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         DefaultImageDisplay()
         DefaultInformationDisplay()
         DefaultComboMenu()
-        GetListOfFilesHandler.GetListOfFiles()
+        
+        //print(GetListOfFilesHandler.GetListOfFiles())
+        //xxxx()
         
     }
     func DefaultComboMenu(){
@@ -47,8 +49,15 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     }
     
     func DefaultImageDisplay(){
-        let defaultImage = NSImage(named : "DefaultDisplayImage")
-        ImageDisplayArea.image = defaultImage
+        if DisplayLatestPic() == ""{
+            let defaultImage = NSImage(named : "DefaultDisplayImage")
+            ImageDisplayArea.image = defaultImage
+        }
+        else{
+            let nsImage = NSImage(contentsOfFile: DisplayLatestPic())
+            ImageDisplayArea.image = nsImage
+        }
+        
         
     }
     func DefaultInformationDisplay(){
@@ -347,6 +356,34 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         
 
         print(timeinterval)
+    }
+    
+    
+    func DisplayLatestPic() -> String{
+        var finalpath = ""
+        let stringArray = GetListOfFilesHandler.GetListOfFiles()
+        if (stringArray == nil){
+            print("reflect folder is nil")
+        }
+        else{
+            //print(stringArray![0])
+            let Defaultpath = Settings.DefaultFolder
+            let displayImageFolder = Defaultpath().absoluteString + stringArray![0]
+            print(displayImageFolder)
+            let picPath = GetListOfFilesHandler.GetLatestImage(path: URL(string : displayImageFolder)!)
+            if picPath == nil{
+                print("latest pic is nil")
+            }
+            else{
+                print(picPath![0])
+                let finalPicPath = displayImageFolder + "/" + picPath![0]
+                print(finalPicPath)
+                finalpath = finalPicPath
+            }
+           
+            
+        }
+        return finalpath
     }
     //end of the class
 }
