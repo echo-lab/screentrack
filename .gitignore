@@ -63,3 +63,7 @@ fastlane/report.xml
 fastlane/screenshots
 
 .DS_Store
+
+Screen.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+
+Screen.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
