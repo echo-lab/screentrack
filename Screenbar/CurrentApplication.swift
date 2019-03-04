@@ -16,7 +16,7 @@ class CurrentApplicationData : NSObject{
     
     override init(){
         for runningapp in NSWorkspace.shared().runningApplications{
-            if let bundleIdentifier = runningapp.bundleIdentifier{
+            if let bundleIdentifier = runningapp.localizedName{
                 let characterSet = CharacterSet(charactersIn: ".com")
                 let AfterTrimResult = bundleIdentifier.trimmingCharacters(in: characterSet)
                 if InitialSet.contains(AfterTrimResult){}
@@ -38,7 +38,7 @@ class CurrentApplicationData : NSObject{
                 print(runningApp.localizedName)
                 print(String(describing: runningApp.executableURL))
             }
-            if let bundleIdentifier = runningApp.bundleIdentifier {
+            if let bundleIdentifier = runningApp.localizedName {
                 //NSLog(bundleIdentifier)
                 //str1.append(bundleIdentifier)
                 let characterSet = CharacterSet(charactersIn: ".com")

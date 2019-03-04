@@ -16,19 +16,19 @@ class classify : NSObject{
 //    static var Category_one = ["apple.Preview"]
 //    static var Category_two = ["Pages", "Numbers", "Keynotes", "Xcode"]
 //    static var Category_three = ["Google Chrome"]
-    var ClassDictionary : [String : String] = ["apple.Preview"          : "1",
-                                               "apple.iWork.Pages"      : "2",
-                                               "apple.iWork.Numbers"    : "2",
-                                               "apple.iWork.Keynots"    : "2",
-                                               "apple.dt.Xcode"         : "3",
-                                               "google.Chrome"          : "4",
-                                               "apple.Safari"           : "5",
-                                               "icrosoft.Word"          : "6",
-                                               "icrosoft.Excel"         : "6",
-                                               "icrosoft.PowerPoint"    : "6"
+    var ClassDictionary : [String : String] = ["Preview"                 : "1",
+                                               "Pages"                   : "2",
+                                               "Numbers"                 : "2",
+                                               "Keynots"                 : "2",
+                                               "Xcode"                   : "3",
+                                               "Google Chrome"           : "4",
+                                               "Safari"                  : "5",
+                                               "Microsoft Word"          : "6",
+                                               "Microsoft Excel"         : "6",
+                                               "Microsoft PowerPoint"    : "6"
     ]
     @available(OSX 10.13, *)
-    func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String){
+    func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : String){
         let number = ClassDictionary[SoftwareName]
         print(number)
         if number == "1" {
@@ -40,7 +40,9 @@ class classify : NSObject{
                                                "PhotoName"     : ScreenshotName,
                                                "FilePath"      : PreviewFilePath(),
                                                "FileName"      : PreviewFileName(),
-                                               "category"      : "Productivity"
+                                               "category"      : "Productivity",
+                                               "bound"         : BoundInfor
+                
                 //"open-frontmost-website":
             ]
             do {
@@ -110,7 +112,8 @@ class classify : NSObject{
                                                "PhotoName"     : ScreenshotName,
                                                "FilePath"      : ProductivityFilePath(softwarename : newname),
                                                "FileName"      : ProductivityFileName(softwarename: newname),
-                                               "category"       : "Productivity"
+                                               "category"      : "Productivity",
+                                               "bound"         : BoundInfor
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -162,7 +165,8 @@ class classify : NSObject{
                                                "PhotoName"             : ScreenshotName,
                                                "FilePath"              : ProductivityFilePath(softwarename : newname),
                                                "FileName"              : ProductivityFileName(softwarename: newname),
-                                               "category"               : "Coding"
+                                               "category"              : "Coding",
+                                               "bound"                 : BoundInfor
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -218,7 +222,8 @@ class classify : NSObject{
                                                //"file-name": ProductivityFileName(softwarename: newname)
                                                "FrontmostPageUrl"     : BrowserFirstPageURL(),
                                                "FrontmostPageTitle"   : BrowserFirstPageTitle(),
-                                               "category"               : "Browser"
+                                               "category"               : "Browser",
+                                               "bound"                  : BoundInfor
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -272,7 +277,8 @@ class classify : NSObject{
                                                "PhotoName"             : ScreenshotName,
                                                "FrontmostPageUrl"     : SafariBrowserFirstPageURL(),
                                                "FrontmostPageTitle"   : SafariBrowserFirstPageTitle(),
-                                               "category"               : "Browser"
+                                               "category"               : "Browser",
+                                               "bound"                  : BoundInfor
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -324,9 +330,10 @@ class classify : NSObject{
             let fullname = "Microsoft " + newname
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
-                                               "FilePath"      : MicrosoftSoftwareFilePath(name: fullname),
+                                               "FilePath"      : MicrosoftSoftwareFilePath(name: SoftwareName),
                                                "FileName"      : ProductivityFileName(softwarename: newname),
-                                               "category"       : "Productivity"
+                                               "category"       : "Productivity",
+                                               "bound"         : BoundInfor
                 
             ]
             do {
@@ -380,7 +387,8 @@ class classify : NSObject{
         else{
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
-                                               "category"       : "Dont know"
+                                               "category"       : "Dont know",
+                                               "bound"         : BoundInfor
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)

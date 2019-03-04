@@ -27,7 +27,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUq-pG-rtv">
                     <rect key="frame" x="138" y="18" width="298" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="47.564865252293572" tickMarkPosition="above" sliderType="linear" id="0cH-kA-WAu">
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="47.564865252293572" tickMarkPosition="above" sliderType="linear" id="0cH-kA-WAu">
                         <connections>
                             <action selector="SliderAction:" target="-2" id="AxK-QV-cSr"/>
                         </connections>

@@ -152,6 +152,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             fileNameDictionary = dictionaryFromFileInMainBundle!
             
         }
+        
+        //let defaults = UserDefaults.standard
+        let handler = MainWindowViewController()
+        
+        //defaults.setValue("60.0", forKey: handler.secondsTextBox.stringValue)
+        
     }
 
     func applicationWillResignActive(_ notification: Notification) {
@@ -209,11 +215,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(self.showMainWindow)
         }
     }
+//    func UserDefaultValueSet(){
+//        let handler = MainWindowViewController()
+//
+//        let defaults = UserDefaults.standard
+//        defaults.setValue("60.0", forKey: handler.secondsTextBox.stringValue)
+//    }
     
     //user default reset
     func UserDefaultsReset(){
         let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
+        
+        //UserDefaults.standard.removePersistentDomain(forName: domain)
         //UserDefaults.standard.removePersistentDomain(forName: "pathKey")
     }
     

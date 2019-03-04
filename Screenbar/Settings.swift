@@ -90,7 +90,7 @@ class Settings : NSObject {
         var seconds: Double? = defaults.double(forKey: secondsKey)
         // if the input is null, then set to 1.0 second as defalult
         if(seconds == nil) {
-            seconds = 1.0
+            seconds = 60.0
         }
         //return the setted second result
         return seconds

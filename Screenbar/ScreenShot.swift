@@ -56,7 +56,10 @@ class ScreenShot : NSObject {
         let photoname = "/Screenshot-" + dateString + ".jpg"
 //        softwareclassifyHandler.SoftwareDetect(SoftwareName: FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
         
-        softwareclassifyHandler.SoftwareBasedOnCategory(SoftwareName : FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
+        //print(GetBoundOfFrontMostSoftware())
+        let CurrentFrontName = FrontmostApphandler.CurrentFrontMostApp
+        let bound = GetBoundOfFrontMostSoftware(AppName : CurrentFrontName)
+        softwareclassifyHandler.SoftwareBasedOnCategory(SoftwareName : CurrentFrontName, ScreenshotName : photoname, BoundInfor : bound)
         //let temphandelr = FrontmostApp()
         //temphandelr.windowlocation()
         //print(URL(fileURLWithPath: OriginialimageName))
@@ -72,6 +75,7 @@ class ScreenShot : NSObject {
             , hei: Settings.getImageCompressWidth()!/2
             , wi: Settings.getImageCompressHeight()!/2
         )
+        
         
     }
     
@@ -97,5 +101,34 @@ class ScreenShot : NSObject {
         //return dateString;
         return date24
     }
+    //
+    
+    func GetBoundOfFrontMostSoftware(AppName : String) -> String{
+        //let MyAppleScript = tell application "Preview" to get the bounds of the front window
+        let first = "tell application \""
+        let second = "\" to get the bounds of the front window"
+        let final = first + AppName + second
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: final)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        
+        
+        //output.numberOfItems = 4
+       // let string = output.stringValue is nil
+        let temp = output
+        
+        //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
+        //print(output.stringValue)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+        }
+        if output.stringValue == nil{
+            let empty = "the bound of front most software is nil"
+            return empty
+        }
+        else { return (output.stringValue?.description)!}
+    }
+    
+    //end of the class
 }
 

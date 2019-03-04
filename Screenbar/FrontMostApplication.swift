@@ -16,7 +16,7 @@ class FrontmostApp : NSObject{
     public var CurrentFrontMostApp: String
     
     override init() {
-        let tempName = (NSWorkspace.shared().frontmostApplication?.bundleIdentifier)!
+        let tempName = (NSWorkspace.shared().frontmostApplication?.localizedName)!
         //let frontmostinfo = NSWorkspace.shared().frontmostApplication?.
         //print(frontmostinfo ?? "none")
         let characterSet = CharacterSet(charactersIn: "com.")
@@ -31,17 +31,35 @@ class FrontmostApp : NSObject{
     func DetectFrontMostApp() -> String{
         let ScreenshotHandler = ScreenShot()
         
-        let DetectFrontMostAppName = NSWorkspace.shared().frontmostApplication?.bundleIdentifier
+        let DetectFrontMostAppName = NSWorkspace.shared().frontmostApplication?.localizedName
         let characterSet = CharacterSet(charactersIn: "com.")
         let AfterTrimResult = DetectFrontMostAppName?.trimmingCharacters(in: characterSet)
         //print(AfterTrimResult ?? "nil result")
+        
         if CurrentFrontMostApp != AfterTrimResult{
-            print(CurrentFrontMostApp)
-            print(AfterTrimResult ?? "none")
-            print("frontmost app changed and caputre")
-            
-            ScreenshotHandler.take()
-            CurrentFrontMostApp = AfterTrimResult!
+            //sleep(1.5)
+            let temp = NSWorkspace.shared().frontmostApplication?.localizedName
+            if AfterTrimResult == temp {
+                ScreenshotHandler.take()
+                print(CurrentFrontMostApp)
+                print(AfterTrimResult ?? "none")
+                print("frontmost app changed and caputre")
+                CurrentFrontMostApp = AfterTrimResult!
+            }
+            else{
+                //AfterTrimResult != temp, means 1.5s later, switch a new software
+                //
+                ScreenshotHandler.take()
+                CurrentFrontMostApp = temp!
+                print(AfterTrimResult ?? "none")
+                print("frontmost app changed and caputre")
+            }
+//            print(CurrentFrontMostApp)
+//            print(AfterTrimResult ?? "none")
+//            print("frontmost app changed and caputre")
+//
+//            ScreenshotHandler.take()
+//            CurrentFrontMostApp = AfterTrimResult!
         }
         return CurrentFrontMostApp
 

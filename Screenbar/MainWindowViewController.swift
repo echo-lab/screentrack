@@ -75,7 +75,12 @@ class MainWindowViewController: NSViewController {
         self.hideError()
         //self.setPath()
         //appdelegateHandler.SessionCounter(counter: 0)
-        
+        let defaults = UserDefaults.standard
+        //self.secondsTextBox.stringValue = "60.0"
+        //let second = Double(self.secondsTextBox.stringValue)
+        defaults.setValue("60.0", forKey: secondsTextBox.stringValue)
+        //defaults.set(60.0, forKey: second)
+
         self.setPlaySound()
 //        self.setImageSize()
 //        print(frontmostappHandler.CurrentFrontMostApp)
@@ -114,8 +119,10 @@ class MainWindowViewController: NSViewController {
         
         
     }
-    //slider from 480 to 1440
+    
+    //slider from 480 to 1440 NSSliderCell
     @IBAction func CompressSilder(_ sender: NSSliderCell) {
+        
         CompressRateLabel.stringValue = String(Int(sender.doubleValue))
     }
     
@@ -201,12 +208,12 @@ class MainWindowViewController: NSViewController {
     // only check second input is right or not
     func saveSettings() -> Bool {
         var success = true;
-        let seconds: Double? = Double(self.secondsTextBox.stringValue)
+        let seconds : Double? = Double(self.secondsTextBox.stringValue)
         let path: URL? = self.path
         let playSound = self.playSound.state
         let height = self.CompressRateLabel.stringValue
         
-        if(seconds == nil) {
+        if(seconds == nil) || (seconds == 0) {
             self.showError()
             success = false;
         }
@@ -226,7 +233,8 @@ class MainWindowViewController: NSViewController {
         else {
             // start caputring
             //Settings.getPath().path is the name of json file
-            print("json file path")
+            
+            //print("json file path")
             //print(Settings.getPath())
             let date = Date()
             let calendar = Calendar.current
@@ -261,7 +269,7 @@ class MainWindowViewController: NSViewController {
         //screenshotHandler.take()
         //useless
         NotificationCenter.default.addObserver(self, selector: #selector(abd(notification:)), name:NSNotification.Name.NSApplicationDidBecomeActive, object: (Any).self)
-        
+        //
         self.timerScreenshot = Timer.scheduledTimer(timeInterval: seconds!, target: screenshotHandler, selector: #selector(ScreenShot.take), userInfo: nil, repeats: true)
         
         // useful
@@ -285,8 +293,8 @@ class MainWindowViewController: NSViewController {
         self.ChangeTitleOfButton("Capture automatic screenshot")
         let AddingDataAfterStopingHandler = JsondataAfterTracking()
         AddingDataAfterStopingHandler.DataAfterRecording(filepath: URL(string: MyVariables.yourVariable)!)
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
+//        let domain = Bundle.main.bundleIdentifier!
+//        UserDefaults.standard.removePersistentDomain(forName: domain)
     }
     
     // Go to the folder that save the screenshots
