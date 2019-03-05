@@ -61,28 +61,34 @@ class ReplayingOne: NSViewController{
         let last = length - 1
         //print(last)
         // last = 4
-        for i in 1...last{
-            // string format path
-            let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
-            let URLfilepath = NSURL(string : Stringfilepath)
-            //let DisplayImage = NSImage.self
-            do {
-                //filelist contain all names of the file in this folder
-                let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                let number = filelist.count
-                for j in 0..<number{
-                    if filelist[j].contains(".jpg"){
-                        let temp = Stringfilepath + "/" + filelist[j]
-                        //means it is a photo, instead of a json file
-                        PhotoNameArray.append(temp)
+        if last == 0{
+            
+        }
+        else {
+            for i in 1...last{
+                // string format path
+                let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
+                let URLfilepath = NSURL(string : Stringfilepath)
+                //let DisplayImage = NSImage.self
+                do {
+                    //filelist contain all names of the file in this folder
+                    let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                    let number = filelist.count
+                    for j in 0..<number{
+                        if filelist[j].contains(".jpg"){
+                            let temp = Stringfilepath + "/" + filelist[j]
+                            //means it is a photo, instead of a json file
+                            PhotoNameArray.append(temp)
+                        }
                     }
+                    //PhotoNameArray contains file path + file name
+                    //print(PhotoNameArray)
+                } catch {
+                    print(error)
                 }
-                //PhotoNameArray contains file path + file name
-                //print(PhotoNameArray)
-            } catch {
-                print(error)
             }
         }
+
         // the number of photo of today
         let PhotoNumber = PhotoNameArray.count
         

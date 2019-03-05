@@ -16,6 +16,7 @@
 		3DA792021CDBC45C00F60252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA792001CDBC45C00F60252 /* MainMenu.xib */; };
 		3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */; };
 		EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03B5AA218CF32100023472 /* MosePosition.swift */; };
+		EA138824222DC9A400F51DB9 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA138823222DC9A400F51DB9 /* CurrentTime.swift */; };
 		EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */; };
 		EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */; };
 		EA2A381922206678008D5EDD /* Method_Two_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */; };
@@ -52,6 +53,7 @@
 		3DA792031CDBC45C00F60252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
 		EA03B5AA218CF32100023472 /* MosePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosePosition.swift; sourceTree = "<group>"; };
+		EA138823222DC9A400F51DB9 /* CurrentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTime.swift; sourceTree = "<group>"; };
 		EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonfile.swift; sourceTree = "<group>"; };
 		EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonfileDataAfterTracking.swift; sourceTree = "<group>"; };
 		EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two_Display_ViewControl.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */,
 				EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */,
 				EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */,
+				EA138823222DC9A400F51DB9 /* CurrentTime.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
 				EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */,
 				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
+				EA138824222DC9A400F51DB9 /* CurrentTime.swift in Sources */,
 				3D1C2F2E1CE2546900FB8AB8 /* EventMonitor.swift in Sources */,
 				EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */,
 				EAF5EFE1220E3C2900BDBF7D /* Method_One_Display_Window.swift in Sources */,

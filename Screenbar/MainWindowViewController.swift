@@ -301,6 +301,7 @@ class MainWindowViewController: NSViewController {
     @IBAction func GoToTheFolder(_ sender: Any) {
 
         NSWorkspace.shared().openFile(MyVariables.yourVariable)
+        self.view.window?.close()
     }
     
     
@@ -318,8 +319,18 @@ class MainWindowViewController: NSViewController {
     @IBAction func Visual_One(_ sender: Any) {
         
         let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()
+        
         self.presentViewControllerAsModalWindow(Method_One_Display_ViewControl_Handler)
+    
+        //Method_One_Display_ViewControl_Handler.viewDidLoad()
         self.view.window?.close()
+        
+//        let sub1ViewController = NSViewController(nibName: "Method_One_Display_ViewControl", bundle: Bundle.main)
+//        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
+//        sub1WindowController = NSWindowController(window: sub1Window)
+//        sub1WindowController?.showWindow(nil)
+//        self.view.window?.close()
+        
     }
     
     open var windowController: NSWindowController?
@@ -331,6 +342,7 @@ class MainWindowViewController: NSViewController {
         sub1WindowController = NSWindowController(window: sub1Window)
         sub1WindowController?.showWindow(nil)
         self.view.window?.close()
+        print("test winodw")
 
     }
     

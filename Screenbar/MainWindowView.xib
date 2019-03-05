@@ -181,7 +181,7 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-3200" y="-162"/>
+            <point key="canvasLocation" x="-3260" y="-149"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="tHd-At-aMH"/>
     </objects>

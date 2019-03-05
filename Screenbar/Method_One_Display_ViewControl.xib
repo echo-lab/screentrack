@@ -9,9 +9,17 @@
         <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_ViewControl" customModule="Screenbar" customModuleProvider="target">
             <connections>
                 <outlet property="ComboBoxOfMenu" destination="uzO-iU-18G" id="qeR-RX-NcW"/>
+                <outlet property="CurrentTimeTextField" destination="osO-LY-lbd" id="cTm-gI-d55"/>
                 <outlet property="DisplayFilePath" destination="0KC-ZM-yNB" id="gh2-kl-qVP"/>
                 <outlet property="ImageDisplayArea" destination="XpO-Sy-MzU" id="xBB-dw-dDJ"/>
+                <outlet property="InforFive" destination="3zm-Ej-Swv" id="fpF-CT-2zJ"/>
+                <outlet property="InforFour" destination="xfY-hH-zDI" id="mzn-Nk-baT"/>
+                <outlet property="InforOne" destination="m3w-Jz-AtR" id="Cy1-O7-dUy"/>
+                <outlet property="InforThree" destination="2ov-1Q-ycH" id="usg-w2-xDQ"/>
+                <outlet property="InforTwo" destination="jm2-ZK-xaX" id="ca5-R7-qOj"/>
                 <outlet property="InformationDisplayArea" destination="aio-we-XEO" id="ZFP-r2-v9M"/>
+                <outlet property="MultiLineLabelOfCurrentTime" destination="lbe-eX-kpl" id="GqI-WC-j6V"/>
+                <outlet property="MultiLineOfPastTime" destination="T3p-fj-jne" id="fyn-Zl-7if"/>
                 <outlet property="PlayButton" destination="OYg-yc-swc" id="RCa-BS-M9r"/>
                 <outlet property="SilderMoving" destination="MUq-pG-rtv" id="7sU-8V-B1J"/>
                 <outlet property="Slider" destination="MUq-pG-rtv" id="gU5-LI-Rk9"/>
@@ -58,15 +66,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0KC-ZM-yNB">
-                    <rect key="frame" x="519" y="88" width="92" height="56"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="a1M-Xe-6dU">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKT-Gk-0Ju">
                     <rect key="frame" x="567" y="13" width="73" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -76,17 +75,6 @@
                     </buttonCell>
                     <connections>
                         <action selector="OpenRelatedFile:" target="-2" id="JDL-xb-0Qc"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Tx-x2-M7j">
-                    <rect key="frame" x="486" y="13" width="77" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Today" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uum-lg-oKD">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="TodayPhotoButton:" target="-2" id="rEg-ht-51z"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-yc-swc">
@@ -112,7 +100,7 @@
                     </connections>
                 </button>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Le-zw-sBa">
-                    <rect key="frame" x="686" y="221" width="99" height="26"/>
+                    <rect key="frame" x="680" y="16" width="99" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="uzO-iU-18G">
                         <font key="font" metaFont="system"/>
@@ -126,7 +114,7 @@
                     </comboBoxCell>
                 </comboBox>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mMt-MI-d8s">
-                    <rect key="frame" x="795" y="218" width="59" height="32"/>
+                    <rect key="frame" x="789" y="13" width="59" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xtf-Li-P4L">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -139,13 +127,100 @@ DQ
                         <action selector="TimeIntervalCheckButton:" target="-2" id="eod-8f-67R"/>
                     </connections>
                 </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="osO-LY-lbd">
+                    <rect key="frame" x="746" y="51" width="96" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="RIH-zl-fnR">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T3p-fj-jne">
+                    <rect key="frame" x="628" y="81" width="140" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="XB4-wV-zpz">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField identifier="TimeLapse" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbe-eX-kpl">
+                    <rect key="frame" x="761" y="81" width="92" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="WpD-ho-DH3">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jm2-ZK-xaX">
+                    <rect key="frame" x="654" y="292" width="201" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="oRE-OJ-1ml">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m3w-Jz-AtR">
+                    <rect key="frame" x="653" y="345" width="192" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="SCq-Hk-i68">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ov-1Q-ycH">
+                    <rect key="frame" x="652" y="230" width="192" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="SK8-nv-awd">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xfY-hH-zDI">
+                    <rect key="frame" x="654" y="178" width="190" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="8cI-Tb-M3J">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3zm-Ej-Swv">
+                    <rect key="frame" x="655" y="125" width="188" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="gD5-L7-Kmq">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K6f-Iq-Vw0">
+                    <rect key="frame" x="778" y="89" width="81" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Iy-DL-Icu">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="TestButton:" target="-2" id="uEB-WT-gcb"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0KC-ZM-yNB">
+                    <rect key="frame" x="507" y="88" width="92" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="a1M-Xe-6dU">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="-620" y="151"/>
         </customView>
-        <slider verticalHuggingPriority="750" id="Giv-Te-t9X">
-            <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="WeU-Ng-yLs"/>
-        </slider>
     </objects>
 </document>

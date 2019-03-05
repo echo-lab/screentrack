@@ -20,7 +20,7 @@ class Method_Two_Display_ViewControl: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("window two showed")
+        print("test window two showed")
         //        let myFrame = NSRect(x: 0.0, y: 0.0, width: 2000.0, height: 2000.0)
         //        let myRect = NSView(frame: myFrame)
         //        self.view.addSubview(myRect)

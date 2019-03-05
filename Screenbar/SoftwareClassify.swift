@@ -28,7 +28,7 @@ class classify : NSObject{
                                                "Microsoft PowerPoint"    : "6"
     ]
     @available(OSX 10.13, *)
-    func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : String){
+    func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
         let number = ClassDictionary[SoftwareName]
         print(number)
         if number == "1" {

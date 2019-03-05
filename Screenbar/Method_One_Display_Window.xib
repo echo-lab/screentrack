@@ -23,7 +23,7 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" id="l2F-Ul-Zxd"/>
                 </imageView>
             </subviews>
-            <point key="canvasLocation" x="-89.5" y="160"/>
+            <point key="canvasLocation" x="-212" y="111"/>
         </customView>
     </objects>
 </document>

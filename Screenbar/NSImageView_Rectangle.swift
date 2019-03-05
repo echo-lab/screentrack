@@ -35,12 +35,15 @@ class NSImageView_Rectangle: NSImageView {
 //        bPath.lineWidth = 12.0
 //        bPath.stroke()
           //draw a rectangle from the bottom of right
-          let rectangleColor = NSColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+          let rectangleColor = NSColor(red: 0.0, green: 0.0, blue: 2.0, alpha: 1.0)
           let rect = NSMakeRect(0, 0, 30.0, 30.0)
           let cPath: NSBezierPath = NSBezierPath(rect: rect)
           rectangleColor.set()
           cPath.fill()
     }
+    
+    
+    //
     func CollageImageDraw(dic : Dictionary<String, Int>){
         let length = dic.count
         let dictValDec = dic.sorted(by: { $0.value > $1.value })

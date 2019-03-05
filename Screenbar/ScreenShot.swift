@@ -103,7 +103,7 @@ class ScreenShot : NSObject {
     }
     //
     
-    func GetBoundOfFrontMostSoftware(AppName : String) -> String{
+    func GetBoundOfFrontMostSoftware(AppName : String) -> Array<String>{
         //let MyAppleScript = tell application "Preview" to get the bounds of the front window
         let first = "tell application \""
         let second = "\" to get the bounds of the front window"
@@ -116,17 +116,36 @@ class ScreenShot : NSObject {
         //output.numberOfItems = 4
        // let string = output.stringValue is nil
         let temp = output
-        
-        //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
-        //print(output.stringValue)
+        print(String(output.description))
+        //print(output.atIndex(3)?.int32Value)
+        //option("1480")
         if (error != nil) {
             print("error: \(String(describing: error))")
-        }
-        if output.stringValue == nil{
-            let empty = "the bound of front most software is nil"
+            let empty = [String]()
             return empty
         }
-        else { return (output.stringValue?.description)!}
+        
+        else{
+            var arr = [String]()
+            for i in 1..<5{
+                let temp = String(describing: output.atIndex(i)?.int32Value)
+                //arr = arr +
+                let start = temp.characters.index(of: "(")!
+                let end = temp.characters.index(of: ")")!
+                let subStr = temp[start..<end]
+                let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+                let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
+                let range = newStart..<newEnd
+                
+                
+                arr.append(subStr[range])
+            }
+            return arr
+        }
+
+        //let stringvalue = String(arr)
+        //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
+        //print(output.stringValue)
     }
     
     //end of the class
