@@ -27,8 +27,6 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     @IBOutlet weak var ComboBoxOfMenu: NSComboBoxCell!
     @IBOutlet weak var PlayButton: NSButton!
     
-    @IBOutlet weak var DisplayFilePath: NSTextField!
-    
     @IBOutlet weak var InforTwo: NSTextField!
     @IBOutlet weak var InforOne: NSTextField!
     @IBOutlet weak var InforFive: NSTextField!
@@ -60,6 +58,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         DefaultInformationDisplay()
         DefaultDisplayToday()
         MultiLineOfPastTime.stringValue = ""
+        MultiLineLabelOfCurrentTime.stringValue = ""
         DefaultComboMenu()
         print("view did load")
 //        timerCurrentTime.invalidate()
@@ -68,17 +67,17 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
 //            sleep(1)
 //            print(i)
 //        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeStyle = DateFormatter.Style.medium
-        dateFormatter.dateFormat = "M-d, HH:mm:ss"
-        let temp = dateFormatter.string(from: NSDate() as Date)
-        MultiLineLabelOfCurrentTime.stringValue = temp
-        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = DateFormatter.Style.none
+//        dateFormatter.timeStyle = DateFormatter.Style.medium
+//        dateFormatter.dateFormat = "M-d, HH:mm:ss"
+//        let temp = dateFormatter.string(from: NSDate() as Date)
+//        MultiLineLabelOfCurrentTime.stringValue = temp
+//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
     }
     override func viewDidAppear() {
         super.viewDidAppear()
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
+        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
         
 //        for i in 0..<2{
 //            print(i)
@@ -114,6 +113,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             print("today has no photo recorded")
             DefaultImageDisplay()
             InformationDisplayArea.stringValue = "Today has no photo recorded, This is your last screenshot"
+            
             Slider.doubleValue = Slider.maxValue
             
         }else{
@@ -122,12 +122,13 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             Slider.doubleValue = Slider.maxValue
             let photoname = PhotoNameList[Int(Slider.minValue)]
             let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             let RelatedInformationHandler = RelatedInformation()
             let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            InformationDisplayArea.stringValue = DicMessage.description
+            //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
                 print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -172,16 +173,18 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     func DefaultImageDisplay(){
         if DisplayLatestPic() == ""{
             let defaultImage = NSImage(named : "DefaultDisplayImage")
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = defaultImage
         }
         else{
             let nsImage = NSImage(contentsOfFile: DisplayLatestPic())
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             let RelatedInformationHandler = RelatedInformation()
             let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: DisplayLatestPic())
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: DisplayLatestPic())
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            InformationDisplayArea.stringValue = DicMessage.description
+            //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
                 print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -218,7 +221,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     func DefaultInformationDisplay(){
         let message = "Good Morning"
         InformationDisplayArea.stringValue = message
-        DisplayFilePath.stringValue = ""
+        //DisplayFilePath.stringValue = ""
         
     }
 
@@ -234,6 +237,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         Slider.doubleValue = Slider.minValue
         let photoname = PhotoNameList[Int(Slider.minValue)]
         let nsImage = NSImage(contentsOfFile: photoname)
+        ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
         ImageDisplayArea.image = nsImage
         //print(PhotoNameList)
     }
@@ -250,12 +254,14 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     @IBAction func SliderAction(_ sender: Any) {
         let index = Int((sender as AnyObject).doubleValue)
+        // code here
         let photoname = PhotoNameList[index]
         //print(photoname)
         //photo name is the silder's current position corresponding photo
         //photo name is paht now
         let nsImage = NSImage(contentsOfFile: photoname)
         //print(photoname)
+        ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
         ImageDisplayArea.image = nsImage
         //ImageDisplayArea.image = nsImage as? NSImage
         
@@ -271,7 +277,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         //print(DicMessage)
         //DicMessage.description
         //InformationDisplayArea.textStorage?.append(NSAttributedString(string: DicMessage.description))
-        InformationDisplayArea.stringValue = DicMessage.description
+        //InformationDisplayArea.stringValue = DicMessage.description
         if DicMessage["SoftwareName"] != nil{
             print(DicMessage["SoftwareName"])
             InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -302,19 +308,6 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         }
         
         
-        
-        
-        if DicMessage["FilePath"] != nil{
-            DisplayFilePath.stringValue = DicMessage["FilePath"] as! String
-        }
-        else if DicMessage["FrontmostPageUrl"] != nil{
-            DisplayFilePath.stringValue = DicMessage["FrontmostPageUrl"] as! String
-        }
-        else{
-            DisplayFilePath.stringValue = "null"
-        }
-        
-        
     }
     
     
@@ -324,13 +317,14 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         if temp > 0 {
             let photoname = PhotoNameList[temp - 1]
             let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             Slider.doubleValue -= 1
             let RelatedInformationHandler = RelatedInformation()
             let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            InformationDisplayArea.stringValue = DicMessage.description
+            //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
                 print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -369,13 +363,14 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let photoname = PhotoNameList[temp + 1]
             //photoname is the path of screenshots
             let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             Slider.doubleValue += 1
             let RelatedInformationHandler = RelatedInformation()
             let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            InformationDisplayArea.stringValue = DicMessage.description
+            //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
                 print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -409,10 +404,6 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
 
     }
     
-    @IBAction func OpenRelatedFile(_ sender: Any) {
-        print(DisplayFilePath.stringValue.description)
-        
-    }
     
     @IBAction func PlayButtonClick(_ sender: Any) {
 
@@ -446,6 +437,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let index = Int(Slider.doubleValue)
             let photoname = PhotoNameList[index]
             let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             Slider.doubleValue += 1
         }
@@ -453,6 +445,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let index = Int(Slider.doubleValue)
             let photoname = PhotoNameList[index]
             let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             self.stopPlaying()
             
@@ -520,6 +513,16 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         return date24
     }
     //
+    func dialogOKCancel(question: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = NSAlertStyle.warning
+        alert.addButton(withTitle: "OK")
+        //alert.addButton(withTitle: "Cancel")
+        //return alert.runModal() == NSAlertFirstButtonReturn
+    }
+    //
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
         let timeinterval = ComboBoxOfMenu.stringValue
         timerCurrentTime.invalidate()
@@ -530,6 +533,12 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 1)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 1 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
                 
             }else{
                 photonumber = PhotoNameList.count - 1
@@ -537,6 +546,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -548,12 +558,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
              MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 5)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 5 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -565,13 +582,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
              MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 3)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 3 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -582,13 +605,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
              MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 8)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 8 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
 
@@ -601,13 +630,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
              MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 24)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 24 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
             
@@ -620,13 +655,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             MultiLineOfPastTime.stringValue = string
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded today, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
             //let RelatedInformationHandler = RelatedInformation()
@@ -644,13 +685,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 2)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 3 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -661,13 +708,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 4)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 5 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -678,13 +731,19 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 6)[1]
             if PhotoNameList.count == 0{
                 print("no photo recorded")
-                
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 7 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
                 let photoname = PhotoNameList[Int(Slider.minValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
         }
@@ -723,8 +782,17 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     
     @IBAction func TestButton(_ sender: Any) {
-        print("test button")
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
+//        print("test button")
+//        let handler = Current()
+//        if timerCurrentTime.isValid{
+//            print("1")
+//            timerCurrentTime.invalidate()
+//        }
+//        else{
+//            print("2")
+//            timerCurrentTime.fire()
+//            self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: handler, selector: #selector(handler.currentTime), userInfo: nil, repeats: true)
+//        }
     }
     
     

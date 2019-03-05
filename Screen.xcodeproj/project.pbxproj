@@ -125,13 +125,7 @@
 				EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */,
 				EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */,
 				EAF5EFD8220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib */,
-				EAF5EFDF220E3C2900BDBF7D /* Method_One_Display_Window.swift */,
-				EAF5EFE0220E3C2900BDBF7D /* Method_One_Display_Window.xib */,
 				EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */,
-				EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */,
-				EAD877FD221757DE0042FF78 /* Method_Two.swift */,
-				EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */,
-				EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */,
 				EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */,
 				EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */,
 				EA138823222DC9A400F51DB9 /* CurrentTime.swift */,
@@ -158,6 +152,7 @@
 		3DA791FB1CDBC45C00F60252 /* Screenbar */ = {
 			isa = PBXGroup;
 			children = (
+				EA0F54F2222F09700040CB4F /* Method two */,
 				3D1C2F2F1CE265A500FB8AB8 /* Controllers */,
 				3D1C2F311CE2661600FB8AB8 /* Library */,
 				3D1C2F301CE265BA00FB8AB8 /* Views */,
@@ -167,6 +162,19 @@
 				EA2C56C621FE481900178AFF /* folderName.plist */,
 			);
 			path = Screenbar;
+			sourceTree = "<group>";
+		};
+		EA0F54F2222F09700040CB4F /* Method two */ = {
+			isa = PBXGroup;
+			children = (
+				EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */,
+				EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */,
+				EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */,
+				EAD877FD221757DE0042FF78 /* Method_Two.swift */,
+				EAF5EFDF220E3C2900BDBF7D /* Method_One_Display_Window.swift */,
+				EAF5EFE0220E3C2900BDBF7D /* Method_One_Display_Window.xib */,
+			);
+			name = "Method two";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
