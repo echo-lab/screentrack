@@ -30,5 +30,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>This is necessary to crop image of the application and retreive any further information about the file paths, file names or URL. </string>
 </dict>
 </plist>
