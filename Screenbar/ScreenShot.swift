@@ -85,21 +85,24 @@ class ScreenShot : NSObject {
         
         self.dateFormatter.dateStyle = DateFormatter.Style.none
         self.dateFormatter.timeStyle = DateFormatter.Style.medium
+        //self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
+        self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         var dateString = self.dateFormatter.string(from: date)
-        //print(dateString)
+        print(dateString)
         //5:06:52 PM
         //let calendar = Calendar.current
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm:ss a"
-        let final = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "HH:mm:ss"
-        let date24 = dateFormatter.string(from: final!)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "h:mm:ss a"
+//        let final = dateFormatter.date(from: dateString)
+//        dateFormatter.dateFormat = "M.d,HH:mm:ss"
+//        let date24 = dateFormatter.string(from: final!)
+        //print(date24)
         //print(date24)
         
-        dateString = dateString.replacingOccurrences(of: ":", with: ".", options: NSString.CompareOptions.literal, range: nil)
+        //dateString = dateString.replacingOccurrences(of: ":", with: ".", options: NSString.CompareOptions.literal, range: nil)
         //return dateString;
-        return date24
+        return dateString
     }
     //
     

@@ -76,8 +76,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
 //        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
     }
     override func viewDidAppear() {
-        super.viewDidAppear()
-        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
+        print("test")
+//        super.viewDidAppear()
+//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
         
 //        for i in 0..<2{
 //            print(i)
@@ -120,7 +121,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             photonumber = PhotoNameList.count - 1
             SliderValueSet()
             Slider.doubleValue = Slider.maxValue
-            let photoname = PhotoNameList[Int(Slider.minValue)]
+            let photoname = PhotoNameList[Int(Slider.maxValue)]
             let nsImage = NSImage(contentsOfFile: photoname)
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
@@ -528,9 +529,13 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         timerCurrentTime.invalidate()
         if (timeinterval == "recent 1 hour"){
             let ReplayingOneHandler = ReplayingOne()
+            
             PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeHours(hour : 1)[0]
-            MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 1)[1]
+            let last = PhotoNameList.count - 1
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -544,7 +549,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -552,10 +557,14 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         }
         else if (timeinterval == "recent 5 hours"){
             let ReplayingOneHandler = ReplayingOne()
+            
             PhotoNameList = ReplayingOneHandler.FetchFiveHours() as! [String]
+            let last = PhotoNameList.count - 1
             //ReplayingOneHandler.FetchThreeHours()
-            MultiLineOfPastTime.stringValue = PastTimeHours(hour : 5)[0]
-             MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 5)[1]
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -568,7 +577,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -577,9 +586,13 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else if (timeinterval == "recent 3 hours"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchThreeHours() as! [String]
+            print(PhotoNameList)
+            let last = PhotoNameList.count - 1
             //ReplayingOneHandler.FetchThreeHours()
-            MultiLineOfPastTime.stringValue = PastTimeHours(hour : 3)[0]
-             MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 3)[1]
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -592,7 +605,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -601,8 +614,12 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else if (timeinterval == "recent 8 hours"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeHours(hour : 8)[0]
-             MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 8)[1]
+            let last = PhotoNameList.count - 1
+            print(PhotoNameList)
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -615,19 +632,24 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
 
         }
-        else if (timeinterval == "recnet 24 hours"){
+        else if (timeinterval == "recent 24 hours"){
             //Fetch24Hours()
             let ReplayingOneHandler = ReplayingOne()
+            
             PhotoNameList = ReplayingOneHandler.Fetch24Hours() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeHours(hour : 24)[0]
-             MultiLineLabelOfCurrentTime.stringValue = PastTimeHours(hour : 24)[1]
+            let last = PhotoNameList.count - 1
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = startTime
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -638,9 +660,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
+                print(photonumber)
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -651,8 +674,12 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
             let string = PastTimeToday() + "00:00:00"
-            MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 0)[1]
-            MultiLineOfPastTime.stringValue = string
+            let last = PhotoNameList.count - 1
+            print(PhotoNameList[0])
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -665,7 +692,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -681,8 +708,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else if (timeinterval == "recent 3 days"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeDays(day : 2)[0] + "00:00:00"
-            MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 2)[1]
+            let last = PhotoNameList.count - 1
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -693,9 +723,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
+                print(photonumber)
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -704,8 +735,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else if (timeinterval == "recent 5 days"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeDays(day : 4)[0] + "00:00:00"
-            MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 4)[1]
+            let last = PhotoNameList.count - 1
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -716,9 +750,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
+                print(photonumber)
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -727,8 +762,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else if (timeinterval == "recent 7 days"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchSevenday() as! [String]
-            MultiLineOfPastTime.stringValue = PastTimeDays(day : 6)[0] + "00:00:00"
-            MultiLineLabelOfCurrentTime.stringValue = PastTimeDays(day: 6)[1]
+            let last = PhotoNameList.count - 1
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineLabelOfCurrentTime.stringValue = endTime
+            MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -739,9 +777,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 alert.runModal()
             }else{
                 photonumber = PhotoNameList.count - 1
+                print(photonumber)
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.minValue)]
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
                 let nsImage = NSImage(contentsOfFile: photoname)
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
@@ -780,21 +819,40 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         return finalpath
     }
     
-    
+
     @IBAction func TestButton(_ sender: Any) {
-//        print("test button")
-//        let handler = Current()
-//        if timerCurrentTime.isValid{
-//            print("1")
-//            timerCurrentTime.invalidate()
-//        }
-//        else{
-//            print("2")
-//            timerCurrentTime.fire()
-//            self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: handler, selector: #selector(handler.currentTime), userInfo: nil, repeats: true)
-//        }
+        self.view.isHidden = true
+        let OpenSoftwarehandler = OpenSoftware()
+        OpenSoftwarehandler.openSoftwareBasedInfor(name: InforOne.stringValue, urlAndPath: InforFour.stringValue)
+
     }
-    
+    //
+    func TimeSubstringFromPhotoName(ScreenshotName : String) -> String{
+        //Screenshot-3.6,17:59:00.jpg
+        //  /Users/donghanhu/Documents/Reflect/2019-3-6-1/Screenshot-15:38:45.jpg
+        let photoname =  ScreenshotName
+        let RelatedInformationHandler = RelatedInformation()
+        //json path
+        let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+        //Correspoing screenshots file name, "Screenshot-11.26.35 PM.jpg"
+        let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+        print(JsonFilePath)
+        print(ImageName)
+        var name = ""
+        let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+        if DicMessage["PhotoName"] != nil{
+            name = DicMessage["PhotoName"] as! String
+        }
+        let start = name.characters.index(of: "-")
+        let end = name.characters.index(of: "j")
+        let subStr = name[start..<end]
+        let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+        let newEnd = subStr.index(subStr.endIndex, offsetBy : -1)
+        let range = newStart..<newEnd
+        let temp = subStr[range]
+        print(temp)
+        return temp
+    }
     
     
     

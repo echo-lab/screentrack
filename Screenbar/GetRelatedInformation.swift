@@ -70,6 +70,8 @@ class RelatedInformation{
             for i in 1..<length{
                 
                 //print(jsonarray[i])
+                //code here
+                
                 var photoname = jsonarray[i]["PhotoName"] as! String
                 //print(photoname)
                 photoname.remove(at: photoname.startIndex)

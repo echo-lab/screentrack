@@ -122,7 +122,7 @@ class ReplayingOne: NSViewController{
             ReplayingOne.SessionNumberForOneHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
             var last = ReplayingOne.SessionNumberForOneHour.count - 1
             if (last == 0){
-                print("no recording last three hour")
+                print("no recording last one hour")
             }else{
                 //has at least one folder, the last one is "current-last"
                 //several session folders, at least one folder
@@ -161,14 +161,19 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + filelist[j]
-                                                PhotoNameArray.append(temp)
+                                                //PhotoNameArray.append(temp)
+                                                
+                                                tem.append(temp)
                                             }
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -180,13 +185,17 @@ class ReplayingOne: NSViewController{
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                var tem = [String]()
                                 for j in 0..<number{
                                     if filelist[j].contains(".jpg"){
                                         let temp = Stringfilepath + "/" + filelist[j]
                                         //means it is a photo, instead of a json file
-                                        PhotoNameArray.append(temp)
+                                        tem.append(temp)
+                                        //PhotoNameArray.append(temp)
                                     }
                                 }
+                                var reverse : [String] = Array(tem.reversed())
+                                PhotoNameArray += reverse
                             } catch {
                                 print(error)
                             }
@@ -232,13 +241,17 @@ class ReplayingOne: NSViewController{
                         //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        var tem = [String]()
                         for j in 0..<number{
                             if filelist[j].contains(".jpg"){
                                 let temp = Stringfilepath + "/" + filelist[j]
+                                tem.append(temp)
                                 //means it is a photo, instead of a json file
-                                PhotoNameArray.append(temp)
+                                //PhotoNameArray.append(temp)
                             }
                         }
+                        var reverse : [String] = Array(tem.reversed())
+                        PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
                     } catch {
@@ -249,7 +262,7 @@ class ReplayingOne: NSViewController{
             //second yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
-                return PhotoNameArray
+                return PhotoNameArray.reversed() as [String]
             }
             else{
                 ReplayingOne.SessionNumberForYesterday = ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] as! [Int]
@@ -294,14 +307,18 @@ class ReplayingOne: NSViewController{
                                     do {
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        var tem = [String]()
                                         for j in 0..<number{
                                             if filelist[j].contains(".jpg"){
                                                 if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + filelist[j]
-                                                    PhotoNameArray.append(temp)
+                                                    //PhotoNameArray.append(temp)
+                                                    tem.append(temp)
                                                 }
                                             }
                                         }
+                                        var reverse : [String] = Array(tem.reversed())
+                                        PhotoNameArray += reverse
                                     } catch {
                                         print(error)
                                     }
@@ -313,13 +330,17 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + filelist[j]
                                             //means it is a photo, instead of a json file
-                                            PhotoNameArray.append(temp)
+                                            //PhotoNameArray.append(temp)
+                                            tem.append(temp)
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -344,7 +365,7 @@ class ReplayingOne: NSViewController{
         }
         //if it doesnot exist, go to previous day
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     //
     //
@@ -411,14 +432,19 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + filelist[j]
-                                                PhotoNameArray.append(temp)
+                                                tem.append(temp)
+                                                
+                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -430,13 +456,17 @@ class ReplayingOne: NSViewController{
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                var tem = [String]()
                                 for j in 0..<number{
                                     if filelist[j].contains(".jpg"){
                                         let temp = Stringfilepath + "/" + filelist[j]
                                         //means it is a photo, instead of a json file
-                                        PhotoNameArray.append(temp)
+                                        //PhotoNameArray.append(temp)
+                                        tem.append(temp)
                                     }
                                 }
+                                var reverse : [String] = Array(tem.reversed())
+                                PhotoNameArray += reverse
                             } catch {
                                 print(error)
                             }
@@ -482,15 +512,19 @@ class ReplayingOne: NSViewController{
                         //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        var tem = [String]()
                         for j in 0..<number{
                             if filelist[j].contains(".jpg"){
                                 let temp = Stringfilepath + "/" + filelist[j]
                                 //means it is a photo, instead of a json file
-                                PhotoNameArray.append(temp)
+                                tem.append(temp)
+                                //PhotoNameArray.append(temp)
                             }
                         }
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
+                        var reverse : [String] = Array(tem.reversed())
+                        PhotoNameArray += reverse
                     } catch {
                         print(error)
                     }
@@ -499,7 +533,8 @@ class ReplayingOne: NSViewController{
             //second yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
-                return PhotoNameArray
+                
+                return PhotoNameArray.reversed() as [String]
             }
             else{
                 ReplayingOne.SessionNumberForYesterday = ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] as! [Int]
@@ -543,14 +578,18 @@ class ReplayingOne: NSViewController{
                                     do {
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        var tem = [String]()
                                         for j in 0..<number{
                                             if filelist[j].contains(".jpg"){
                                                 if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + filelist[j]
-                                                    PhotoNameArray.append(temp)
+                                                    //PhotoNameArray.append(temp)
+                                                    tem.append(temp)
                                                 }
                                             }
                                         }
+                                        var reverse : [String] = Array(tem.reversed())
+                                        PhotoNameArray += reverse
                                     } catch {
                                         print(error)
                                     }
@@ -562,13 +601,17 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + filelist[j]
                                             //means it is a photo, instead of a json file
-                                            PhotoNameArray.append(temp)
+                                            //PhotoNameArray.append(temp)
+                                            tem.append(temp)
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -594,7 +637,7 @@ class ReplayingOne: NSViewController{
         }
         //if it doesnot exist, go to previous day
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     //
     func FetchFiveHours() -> Array<Any>{
@@ -661,14 +704,18 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + filelist[j]
-                                                PhotoNameArray.append(temp)
+                                                tem.append(temp)
+                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -680,13 +727,17 @@ class ReplayingOne: NSViewController{
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                var tem = [String]()
                                 for j in 0..<number{
                                     if filelist[j].contains(".jpg"){
                                         let temp = Stringfilepath + "/" + filelist[j]
                                         //means it is a photo, instead of a json file
-                                        PhotoNameArray.append(temp)
+                                        tem.append(temp)
+                                        //PhotoNameArray.append(temp)
                                     }
                                 }
+                                var reverse : [String] = Array(tem.reversed())
+                                PhotoNameArray += reverse
                             } catch {
                                 print(error)
                             }
@@ -732,13 +783,17 @@ class ReplayingOne: NSViewController{
                         //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        var tem = [String]()
                         for j in 0..<number{
                             if filelist[j].contains(".jpg"){
                                 let temp = Stringfilepath + "/" + filelist[j]
                                 //means it is a photo, instead of a json file
-                                PhotoNameArray.append(temp)
+                                tem.append(temp)
+                                //PhotoNameArray.append(temp)
                             }
                         }
+                        var reverse : [String] = Array(tem.reversed())
+                        PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
                     } catch {
@@ -749,7 +804,7 @@ class ReplayingOne: NSViewController{
             //second yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
-                return PhotoNameArray
+                return PhotoNameArray.reversed() as [String]
             }
             else{
                 ReplayingOne.SessionNumberForYesterday = ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] as! [Int]
@@ -793,14 +848,18 @@ class ReplayingOne: NSViewController{
                                     do {
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        var tem = [String]()
                                         for j in 0..<number{
                                             if filelist[j].contains(".jpg"){
                                                 if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + filelist[j]
-                                                    PhotoNameArray.append(temp)
+                                                    tem.append(temp)
+                                                    //PhotoNameArray.append(temp)
                                                 }
                                             }
                                         }
+                                        var reverse : [String] = Array(tem.reversed())
+                                        PhotoNameArray += reverse
                                     } catch {
                                         print(error)
                                     }
@@ -812,13 +871,17 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + filelist[j]
                                             //means it is a photo, instead of a json file
-                                            PhotoNameArray.append(temp)
+                                            tem.append(temp)
+                                            //PhotoNameArray.append(temp)
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -842,7 +905,7 @@ class ReplayingOne: NSViewController{
         }
         //if it doesnot exist, go to previous day
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     //
     func FetchEightHours() -> Array<Any>{
@@ -858,6 +921,8 @@ class ReplayingOne: NSViewController{
         let yesterday = GetYesterdayDate(date : date, Day : 1)
         let pastdate = GetDateOfPastTime(date : date, Hour : 8)
         let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
+        print("here")
+        print(pasttime)
         let currentTime = GetTimeOfCurrentTime(date : date)
         //print(currentTime)
         //print("in fetch 3 hour function")
@@ -891,8 +956,10 @@ class ReplayingOne: NSViewController{
                         let hourOfStartTime = ReturnHour(str: timeOfStart)
                         let hourOfPastTime = ReturnHour(str: pasttime)
                         if (hourOfStartTime > hourOfPastTime){
-                            //current time is 14, past time is 11, start time is before past time, then check end of time
+                            //current time is 16, past time is 13, if start time is before past time, then check end of time
+                            //start is 14
                             let hourOfEndTime = ReturnHour(str: timeOfEnd)
+                            //end is 14
                             // this if statement is impossible, because psttime< starttime, starttime< end time, so end time must > pasttime
                             if (hourOfEndTime <= hourOfPastTime ){
                                 //not recording
@@ -905,14 +972,18 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + filelist[j]
-                                                PhotoNameArray.append(temp)
+                                                tem.append(temp)
+                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -924,13 +995,17 @@ class ReplayingOne: NSViewController{
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                var tem = [String]()
                                 for j in 0..<number{
                                     if filelist[j].contains(".jpg"){
                                         let temp = Stringfilepath + "/" + filelist[j]
                                         //means it is a photo, instead of a json file
-                                        PhotoNameArray.append(temp)
+                                        tem.append(temp)
+                                        //PhotoNameArray.append(temp)
                                     }
                                 }
+                                var reverse : [String] = Array(tem.reversed())
+                                PhotoNameArray += reverse
                             } catch {
                                 print(error)
                             }
@@ -954,9 +1029,6 @@ class ReplayingOne: NSViewController{
             // past date is yesterday
             // go to yesterday
         else{
-            //code here
-            //check yesterday and today
-            //first today
             ReplayingOne.SessionNumberForToday = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
             let lengthoftoday = ReplayingOne.SessionNumberForToday.count
             //var PhotoNameArray = [String]()
@@ -979,13 +1051,17 @@ class ReplayingOne: NSViewController{
                         //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        var tem = [String]()
                         for j in 0..<number{
                             if filelist[j].contains(".jpg"){
                                 let temp = Stringfilepath + "/" + filelist[j]
                                 //means it is a photo, instead of a json file
-                                PhotoNameArray.append(temp)
+                                tem.append(temp)
+                                //PhotoNameArray.append(temp)
                             }
                         }
+                        var reverse : [String] = Array(tem.reversed())
+                        PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
                     } catch {
@@ -995,8 +1071,8 @@ class ReplayingOne: NSViewController{
             }
             //second yesterday
             print(yesterday)
-            if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil {
-                return PhotoNameArray
+            if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
+                return PhotoNameArray.reversed() as [String]
             }
             else{
                 ReplayingOne.SessionNumberForYesterday = ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] as! [Int]
@@ -1040,14 +1116,18 @@ class ReplayingOne: NSViewController{
                                     do {
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        var tem = [String]()
                                         for j in 0..<number{
                                             if filelist[j].contains(".jpg"){
                                                 if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + filelist[j]
-                                                    PhotoNameArray.append(temp)
+                                                    tem.append(temp)
+                                                    //PhotoNameArray.append(temp)
                                                 }
                                             }
                                         }
+                                        var reverse : [String] = Array(tem.reversed())
+                                        PhotoNameArray += reverse
                                     } catch {
                                         print(error)
                                     }
@@ -1059,13 +1139,17 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + filelist[j]
                                             //means it is a photo, instead of a json file
-                                            PhotoNameArray.append(temp)
+                                            tem.append(temp)
+                                            //PhotoNameArray.append(temp)
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -1086,12 +1170,13 @@ class ReplayingOne: NSViewController{
                 }
             }
             
-            
         }
         //if it doesnot exist, go to previous day
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
+    //
+   
     //end of 8 hours
     //
     func Fetch24Hours() -> Array<Any>{
@@ -1154,14 +1239,18 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + filelist[j]
-                                                PhotoNameArray.append(temp)
+                                                tem.append(temp)
+                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -1173,13 +1262,17 @@ class ReplayingOne: NSViewController{
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                var tem = [String]()
                                 for j in 0..<number{
                                     if filelist[j].contains(".jpg"){
                                         let temp = Stringfilepath + "/" + filelist[j]
                                         //means it is a photo, instead of a json file
-                                        PhotoNameArray.append(temp)
+                                        tem.append(temp)
+                                        //PhotoNameArray.append(temp)
                                     }
                                 }
+                                var reverse : [String] = Array(tem.reversed())
+                                PhotoNameArray += reverse
                             } catch {
                                 print(error)
                             }
@@ -1228,13 +1321,17 @@ class ReplayingOne: NSViewController{
                         //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        var tem = [String]()
                         for j in 0..<number{
                             if filelist[j].contains(".jpg"){
                                 let temp = Stringfilepath + "/" + filelist[j]
                                 //means it is a photo, instead of a json file
-                                PhotoNameArray.append(temp)
+                                tem.append(temp)
+                                //PhotoNameArray.append(temp)
                             }
                         }
+                        var reverse : [String] = Array(tem.reversed())
+                        PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
                     } catch {
@@ -1245,7 +1342,7 @@ class ReplayingOne: NSViewController{
             //second yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil {
-                return PhotoNameArray
+                return PhotoNameArray.reversed() as [String]
             }
             else{
                 ReplayingOne.SessionNumberForYesterday = ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] as! [Int]
@@ -1289,14 +1386,18 @@ class ReplayingOne: NSViewController{
                                     do {
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        var tem = [String]()
                                         for j in 0..<number{
                                             if filelist[j].contains(".jpg"){
                                                 if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + filelist[j]
-                                                    PhotoNameArray.append(temp)
+                                                    tem.append(temp)
+                                                    //PhotoNameArray.append(temp)
                                                 }
                                             }
                                         }
+                                        var reverse : [String] = Array(tem.reversed())
+                                        PhotoNameArray += reverse
                                     } catch {
                                         print(error)
                                     }
@@ -1308,13 +1409,17 @@ class ReplayingOne: NSViewController{
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    var tem = [String]()
                                     for j in 0..<number{
                                         if filelist[j].contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + filelist[j]
                                             //means it is a photo, instead of a json file
-                                            PhotoNameArray.append(temp)
+                                            tem.append(temp)
+                                            //PhotoNameArray.append(temp)
                                         }
                                     }
+                                    var reverse : [String] = Array(tem.reversed())
+                                    PhotoNameArray += reverse
                                 } catch {
                                     print(error)
                                 }
@@ -1339,7 +1444,7 @@ class ReplayingOne: NSViewController{
         }
         //if it doesnot exist, go to previous day
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     
     //
@@ -1639,32 +1744,41 @@ class ReplayingOne: NSViewController{
         do{
             let jsonDataDictionary = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+            
             endTime = dictionaryOfReturnedJsonData["EndTime"] as! String
+            
             
         }catch{print(error)}
         return endTime
     }
     //
     func ReturnHour(str : String) -> Int{
-        let start = str.index(str.startIndex, offsetBy: 10)
+        print(str)
+        let start = str.index(str.startIndex, offsetBy: 9)
         let end = str.index(str.endIndex, offsetBy: -6)
         let range = start..<end
         let mySubstring = str[range]
+        print(mySubstring)
         return Int(mySubstring)!
     }
     //
     func ReturnMinute(str : String) -> Int{
+        print(str)
         let start = str.index(str.startIndex, offsetBy: 13)
         let end = str.index(str.endIndex, offsetBy: -3)
         let range = start..<end
         let mySubstring = str[range]
+        print(mySubstring)
         return Int(mySubstring)!
     }
     func DealWithScreenShotName(str : String) -> Int{
-        let start = str.index(str.startIndex, offsetBy: 11)
+        //print("in 3 hours")
+        print(str)
+        let start = str.index(str.startIndex, offsetBy: 17)
         let end = str.index(str.endIndex, offsetBy: -10)
         let range = start..<end
         let mySubstring = str[range]
+        print(mySubstring)
         return Int(mySubstring)!
     }
     

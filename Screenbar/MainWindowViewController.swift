@@ -120,7 +120,7 @@ class MainWindowViewController: NSViewController {
         
     }
     
-    //slider from 480 to 1440 NSSliderCell
+    //slider from NSSliderCell
     @IBAction func CompressSilder(_ sender: NSSliderCell) {
         
         CompressRateLabel.stringValue = String(Int(sender.doubleValue))
