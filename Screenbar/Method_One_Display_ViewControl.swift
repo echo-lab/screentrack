@@ -532,10 +532,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             
             PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
             let last = PhotoNameList.count - 1
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -546,6 +543,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 alert.runModal()
                 
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -561,10 +562,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             PhotoNameList = ReplayingOneHandler.FetchFiveHours() as! [String]
             let last = PhotoNameList.count - 1
             //ReplayingOneHandler.FetchThreeHours()
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -574,6 +572,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -589,10 +591,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             print(PhotoNameList)
             let last = PhotoNameList.count - 1
             //ReplayingOneHandler.FetchThreeHours()
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+            //code here
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -602,6 +602,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -616,10 +620,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
             let last = PhotoNameList.count - 1
             print(PhotoNameList)
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+           
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -629,6 +630,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -645,11 +650,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             
             PhotoNameList = ReplayingOneHandler.Fetch24Hours() as! [String]
             let last = PhotoNameList.count - 1
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = startTime
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+            
+            //MultiLineOfPastTime.stringValue = startTime
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -659,6 +661,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = startTime
+                MultiLineOfPastTime.stringValue = endTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -676,10 +682,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let string = PastTimeToday() + "00:00:00"
             let last = PhotoNameList.count - 1
             print(PhotoNameList[0])
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+           
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -689,6 +692,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -709,10 +716,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
             let last = PhotoNameList.count - 1
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+           
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -722,6 +726,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -736,10 +744,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
             let last = PhotoNameList.count - 1
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+           
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -749,6 +754,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -763,10 +772,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchSevenday() as! [String]
             let last = PhotoNameList.count - 1
-            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-            MultiLineLabelOfCurrentTime.stringValue = endTime
-            MultiLineOfPastTime.stringValue = startTime
+           
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -776,6 +782,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 //alert.addButton(withTitle: "Cancel")
                 alert.runModal()
             }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -821,10 +831,13 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
 
     @IBAction func TestButton(_ sender: Any) {
-        self.view.isHidden = true
+        
         let OpenSoftwarehandler = OpenSoftware()
         OpenSoftwarehandler.openSoftwareBasedInfor(name: InforOne.stringValue, urlAndPath: InforFour.stringValue)
-
+        //self.dismissViewController(self)
+        //self.preferredMinimumSize
+        self.view.isHidden = true
+        //super.viewDidDisappear()
     }
     //
     func TimeSubstringFromPhotoName(ScreenshotName : String) -> String{
