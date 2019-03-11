@@ -321,15 +321,9 @@ class MainWindowViewController: NSViewController {
         let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()
         
         self.presentViewControllerAsModalWindow(Method_One_Display_ViewControl_Handler)
-    
+        //self.presentViewController(Method_One_Display_ViewControl_Handler, animator: yes )
         //Method_One_Display_ViewControl_Handler.viewDidLoad()
         self.view.window?.close()
-        
-//        let sub1ViewController = NSViewController(nibName: "Method_One_Display_ViewControl", bundle: Bundle.main)
-//        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
-//        sub1WindowController = NSWindowController(window: sub1Window)
-//        sub1WindowController?.showWindow(nil)
-//        self.view.window?.close()
         
     }
     
@@ -337,14 +331,26 @@ class MainWindowViewController: NSViewController {
     var sub1WindowController: NSWindowController?
     
     @IBAction func Visual_One_Window_Method(_ sender: Any) {
-        let sub1ViewController = NSViewController(nibName: "Method_One_Display_Window", bundle: Bundle.main)
-        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
-        sub1WindowController = NSWindowController(window: sub1Window)
-        sub1WindowController?.showWindow(nil)
+//        let sub1ViewController = NSViewController(nibName: "Method_One_Display_Window", bundle: Bundle.main)
+//        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
+//        sub1WindowController = NSWindowController(window: sub1Window)
+//        sub1WindowController?.showWindow(nil)
         self.view.window?.close()
         print("test winodw")
 
     }
+    
+    @IBAction func TimeLapseWindow(_ sender: Any) {
+        let Window_Handler : NSViewController = TimeLapseMethodWindow()
+        //let sub1ViewController = NSViewController(nibName: "TimeLapseMethodWindow", bundle: Bundle.main)
+        let sub1Window = NSWindow(contentViewController:  Window_Handler)
+        sub1WindowController = NSWindowController(window: sub1Window)
+        sub1WindowController?.showWindow(nil)
+        
+//        self.presentViewControllerAsModalWindow(Window_Handler)
+        self.view.window?.close()
+    }
+    
     
     @IBAction func LternativeFuncitonTwo(_ sender: Any) {
         let Method_Two_Display_ViewControl_Handler : NSViewController = Method_Two_Display_ViewControl()

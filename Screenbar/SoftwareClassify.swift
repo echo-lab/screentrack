@@ -25,7 +25,9 @@ class classify : NSObject{
                                                "Safari"                  : "5",
                                                "Microsoft Word"          : "6",
                                                "Microsoft Excel"         : "6",
-                                               "Microsoft PowerPoint"    : "6"
+                                               "Microsoft PowerPoint"    : "6",
+                                               "Acrobat Reader"          : "6",
+                                               "Eclipse"                 : "6"
     ]
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
@@ -381,13 +383,13 @@ class classify : NSObject{
             }
         }
         else if number == "7"{
-            
+
         }
         //could not identify this software name into any catogoriy
         else{
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
-                                               "category"       : "Dont know",
+                                               "category"      : "Dont know",
                                                "bound"         : BoundInfor
             ]
             do {
@@ -680,6 +682,7 @@ class classify : NSObject{
         else { return (output.stringValue?.description)!}
         //return (output.stringValue?.description)!
     }
+
     
     
     //end of the class

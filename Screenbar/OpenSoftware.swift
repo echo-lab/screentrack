@@ -13,7 +13,8 @@ class OpenSoftware : NSObject{
     
     var dictionary : [String : String] = [ "Google Chrome"           : "Browser",
                                            "Safari"                  : "Browser",
-                                           //"Preview"                 : "Productivity",
+                                           "Preview"                 : "Preview",
+                                           //"Acrobat Reader"          : "Preview",
                                            "Pages"                   : "Productivity",
                                            "Numbers"                 : "Productivity",
                                            "Keynots"                 : "Productivity",
@@ -36,6 +37,10 @@ class OpenSoftware : NSObject{
             
         }
         else if category == "Productivity"{
+//            let one = "tell application \""
+//            let two = "\" \n activate \n end tell"
+//            let last = one + name + two
+//            AppleScript(script: last)
             let first = "tell application \""
             let second = "\" \n open \""
             let third = "\" \n end tell"
@@ -43,12 +48,35 @@ class OpenSoftware : NSObject{
             AppleScript(script: final)
             makeFrontmost(name : name)
         }
+        else if category == "Preview"{
+            let first = "tell application \""
+            let second = "\" \n open \""
+            let third = "\" \n end tell"
+            let final = first + name + second + stringSub(url : urlAndPath) + third
+            AppleScript(script: final)
+            makeFrontmost(name : name)
+        }
         else{
-            
+            let first = "tell application \""
+            let second = "\" \n activate \n end tell"
+            let final = first + name + second
+            AppleScript(script: final)
+            makeFrontmost(name: name)
         }
        
         
     }
+    //
+    
+    func stringSub(url : String) -> String{
+        let start = url.index(url.startIndex, offsetBy: 7)
+        let end = url.index(url.endIndex, offsetBy: 0)
+        let range = start..<end
+        let mySubstring = url[range]
+        return mySubstring
+    }
+    //
+    
     func makeFrontmost(name : String){
         let first = "tell application \"System Events\" \n perform action \"AXRaise\" of window 1 of process \""
         let second = "\" \n end tell"

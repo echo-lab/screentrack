@@ -180,6 +180,17 @@
                         <action selector="LternativeFuncitonTwo:" target="-2" id="bfw-Ax-pfH"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kb5-8u-HLX">
+                    <rect key="frame" x="242" y="52" width="130" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="TimeLapseTwo" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="grr-ah-gi9">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="TimeLapseWindow:" target="-2" id="nPe-TC-lJb"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-3260" y="-149"/>
         </customView>

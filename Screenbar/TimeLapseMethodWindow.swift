@@ -1,103 +1,59 @@
 //
-//  Method_One_Display_ViewControl.swift
+//  TimeLapseMethodWindow.swift
 //  Screenbar
 //
-//  Created by Donghan Hu on 2/8/19.
+//  Created by Donghan Hu on 3/11/19.
 //
 
 import Cocoa
 @available(OSX 10.13, *)
 
+class TimeLapseMethodWindow: NSViewController {
 
-class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
-    @IBOutlet weak var Slider: NSSlider!
-    var photonumber = 0
-    var PhotoNameList = [String]()
-    
-    var TimerPlayButton = Timer()
-
-    @IBOutlet weak var MultiLineOfPastTime: NSTextField!
-    @IBOutlet weak var MultiLineLabelOfCurrentTime: NSTextField!
-    
     @IBOutlet weak var ImageDisplayArea: NSImageView!
     
-    @IBOutlet weak var CurrentTimeTextField: NSTextField!
+    @IBOutlet weak var InforOne: NSTextField!
+    @IBOutlet weak var InforTwo: NSTextField!
+    @IBOutlet weak var InforThree: NSTextField!
+    @IBOutlet weak var InforFour: NSTextField!
+    @IBOutlet weak var InforFive: NSTextField!
+    
+    @IBOutlet weak var MultiLineOfPastTime: NSTextField!
+    @IBOutlet weak var MultiLineOfCurrentTime: NSTextField!
+    
+    @IBOutlet weak var ComboBoxOfMenu: NSComboBox!
+    
+    @IBOutlet weak var Slider: NSSliderCell!
     
     @IBOutlet weak var InformationDisplayArea: NSTextField!
     
-    @IBOutlet weak var ComboBoxOfMenu: NSComboBoxCell!
-    @IBOutlet weak var PlayButton: NSButton!
-    
-    @IBOutlet weak var InforTwo: NSTextField!
-    @IBOutlet weak var InforOne: NSTextField!
-    @IBOutlet weak var InforFive: NSTextField!
-    @IBOutlet weak var InforFour: NSTextField!
-    @IBOutlet weak var InforThree: NSTextField!
-    
+    @IBOutlet weak var imageButtonPlay: NSButton!
+    @IBOutlet weak var imageButtonNext: NSButton!
+    @IBOutlet weak var imageButtonPrevious: NSButton!
+    @IBOutlet weak var ButtonOfPlay: NSButton!
+    var photonumber = 0
+    var PhotoNameList = [String]()
     
     let GetListOfFilesHandler = FindScreenShot()
     
-    var timerCurrentTime = Timer()
-
-//    override func viewDidAppear() {
-//        super.viewDidAppear()
-////        DefaultInformationDisplay()
-////        DefaultDisplayToday()
-////        MultiLineOfPastTime.stringValue = ""
-////        DefaultComboMenu()
-////        timerCurrentTime.invalidate()
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-//    }
-//
-//    override func viewWillAppear() {
-//        //timerCurrentTime.fire()
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-//    }
+    var playImageTimer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //DefaultImageDisplay()
         DefaultInformationDisplay()
         DefaultDisplayToday()
         MultiLineOfPastTime.stringValue = ""
-        MultiLineLabelOfCurrentTime.stringValue = ""
+        MultiLineOfCurrentTime.stringValue = ""
         DefaultComboMenu()
-        print("view did load")
-//        timerCurrentTime.invalidate()
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-//        for i in 99..<101{
-//            sleep(1)
-//            print(i)
-//        }
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = DateFormatter.Style.none
-//        dateFormatter.timeStyle = DateFormatter.Style.medium
-//        dateFormatter.dateFormat = "M-d, HH:mm:ss"
-//        let temp = dateFormatter.string(from: NSDate() as Date)
-//        MultiLineLabelOfCurrentTime.stringValue = temp
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
+        imageButtonSet()
+        // Do view setup here.
     }
+    
     override func viewDidAppear() {
-        print("test")
-//        super.viewDidAppear()
 //        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-        
-//        for i in 0..<2{
-//            print(i)
-//            sleep(1)
-//        }
-//
     }
+    //end of viewDidAppear
     
-
-//    override func viewDidAppear() {
-//         self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-//    }
-    
-    //
-    func InitialInforLabels(){
-        
-    }
-    //show current time
     @objc func CurrentTime(){
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.none
@@ -105,9 +61,16 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         dateFormatter.dateFormat = "M-d, HH:mm:ss"
         let temp = dateFormatter.string(from: NSDate() as Date)
         print(temp)
-        MultiLineLabelOfCurrentTime.stringValue = temp
     }
-    //end of the function of show current time
+    // end of Current Time
+    
+    //
+    func imageButtonSet(){
+        imageButtonPrevious.image = NSImage(named: "Previous")
+        imageButtonNext.image   = NSImage(named: "Next")
+        imageButtonPlay.image = NSImage(named: "PlayIcon")
+    }
+    //
     func DefaultDisplayToday(){
         let ReplayingOneHandler = ReplayingOne()
         PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
@@ -163,6 +126,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         }
         
     }
+    //end of DefaultDisplayToday()
+    
     //
     func DefaultComboMenu(){
         let singularNouns = ["today", "recent 1 hour", "recent 3 hours", "recent 5 hours", "recent 8 hours", "recent 24 hours", "recent 3 days", "recent 5 days", "recent 7 days"]
@@ -171,7 +136,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         //let number = singularNouns.count
         ComboBoxOfMenu.selectItem(at: 0)
     }
+    //end of DefaultComboMenu()
     
+    //
     func DefaultImageDisplay(){
         if DisplayLatestPic() == ""{
             let defaultImage = NSImage(named : "DefaultDisplayImage")
@@ -216,44 +183,27 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = "nil"
             }
         }
-        
-        
     }
+    //end of DefaultImageDisplay()
     
+    //
     func DefaultInformationDisplay(){
         let message = "Good Morning"
         InformationDisplayArea.stringValue = message
         //DisplayFilePath.stringValue = ""
         
     }
-
-
-    @IBAction func TodayPhotoButton(_ sender: Any) {
-        let ReplayingOneHandler = ReplayingOne()
-        PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
-        //let RelatedInformationHandler = RelatedInformation()
-        //ReplayingOneHandler.FetchThreeHours()
-        photonumber = PhotoNameList.count - 1
-        SliderValueSet()
-        //print(Slider.maxValue)
-        Slider.doubleValue = Slider.minValue
-        let photoname = PhotoNameList[Int(Slider.minValue)]
-        let nsImage = NSImage(contentsOfFile: photoname)
-        ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-        ImageDisplayArea.image = nsImage
-        //print(PhotoNameList)
-    }
+    //end of DefaultInformationDisplay()
     
+    //
     func SliderValueSet(){
         let maxvalue = photonumber
-//        print("macvalue")
-//        print(maxvalue)
-//        print(PhotoNameList[0])
         Slider.minValue = 0
         Slider.maxValue = Double(maxvalue)
     }
+    //end of SilderValueSet()
     
-    
+    //
     @IBAction func SliderAction(_ sender: Any) {
         let index = Int((sender as AnyObject).doubleValue)
         // code here
@@ -308,11 +258,10 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         else{
             InforFive.stringValue = "nil"
         }
-        
-        
     }
+    //end if SilderAction()
     
-    
+    //
     @IBAction func PreviousButton(_ sender: Any) {
         let temp = Int(Slider.doubleValue)
         //print(temp)
@@ -357,7 +306,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }
         }
     }
+    // end of PreviousBUtton()
     
+    //
     @IBAction func NextButton(_ sender: Any) {
         let temp = Int(Slider.doubleValue)
         //print(temp)
@@ -402,70 +353,99 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = "nil"
             }
         }
-        
-
     }
+    // end of NextButton()
     
+    //
     
-    @IBAction func PlayButtonClick(_ sender: Any) {
-
-        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
-            self.AutomaticPlayFunc()
+    @IBAction func imageButtonPreviousClick(_ sender: Any) {
+        let temp = Int(Slider.doubleValue)
+        //print(temp)
+        if temp > 0 {
+            let photoname = PhotoNameList[temp - 1]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            Slider.doubleValue -= 1
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            //InformationDisplayArea.stringValue = DicMessage.description
+            if DicMessage["SoftwareName"] != nil{
+                print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                InforFive.stringValue = "nil"
+            }
         }
     }
-    
-    func AutomaticPlayFunc(){
-        if(self.TimerPlayButton.isValid){
-            self.stopPlaying()
-        }
-        else{
-            self.startPlaying()
-        }
-    }
-    
-    func startPlaying(){
-        self.TimerPlayButton = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
-        
-
-    }
-    
-    func printtext(){
-        print("print text")
-    }
-    
-    @objc func PlayNextImage(){
-        print("in the playnextiamge func")
-        if(Int(Slider.doubleValue) < Int(Slider.maxValue)){
-            let index = Int(Slider.doubleValue)
-            let photoname = PhotoNameList[index]
+    @IBAction func imageButtonNextClick(_ sender: Any) {
+        let temp = Int(Slider.doubleValue)
+        //print(temp)
+        if temp < Int(Slider.maxValue) {
+            let photoname = PhotoNameList[temp + 1]
+            //photoname is the path of screenshots
             let nsImage = NSImage(contentsOfFile: photoname)
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = nsImage
             Slider.doubleValue += 1
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            //InformationDisplayArea.stringValue = DicMessage.description
+            if DicMessage["SoftwareName"] != nil{
+                print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                InforFive.stringValue = "nil"
+            }
         }
-        else if(Int(Slider.doubleValue) == Int(Slider.maxValue)){
-            let index = Int(Slider.doubleValue)
-            let photoname = PhotoNameList[index]
-            let nsImage = NSImage(contentsOfFile: photoname)
-            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-            ImageDisplayArea.image = nsImage
-            self.stopPlaying()
-            
-        }
-        else{
-            PlayButton.title = "Stop"
-        }
-        
-    }
-    
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-    }
-    
-    func stopPlaying(){
-        self.TimerPlayButton.invalidate()
-        PlayButton.title = "play"
     }
     //
     func PastTimeHours(hour : Int) -> Array<String>{
@@ -485,6 +465,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         arr.append(temp)
         return arr
     }
+    // end of PastTimeHours()
+    
+    //
     func PastTimeDays(day : Int) -> Array<String>{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.none
@@ -502,11 +485,14 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         arr.append(temp)
         return arr
     }
+    // end of PastTimeDays()
+    
+    //
     func PastTimeToday() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.none
         dateFormatter.timeStyle = DateFormatter.Style.medium
-//        let tempHourValue = (-1) * day
+        //        let tempHourValue = (-1) * day
         let tempdate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
         //let dateString = dateFormatter.string(from: tempdate!)
         //5:06:52 PM
@@ -514,6 +500,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         let date24 = dateFormatter.string(from: tempdate!)
         return date24
     }
+    // end of PstTimeToday()
+    
     //
     func dialogOKCancel(question: String, text: String) {
         let alert = NSAlert()
@@ -524,10 +512,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         //alert.addButton(withTitle: "Cancel")
         //return alert.runModal() == NSAlertFirstButtonReturn
     }
+    //end of dialogOKCancel()
+    
     //
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
         let timeinterval = ComboBoxOfMenu.stringValue
-        timerCurrentTime.invalidate()
         if (timeinterval == "recent 1 hour"){
             let ReplayingOneHandler = ReplayingOne()
             
@@ -546,7 +535,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
@@ -575,7 +564,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
@@ -605,7 +594,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
@@ -621,7 +610,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
             let last = PhotoNameList.count - 1
             print(PhotoNameList)
-           
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -633,7 +622,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
@@ -643,7 +632,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
                 ImageDisplayArea.image = nsImage
             }
-
+            
         }
         else if (timeinterval == "recent 24 hours"){
             //Fetch24Hours()
@@ -664,7 +653,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = startTime
                 MultiLineOfPastTime.stringValue = endTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
@@ -683,7 +672,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let string = PastTimeToday() + "00:00:00"
             let last = PhotoNameList.count - 1
             print(PhotoNameList[0])
-           
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -695,7 +684,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
@@ -706,18 +695,18 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 ImageDisplayArea.image = nsImage
             }
             //let RelatedInformationHandler = RelatedInformation()
-//            photonumber = PhotoNameList.count - 1
-//            SliderValueSet()
-//            Slider.doubleValue = Slider.minValue
-//            let photoname = PhotoNameList[Int(Slider.minValue)]
-//            let nsImage = NSImage(contentsOfFile: photoname)
-//            ImageDisplayArea.image = nsImage
+            //            photonumber = PhotoNameList.count - 1
+            //            SliderValueSet()
+            //            Slider.doubleValue = Slider.minValue
+            //            let photoname = PhotoNameList[Int(Slider.minValue)]
+            //            let nsImage = NSImage(contentsOfFile: photoname)
+            //            ImageDisplayArea.image = nsImage
         }
         else if (timeinterval == "recent 3 days"){
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
             let last = PhotoNameList.count - 1
-           
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -729,7 +718,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
@@ -745,7 +734,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
             let last = PhotoNameList.count - 1
-           
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -757,7 +746,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
@@ -773,7 +762,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let ReplayingOneHandler = ReplayingOne()
             PhotoNameList = ReplayingOneHandler.FetchSevenday() as! [String]
             let last = PhotoNameList.count - 1
-           
+            
             if PhotoNameList.count == 0{
                 print("no photo recorded")
                 let alert = NSAlert.init()
@@ -785,7 +774,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineLabelOfCurrentTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = endTime
                 MultiLineOfPastTime.stringValue = startTime
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
@@ -797,12 +786,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 ImageDisplayArea.image = nsImage
             }
         }
-        
-
         print(timeinterval)
     }
+    //end of TimeIntervalCheckButton()
     
-    
+    //
     func DisplayLatestPic() -> String{
         var finalpath = ""
         let stringArray = GetListOfFilesHandler.GetListOfFiles()
@@ -824,23 +812,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 print(finalPicPath)
                 finalpath = finalPicPath
             }
-           
-            
         }
         return finalpath
     }
+    // end of DisplayLatestPic()
     
-
-    @IBAction func TestButton(_ sender: Any) {
-        
-        let OpenSoftwarehandler = OpenSoftware()
-        OpenSoftwarehandler.openSoftwareBasedInfor(name: InforOne.stringValue, urlAndPath: InforFour.stringValue)
-        //self.dismissViewController(self)
-        //self.preferredMinimumSize
-        
-        self.view.isHidden = true
-        //super.viewDidDisappear()
-    }
     //
     func TimeSubstringFromPhotoName(ScreenshotName : String) -> String{
         //Screenshot-3.6,17:59:00.jpg
@@ -868,8 +844,102 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         print(temp)
         return temp
     }
+    // end of TimeSubstringFromPhotoName()
+    
+    //
+    @IBAction func TestButton(_ sender: Any) {
+        let OpenSoftwarehandler = OpenSoftware()
+        OpenSoftwarehandler.openSoftwareBasedInfor(name: InforOne.stringValue, urlAndPath: InforFour.stringValue)
+        //self.dismissViewController(self)
+
+    }
+    //end of TestButton()
+    
+    // play function starts here
+    @IBAction func PlayButtonAction(_ sender: Any) {
+        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
+            self.AutomaticPlayFunc()
+        }
+    }
+    func AutomaticPlayFunc(){
+        if(self.playImageTimer.isValid){
+            self.stopPlaying()
+        }
+        else{
+            ButtonOfPlay.title = "Pause"
+            imageButtonPlay.image = NSImage(named : "PauseIcon")
+            self.startPlaying()
+        }
+    }
+    func startPlaying(){
+        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: true)
+//        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
+    }
+    func imagePlay(){
+        let temp = Int(Slider.doubleValue)
+        print(temp)
+        if temp < Int(Slider.maxValue) {
+            let photoname = PhotoNameList[temp + 1]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            Slider.doubleValue += 1
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            if DicMessage["SoftwareName"] != nil{
+                print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                InforFive.stringValue = "nil"
+            }
+        }
+        else {
+            self.playImageTimer.invalidate()
+            imageButtonPlay.image = NSImage(named : "PlayIcon")
+            ButtonOfPlay.title = "play end"
+        }
+    }
+    func printtext(){
+        print("print text")
+    }
+    func stopPlaying(){
+        self.playImageTimer.invalidate()
+        imageButtonPlay.image = NSImage(named : "PlayIcon")
+        ButtonOfPlay.title = "play"
+    }
+    //
+    @IBAction func imageButtonPlay(_ sender: Any) {
+        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
+            self.AutomaticPlayFunc()
+        }
+    }
     
     
+    //end of the play function
     
-    //end of the class
+    //end of class
 }

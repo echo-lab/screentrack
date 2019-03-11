@@ -114,20 +114,16 @@ class ScreenShot : NSObject {
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        
-        
-        //output.numberOfItems = 4
-       // let string = output.stringValue is nil
-        let temp = output
         print(String(output.description))
-        //print(output.atIndex(3)?.int32Value)
-        //option("1480")
         if (error != nil) {
             print("error: \(String(describing: error))")
-            let empty = [String]()
-            return empty
+            let positionTemp = positionOfSoftware(AppName : AppName)
+            let sizeTemp = sizeOfSoftware(AppName : AppName, position : positionTemp)
+            //let empty = [String]()
+            print("sizeTemp")
+            print(sizeTemp)
+            return sizeTemp
         }
-        
         else{
             var arr = [String]()
             for i in 1..<5{
@@ -139,17 +135,95 @@ class ScreenShot : NSObject {
                 let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
                 let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
                 let range = newStart..<newEnd
-                
-                
                 arr.append(subStr[range])
             }
             return arr
         }
-
         //let stringvalue = String(arr)
         //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
         //print(output.stringValue)
     }
+    //
+    func sizeOfSoftware(AppName : String, position : Array<Int>) -> Array<String>{
+        var result = [String]()
+        var arr = [Int]()
+        let first = "tell application \"System Events\" to tell application process \""
+        let second = "\" \n get size of window 1 \n end tell"
+        let final = first + AppName + second
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: final)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+            let empty = [String]()
+            return empty
+        }
+        else{
+            for i in 1..<3{
+                let temp = String(describing: output.atIndex(i)?.int32Value)
+                //arr = arr +
+                let start = temp.characters.index(of: "(")!
+                let end = temp.characters.index(of: ")")!
+                let subStr = temp[start..<end]
+                let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+                let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
+                let range = newStart..<newEnd
+                arr.append(Int(subStr[range])!)
+                
+            }
+            //return arr
+        }
+        let screen = NSScreen.main
+        let rect = screen()?.frame
+        let height = Int((rect?.size.height)!)
+        let width = Int((rect?.size.width)!)
+        
+        var tempThreeFactor = arr[0] + position[0]
+        var tempFourFactor = arr[1] + position[1]
+        if tempThreeFactor > width{
+            tempThreeFactor = width
+        }
+        if tempFourFactor > height{
+            tempFourFactor = height
+        }
+        result.append(String(position[0]))
+        result.append(String(position[1]))
+        result.append(String(tempThreeFactor))
+        result.append(String(tempFourFactor))
+        return result
+   
+    }
+    
+    func positionOfSoftware(AppName : String) -> Array<Int>{
+        let first = "tell application \"System Events\" to tell application process \""
+        let second = "\" \n get position of window 1 \n end tell"
+        let final = first + AppName + second
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: final)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        if (error != nil) {
+            print("error: \(String(describing: error))")
+            let empty = [Int]()
+            return empty
+        }
+        else{
+            var arr = [Int]()
+            for i in 1..<3{
+                let temp = String(describing: output.atIndex(i)?.int32Value)
+                //arr = arr +
+                let start = temp.characters.index(of: "(")!
+                let end = temp.characters.index(of: ")")!
+                let subStr = temp[start..<end]
+                let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+                let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
+                let range = newStart..<newEnd
+                arr.append(Int(subStr[range])!)
+            }
+            return arr
+        }
+    }
+    // end of positionOfSoftware()
+    
     
     //end of the class
 }
