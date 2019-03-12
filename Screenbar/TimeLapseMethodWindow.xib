@@ -20,6 +20,7 @@
                 <outlet property="MultiLineOfCurrentTime" destination="GBA-pG-67Y" id="02J-VV-1CB"/>
                 <outlet property="MultiLineOfPastTime" destination="pUV-zy-jcH" id="b9x-7v-K42"/>
                 <outlet property="Slider" destination="WfM-oC-KwL" id="cY6-2C-mzO"/>
+                <outlet property="SliderOfSpeed" destination="Tpe-HU-lK7" id="kPn-8n-Weq"/>
                 <outlet property="imageButtonNext" destination="532-hX-JKH" id="3Ba-7w-wRx"/>
                 <outlet property="imageButtonPlay" destination="kKX-62-gML" id="RHt-YE-FM0"/>
                 <outlet property="imageButtonPrevious" destination="wqL-cn-nQv" id="ybH-0P-HuP"/>
@@ -88,7 +89,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pUV-zy-jcH">
-                    <rect key="frame" x="679" y="57" width="116" height="17"/>
+                    <rect key="frame" x="709" y="57" width="116" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="NB7-hG-eLs">
                         <font key="font" metaFont="system"/>
@@ -97,7 +98,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GBA-pG-67Y">
-                    <rect key="frame" x="820" y="57" width="122" height="17"/>
+                    <rect key="frame" x="840" y="57" width="122" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="B4U-wI-dIE">
                         <font key="font" metaFont="system"/>
@@ -106,7 +107,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AxE-8R-XUw">
-                    <rect key="frame" x="681" y="15" width="121" height="26"/>
+                    <rect key="frame" x="709" y="17" width="121" height="26"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="J1Y-wc-ry7">
                         <font key="font" metaFont="system"/>
@@ -150,7 +151,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88b-ce-xIQ">
-                    <rect key="frame" x="816" y="12" width="59" height="32"/>
+                    <rect key="frame" x="836" y="13" width="59" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <buttonCell key="cell" type="push" title="Ok" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47b-uV-sVa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -161,7 +162,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9b-KQ-aqb">
-                    <rect key="frame" x="883" y="13" width="73" height="32"/>
+                    <rect key="frame" x="893" y="13" width="73" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kxf-KT-Yrw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -224,6 +225,11 @@
                         <action selector="imageButtonPlay:" target="-2" id="Uhx-SC-3GW"/>
                     </connections>
                 </button>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tpe-HU-lK7">
+                    <rect key="frame" x="709" y="75" width="233" height="24"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" continuous="YES" state="on" userInterfaceLayoutDirection="rightToLeft" alignment="left" minValue="0.25" maxValue="3" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="8" sliderType="linear" id="JwD-dk-3wc"/>
+                </slider>
             </subviews>
             <point key="canvasLocation" x="-111" y="52"/>
         </customView>

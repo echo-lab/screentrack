@@ -25,6 +25,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     @IBOutlet weak var Slider: NSSliderCell!
     
+    @IBOutlet weak var SliderOfSpeed: NSSlider!
     @IBOutlet weak var InformationDisplayArea: NSTextField!
     
     @IBOutlet weak var imageButtonPlay: NSButton!
@@ -872,7 +873,8 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     func startPlaying(){
-        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: true)
+        let speed = SliderOfSpeed.floatValue
+        self.playImageTimer = Timer.scheduledTimer(timeInterval: TimeInterval(speed), target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: true)
 //        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
     }
     func imagePlay(){
