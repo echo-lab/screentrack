@@ -14,7 +14,7 @@ class OpenSoftware : NSObject{
     var dictionary : [String : String] = [ "Google Chrome"           : "Browser",
                                            "Safari"                  : "Browser",
                                            "Preview"                 : "Preview",
-                                           //"Acrobat Reader"          : "Preview",
+                                           "Acrobat Reader"          : "Adobe Acrobat Reader DC",
                                            "Pages"                   : "Productivity",
                                            "Numbers"                 : "Productivity",
                                            "Keynots"                 : "Productivity",
@@ -28,33 +28,72 @@ class OpenSoftware : NSObject{
     func openSoftwareBasedInfor(name : String, urlAndPath : String){
         let category = dictionary[name]
         if category == "Browser"{
-            let first = "tell application \""
-            let second = "\" \n open location \""
-            let third = "\" \n end tell"
-            let final = first + name + second + urlAndPath + third
-            AppleScript(script: final)
-            makeFrontmost(name : name)
-            
+            if urlAndPath != nil {
+                let first = "tell application \""
+                let second = "\" \n open location \""
+                let third = "\" \n end tell"
+                let final = first + name + second + urlAndPath + third
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
+            else {
+                let first = "tell application \""
+                let second = "\" \n activate \n end tell"
+                let final = first + name + second
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
         }
         else if category == "Productivity"{
-//            let one = "tell application \""
-//            let two = "\" \n activate \n end tell"
-//            let last = one + name + two
-//            AppleScript(script: last)
-            let first = "tell application \""
-            let second = "\" \n open \""
-            let third = "\" \n end tell"
-            let final = first + name + second + urlAndPath + third
-            AppleScript(script: final)
-            makeFrontmost(name : name)
+            if urlAndPath != nil {
+                let first = "tell application \""
+                let second = "\" \n open \""
+                let third = "\" \n end tell"
+                let final = first + name + second + urlAndPath + third
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
+            else {
+                let first = "tell application \""
+                let second = "\" \n activate \n end tell"
+                let final = first + name + second
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
+           
         }
         else if category == "Preview"{
-            let first = "tell application \""
-            let second = "\" \n open \""
-            let third = "\" \n end tell"
-            let final = first + name + second + stringSub(url : urlAndPath) + third
-            AppleScript(script: final)
-            makeFrontmost(name : name)
+            if urlAndPath.count > 7{
+                let first = "tell application \""
+                let second = "\" \n open \""
+                let third = "\" \n end tell"
+                let final = first + name + second + stringSub(url : urlAndPath) + third
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
+            else {
+                let first = "tell application \""
+                let second = "\" \n activate \n end tell"
+                let final = first + name + second
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
+           
+        }
+        else if category == "Adobe Acrobat Reader DC"{
+            if urlAndPath.count > 7{
+                let first = "tell application \"Adobe Acrobat Reader DC\" \n activate \n open \""
+                let second = "\" \n end tell"
+                let final = first + stringSub(url: urlAndPath) + second
+                AppleScript(script: final)
+                makeFrontmost(name: "Acrobat Reader")
+            }
+            else{
+                let first = "tell application \"Adobe Acrobat Reader DC\" \n activate \n end tell"
+                AppleScript(script: first)
+                makeFrontmost(name: "Acrobat Reader")
+            }
+          
         }
         else{
             let first = "tell application \""

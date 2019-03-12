@@ -123,7 +123,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJ1-If-Kb2">
                     <rect key="frame" x="69" y="15" width="486" height="19"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
-                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="WfM-oC-KwL"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="WfM-oC-KwL"/>
                     <connections>
                         <action selector="SliderAction:" target="-2" id="HXo-bg-Cze"/>
                     </connections>
