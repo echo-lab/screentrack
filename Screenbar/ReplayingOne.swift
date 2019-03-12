@@ -1487,13 +1487,17 @@ class ReplayingOne: NSViewController{
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
+                            var tem = [String]()
                             for j in 0..<number{
+                                
                                 if filelist[j].contains(".jpg"){
                                     let temp = Stringfilepath + "/" + filelist[j]
                                     //means it is a photo, instead of a json file
-                                    PhotoNameArray.append(temp)
+                                    tem.append(temp)
                                 }
                             }
+                            var reverse : [String] = Array(tem.reversed())
+                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
                         } catch {
@@ -1505,7 +1509,7 @@ class ReplayingOne: NSViewController{
             
         }
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     
     //
@@ -1548,13 +1552,16 @@ class ReplayingOne: NSViewController{
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
+                            var tem = [String]()
                             for j in 0..<number{
                                 if filelist[j].contains(".jpg"){
                                     let temp = Stringfilepath + "/" + filelist[j]
                                     //means it is a photo, instead of a json file
-                                    PhotoNameArray.append(temp)
+                                    tem.append(temp)
                                 }
                             }
+                            var reverse : [String] = Array(tem.reversed())
+                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
                         } catch {
@@ -1566,7 +1573,7 @@ class ReplayingOne: NSViewController{
           
         }
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as[String]
     }
     
     //
@@ -1609,15 +1616,18 @@ class ReplayingOne: NSViewController{
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
+                            var tem = [String]()
                             for j in 0..<number{
                                 if filelist[j].contains(".jpg"){
                                     let temp = Stringfilepath + "/" + filelist[j]
                                     //means it is a photo, instead of a json file
-                                    PhotoNameArray.append(temp)
+                                    tem.append(temp)
                                 }
                             }
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
+                            var reverse : [String] = Array(tem.reversed())
+                           PhotoNameArray += reverse
                         } catch {
                             print(error)
                         }
@@ -1627,7 +1637,7 @@ class ReplayingOne: NSViewController{
             
         }
         
-        return PhotoNameArray
+        return PhotoNameArray.reversed() as [String]
     }
     // get the current time
     //useless, change to following two functions
