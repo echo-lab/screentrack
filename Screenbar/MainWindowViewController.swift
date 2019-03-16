@@ -12,10 +12,13 @@ protocol buttonchange {
 struct MyVariables {
     static var yourVariable = "someString"
     static var jsonpath : URL = URL(string: "https://www.apple.com")!
+    static var errorPath : URL = URL(string: "https://www.apple.com")!
 }
 
 let string = MyVariables.yourVariable
 var jpath = MyVariables.jsonpath
+var erpath = MyVariables.errorPath
+
 
 
 @available(OSX 10.13, *)
@@ -50,6 +53,7 @@ class MainWindowViewController: NSViewController {
     let mouselocatinoHandler = DetectMousePosition()
     let openfileinforHandler = openfile()
     let jsonfileHandler = json()
+    let errorfileHandler = errorFile()
     let appdelegateHandler = AppDelegate()
     
 
@@ -247,6 +251,7 @@ class MainWindowViewController: NSViewController {
             //print(SessionNumber.count)
             Settings.PathCreate()
             jpath = jsonfileHandler.createjson(filepath: URL(string: MyVariables.yourVariable)!)
+            erpath = errorfileHandler.createError(filepath: URL(string: MyVariables.yourVariable)!)
             //print(MyVariables.yourVariable)
             ///Users/donghanhu/Documents/Reflect/2019-2-23-1
             appdelegateHandler.changeicon()

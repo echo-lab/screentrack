@@ -67,18 +67,6 @@ class classify : NSObject{
                     }
                     else{
                         print("json file has other data inside")
-//                        //read insdie data out
-//                        if FileManager.default.fileExists(atPath: jpath.absoluteString){
-//                            var err:NSError?
-//                            if let fileHandle = FileHandle(forWritingAtPath: jpath.absoluteString){
-//                                fileHandle.seekToEndOfFile()
-//                                fileHandle.write(jsonData)
-//                                fileHandle.closeFile()
-//                            }
-//                            else {
-//                                print("Can't open fileHandle \(String(describing: err))")
-//                            }
-//                        }
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
@@ -445,6 +433,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -468,6 +457,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -492,6 +482,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         //print(output.stringValue)
@@ -516,6 +507,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -534,6 +526,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -551,6 +544,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -567,6 +561,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -583,6 +578,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -604,6 +600,7 @@ class classify : NSObject{
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(output.stringValue)
         if (error != nil) {
+            writeError(error : error!)
             print("error: \(String(describing: error))")
         }
         if output.stringValue == nil{
@@ -613,7 +610,20 @@ class classify : NSObject{
         else { return (output.stringValue?.description)!}
         //return (output.stringValue?.description)!
     }
-
+    
+    //
+    func writeError(error : NSDictionary){
+        let path = "file://" + erpath.absoluteString
+        let URLpath = NSURL(string : path)
+        let currentTime = Date().description(with: .current)
+        let errorDescription = error.description
+        let result = currentTime + "\n" + errorDescription
+        do {
+            try result.write(to: URLpath as! URL, atomically: false, encoding: .utf8)
+        }
+        catch {
+        }
+    }
     
     
     //end of the class

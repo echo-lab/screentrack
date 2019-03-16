@@ -84,7 +84,7 @@ class JsondataAfterTracking : NSObject{
         do {
             let filelist = try FileManager.default.contentsOfDirectory(atPath: SessionFolderPath)
             //print(filelist)
-            let number = filelist.count - 1
+            let number = filelist.count - 2
             //print(number)
             return number
             //print(number)

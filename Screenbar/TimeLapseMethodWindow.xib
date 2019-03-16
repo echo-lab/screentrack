@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TimeLapseMethodWindow" customModule="Screenbar" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TimeLapseMethodWindow" customModule="Reflector" customModuleProvider="target">
             <connections>
                 <outlet property="ButtonOfPlay" destination="Tx2-5t-8aK" id="rPk-UP-DhA"/>
                 <outlet property="ComboBoxOfMenu" destination="AxE-8R-XUw" id="Uwb-iI-sOa"/>
@@ -34,7 +34,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67v-Qq-zTa">
-                    <rect key="frame" x="20" y="77" width="648" height="583"/>
+                    <rect key="frame" x="20" y="115" width="648" height="545"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Lgc-W5-vb3"/>
                 </imageView>
@@ -89,7 +89,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pUV-zy-jcH">
-                    <rect key="frame" x="709" y="57" width="116" height="17"/>
+                    <rect key="frame" x="589" y="57" width="116" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="NB7-hG-eLs">
                         <font key="font" metaFont="system"/>
@@ -215,7 +215,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kKX-62-gML">
-                    <rect key="frame" x="633" y="36" width="28" height="28"/>
+                    <rect key="frame" x="640" y="36" width="28" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KQN-RB-glH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -226,10 +226,55 @@
                     </connections>
                 </button>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tpe-HU-lK7">
-                    <rect key="frame" x="709" y="75" width="233" height="24"/>
+                    <rect key="frame" x="88" y="59" width="233" height="24"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" continuous="YES" state="on" userInterfaceLayoutDirection="rightToLeft" alignment="left" minValue="0.25" maxValue="3" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="8" sliderType="linear" id="JwD-dk-3wc"/>
+                    <sliderCell key="cell" continuous="YES" state="on" userInterfaceLayoutDirection="rightToLeft" alignment="left" minValue="0.083000000000000004" maxValue="1" doubleValue="0.5" tickMarkPosition="above" numberOfTickMarks="8" sliderType="linear" id="JwD-dk-3wc"/>
                 </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xbA-ea-cDP">
+                    <rect key="frame" x="6" y="63" width="78" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Play Speed" id="qLS-Aa-KDZ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aki-hl-XvM">
+                    <rect key="frame" x="470" y="57" width="100" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Oldest pic time:" id="MO8-3U-jNh">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wNy-jT-1xz">
+                    <rect key="frame" x="721" y="57" width="105" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Newest pic time:" id="Req-MC-8kc">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MlD-TB-4EK">
+                    <rect key="frame" x="296" y="81" width="61" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.25s/pic" id="sSs-ci-Ffo">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZXy-Yp-VjC">
+                    <rect key="frame" x="69" y="81" width="49" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3s/pics" id="ChS-WP-tsE">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="-111" y="52"/>
         </customView>

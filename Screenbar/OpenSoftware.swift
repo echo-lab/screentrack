@@ -10,6 +10,7 @@ import Foundation
 
 
 class OpenSoftware : NSObject{
+    let errorHandler = errorFile()
     
     var dictionary : [String : String] = [ "Google Chrome"           : "Browser",
                                            "Safari"                  : "Browser",
@@ -124,6 +125,7 @@ class OpenSoftware : NSObject{
         let scriptObject = NSAppleScript(source: final)
         scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
+            errorHandler.writeError(error : error!)
             print("error: \(String(describing: error))")
         }
     }
@@ -135,6 +137,7 @@ class OpenSoftware : NSObject{
         scriptObject!.executeAndReturnError(&error)
         //let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
+            errorHandler.writeError(error : error!)
             print("error: \(String(describing: error))")
         }
     }

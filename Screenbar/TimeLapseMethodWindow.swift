@@ -155,6 +155,7 @@ class TimeLapseMethodWindow: NSViewController {
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: DisplayLatestPic())
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
+            defaultSliderValue()
             if DicMessage["SoftwareName"] != nil{
                 print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
@@ -197,6 +198,12 @@ class TimeLapseMethodWindow: NSViewController {
     //end of DefaultInformationDisplay()
     
     //
+    func defaultSliderValue(){
+        Slider.minValue = 0.0
+        Slider.maxValue = 0.0
+    }
+    //end of default slider value set
+    //
     func SliderValueSet(){
         let maxvalue = photonumber
         Slider.minValue = 0
@@ -207,58 +214,63 @@ class TimeLapseMethodWindow: NSViewController {
     //
     @IBAction func SliderAction(_ sender: Any) {
         let index = Int((sender as AnyObject).doubleValue)
-        // code here
-        let photoname = PhotoNameList[index]
-        //print(photoname)
-        //photo name is the silder's current position corresponding photo
-        //photo name is paht now
-        let nsImage = NSImage(contentsOfFile: photoname)
-        //print(photoname)
-        ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-        ImageDisplayArea.image = nsImage
-        //ImageDisplayArea.image = nsImage as? NSImage
-        
-        //photoname is the name of screenshot, full path
-        let RelatedInformationHandler = RelatedInformation()
-        //json path
-        let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
-        //Correspoing screenshots file name, "Screenshot-11.26.35 PM.jpg"
-        let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
-        //print(JsonFilePath)
-        //print(ImageName)
-        let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-        //print(DicMessage)
-        //DicMessage.description
-        //InformationDisplayArea.textStorage?.append(NSAttributedString(string: DicMessage.description))
-        //InformationDisplayArea.stringValue = DicMessage.description
-        if DicMessage["SoftwareName"] != nil{
-            print(DicMessage["SoftwareName"])
-            InforOne.stringValue = DicMessage["SoftwareName"] as! String
-        }
-        if DicMessage["PhotoName"] != nil{
-            InforTwo.stringValue = DicMessage["PhotoName"] as! String
-        }
-        if DicMessage["category"] != nil{
-            InforThree.stringValue = DicMessage["category"] as! String
-        }
-        if DicMessage["FilePath"] != nil{
-            InforFour.stringValue = DicMessage["FilePath"] as! String
-        }
-        else if DicMessage["FrontmostPageUrl"] != nil{
-            InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+        if PhotoNameList != []{
+            let photoname = PhotoNameList[index]
+            //print(photoname)
+            //photo name is the silder's current position corresponding photo
+            //photo name is paht now
+            let nsImage = NSImage(contentsOfFile: photoname)
+            //print(photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            //ImageDisplayArea.image = nsImage as? NSImage
+            
+            //photoname is the name of screenshot, full path
+            let RelatedInformationHandler = RelatedInformation()
+            //json path
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            //Correspoing screenshots file name, "Screenshot-11.26.35 PM.jpg"
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            //print(JsonFilePath)
+            //print(ImageName)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            //print(DicMessage)
+            //DicMessage.description
+            //InformationDisplayArea.textStorage?.append(NSAttributedString(string: DicMessage.description))
+            //InformationDisplayArea.stringValue = DicMessage.description
+            if DicMessage["SoftwareName"] != nil{
+                print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                InforFive.stringValue = "nil"
+            }
         }
         else{
-            InforFour.stringValue = "null"
+            
         }
-        if DicMessage["FrontmostPageTitle"] != nil{
-            InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
-        }
-        else if DicMessage["FileName"] != nil{
-            InforFive.stringValue = DicMessage["FileName"] as! String
-        }
-        else{
-            InforFive.stringValue = "nil"
-        }
+
     }
     //end if SilderAction()
     
@@ -520,7 +532,6 @@ class TimeLapseMethodWindow: NSViewController {
         let timeinterval = ComboBoxOfMenu.stringValue
         if (timeinterval == "recent 1 hour"){
             let ReplayingOneHandler = ReplayingOne()
-            
             PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
             let last = PhotoNameList.count - 1
             

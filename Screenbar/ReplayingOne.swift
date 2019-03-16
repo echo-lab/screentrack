@@ -1764,7 +1764,7 @@ class ReplayingOne: NSViewController{
     //
     func ReturnHour(str : String) -> Int{
         print(str)
-        let start = str.index(str.startIndex, offsetBy: 9)
+        let start = str.index(str.startIndex, offsetBy: 10)
         let end = str.index(str.endIndex, offsetBy: -6)
         let range = start..<end
         let mySubstring = str[range]

@@ -88,7 +88,7 @@ class ScreenShot : NSObject {
         //self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         var dateString = self.dateFormatter.string(from: date)
-        print(dateString)
+        //print(dateString)
         //5:06:52 PM
         //let calendar = Calendar.current
         

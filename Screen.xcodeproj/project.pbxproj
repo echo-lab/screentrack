@@ -23,6 +23,7 @@
 		EA2A381922206678008D5EDD /* Method_Two_Display_ViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */; };
 		EA2A381A22206678008D5EDD /* Method_Two_Display_ViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */; };
 		EA2C56C721FE481900178AFF /* folderName.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2C56C621FE481900178AFF /* folderName.plist */; };
+		EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */; };
 		EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */; };
 		EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */; };
 		EA8AF31822079CA200D343E3 /* method_one.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF31722079CA200D343E3 /* method_one.xib */; };
@@ -63,6 +64,7 @@
 		EA2A381722206678008D5EDD /* Method_Two_Display_ViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two_Display_ViewControl.swift; sourceTree = "<group>"; };
 		EA2A381822206678008D5EDD /* Method_Two_Display_ViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Method_Two_Display_ViewControl.xib; sourceTree = "<group>"; };
 		EA2C56C621FE481900178AFF /* folderName.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = folderName.plist; sourceTree = "<group>"; };
+		EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateErrorFile.swift; sourceTree = "<group>"; };
 		EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplication.swift; sourceTree = "<group>"; };
 		EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontMostApplication.swift; sourceTree = "<group>"; };
 		EA8AF31722079CA200D343E3 /* method_one.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = method_one.xib; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				EA0F54F32230A1920040CB4F /* OpenSoftware.swift */,
 				EAF0DAD02236EDB800533A9C /* TimeLapseMethodWindow.swift */,
 				EAF0DAD12236EDB800533A9C /* TimeLapseMethodWindow.xib */,
+				EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				EAF5EFE1220E3C2900BDBF7D /* Method_One_Display_Window.swift in Sources */,
 				3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */,
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,
+				EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */,
 				EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */,
 				EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */,
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
@@ -401,8 +405,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Screenbar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.Screenbar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = se.Screen;
+				PRODUCT_NAME = Reflector;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -414,8 +418,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Screenbar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.Screenbar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = se.Screen;
+				PRODUCT_MODULE_NAME = Reflector;
+				PRODUCT_NAME = Reflector;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
