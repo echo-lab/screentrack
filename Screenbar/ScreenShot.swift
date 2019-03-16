@@ -23,9 +23,12 @@ class ScreenShot : NSObject {
         var arguments = [String]();
         
         // whether have sound or not
+        // ==0, dont play sound
+        
         if(Settings.getPlaySound() == 0) {
             arguments.append("-x")
         }
+        
         // set the screenshot name
         // using the getpath funcion in Setting.swift
         //MyVariables.yourVariable
@@ -186,8 +189,20 @@ class ScreenShot : NSObject {
         if tempFourFactor > height{
             tempFourFactor = height
         }
-        result.append(String(position[0]))
-        result.append(String(position[1]))
+        if position[0] < 0{
+            result.append(String(0))
+        }
+        else{
+           result.append(String(position[0]))
+        }
+        if position[1] < 0{
+            result.append(String(0))
+        }
+        else{
+            result.append(String(position[1]))
+        }
+        //result.append(String(position[0]))
+        //result.append(String(position[1]))
         result.append(String(tempThreeFactor))
         result.append(String(tempFourFactor))
         return result

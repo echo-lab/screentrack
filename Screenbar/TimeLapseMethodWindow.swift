@@ -952,6 +952,274 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     
+    @IBAction func MenuBoxOptionAction(_ sender: Any) {
+        let timeinterval = ComboBoxOfMenu.stringValue
+        if (timeinterval == "recent 1 hour"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
+            let last = PhotoNameList.count - 1
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 1 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+                
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "recent 5 hours"){
+            let ReplayingOneHandler = ReplayingOne()
+            
+            PhotoNameList = ReplayingOneHandler.FetchFiveHours() as! [String]
+            let last = PhotoNameList.count - 1
+            //ReplayingOneHandler.FetchThreeHours()
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 5 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "recent 3 hours"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchThreeHours() as! [String]
+            //print(PhotoNameList)
+            let last = PhotoNameList.count - 1
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 3 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "recent 8 hours"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
+            let last = PhotoNameList.count - 1
+            print(PhotoNameList)
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 8 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+            
+        }
+        else if (timeinterval == "recent 24 hours"){
+            //Fetch24Hours()
+            let ReplayingOneHandler = ReplayingOne()
+            
+            PhotoNameList = ReplayingOneHandler.Fetch24Hours() as! [String]
+            let last = PhotoNameList.count - 1
+            
+            //MultiLineOfPastTime.stringValue = startTime
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 24 hour, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = startTime
+                MultiLineOfPastTime.stringValue = endTime
+                photonumber = PhotoNameList.count - 1
+                print(photonumber)
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+            
+        }
+        else if (timeinterval == "today"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
+            let string = PastTimeToday() + "00:00:00"
+            let last = PhotoNameList.count - 1
+            print(PhotoNameList[0])
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded today, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+            //let RelatedInformationHandler = RelatedInformation()
+            //            photonumber = PhotoNameList.count - 1
+            //            SliderValueSet()
+            //            Slider.doubleValue = Slider.minValue
+            //            let photoname = PhotoNameList[Int(Slider.minValue)]
+            //            let nsImage = NSImage(contentsOfFile: photoname)
+            //            ImageDisplayArea.image = nsImage
+        }
+        else if (timeinterval == "recent 3 days"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
+            let last = PhotoNameList.count - 1
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 3 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                print(photonumber)
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "recent 5 days"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
+            let last = PhotoNameList.count - 1
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 5 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                print(photonumber)
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+        else if (timeinterval == "recent 7 days"){
+            let ReplayingOneHandler = ReplayingOne()
+            PhotoNameList = ReplayingOneHandler.FetchSevenday() as! [String]
+            let last = PhotoNameList.count - 1
+            
+            if PhotoNameList.count == 0{
+                print("no photo recorded")
+                let alert = NSAlert.init()
+                alert.messageText = "Hello"
+                alert.informativeText = "No photo recorded from last 7 days, this image is the last screenshot"
+                alert.addButton(withTitle: "OK")
+                //alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }else{
+                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                MultiLineOfCurrentTime.stringValue = endTime
+                MultiLineOfPastTime.stringValue = startTime
+                photonumber = PhotoNameList.count - 1
+                print(photonumber)
+                SliderValueSet()
+                Slider.doubleValue = Slider.maxValue
+                let photoname = PhotoNameList[Int(Slider.maxValue)]
+                let nsImage = NSImage(contentsOfFile: photoname)
+                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+                ImageDisplayArea.image = nsImage
+            }
+        }
+    }
     @IBAction func CloseWindow(_ sender: Any) {
          self.view.window?.windowController?.close()
     }

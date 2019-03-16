@@ -6,10 +6,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SettingsViewController" customModule="Screenbar" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="SettingsViewController" customModule="Reflector" customModuleProvider="target">
             <connections>
                 <outlet property="CaptureScreenshot" destination="rTx-F5-rC0" id="56q-V9-5yR"/>
                 <outlet property="CompressRateLabel" destination="o6C-Zi-lf9" id="t96-c4-HQa"/>
+                <outlet property="DetectSwitchCheckButton" destination="Cln-Xn-w6y" id="Qsl-xI-yed"/>
                 <outlet property="TimeInterval" destination="GeN-TK-VLJ" id="kmm-vy-KUq"/>
                 <outlet property="TimeIntervalTwo" destination="2DB-bI-CmT" id="tzu-xl-cFR"/>
                 <outlet property="errorMessage" destination="KWl-fd-KYO" id="yw4-AI-c8O"/>
@@ -130,7 +131,7 @@
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-uC-Yve">
-                    <rect key="frame" x="68" y="160" width="210" height="19"/>
+                    <rect key="frame" x="68" y="148" width="210" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="1051.4285714285716" tickMarkPosition="above" sliderType="linear" id="x5I-6o-PHs">
                         <connections>
@@ -139,7 +140,7 @@
                     </sliderCell>
                 </slider>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W22-7E-B0u">
-                    <rect key="frame" x="304" y="160" width="89" height="17"/>
+                    <rect key="frame" x="304" y="150" width="89" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="720" id="o6C-Zi-lf9">
                         <font key="font" metaFont="system"/>
@@ -191,8 +192,16 @@
                         <action selector="TimeLapseWindow:" target="-2" id="nPe-TC-lJb"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cln-Xn-w6y">
+                    <rect key="frame" x="283" y="173" width="180" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Detect switching software" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="OXS-mR-cTe">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="-3260" y="-149"/>
+            <point key="canvasLocation" x="-3260.5" y="-149.5"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="tHd-At-aMH"/>
     </objects>

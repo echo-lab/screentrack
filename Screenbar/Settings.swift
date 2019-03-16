@@ -19,6 +19,8 @@ class Settings : NSObject {
     //width
     static var TimeIntervalSecondTwo = "intervalsecondstwo"
     //
+    static var detectSwitchKey = "detectSwitch"
+    
     static var ImageHeight = "height"
     static var ImageWidth = "width"
     static var SessionKey = "session"
@@ -195,6 +197,21 @@ class Settings : NSObject {
         }
         return state!;
     }
+    //end of set play sound or not
+    static func setDetectSwitch(_ state: Int?){
+        let defaults = UserDefaults.standard
+        defaults.set(state, forKey: detectSwitchKey)
+    }
+    static func getDetectSwitch() -> Int{
+        let defaults = UserDefaults.standard
+        var state : Int? = defaults.integer(forKey: detectSwitchKey)
+        // default is no sound
+        if(state == nil) {
+            state = 0;
+        }
+        return state!;
+    }
+    //end of set play sound or not
     
     static func setSession(){
         let defaults = UserDefaults.standard

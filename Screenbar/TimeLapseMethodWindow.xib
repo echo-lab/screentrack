@@ -120,6 +120,9 @@
                             <string>Item 3</string>
                         </objectValues>
                     </comboBoxCell>
+                    <connections>
+                        <action selector="MenuBoxOptionAction:" target="-2" id="tO1-IG-STL"/>
+                    </connections>
                 </comboBox>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJ1-If-Kb2">
                     <rect key="frame" x="69" y="15" width="486" height="19"/>

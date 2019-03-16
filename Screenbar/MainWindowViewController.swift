@@ -41,6 +41,7 @@ class MainWindowViewController: NSViewController {
     @IBOutlet weak var CompressRateLabel: NSTextFieldCell!
     
     var timerScreenshot: Timer = Timer()
+    @IBOutlet weak var DetectSwitchCheckButton: NSButton!
     var timerFrontmost: Timer = Timer()
     var timerCurrentAppList: Timer = Timer()
     
@@ -160,6 +161,11 @@ class MainWindowViewController: NSViewController {
     
     // show error
     // what error?
+    func setDetectSwitch(){
+        self.DetectSwitchCheckButton.state = Settings.getDetectSwitch()
+    }
+    //
+    
     func showError() {
         self.errorMessage.isHidden = false
     }
@@ -172,13 +178,14 @@ class MainWindowViewController: NSViewController {
     
     
     //pass these three parameters into corresponding functions
-    func saveSettings(_ seconds: Double?, path: URL?, playSound: Int, height: Int) {
+    func saveSettings(_ seconds: Double?, path: URL?, playSound: Int, height: Int, DetectSwitchCheckButton: Int) {
         Settings.setSecondsIntervall(seconds)
         //print("in savesetting")
         //print(path)
         Settings.setPath(path)
         Settings.setPlaySound(playSound)
         Settings.setImageCompressHeight(height)
+        Settings.setDetectSwitch(DetectSwitchCheckButton)
         
     }
 
@@ -215,6 +222,7 @@ class MainWindowViewController: NSViewController {
         let seconds : Double? = Double(self.secondsTextBox.stringValue)
         let path: URL? = self.path
         let playSound = self.playSound.state
+        let DetectSwitchCheckButton = self.DetectSwitchCheckButton.state
         let height = self.CompressRateLabel.stringValue
         
         if(seconds == nil) || (seconds == 0) {
@@ -223,7 +231,7 @@ class MainWindowViewController: NSViewController {
         }
         else {
             self.hideError()
-            self.saveSettings(seconds, path: path, playSound: playSound, height: Int(height)!)
+            self.saveSettings(seconds, path: path, playSound: playSound, height: Int(height)!, DetectSwitchCheckButton: DetectSwitchCheckButton)
         }
         return success;
     }
@@ -278,7 +286,10 @@ class MainWindowViewController: NSViewController {
         self.timerScreenshot = Timer.scheduledTimer(timeInterval: seconds!, target: screenshotHandler, selector: #selector(ScreenShot.take), userInfo: nil, repeats: true)
         
         // useful
-        self.timerFrontmost = Timer.scheduledTimer(timeInterval: 3.0, target: frontmostappHandler, selector: #selector(FrontmostApp.DetectFrontMostApp), userInfo: nil, repeats: true)
+        
+        if (Settings.getDetectSwitch() == 1){
+            self.timerFrontmost = Timer.scheduledTimer(timeInterval: 3.0, target: frontmostappHandler, selector: #selector(FrontmostApp.DetectFrontMostApp), userInfo: nil, repeats: true)
+        }
         //print("running apps")
         
         //self.timerCurrentAppList = Timer.scheduledTimer(timeInterval: 3.0, target: currentappHandler, selector: #selector(CurrentApplicationData.CurrentApplicationInfo), userInfo: nil, repeats: true)
