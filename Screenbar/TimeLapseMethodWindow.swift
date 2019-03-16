@@ -28,6 +28,7 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var SliderOfSpeed: NSSlider!
     @IBOutlet weak var InformationDisplayArea: NSTextField!
     
+    @IBOutlet weak var CloseWindowButton: NSButton!
     @IBOutlet weak var imageButtonPlay: NSButton!
     @IBOutlet weak var imageButtonNext: NSButton!
     @IBOutlet weak var imageButtonPrevious: NSButton!
@@ -951,6 +952,9 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     
+    @IBAction func CloseWindow(_ sender: Any) {
+         self.view.window?.windowController?.close()
+    }
     
     //end of the play function
     

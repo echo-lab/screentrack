@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TimeLapseMethodWindow" customModule="Reflector" customModuleProvider="target">
             <connections>
                 <outlet property="ButtonOfPlay" destination="Tx2-5t-8aK" id="rPk-UP-DhA"/>
+                <outlet property="CloseWindowButton" destination="dEo-yx-mbP" id="Lau-y4-EIl"/>
                 <outlet property="ComboBoxOfMenu" destination="AxE-8R-XUw" id="Uwb-iI-sOa"/>
                 <outlet property="ImageDisplayArea" destination="67v-Qq-zTa" id="aiB-WD-PaI"/>
                 <outlet property="InforFive" destination="oUk-fj-RPz" id="EM3-cF-kEQ"/>
@@ -275,6 +276,17 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEo-yx-mbP">
+                    <rect key="frame" x="888" y="72" width="75" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vek-48-1EN">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="CloseWindow:" target="-2" id="amM-xd-QwV"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-111" y="52"/>
         </customView>
