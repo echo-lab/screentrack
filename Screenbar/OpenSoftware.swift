@@ -125,6 +125,7 @@ class OpenSoftware : NSObject{
         let scriptObject = NSAppleScript(source: final)
         scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
+            //let errorHandler = errorFile()
             errorHandler.writeError(error : error!)
             print("error: \(String(describing: error))")
         }

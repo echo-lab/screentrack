@@ -35,6 +35,7 @@ class MainWindowViewController: NSViewController {
     @IBOutlet weak var TimeInterval: NSTextField!
     @IBOutlet weak var TimeIntervalTwo: NSTextFieldCell!
     
+    @IBOutlet weak var CompressionSlider: NSSlider!
     
     
     // A timer that fires after a certain time interval has elapsed, sending a specified message to a target object
@@ -78,6 +79,7 @@ class MainWindowViewController: NSViewController {
         self.setImageHeight()
         self.setImageWidth()
         self.hideError()
+        self.compressionSliderValueSet()
         //self.setPath()
         //appdelegateHandler.SessionCounter(counter: 0)
         let defaults = UserDefaults.standard
@@ -330,8 +332,17 @@ class MainWindowViewController: NSViewController {
     
     //click button for the display method one
     
+    //
+    func compressionSliderValueSet(){
+        let screen = NSScreen.main
+        let rect = screen()?.frame
+        //let height = Int((rect?.size.height)!)
+        let width = Int((rect?.size.width)!)
+        CompressionSlider.minValue = Double(width / 6)
+        CompressionSlider.maxValue = Double(width)
+    }
 
-    
+    //
     @IBAction func Visual_One(_ sender: Any) {
         
         let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()

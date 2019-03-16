@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="CaptureScreenshot" destination="rTx-F5-rC0" id="56q-V9-5yR"/>
                 <outlet property="CompressRateLabel" destination="o6C-Zi-lf9" id="t96-c4-HQa"/>
+                <outlet property="CompressionSlider" destination="gM7-uC-Yve" id="g6Y-PD-qtV"/>
                 <outlet property="DetectSwitchCheckButton" destination="Cln-Xn-w6y" id="Qsl-xI-yed"/>
                 <outlet property="TimeInterval" destination="GeN-TK-VLJ" id="kmm-vy-KUq"/>
                 <outlet property="TimeIntervalTwo" destination="2DB-bI-CmT" id="tzu-xl-cFR"/>
@@ -133,7 +134,7 @@
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-uC-Yve">
                     <rect key="frame" x="68" y="148" width="210" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="1051.4285714285716" tickMarkPosition="above" sliderType="linear" id="x5I-6o-PHs">
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="995.18353174603169" tickMarkPosition="above" sliderType="linear" id="x5I-6o-PHs">
                         <connections>
                             <action selector="CompressSilder:" target="-2" id="sOf-BE-msA"/>
                         </connections>

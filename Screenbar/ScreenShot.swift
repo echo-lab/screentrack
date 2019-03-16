@@ -40,6 +40,7 @@ class ScreenShot : NSObject {
         let OriginialimageName = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
         _ = " \"" +  MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg" + " \""
         let OriginialimageNameFullPath = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
+        
 //        let OriginialimageName = Settings.getPath().path + "/Screenshot-" + dateString + ".jpg"
 //        _ = " \"" +  Settings.getPath().path + "/Screenshot-" + dateString + ".jpg" + " \""
 //        let OriginialimageNameFullPath =   Settings.getPath().path + "/Screenshot-" + dateString + ".jpg"
@@ -73,12 +74,15 @@ class ScreenShot : NSObject {
         
         let url = URL(string: urlStr as String)
         ImageCompressHandler.resize(image: Newimage!
-            , imagenameaddress:url!
-            , fullpath: OriginialimageNameFullPath
-            , hei: Settings.getImageCompressWidth()!/2
-            , wi: Settings.getImageCompressHeight()!/2
-        )
-        
+                , imagenameaddress:url!
+                , fullpath: OriginialimageNameFullPath
+                , hei: Settings.getImageCompressWidth()!/2
+                , wi: Settings.getImageCompressHeight()!/2
+            )
+//        catch{
+//            let errorHandler = errorFile()
+//            errorHandler.writeError(error : error as! NSDictionary)
+//        }
         
     }
     
