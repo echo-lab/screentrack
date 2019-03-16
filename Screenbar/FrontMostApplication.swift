@@ -19,9 +19,10 @@ class FrontmostApp : NSObject{
         let tempName = (NSWorkspace.shared().frontmostApplication?.localizedName)!
         //let frontmostinfo = NSWorkspace.shared().frontmostApplication?.
         //print(frontmostinfo ?? "none")
+        //print(tempName)
         let characterSet = CharacterSet(charactersIn: "com.")
         let AfterTrimResult = tempName.trimmingCharacters(in: characterSet)
-        CurrentFrontMostApp = AfterTrimResult
+        CurrentFrontMostApp = tempName
         print("initial current app name is:")
         print(CurrentFrontMostApp)
     }
