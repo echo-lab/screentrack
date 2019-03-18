@@ -36,23 +36,25 @@ class FrontmostApp : NSObject{
         let characterSet = CharacterSet(charactersIn: "com.")
         let AfterTrimResult = DetectFrontMostAppName?.trimmingCharacters(in: characterSet)
         //print(AfterTrimResult ?? "nil result")
-        
-        if CurrentFrontMostApp != AfterTrimResult{
+        if CurrentFrontMostApp != DetectFrontMostAppName {
+        //if CurrentFrontMostApp != AfterTrimResult{
             //sleep(1.5)
             let temp = NSWorkspace.shared().frontmostApplication?.localizedName
-            if AfterTrimResult == temp {
+            //if AfterTrimResult == temp {
+            if DetectFrontMostAppName == temp {
                 ScreenshotHandler.take()
                 print(CurrentFrontMostApp)
-                print(AfterTrimResult ?? "none")
+                print(DetectFrontMostAppName ?? "none")
                 print("frontmost app changed and caputre")
-                CurrentFrontMostApp = AfterTrimResult!
+                //CurrentFrontMostApp = AfterTrimResult!
+                CurrentFrontMostApp = DetectFrontMostAppName!
             }
             else{
                 //AfterTrimResult != temp, means 1.5s later, switch a new software
                 //
                 ScreenshotHandler.take()
                 CurrentFrontMostApp = temp!
-                print(AfterTrimResult ?? "none")
+                print(DetectFrontMostAppName ?? "none")
                 print("frontmost app changed and caputre")
             }
 //            print(CurrentFrontMostApp)

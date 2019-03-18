@@ -865,8 +865,11 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         let newEnd = subStr.index(subStr.endIndex, offsetBy : -1)
         let range = newStart..<newEnd
         let temp = subStr[range]
-        print(temp)
+        //print(temp)
+        
+        
         return temp
+        
     }
     
     

@@ -276,98 +276,98 @@ class TimeLapseMethodWindow: NSViewController {
     //end if SilderAction()
     
     //
-    @IBAction func PreviousButton(_ sender: Any) {
-        let temp = Int(Slider.doubleValue)
-        //print(temp)
-        if temp > 0 {
-            let photoname = PhotoNameList[temp - 1]
-            let nsImage = NSImage(contentsOfFile: photoname)
-            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-            ImageDisplayArea.image = nsImage
-            Slider.doubleValue -= 1
-            let RelatedInformationHandler = RelatedInformation()
-            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
-            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
-            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            //InformationDisplayArea.stringValue = DicMessage.description
-            if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
-                InforOne.stringValue = DicMessage["SoftwareName"] as! String
-            }
-            if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
-            }
-            if DicMessage["category"] != nil{
-                InforThree.stringValue = DicMessage["category"] as! String
-            }
-            if DicMessage["FilePath"] != nil{
-                InforFour.stringValue = DicMessage["FilePath"] as! String
-            }
-            else if DicMessage["FrontmostPageUrl"] != nil{
-                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
-            }
-            else{
-                InforFour.stringValue = "null"
-            }
-            if DicMessage["FrontmostPageTitle"] != nil{
-                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
-            }
-            else if DicMessage["FileName"] != nil{
-                InforFive.stringValue = DicMessage["FileName"] as! String
-            }
-            else{
-                InforFive.stringValue = "nil"
-            }
-        }
-    }
+//    @IBAction func PreviousButton(_ sender: Any) {
+//        let temp = Int(Slider.doubleValue)
+//        //print(temp)
+//        if temp > 0 {
+//            let photoname = PhotoNameList[temp - 1]
+//            let nsImage = NSImage(contentsOfFile: photoname)
+//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+//            ImageDisplayArea.image = nsImage
+//            Slider.doubleValue -= 1
+//            let RelatedInformationHandler = RelatedInformation()
+//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+//            //InformationDisplayArea.stringValue = DicMessage.description
+//            if DicMessage["SoftwareName"] != nil{
+//                print(DicMessage["SoftwareName"])
+//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+//            }
+//            if DicMessage["PhotoName"] != nil{
+//                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+//            }
+//            if DicMessage["category"] != nil{
+//                InforThree.stringValue = DicMessage["category"] as! String
+//            }
+//            if DicMessage["FilePath"] != nil{
+//                InforFour.stringValue = DicMessage["FilePath"] as! String
+//            }
+//            else if DicMessage["FrontmostPageUrl"] != nil{
+//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+//            }
+//            else{
+//                InforFour.stringValue = "null"
+//            }
+//            if DicMessage["FrontmostPageTitle"] != nil{
+//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+//            }
+//            else if DicMessage["FileName"] != nil{
+//                InforFive.stringValue = DicMessage["FileName"] as! String
+//            }
+//            else{
+//                InforFive.stringValue = "nil"
+//            }
+//        }
+//    }
     // end of PreviousBUtton()
     
     //
-    @IBAction func NextButton(_ sender: Any) {
-        let temp = Int(Slider.doubleValue)
-        //print(temp)
-        if temp < Int(Slider.maxValue) {
-            let photoname = PhotoNameList[temp + 1]
-            //photoname is the path of screenshots
-            let nsImage = NSImage(contentsOfFile: photoname)
-            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-            ImageDisplayArea.image = nsImage
-            Slider.doubleValue += 1
-            let RelatedInformationHandler = RelatedInformation()
-            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
-            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
-            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-            //InformationDisplayArea.stringValue = DicMessage.description
-            if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
-                InforOne.stringValue = DicMessage["SoftwareName"] as! String
-            }
-            if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
-            }
-            if DicMessage["category"] != nil{
-                InforThree.stringValue = DicMessage["category"] as! String
-            }
-            if DicMessage["FilePath"] != nil{
-                InforFour.stringValue = DicMessage["FilePath"] as! String
-            }
-            else if DicMessage["FrontmostPageUrl"] != nil{
-                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
-            }
-            else{
-                InforFour.stringValue = "null"
-            }
-            if DicMessage["FrontmostPageTitle"] != nil{
-                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
-            }
-            else if DicMessage["FileName"] != nil{
-                InforFive.stringValue = DicMessage["FileName"] as! String
-            }
-            else{
-                InforFive.stringValue = "nil"
-            }
-        }
-    }
+//    @IBAction func NextButton(_ sender: Any) {
+//        let temp = Int(Slider.doubleValue)
+//        //print(temp)
+//        if temp < Int(Slider.maxValue) {
+//            let photoname = PhotoNameList[temp + 1]
+//            //photoname is the path of screenshots
+//            let nsImage = NSImage(contentsOfFile: photoname)
+//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+//            ImageDisplayArea.image = nsImage
+//            Slider.doubleValue += 1
+//            let RelatedInformationHandler = RelatedInformation()
+//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+//            //InformationDisplayArea.stringValue = DicMessage.description
+//            if DicMessage["SoftwareName"] != nil{
+//                print(DicMessage["SoftwareName"])
+//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+//            }
+//            if DicMessage["PhotoName"] != nil{
+//                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+//            }
+//            if DicMessage["category"] != nil{
+//                InforThree.stringValue = DicMessage["category"] as! String
+//            }
+//            if DicMessage["FilePath"] != nil{
+//                InforFour.stringValue = DicMessage["FilePath"] as! String
+//            }
+//            else if DicMessage["FrontmostPageUrl"] != nil{
+//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+//            }
+//            else{
+//                InforFour.stringValue = "null"
+//            }
+//            if DicMessage["FrontmostPageTitle"] != nil{
+//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+//            }
+//            else if DicMessage["FileName"] != nil{
+//                InforFive.stringValue = DicMessage["FileName"] as! String
+//            }
+//            else{
+//                InforFive.stringValue = "nil"
+//            }
+//        }
+//    }
     // end of NextButton()
     
     //
@@ -548,8 +548,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -684,7 +684,7 @@ class TimeLapseMethodWindow: NSViewController {
             PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
             let string = PastTimeToday() + "00:00:00"
             let last = PhotoNameList.count - 1
-            print(PhotoNameList[0])
+            //print(PhotoNameList[0])
             
             if PhotoNameList.count == 0{
                 print("no photo recorded")
@@ -697,8 +697,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -731,8 +731,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -759,8 +759,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -787,8 +787,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -854,7 +854,10 @@ class TimeLapseMethodWindow: NSViewController {
         let newEnd = subStr.index(subStr.endIndex, offsetBy : -1)
         let range = newStart..<newEnd
         let temp = subStr[range]
-        print(temp)
+        //temp    String    "03.14,15:40:35"
+        
+        
+        //print(temp)
         return temp
     }
     // end of TimeSubstringFromPhotoName()
@@ -869,17 +872,17 @@ class TimeLapseMethodWindow: NSViewController {
     //end of TestButton()
     
     // play function starts here
-    @IBAction func PlayButtonAction(_ sender: Any) {
-        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
-            self.AutomaticPlayFunc()
-        }
-    }
+//    @IBAction func PlayButtonAction(_ sender: Any) {
+//        if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
+//            self.AutomaticPlayFunc()
+//        }
+//    }
     func AutomaticPlayFunc(){
         if(self.playImageTimer.isValid){
             self.stopPlaying()
         }
         else{
-            ButtonOfPlay.title = "Pause"
+            //ButtonOfPlay.title = "Pause"
             imageButtonPlay.image = NSImage(named : "PauseIcon")
             self.startPlaying()
         }
@@ -934,7 +937,7 @@ class TimeLapseMethodWindow: NSViewController {
         else {
             self.playImageTimer.invalidate()
             imageButtonPlay.image = NSImage(named : "PlayIcon")
-            ButtonOfPlay.title = "play end"
+            //ButtonOfPlay.title = "play end"
         }
     }
     func printtext(){
@@ -943,7 +946,7 @@ class TimeLapseMethodWindow: NSViewController {
     func stopPlaying(){
         self.playImageTimer.invalidate()
         imageButtonPlay.image = NSImage(named : "PlayIcon")
-        ButtonOfPlay.title = "play"
+        //ButtonOfPlay.title = "play"
     }
     //
     @IBAction func imageButtonPlay(_ sender: Any) {
@@ -971,8 +974,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -1000,8 +1003,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -1027,8 +1030,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -1055,8 +1058,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -1086,8 +1089,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = startTime
-                MultiLineOfPastTime.stringValue = endTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -1117,8 +1120,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 SliderValueSet()
                 Slider.doubleValue = Slider.maxValue
@@ -1151,8 +1154,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -1179,8 +1182,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -1207,8 +1210,8 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
+                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
                 print(photonumber)
                 SliderValueSet()
@@ -1225,6 +1228,70 @@ class TimeLapseMethodWindow: NSViewController {
     }
     
     //end of the play function
+    //
+    func monthChange(str : String) -> String{
+        let monthIndex = str.index(str.startIndex, offsetBy : 2)
+        let monthDigit = String(str[..<monthIndex])
+        let dictionary = [
+            "01"    : "Jan",
+            "02"    : "Feb",
+            "03"    : "Mar",
+            "04"    : "Apr",
+            "05"    : "May",
+            "06"    : "June",
+            "07"    : "Jul",
+            "08"    : "Aug",
+            "09"    : "Sept",
+            "10"    : "Oct",
+            "11"    : "Nove",
+            "12"    : "Dec"
+        ]
+        let monthName = dictionary[monthDigit]
+        let dayIndexStart = str.index(str.startIndex, offsetBy : 3)
+        let datIndexEnd = str.index(str.endIndex, offsetBy : -9)
+        let dayDigit = String(str[dayIndexStart..<datIndexEnd])
+        let dictionaryForDay = [
+            "01"    : "1st",
+            "02"    : "2nd",
+            "03"    : "3rd",
+            "04"    : "4th",
+            "05"    : "5th",
+            "06"    : "6th",
+            "07"    : "7th",
+            "08"    : "8th",
+            "09"    : "9th",
+            "10"    : "10th",
+            "11"    : "11st",
+            "12"    : "12nd",
+            "13"    : "13rd",
+            "14"    : "14th",
+            "15"    : "15th",
+            "16"    : "16th",
+            "17"    : "17th",
+            "18"    : "18th",
+            "19"    : "19th",
+            "20"    : "20th",
+            "21"    : "21st",
+            "22"    : "22nd",
+            "23"    : "23rd",
+            "24"    : "24th",
+            "25"    : "25th",
+            "26"    : "26th",
+            "27"    : "27th",
+            "28"    : "28th",
+            "29"    : "29th",
+            "30"    : "30th",
+            "31"    : "31st"
+        ]
+        let dayName = dictionaryForDay[dayDigit!]
+        
+        let timeIndex = str.index(str.endIndex, offsetBy : -8)
+        let timeDigit = String(str[timeIndex...])
+        let final = monthName! + " " + dayName! + ", " + timeDigit
+        return final
+        
+        
+    }
     
     //end of class
 }
