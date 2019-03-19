@@ -362,8 +362,12 @@ class MainWindowViewController: NSViewController {
 //        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
 //        sub1WindowController = NSWindowController(window: sub1Window)
 //        sub1WindowController?.showWindow(nil)
+//        print("test winodw")
+        let Window_Two_Handler : NSViewController = Method_One_Display_Window()
+        let sub2Window = NSWindow(contentViewController:  Window_Two_Handler)
+        sub1WindowController = NSWindowController(window: sub2Window)
+        sub1WindowController?.showWindow(nil)
         self.view.window?.close()
-        print("test winodw")
 
     }
     
@@ -378,12 +382,6 @@ class MainWindowViewController: NSViewController {
         self.view.window?.close()
     }
     
-    
-    @IBAction func LternativeFuncitonTwo(_ sender: Any) {
-        let Method_Two_Display_ViewControl_Handler : NSViewController = Method_Two_Display_ViewControl()
-        self.presentViewControllerAsModalWindow(Method_Two_Display_ViewControl_Handler)
-        self.view.window?.close()
-    }
     
 
     // Quit this program

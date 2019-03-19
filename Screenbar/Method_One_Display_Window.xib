@@ -6,22 +6,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_Window" customModule="Screenbar" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_Window" customModule="Reflector" customModuleProvider="target">
             <connections>
+                <outlet property="menuBoxOutlet" destination="1ns-7Y-yNC" id="Uwa-n3-2Ft"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="559" height="346"/>
+            <rect key="frame" x="0.0" y="0.0" width="960" height="680"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Egg-31-DEo" customClass="NSImageView_Rectangle" customModule="Screenbar" customModuleProvider="target">
-                    <rect key="frame" x="20" y="123" width="250" height="191"/>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Egg-31-DEo" customClass="NSImageView_Rectangle" customModule="Reflector" customModuleProvider="target">
+                    <rect key="frame" x="20" y="457" width="250" height="191"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" id="l2F-Ul-Zxd"/>
                 </imageView>
+                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1ns-7Y-yNC">
+                    <rect key="frame" x="736" y="38" width="99" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Lfp-Rg-KHe">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <objectValues>
+                            <string>Item 1</string>
+                            <string>Item 2</string>
+                            <string>Item 3</string>
+                        </objectValues>
+                    </comboBoxCell>
+                    <connections>
+                        <action selector="menuBoxActionWithoutClicking:" target="-2" id="9f9-8r-cda"/>
+                    </connections>
+                </comboBox>
             </subviews>
             <point key="canvasLocation" x="-212" y="111"/>
         </customView>
