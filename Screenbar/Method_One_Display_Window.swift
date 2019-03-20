@@ -8,8 +8,7 @@
 import Cocoa
 
 @available(OSX 10.13, *)
-
-class Method_One_Display_Window: NSViewController {
+class Method_One_Display_Window: NSViewController{
 
     @IBOutlet weak var menuBoxOutlet: NSComboBox!
     
@@ -17,6 +16,7 @@ class Method_One_Display_Window: NSViewController {
     
     
     let replayingMethodTwoHandler = ReplayingMethodTwo()
+    let values = [ 445, 203, 110, 105, 95, 65, 33, 21, 10 ].sorted()
     
 //    var mouseLocation: NSPoint {
 //        return NSEvent.mouseLocation()
@@ -28,7 +28,27 @@ class Method_One_Display_Window: NSViewController {
         super.viewDidLoad()
         DefaultComboMenu()
         print("this is window")
+    }
+    override func viewWillAppear() {
+        super.viewWillAppear()
         
+//        treeMap.alignment = .retinaSubPixel
+//        if let layout = self.collectionViewLayout as? Layout {
+//            let bounds = self.collectionView?.bounds ?? .zero
+//            layout.rects = treeMap.tessellate(inRect: bounds)
+//        }
+        let treeMap = TreeMap(withValues: values)
+        //self.view.window?.windowController?.
+        //self.view.bounds
+        let treeMapRects = treeMap.tessellate(inRect: self.view.bounds)
+        let context = NSGraphicsContext.current()?.cgContext
+        let randomColorHandler = Colors()
+        treeMapRects.forEach { (treeMapRect) in
+            randomColorHandler.randomColor.setFill()
+            context?.fill(treeMapRect)
+        }
+
+
     }
     
     //
@@ -99,6 +119,7 @@ class Method_One_Display_Window: NSViewController {
             for i in 0..<arrayOfValue.count{
                 totalAmount += arrayOfValue[i]
             }
+            
             print(totalAmount)
             print(arrayOfName)
             print(arrayOfValue)
@@ -126,6 +147,16 @@ class Method_One_Display_Window: NSViewController {
         return arrayOfValue
     }
     
+    
+    
+    //------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    
+
     
     
     

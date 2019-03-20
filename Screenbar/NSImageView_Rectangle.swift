@@ -6,6 +6,8 @@
 //
 
 import Cocoa
+import AppKit
+import Foundation
 
 @available(OSX 10.13, *)
 
@@ -34,12 +36,33 @@ class NSImageView_Rectangle: NSImageView {
 //        borderColor.set()
 //        bPath.lineWidth = 12.0
 //        bPath.stroke()
+        
+        
+        
+        
           //draw a rectangle from the bottom of right
-          let rectangleColor = NSColor(red: 0.0, green: 0.0, blue: 2.0, alpha: 1.0)
-          let rect = NSMakeRect(0, 0, 30.0, 30.0)
-          let cPath: NSBezierPath = NSBezierPath(rect: rect)
-          rectangleColor.set()
-          cPath.fill()
+//          let rectangleColor = NSColor(red: 0.0, green: 0.0, blue: 2.0, alpha: 1.0)
+//          let rect = NSMakeRect(0, 0, 30.0, 30.0)
+//          let cPath: NSBezierPath = NSBezierPath(rect: rect)
+//          rectangleColor.set()
+//          cPath.fill()
+        
+        
+        
+        //let values = [ 445, 203, 110, 105, 95, 65, 33, 21, 10 ].sorted()
+        
+        // These two lines are actual YMTreeMap usage!
+        //let treeMapHandler = TreeMap()
+//        let treeMap = TreeMap(withValues: values)
+//        let treeMapRects = treeMap.tessellate(inRect: self.bounds)
+//        
+//        let context = NSGraphicsContext.current()?.cgContext
+//        let randomColorHandler = Colors()
+//        treeMapRects.forEach { (treeMapRect) in
+//            randomColorHandler.randomColor.setFill()
+//            context?.fill(treeMapRect)
+//        }
+        
     }
     
     
