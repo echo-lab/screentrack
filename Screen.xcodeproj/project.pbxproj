@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D1C2F2B1CE235AF00FB8AB8 /* MainWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C2F291CE235AF00FB8AB8 /* MainWindowViewController.swift */; };
 		3D1C2F2C1CE235AF00FB8AB8 /* MainWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1C2F2A1CE235AF00FB8AB8 /* MainWindowView.xib */; };
 		3D1C2F2E1CE2546900FB8AB8 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C2F2D1CE2546900FB8AB8 /* EventMonitor.swift */; };
 		3D1C2F331CE2670400FB8AB8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C2F321CE2670400FB8AB8 /* Settings.swift */; };
@@ -23,6 +22,7 @@
 		EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */; };
 		EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */; };
 		EA2C56C721FE481900178AFF /* folderName.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2C56C621FE481900178AFF /* folderName.plist */; };
+		EA30174A224334F800BBEDDC /* MainWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C2F291CE235AF00FB8AB8 /* MainWindowViewController.swift */; };
 		EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */; };
 		EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */; };
 		EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */; };
@@ -31,7 +31,6 @@
 		EA8AF31A2208BAE800D343E3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */; };
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
 		EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */; };
-		EAD877FE221757DE0042FF78 /* Method_Two.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD877FD221757DE0042FF78 /* Method_Two.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
 		EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */; };
 		EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */; };
@@ -73,7 +72,6 @@
 		EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
 		EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTheLatestScreenShot.swift; sourceTree = "<group>"; };
-		EAD877FD221757DE0042FF78 /* Method_Two.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method_Two.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
 		EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageView_Rectangle.swift; sourceTree = "<group>"; };
 		EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRelatedInformation.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */,
-				EAD877FD221757DE0042FF78 /* Method_Two.swift */,
 				EAF5EFDF220E3C2900BDBF7D /* Method_One_Display_Window.swift */,
 				EAF5EFE0220E3C2900BDBF7D /* Method_One_Display_Window.xib */,
 				EA7F953E2240217900BCC397 /* ReplayingTwo.swift */,
@@ -291,12 +288,11 @@
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,
 				EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */,
 				EA15F6642241CCAE00C5657C /* RandomColor.swift in Sources */,
+				EA30174A224334F800BBEDDC /* MainWindowViewController.swift in Sources */,
 				EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */,
 				EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */,
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
 				EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */,
-				EAD877FE221757DE0042FF78 /* Method_Two.swift in Sources */,
-				3D1C2F2B1CE235AF00FB8AB8 /* MainWindowViewController.swift in Sources */,
 				EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Method_One_Display_Window" customModule="Reflector" customModuleProvider="target">
             <connections>
+                <outlet property="imageDisplayArea" destination="l2F-Ul-Zxd" id="Ync-dp-xGW"/>
                 <outlet property="menuBoxOutlet" destination="1ns-7Y-yNC" id="Uwa-n3-2Ft"/>
+                <outlet property="testImageView" destination="SHf-Wt-ti6" id="bMB-xn-EqU"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -19,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Egg-31-DEo" customClass="NSImageView_Rectangle" customModule="Reflector" customModuleProvider="target">
-                    <rect key="frame" x="20" y="457" width="250" height="191"/>
+                    <rect key="frame" x="20" y="88" width="785" height="560"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="topLeft" imageScaling="proportionallyDown" id="l2F-Ul-Zxd"/>
                 </imageView>
@@ -40,6 +42,22 @@
                         <action selector="menuBoxActionWithoutClicking:" target="-2" id="9f9-8r-cda"/>
                     </connections>
                 </comboBox>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHf-Wt-ti6">
+                    <rect key="frame" x="20" y="14" width="321" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="vui-cg-sPf"/>
+                </imageView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVq-jb-Hhc">
+                    <rect key="frame" x="543" y="13" width="81" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oCK-e5-4wT">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="testButtonToChangeRectangles:" target="-2" id="FUy-rh-d7L"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-212" y="111"/>
         </customView>

@@ -6,6 +6,7 @@ import AppKit
 // time interval of screenshot, storage path and whether have sound or not
 
 @available(OSX 10.13, *)
+
 class Settings : NSObject {
     static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
     //static let appdelegateHandler = AppDelegate()
@@ -70,13 +71,13 @@ class Settings : NSObject {
         let height: Int? = deaults.integer(forKey: ImageHeight)
         return height
     }
-    
+
     static func getImageCompressWidth() -> Int?{
         let width = (getImageCompressHeight()! * 900) / 1440
         //print("hight now : " + String(width))
         return width
     }
-    
+
     
     static func setSecondsIntervall(_ seconds: Double?) {
         // set the defalut as standard
@@ -89,11 +90,11 @@ class Settings : NSObject {
         // set the defalut as standard
         let defaults = UserDefaults.standard
         //
-        var seconds: Double? = defaults.double(forKey: secondsKey)
+        let seconds: Double? = defaults.double(forKey: secondsKey)
         // if the input is null, then set to 1.0 second as defalult
-        if(seconds == nil) {
-            seconds = 60.0
-        }
+//        if(seconds == nil) {
+//            seconds = 60.0
+//        }
         //return the setted second result
         return seconds
     }
@@ -207,7 +208,7 @@ class Settings : NSObject {
         var state : Int? = defaults.integer(forKey: detectSwitchKey)
         // default is no sound
         if(state == nil) {
-            state = 0;
+            state = 1;
         }
         return state!;
     }
@@ -219,7 +220,7 @@ class Settings : NSObject {
     }
     static func getSession() -> Int{
         let defaults = UserDefaults.standard
-        var counter : Int? = defaults.integer(forKey: SessionKey)
+        let counter : Int? = defaults.integer(forKey: SessionKey)
         return counter!;
     }
     

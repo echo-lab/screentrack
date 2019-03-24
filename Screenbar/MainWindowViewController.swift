@@ -32,7 +32,7 @@ class MainWindowViewController: NSViewController {
     @IBOutlet weak var playSound: NSButton!
     
     //following are the height and width set of the scale of the image
-    @IBOutlet weak var TimeInterval: NSTextField!
+    //@IBOutlet weak var TimeInterval: NSTextField!
     @IBOutlet weak var TimeIntervalTwo: NSTextFieldCell!
     
     @IBOutlet weak var CompressionSlider: NSSlider!
@@ -76,17 +76,13 @@ class MainWindowViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         self.setSeconds()
-        self.setImageHeight()
-        self.setImageWidth()
+        //self.setImageHeight()
+        //self.setImageWidth()
         self.hideError()
         self.compressionSliderValueSet()
         //self.setPath()
-        //appdelegateHandler.SessionCounter(counter: 0)
-        let defaults = UserDefaults.standard
-        //self.secondsTextBox.stringValue = "60.0"
-        //let second = Double(self.secondsTextBox.stringValue)
-        defaults.setValue("60.0", forKey: secondsTextBox.stringValue)
-        //defaults.set(60.0, forKey: second)
+
+        //let defaults = UserDefaults.standard
 
         self.setPlaySound()
 //        self.setImageSize()
@@ -114,15 +110,15 @@ class MainWindowViewController: NSViewController {
 //            print(String(format: "%.0f, %.0f", self.mouseLocation.x, self.mouseLocation.y))
 //        }
         
-        let height = Settings.TimeIntervalSecondTwoGet()
-        let width = Settings.TimeIntervalSecondTwoGet()
+        //let height = Settings.TimeIntervalSecondTwoGet()
+        //let width = Settings.TimeIntervalSecondTwoGet()
         
         //upperrightpoint coordinate
-        let UpperRightCoordinateX = Int(self.mouseLocation.x) - Int(height!)/2 < 0 ? 0 : Int(self.mouseLocation.x) - Int(height!)/2
-        let UpperRightCoordinateY = Int(self.mouseLocation.y) + Int(width!)/2 > 900 ? 900 : Int(self.mouseLocation.y) + Int(width!)/2
-        //lowerleftpoint coordinate
-        let LowerLeftCoordinateX = Int(self.mouseLocation.x) + Int(height!)/2 > 1440 ? 1440 : Int(self.mouseLocation.x) + Int(height!)/2
-        let LowerLeftCoordinateY = Int(self.mouseLocation.y) - Int(width!)/2 < 0 ? 0 : Int(self.mouseLocation.y) - Int(width!)/2
+//        let UpperRightCoordinateX = Int(self.mouseLocation.x) - Int(height!)/2 < 0 ? 0 : Int(self.mouseLocation.x) - Int(height!)/2
+//        let UpperRightCoordinateY = Int(self.mouseLocation.y) + Int(width!)/2 > 900 ? 900 : Int(self.mouseLocation.y) + Int(width!)/2
+//        //lowerleftpoint coordinate
+//        let LowerLeftCoordinateX = Int(self.mouseLocation.x) + Int(height!)/2 > 1440 ? 1440 : Int(self.mouseLocation.x) + Int(height!)/2
+//        let LowerLeftCoordinateY = Int(self.mouseLocation.y) - Int(width!)/2 < 0 ? 0 : Int(self.mouseLocation.y) - Int(width!)/2
         
         
     }
@@ -146,14 +142,14 @@ class MainWindowViewController: NSViewController {
         self.secondsTextBox.stringValue = String(seconds!)
     }
     
-    func setImageHeight(){
-        let intervalseconds: Double? = Settings.TimeIntervalSecondGet()
-        self.TimeInterval.stringValue = String(intervalseconds!)
-    }
-    func setImageWidth(){
-        let intervalsecondstwo: Double? = Settings.TimeIntervalSecondTwoGet()
-        self.TimeIntervalTwo.stringValue = String(intervalsecondstwo!)
-    }
+//    func setImageHeight(){
+//        let intervalseconds: Double? = Settings.TimeIntervalSecondGet()
+//        self.TimeInterval.stringValue = String(intervalseconds!)
+//    }
+//    func setImageWidth(){
+//        let intervalsecondstwo: Double? = Settings.TimeIntervalSecondTwoGet()
+//        self.TimeIntervalTwo.stringValue = String(intervalsecondstwo!)
+//    }
     
 
     // get the information of whether have sound or not
@@ -214,6 +210,7 @@ class MainWindowViewController: NSViewController {
 //            Settings.PathCreate()
 //            jsonfileHandler.createjson(filepath: URL(string: MyVariables.yourVariable)!)
             self.automaticScreenshot()
+            //self.close()
         }
     }
     
@@ -247,7 +244,8 @@ class MainWindowViewController: NSViewController {
         else {
             // start caputring
             //Settings.getPath().path is the name of json file
-            
+            //close the main window
+            self.close()
             //print("json file path")
             //print(Settings.getPath())
             let date = Date()
@@ -264,7 +262,7 @@ class MainWindowViewController: NSViewController {
             erpath = errorfileHandler.createError(filepath: URL(string: MyVariables.yourVariable)!)
             //print(MyVariables.yourVariable)
             ///Users/donghanhu/Documents/Reflect/2019-2-23-1
-            appdelegateHandler.changeicon()
+            //appdelegateHandler.changeicon()
             self.startAutomaticScreenshot()
 
         }
@@ -343,33 +341,9 @@ class MainWindowViewController: NSViewController {
     }
 
     //
-    @IBAction func Visual_One(_ sender: Any) {
-        
-        let Method_One_Display_ViewControl_Handler : NSViewController = Method_One_Display_ViewControl()
-        
-        self.presentViewControllerAsModalWindow(Method_One_Display_ViewControl_Handler)
-        //self.presentViewController(Method_One_Display_ViewControl_Handler, animator: yes )
-        //Method_One_Display_ViewControl_Handler.viewDidLoad()
-        self.view.window?.close()
-        
-    }
     
     open var windowController: NSWindowController?
     var sub1WindowController: NSWindowController?
-    
-    @IBAction func Visual_One_Window_Method(_ sender: Any) {
-//        let sub1ViewController = NSViewController(nibName: "Method_One_Display_Window", bundle: Bundle.main)
-//        let sub1Window = sub1ViewController != nil ? NSWindow(contentViewController: sub1ViewController!) : nil
-//        sub1WindowController = NSWindowController(window: sub1Window)
-//        sub1WindowController?.showWindow(nil)
-//        print("test winodw")
-        let Window_Two_Handler : NSViewController = Method_One_Display_Window()
-        let sub2Window = NSWindow(contentViewController:  Window_Two_Handler)
-        sub1WindowController = NSWindowController(window: sub2Window)
-        sub1WindowController?.showWindow(nil)
-        self.view.window?.close()
-
-    }
     
     @IBAction func TimeLapseWindow(_ sender: Any) {
         let Window_Handler : NSViewController = TimeLapseMethodWindow()
@@ -379,6 +353,15 @@ class MainWindowViewController: NSViewController {
         sub1WindowController?.showWindow(nil)
         
 //        self.presentViewControllerAsModalWindow(Window_Handler)
+        self.view.window?.close()
+    }
+    
+    @IBAction func MethodTwoVisualWindow(_ sender: Any) {
+        let Window_Handler : NSViewController = Method_One_Display_Window()
+        //let sub1ViewController = NSViewController(nibName: "TimeLapseMethodWindow", bundle: Bundle.main)
+        let sub1Window = NSWindow(contentViewController:  Window_Handler)
+        sub1WindowController = NSWindowController(window: sub1Window)
+        sub1WindowController?.showWindow(nil)
         self.view.window?.close()
     }
     

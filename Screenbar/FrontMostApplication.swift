@@ -17,6 +17,7 @@ class FrontmostApp : NSObject{
     
     override init() {
         let tempName = (NSWorkspace.shared().frontmostApplication?.localizedName)!
+        let URL = NSWorkspace.shared().frontmostApplication?.executableURL
         //let frontmostinfo = NSWorkspace.shared().frontmostApplication?.
         //print(frontmostinfo ?? "none")
         //print(tempName)

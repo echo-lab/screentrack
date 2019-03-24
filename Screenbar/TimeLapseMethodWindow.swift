@@ -18,6 +18,10 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var InforFour: NSTextField!
     @IBOutlet weak var InforFive: NSTextField!
     
+    
+    @IBOutlet weak var FilePathOrURL: NSTextField!
+    @IBOutlet weak var PageTitalOrFileName: NSTextField!
+    
     @IBOutlet weak var MultiLineOfPastTime: NSTextField!
     @IBOutlet weak var MultiLineOfCurrentTime: NSTextField!
     
@@ -26,7 +30,13 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var Slider: NSSliderCell!
     
     @IBOutlet weak var SliderOfSpeed: NSSlider!
+    
     @IBOutlet weak var InformationDisplayArea: NSTextField!
+    
+    @IBOutlet weak var NextVideoImageButton: NSButton!
+    
+    @IBOutlet weak var PreviousVideoImageButton: NSButton!
+    
     
     @IBOutlet weak var CloseWindowButton: NSButton!
     @IBOutlet weak var imageButtonPlay: NSButton!
@@ -71,6 +81,9 @@ class TimeLapseMethodWindow: NSViewController {
         imageButtonPrevious.image = NSImage(named: "Previous")
         imageButtonNext.image   = NSImage(named: "Next")
         imageButtonPlay.image = NSImage(named: "PlayIcon")
+        NextVideoImageButton.image = NSImage(named: "nextvideo")
+        PreviousVideoImageButton.image = NSImage(named: "previousvideo")
+        
     }
     //
     func DefaultDisplayToday(){
@@ -78,9 +91,11 @@ class TimeLapseMethodWindow: NSViewController {
         PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
         if PhotoNameList.count == 0{
             print("today has no photo recorded")
-            DefaultImageDisplay()
-            InformationDisplayArea.stringValue = "Today has no photo recorded, This is your last screenshot"
+            //code here
+            //DefaultImageDisplay()
+            DefaultNoPhotoRecordedDisplay()
             
+            InformationDisplayArea.stringValue = ""
             Slider.doubleValue = Slider.maxValue
             
         }else{
@@ -97,31 +112,40 @@ class TimeLapseMethodWindow: NSViewController {
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
             }
             if DicMessage["category"] != nil{
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
             
@@ -129,7 +153,11 @@ class TimeLapseMethodWindow: NSViewController {
         
     }
     //end of DefaultDisplayToday()
-    
+    func DefaultNoPhotoRecordedDisplay(){
+        let defaultImage = NSImage(named : "No_Image_Available")
+        ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+        ImageDisplayArea.image = defaultImage
+    }
     //
     func DefaultComboMenu(){
         let singularNouns = ["today", "recent 1 hour", "recent 3 hours", "recent 5 hours", "recent 8 hours", "recent 24 hours", "recent 3 days", "recent 5 days", "recent 7 days"]
@@ -158,31 +186,41 @@ class TimeLapseMethodWindow: NSViewController {
             //InformationDisplayArea.stringValue = DicMessage.description
             defaultSliderValue()
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
             }
             if DicMessage["category"] != nil{
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
+            
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
         }
@@ -192,7 +230,7 @@ class TimeLapseMethodWindow: NSViewController {
     //
     func DefaultInformationDisplay(){
         let message = "Good Morning"
-        InformationDisplayArea.stringValue = message
+        InformationDisplayArea.stringValue = ""
         //DisplayFilePath.stringValue = ""
         
     }
@@ -240,31 +278,40 @@ class TimeLapseMethodWindow: NSViewController {
             //InformationDisplayArea.textStorage?.append(NSAttributedString(string: DicMessage.description))
             //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
             }
             if DicMessage["category"] != nil{
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
         }
@@ -387,31 +434,40 @@ class TimeLapseMethodWindow: NSViewController {
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
             }
             if DicMessage["category"] != nil{
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page Url"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
         }
@@ -432,31 +488,40 @@ class TimeLapseMethodWindow: NSViewController {
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
-                InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
             }
             if DicMessage["category"] != nil{
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
         }
@@ -530,276 +595,46 @@ class TimeLapseMethodWindow: NSViewController {
     
     //
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
-        let timeinterval = ComboBoxOfMenu.stringValue
-        if (timeinterval == "recent 1 hour"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchOneHours() as! [String]
-            let last = PhotoNameList.count - 1
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 1 hour, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-                
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-                photonumber = PhotoNameList.count - 1
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
+        if (InforFour.stringValue != "null") && (FilePathOrURL.stringValue == "FilePath"){
+            let errorHandler = classify()
+            let first = "set thePath to POSIX file \""
+            let second = "\" \n tell application \"Finder\" to reveal thePath"
+            let final = first + InforFour.stringValue + second
+            var error: NSDictionary?
+            let scriptObject = NSAppleScript(source: final)
+            let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+            //print(output.stringValue)
+            if (error != nil) {
+                //errorHandler.writeError(error : error!)
+                print("error: \(String(describing: error))")
             }
-        }
-        else if (timeinterval == "recent 5 hours"){
-            let ReplayingOneHandler = ReplayingOne()
+
+//            let applescript = "tell application \"System Events\" \n perform action \"AXRaise\" of window 1 of process \"Finder\" \n end tell"
+//            var errorForFront: NSDictionary?
+//            let scriptObjectForFront = NSAppleScript(source: applescript)
+//            scriptObjectForFront!.executeAndReturnError(&errorForFront)
+//            if (errorForFront != nil) {
+//                //errorHandler.writeError(error : errorForFront!)
+//                print("error: \(String(describing: errorForFront))")
+//            }
             
-            PhotoNameList = ReplayingOneHandler.FetchFiveHours() as! [String]
-            let last = PhotoNameList.count - 1
-            //ReplayingOneHandler.FetchThreeHours()
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 5 hour, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
-                photonumber = PhotoNameList.count - 1
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-        }
-        else if (timeinterval == "recent 3 hours"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchThreeHours() as! [String]
-            print(PhotoNameList)
-            let last = PhotoNameList.count - 1
-            //ReplayingOneHandler.FetchThreeHours()
-            //code here
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 3 hour, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
-                photonumber = PhotoNameList.count - 1
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-        }
-        else if (timeinterval == "recent 8 hours"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchEightHours() as! [String]
-            let last = PhotoNameList.count - 1
-            print(PhotoNameList)
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 8 hour, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = endTime
-                MultiLineOfPastTime.stringValue = startTime
-                photonumber = PhotoNameList.count - 1
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
             
         }
-        else if (timeinterval == "recent 24 hours"){
-            //Fetch24Hours()
-            let ReplayingOneHandler = ReplayingOne()
-            
-            PhotoNameList = ReplayingOneHandler.Fetch24Hours() as! [String]
-            let last = PhotoNameList.count - 1
-            
-            //MultiLineOfPastTime.stringValue = startTime
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 24 hour, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = startTime
-                MultiLineOfPastTime.stringValue = endTime
-                photonumber = PhotoNameList.count - 1
-                print(photonumber)
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-            
+        else if (FilePathOrURL.stringValue == "PageUrl"){
+            let alert = NSAlert.init()
+            alert.messageText = "Hello"
+            alert.informativeText = "this is url not file path"
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
         }
-        else if (timeinterval == "today"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
-            let string = PastTimeToday() + "00:00:00"
-            let last = PhotoNameList.count - 1
-            //print(PhotoNameList[0])
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded today, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-                photonumber = PhotoNameList.count - 1
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-            //let RelatedInformationHandler = RelatedInformation()
-            //            photonumber = PhotoNameList.count - 1
-            //            SliderValueSet()
-            //            Slider.doubleValue = Slider.minValue
-            //            let photoname = PhotoNameList[Int(Slider.minValue)]
-            //            let nsImage = NSImage(contentsOfFile: photoname)
-            //            ImageDisplayArea.image = nsImage
+        else {
+            let alert = NSAlert.init()
+            alert.messageText = "Hello"
+            alert.informativeText = "no file to find"
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
         }
-        else if (timeinterval == "recent 3 days"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchThreeday() as! [String]
-            let last = PhotoNameList.count - 1
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 3 days, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-                photonumber = PhotoNameList.count - 1
-                print(photonumber)
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-        }
-        else if (timeinterval == "recent 5 days"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchFiveday() as! [String]
-            let last = PhotoNameList.count - 1
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 5 days, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-                photonumber = PhotoNameList.count - 1
-                print(photonumber)
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-        }
-        else if (timeinterval == "recent 7 days"){
-            let ReplayingOneHandler = ReplayingOne()
-            PhotoNameList = ReplayingOneHandler.FetchSevenday() as! [String]
-            let last = PhotoNameList.count - 1
-            
-            if PhotoNameList.count == 0{
-                print("no photo recorded")
-                let alert = NSAlert.init()
-                alert.messageText = "Hello"
-                alert.informativeText = "No photo recorded from last 7 days, this image is the last screenshot"
-                alert.addButton(withTitle: "OK")
-                //alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-            }else{
-                let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-                let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-                MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-                MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-                photonumber = PhotoNameList.count - 1
-                print(photonumber)
-                SliderValueSet()
-                Slider.doubleValue = Slider.maxValue
-                let photoname = PhotoNameList[Int(Slider.maxValue)]
-                let nsImage = NSImage(contentsOfFile: photoname)
-                ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-                ImageDisplayArea.image = nsImage
-            }
-        }
-        print(timeinterval)
+        
     }
     //end of TimeIntervalCheckButton()
     
@@ -887,14 +722,28 @@ class TimeLapseMethodWindow: NSViewController {
             self.startPlaying()
         }
     }
+    
+    var repeatBool : Bool = true
+    var speedOfSlider : Float = 0.0
+    
+    
     func startPlaying(){
         let speed = SliderOfSpeed.floatValue
-        self.playImageTimer = Timer.scheduledTimer(timeInterval: TimeInterval(speed), target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: true)
+        speedOfSlider = speed
+        self.playImageTimer = Timer.scheduledTimer(timeInterval: TimeInterval(speed), target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: repeatBool)
+        
 //        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
     }
     func imagePlay(){
         let temp = Int(Slider.doubleValue)
-        print(temp)
+        
+        if SliderOfSpeed.floatValue != speedOfSlider{
+            //startPlaying()
+            self.playImageTimer.invalidate()
+            self.startPlaying()
+        }
+        
+        //print(temp)
         if temp < Int(Slider.maxValue) {
             let photoname = PhotoNameList[temp + 1]
             let nsImage = NSImage(contentsOfFile: photoname)
@@ -906,7 +755,7 @@ class TimeLapseMethodWindow: NSViewController {
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{
@@ -916,21 +765,27 @@ class TimeLapseMethodWindow: NSViewController {
                 InforThree.stringValue = DicMessage["category"] as! String
             }
             if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
                 InforFour.stringValue = DicMessage["FilePath"] as! String
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
                 InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
             }
             else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
                 InforFive.stringValue = "nil"
             }
         }
@@ -948,6 +803,7 @@ class TimeLapseMethodWindow: NSViewController {
         imageButtonPlay.image = NSImage(named : "PlayIcon")
         //ButtonOfPlay.title = "play"
     }
+    
     //
     @IBAction func imageButtonPlay(_ sender: Any) {
         if (Int(Slider.doubleValue) < Int(Slider.maxValue)){
@@ -1107,7 +963,7 @@ class TimeLapseMethodWindow: NSViewController {
             PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
             let string = PastTimeToday() + "00:00:00"
             let last = PhotoNameList.count - 1
-            print(PhotoNameList[0])
+            //print(PhotoNameList[0])
             
             if PhotoNameList.count == 0{
                 print("no photo recorded")
@@ -1120,6 +976,7 @@ class TimeLapseMethodWindow: NSViewController {
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+                
                 MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
                 MultiLineOfPastTime.stringValue = monthChange(str : startTime)
                 photonumber = PhotoNameList.count - 1
@@ -1209,6 +1066,7 @@ class TimeLapseMethodWindow: NSViewController {
                 alert.runModal()
             }else{
                 let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+                let tt = PhotoNameList[0]
                 let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
                 MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
                 MultiLineOfPastTime.stringValue = monthChange(str : startTime)
@@ -1289,9 +1147,258 @@ class TimeLapseMethodWindow: NSViewController {
         let timeDigit = String(str[timeIndex...])
         let final = monthName! + " " + dayName! + ", " + timeDigit
         return final
-        
+    }
+    //
+    func PhotonameChangeToTime(photoNameString : String) -> String{
+        //   /Screenshot-03.18,16:03:21.jpg
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let start = photoNameString.index(photoNameString.startIndex, offsetBy: 15)
+        let end = photoNameString.index(photoNameString.endIndex, offsetBy: -13)
+        let range = start..<end
+        let photoDay = photoNameString[range]
+        let intDay = Int(photoDay)
+        let startOfTime = photoNameString.index(photoNameString.startIndex, offsetBy: 18)
+        let endOfTime = photoNameString.index(photoNameString.endIndex, offsetBy: -4)
+        let rangeOfTime = startOfTime..<endOfTime
+        let time = photoNameString[rangeOfTime]
+        let yesterday = GetYesterdayDate(date: date, Day: 1)
+        let intYesterday = Int(yesterday)
+        let startOfTimeWithDay = photoNameString.index(photoNameString.startIndex, offsetBy: 12)
+        let endOfTimeWithDay = photoNameString.index(photoNameString.endIndex, offsetBy: -4)
+        let rangeOfTimeWithDay = startOfTimeWithDay..<endOfTimeWithDay
+        //let timeWithDay = photoNameString[rangeOfTimeWithDay]
+        if day == intDay{
+            let result = "(Today)" + time
+            return result
+        }
+        else if (intDay == intYesterday){
+            let result = "(Yesterday)" + time
+            return result
+        }
+        else{
+            let result = monthChangeForTime(str : photoNameString) + " " + time
+            return result
+        }
+//
+//        let result = ""
+//        return result
         
     }
+    //end of PhotonameChangeToTime
+    //
+    //
+    
+    //
+    func GetYesterdayDate(date : Date, Day : Int) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        let tempDayValue = (-1) * Day
+        let tempdate = Calendar.current.date(byAdding: .day, value: tempDayValue, to: Date())
+        var dateString = dateFormatter.string(from: tempdate!)
+        let final = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "dd"
+        let date24 = dateFormatter.string(from: final!)
+        return date24
+    }
+    // end of GetYesterdayDate(date : Date, Day : Int)
+    //  /Screenshot-03.18,16:03:21.jpg
+    func monthChangeForTime(str : String) -> String{
+        let monthStartIndex = str.index(str.startIndex, offsetBy : 12)
+        let monthEndIndex = str.index(str.endIndex, offsetBy: -16)
+        let rangeForMonth = monthStartIndex..<monthEndIndex
+        let monthDigit = String(str[rangeForMonth])
+        let dictionary = [
+            "01"    : "Jan",
+            "02"    : "Feb",
+            "03"    : "Mar",
+            "04"    : "Apr",
+            "05"    : "May",
+            "06"    : "June",
+            "07"    : "Jul",
+            "08"    : "Aug",
+            "09"    : "Sept",
+            "10"    : "Oct",
+            "11"    : "Nove",
+            "12"    : "Dec"
+        ]
+        let monthName = dictionary[monthDigit!]
+        
+        let dayIndexStart = str.index(str.startIndex, offsetBy : 15)
+        let datIndexEnd = str.index(str.endIndex, offsetBy : -13)
+        let dayDigit = String(str[dayIndexStart..<datIndexEnd])
+        let dictionaryForDay = [
+            "01"    : "1st",
+            "02"    : "2nd",
+            "03"    : "3rd",
+            "04"    : "4th",
+            "05"    : "5th",
+            "06"    : "6th",
+            "07"    : "7th",
+            "08"    : "8th",
+            "09"    : "9th",
+            "10"    : "10th",
+            "11"    : "11st",
+            "12"    : "12nd",
+            "13"    : "13rd",
+            "14"    : "14th",
+            "15"    : "15th",
+            "16"    : "16th",
+            "17"    : "17th",
+            "18"    : "18th",
+            "19"    : "19th",
+            "20"    : "20th",
+            "21"    : "21st",
+            "22"    : "22nd",
+            "23"    : "23rd",
+            "24"    : "24th",
+            "25"    : "25th",
+            "26"    : "26th",
+            "27"    : "27th",
+            "28"    : "28th",
+            "29"    : "29th",
+            "30"    : "30th",
+            "31"    : "31st"
+        ]
+        let dayName = dictionaryForDay[dayDigit!]
+        
+        //let timeIndex = str.index(str.endIndex, offsetBy : -8)
+        //let timeDigit = String(str[timeIndex...])
+        let final = monthName! + " " + dayName!
+        return final
+    }
+    //end of monthChangeForTime
+    
+    // not work now
+    func makeFrontmost(){
+        let first = "tell application \"System Events\" \n perform action \"AXRaise\" of window 1 of process \"Finder\" \n end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: first)
+        scriptObject!.executeAndReturnError(&error)
+        if (error != nil) {
+            let errorHandler = classify()
+            errorHandler.writeError(error : error!)
+            print("error: \(String(describing: error))")
+        }
+    }
+    func print1(){
+        print("happy")
+    }
+    //end of makeFrontmost()
+    
+    
+    @IBAction func PreviousVideoClickButton(_ sender: Any) {
+        Slider.doubleValue = Slider.minValue
+        let temp = Int(Slider.doubleValue)
+            let photoname = PhotoNameList[temp]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            Slider.doubleValue -= 1
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            //InformationDisplayArea.stringValue = DicMessage.description
+            if DicMessage["SoftwareName"] != nil{
+                //print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page Url"
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+                InforFive.stringValue = "nil"
+            }
+        
+    }
+    // end of PreviousVideoClickButton
+    @IBAction func NextVideoClickButton(_ sender: Any) {
+        Slider.doubleValue = Slider.maxValue
+        let temp = Int(Slider.doubleValue)
+            let photoname = PhotoNameList[temp]
+            //photoname is the path of screenshots
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            Slider.doubleValue += 1
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            //InformationDisplayArea.stringValue = DicMessage.description
+            if DicMessage["SoftwareName"] != nil{
+                //print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                //InforTwo.stringValue = DicMessage["PhotoName"] as! String
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+            }
+            else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+                InforFive.stringValue = "nil"
+            }
+    }
+    //end of NextVideoClickButton
+    //
+    //"/Users/donghanhu/Documents/Reflect/2019-3-14-2/Screenshot-03.14,15:40:35.jpg"
+
+    
     
     //end of class
 }

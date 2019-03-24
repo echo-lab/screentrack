@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 import AppKit
 
+@available(OSX 10.13, *)
 
 class ImageCompress : NSObject{
     

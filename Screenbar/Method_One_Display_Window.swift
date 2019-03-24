@@ -8,15 +8,21 @@
 import Cocoa
 
 @available(OSX 10.13, *)
+
+@available(OSX 10.13, *)
 class Method_One_Display_Window: NSViewController{
 
     @IBOutlet weak var menuBoxOutlet: NSComboBox!
+    @IBOutlet weak var imageDisplayArea: NSImageCell!
     
     //lazy var window: NSWindow = self.view.window!
     
     
+    @IBOutlet weak var testImageView: NSImageView!
     let replayingMethodTwoHandler = ReplayingMethodTwo()
-    let values = [ 445, 203, 110, 105, 95, 65, 33, 21, 10 ].sorted()
+    
+    var dictionaryTemp = [String: Int]()
+    
     
 //    var mouseLocation: NSPoint {
 //        return NSEvent.mouseLocation()
@@ -24,33 +30,56 @@ class Method_One_Display_Window: NSViewController{
 //    var location: NSPoint {
 //        return window.mouseLocationOutsideOfEventStream
 //    }
+
     override func viewDidLoad() {
-        super.viewDidLoad()
-        DefaultComboMenu()
-        print("this is window")
+        //super.viewDidLoad()
+        //defaultDisplay()
+        
+        //DefaultComboMenu()
+        //print("this is window")
+        
     }
+    //view appear after load
     override func viewWillAppear() {
         super.viewWillAppear()
-        
-//        treeMap.alignment = .retinaSubPixel
-//        if let layout = self.collectionViewLayout as? Layout {
-//            let bounds = self.collectionView?.bounds ?? .zero
-//            layout.rects = treeMap.tessellate(inRect: bounds)
-//        }
-        let treeMap = TreeMap(withValues: values)
-        //self.view.window?.windowController?.
-        //self.view.bounds
-        let treeMapRects = treeMap.tessellate(inRect: self.view.bounds)
-        let context = NSGraphicsContext.current()?.cgContext
-        let randomColorHandler = Colors()
-        treeMapRects.forEach { (treeMapRect) in
-            randomColorHandler.randomColor.setFill()
-            context?.fill(treeMapRect)
-        }
-
-
+        DefaultComboMenu()
     }
-    
+    //
+    func defaultDisplay(){
+        let ReplayingOneHandler = ReplayingMethodTwo()
+        var totalAmount = 0
+        dictionaryTemp = ReplayingOneHandler.FetchPhotoToday() as! [String: Int]
+        if dictionaryTemp.count == 0{
+            print("no photo recording today")
+            DefaultNoPhotoRecordedDisplay()
+        }
+        else{
+            let arrayOfName = sortDictionaryGetSoftwareName(dic :  dictionaryTemp)
+            let arrayOfValue = sortDictionaryGetSoftwareCount(dic:  dictionaryTemp)
+            for i in 0..<arrayOfValue.count{
+                totalAmount += arrayOfValue[i]
+            }
+            print(totalAmount)
+            print(arrayOfName)
+            print(arrayOfValue)
+            let drawRectanglehandler = NSImageView_Rectangle()
+            drawRectanglehandler.intArrayToDouble(arrayOfint : arrayOfValue)
+            
+            
+        }
+        
+        
+        
+        //FetchPhotoToday()
+    }
+    //end of defaultDisplay()
+    //
+    func DefaultNoPhotoRecordedDisplay(){
+        let defaultImage = NSImage(named : "No_Image_Available")
+        imageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+        imageDisplayArea.image = defaultImage
+    }
+    //end of DefaultNoPhotoRecordedDisplay()
     //
     func DefaultComboMenu(){
         //let singularNouns = ["today", "recent 1 hour", "recent 3 hours", "recent 5 hours", "recent 8 hours", "recent 24 hours", "recent 3 days", "recent 5 days", "recent 7 days"]
@@ -119,11 +148,39 @@ class Method_One_Display_Window: NSViewController{
             for i in 0..<arrayOfValue.count{
                 totalAmount += arrayOfValue[i]
             }
-            
             print(totalAmount)
             print(arrayOfName)
             print(arrayOfValue)
+            let tempValues = arrayOfValue.map { Double($0) }
+            //testImageView
+            let treeMap = TreeMap(withValues: tempValues)
+            let treeMapRects = treeMap.tessellate(inRect: testImageView.bounds)
+            let size = testImageView.bounds
+            //let context = NSGraphicsContext.current()?.cgContext
+            let context = NSGraphicsContext.current()?.cgContext
+            let randomColorHandler = Colors()
+            let fillColor = NSColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
+            let number = treeMapRects.count
+            for i in 0..<number{
+                //draw(treeMapRects[i])
+                //NSBezierPath(rect: treeMapRects[i]).fill()
+                let rectangleColor = NSColor(red: 0.0, green: 0.0, blue: 2.0, alpha: 1.0)
+                print(treeMapRects[i])
+                let cPath: NSBezierPath = NSBezierPath(rect: treeMapRects[i])
+                //rectangleColor.set()
+                //cPath.fill()
+                randomColorHandler.randomColor.setFill()
+                //treeMapRects[i]
+                cPath.fill()
+                //context?.fill(treeMapRects[i])
+                
+            }
+//            treeMapRects.forEach { (treeMapRect) in
+//                randomColorHandler.randomColor.setFill()
+//                context?.fill(treeMapRect)
+//            }
         }
+            
         else{}
     }
     //end of the menuBoxActionWithoutClicking()
@@ -157,6 +214,14 @@ class Method_One_Display_Window: NSViewController{
     //------------------------------------------------------------------------------------------------------------------------
     
 
+    @IBAction func testButtonToChangeRectangles(_ sender: Any) {
+        let handler = NSImageView_Rectangle()
+        let rect = NSRect(x:0, y: 0, width:50 , height:50)
+        //handler.draw(testImageView)
+        let fillColor = NSColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
+        handler.draw(rect)
+        print("1")
+    }
     
     
     

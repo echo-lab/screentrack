@@ -18,7 +18,7 @@ class JsondataAfterTracking : NSObject{
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date)
         let hour = calendar.component(.hour, from: date)
-        let current = String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour)
+        //let current = String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour)
         let documentsDirectoryPath = filepath
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -29,7 +29,7 @@ class JsondataAfterTracking : NSObject{
         let final = dateFormatter.date(from: dateString)
         dateFormatter.dateFormat = "yyyy-M-d-HH:mm:ss"
         let date24 = dateFormatter.string(from: final!)
-        let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
+        //let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
         
         let dictionary : [String : Any] =
             [
@@ -42,7 +42,7 @@ class JsondataAfterTracking : NSObject{
             let current_path = "file://" + jpath.absoluteString
             //url is the json file
             let url = URL(string: current_path as String)
-            var fileSize : UInt64
+            //var fileSize : UInt64
             let rawData : NSData = try! NSData(contentsOf: url!)
             do{
                 let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
@@ -78,7 +78,7 @@ class JsondataAfterTracking : NSObject{
         //print("number of images function run but not work")
         //print(SessionFolderPath)
         //   /Users/donghanhu/Documents/Reflect/2019-2-23-8
-        let fileManager = FileManager.default
+        //let fileManager = FileManager.default
         
         let number = 0
         do {

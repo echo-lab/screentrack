@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 
 
@@ -97,10 +98,14 @@ class OpenSoftware : NSObject{
           
         }
         else{
+            //"Xcode"
+            let url = NSWorkspace.shared().fullPath(forApplication: name)
+            let one = "tell application" + url! + "to activate"
             let first = "tell application \""
             let second = "\" \n activate \n end tell"
             let final = first + name + second
-            AppleScript(script: final)
+            //AppleScript(script: final)
+            AppleScript(script: one)
             makeFrontmost(name: name)
         }
        

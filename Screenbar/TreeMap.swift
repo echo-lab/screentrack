@@ -81,7 +81,7 @@ public class TreeMap : NSObject{
     @objc public var alignment = FrameAlignment.retinaSubPixel
     
     /// The tree map values provided during initialization
-    @objc public let values: [Double] = []
+    @objc public var values: [Double] = []
     
     @objc lazy var allWeights: [Double] = {
         // Compute the total of all of the values
@@ -90,6 +90,28 @@ public class TreeMap : NSObject{
         // Map the values into their relative weight (percentage of total)
         return self.values.map { $0 / total }
     }()
+    /// Initialize this tree map with a set of values as the basis for the areas
+    /// of the tree map shapes. The numbers are arbitrary weights for items. The
+    /// order of these values is preserved throughout all operations and return
+    /// values. The list should be sorted using the preferred sort prior to
+    /// initialization. Lists returned by any public method on YMTreeMap will
+    /// always contain the same number of items as the `values` list provided here.
+    ///
+    /// - Parameter values: A list of positive double values
+    @objc public init(withValues values: [Double]) {
+        // Negative numbers are not supported or recoverable.
+        values.forEach { (value) in
+            if value < 0 {
+                let exception = NSException(name: NSExceptionName.invalidArgumentException,
+                                            reason: "TreeMaps can not represent negative values: \(value)",
+                    userInfo: nil)
+                exception.raise()
+            }
+        }
+        
+        self.values = values
+    }
+
     /// Convienance integer initializer for Swift clients. Since the values are
     /// summed and turned into relative floating point weights, calling this
     /// initializer is equivalent to casting all of the values to Double and
@@ -97,21 +119,13 @@ public class TreeMap : NSObject{
     ///
     /// - Parameter values: A list of positive integers
     
-    @nonobjc public convenience init(withValues values: [Int]) {
-        //self.init(withValues: values.map { Double($0) })
-        //let initial = [0]
-//        var error : NSDictionary
-//        do {
-//            try self.init(withValues: values.map { Int($0) })
-//        }
-//        catch{
-//            print(error)
-//        }
-        
-        self.init(withValues: values.map { Int($0) })
-    }
+//    @nonobjc public convenience init(withValues values: [Int]) {
+//        self.init(withValues: values.map { Int($0) })
+//    }
+    
     
     func tessellate(weights: [Double], inRect rect: Rect) -> [Rect] {
+        
         // Convert weights into double array of pre-multipled area (as in length x width)
         // for faster access
         let rectArea = rect.width * rect.height

@@ -16,8 +16,15 @@ class NSImageView_Rectangle: NSImageView {
     var SortedDictionary = [String: Int]()
     var arrayofname = [String]()
     var arrayofvalue = [Int]()
-
-       override func draw(_ dirtyRect: NSRect)
+    
+    var tempArrayDouble = [Double]()
+    //change int array to double array
+    
+    func intArrayToDouble (arrayOfint : [Int]){
+        tempArrayDouble = arrayOfint.map { Double($0) }
+    }
+    // end of function intArrayToDouble
+    override func draw(_ dirtyRect: NSRect)
     {
 //        Draw a rectangle
 //        let bPath:NSBezierPath = NSBezierPath(rect: dirtyRect)
@@ -49,20 +56,19 @@ class NSImageView_Rectangle: NSImageView {
         
         
         
-        //let values = [ 445, 203, 110, 105, 95, 65, 33, 21, 10 ].sorted()
+        let values = [ 445, 20, 110, 70, 233].sorted()
+        let tempValues = values.map { Double($0) }
         
         // These two lines are actual YMTreeMap usage!
-        //let treeMapHandler = TreeMap()
-//        let treeMap = TreeMap(withValues: values)
-//        let treeMapRects = treeMap.tessellate(inRect: self.bounds)
+        let treeMap = TreeMap(withValues: tempValues)
+        let treeMapRects = treeMap.tessellate(inRect: self.bounds)
 //        
-//        let context = NSGraphicsContext.current()?.cgContext
-//        let randomColorHandler = Colors()
-//        treeMapRects.forEach { (treeMapRect) in
-//            randomColorHandler.randomColor.setFill()
-//            context?.fill(treeMapRect)
-//        }
-        
+        let context = NSGraphicsContext.current()?.cgContext
+        let randomColorHandler = Colors()
+        treeMapRects.forEach { (treeMapRect) in
+            randomColorHandler.randomColor.setFill()
+            context?.fill(treeMapRect)
+        }
     }
     
     
@@ -91,19 +97,25 @@ class NSImageView_Rectangle: NSImageView {
         }
         SumOfDictionary = sum
     }
-    //set SortedDicionary is a sorted dictionary from great to 
-    func sortedDictionary(dictionary: Dictionary<String, Int>){
-        let dictValDec = dictionary.sorted(by: { $1.1 < $0.1 })
-        for i in 0 ..< dictValDec.count{
-            arrayofname.append(dictValDec[i].key)
-            arrayofvalue.append(dictValDec[i].value)
+    
+    
+    func sortDictionaryGetSoftwareName(dic : Dictionary<String, Int>) -> [String]{
+        let dictValDec = dic.sorted(by: { $1.1 < $0.1 })
+        var arrayOfName = [String]()
+        for i in 0..<dictValDec.count{
+            arrayOfName.append(dictValDec[i].key)
         }
-        
+        return arrayOfName
     }
-    //assumed dictionary has been sorted
-    func drawPic (dictionary: Dictionary<String, Int>, width : Float, height : Float, Horizontal : Bool ){
-        
-        
+    //end of sortDictionaryGetSoftwareName
+    //
+    func sortDictionaryGetSoftwareCount(dic : Dictionary<String, Int>) -> [Int]{
+        let dictValDec = dic.sorted(by: { $1.1 < $0.1 })
+        var arrayOfValue = [Int]()
+        for i in 0..<dictValDec.count{
+            arrayOfValue.append(dictValDec[i].value)
+        }
+        return arrayOfValue
     }
     //end of the class
 }

@@ -32,7 +32,6 @@ class classify : NSObject{
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
         let number = ClassDictionary[SoftwareName]
-        print(number)
         if number == "1" {
             //print("apple Preview")
             //            print(PreviewFilePath())
@@ -66,7 +65,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
@@ -121,7 +120,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
@@ -174,7 +173,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
@@ -231,7 +230,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
@@ -286,7 +285,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
@@ -342,7 +341,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
@@ -396,7 +395,7 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        print("json file has other data inside")
+                        //print("json file has other data inside")
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary

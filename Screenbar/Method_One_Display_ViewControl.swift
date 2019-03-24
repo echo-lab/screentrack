@@ -132,7 +132,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
             if DicMessage["SoftwareName"] != nil{
-                print(DicMessage["SoftwareName"])
+                //print(DicMessage["SoftwareName"])
                 InforOne.stringValue = DicMessage["SoftwareName"] as! String
             }
             if DicMessage["PhotoName"] != nil{

@@ -28,6 +28,69 @@ class ReplayingMethodTwo: NSViewController{
     
     
     //
+    func FetchPhotoToday() -> Dictionary<String, Int>{
+        var dictionaryTemp = [String: Int]()
+        let Defaultpath = Settings.DefaultFolder
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let current = String(year) + "-" + String(month) + "-" + String(day)
+        let Initialsession = 1
+        ReplayingMethodTwo.SessionNumber = ReplayingMethodTwo.applicationDelegate.fileNameDictionary[current] as! [Int]
+        let length = ReplayingMethodTwo.SessionNumber.count
+        var PhotoNameArray = [String]()
+        let fileManager = FileManager.default
+        let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
+        if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
+            print("today, you have not started recording")
+        }
+        let last = length - 1
+        if last == 0{
+            print("no recording today")
+        }
+        else {
+            for i in 1...last{
+                let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
+                let jsonFilePath = Stringfilepath + "/" + "test.json"
+                let URLfilepath = NSURL(string : Stringfilepath)
+                do {
+                    let tempArray = basedOnJsonFilePathReadArray(jsonpath: jsonFilePath)
+                    let arrayLength = tempArray.count
+                    for number in 0..<arrayLength{
+                        let tempName = tempArray[number]["SoftwareName"]//anyobject
+                        if tempName != nil{
+                            let currentName = tempName as! String
+                            if dictionaryTemp[currentName] != nil{
+                                let tempValue = dictionaryTemp[currentName]
+                                dictionaryTemp[currentName] = tempValue! + 1
+                            }
+                            else{
+                                dictionaryTemp[currentName] = 1
+                            }
+                        }
+                    }
+                    
+                    let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                    let number = filelist.count
+                    for j in 0..<number{
+                        if filelist[j].contains(".jpg"){
+                            let temp = Stringfilepath + "/" + filelist[j]
+                            PhotoNameArray.append(temp)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        let PhotoNumber = PhotoNameArray.count
+        
+        return dictionaryTemp
+    }
+    
+    //
     func FetchOneHours() -> Dictionary<String, Int>{
         var dictionaryTemp = [String: Int]()
         let Defaultpath = Settings.DefaultFolder

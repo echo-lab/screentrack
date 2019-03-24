@@ -45,13 +45,13 @@ class ScreenShot : NSObject {
 //        _ = " \"" +  Settings.getPath().path + "/Screenshot-" + dateString + ".jpg" + " \""
 //        let OriginialimageNameFullPath =   Settings.getPath().path + "/Screenshot-" + dateString + ".jpg"
 
-        print("file name is :" + OriginialimageName)
+        //print("file name is :" + OriginialimageName)
         //launch the task
          
         //classify different software
         task.launch() // asynchronous call.
         task.waitUntilExit()
-        print("after screenshot")
+        //print("after screenshot")
         let FrontmostApphandler = FrontmostApp()
         print(FrontmostApphandler.CurrentFrontMostApp)
         
@@ -94,7 +94,7 @@ class ScreenShot : NSObject {
         self.dateFormatter.timeStyle = DateFormatter.Style.medium
         //self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
-        var dateString = self.dateFormatter.string(from: date)
+        let dateString = self.dateFormatter.string(from: date)
         //print(dateString)
         //5:06:52 PM
         //let calendar = Calendar.current
@@ -121,7 +121,7 @@ class ScreenShot : NSObject {
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        print(String(output.description))
+        //print(String(output.description))
         if (error != nil) {
             print("error: \(String(describing: error))")
             let positionTemp = positionOfSoftware(AppName : AppName)
@@ -176,7 +176,6 @@ class ScreenShot : NSObject {
                 let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
                 let range = newStart..<newEnd
                 arr.append(Int(subStr[range])!)
-                
             }
             //return arr
         }

@@ -16,6 +16,7 @@ class Colors{
         return NSColor(red: CGFloat(arc4random_uniform(255) % 255) / 255.0,
                        green: CGFloat(arc4random_uniform(255) % 255) / 255.0,
                        blue: CGFloat(arc4random_uniform(255) % 255) / 255.0,
+                       //blue: 0.0,
                        alpha: 1)
     }
     //end of return random color
