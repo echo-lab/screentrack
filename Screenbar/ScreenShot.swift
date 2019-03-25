@@ -126,29 +126,31 @@ class ScreenShot : NSObject {
             print("error: \(String(describing: error))")
             let positionTemp = positionOfSoftware(AppName : AppName)
             let sizeTemp = sizeOfSoftware(AppName : AppName, position : positionTemp)
-            //let empty = [String]()
             print("sizeTemp")
             print(sizeTemp)
             return sizeTemp
         }
         else{
-            var arr = [String]()
+            var arr = ["0", "0", "0", "0"]
             for i in 1..<5{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
                 //arr = arr +
-                let start = temp.characters.index(of: "(")!
-                let end = temp.characters.index(of: ")")!
-                let subStr = temp[start..<end]
-                let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
-                let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
-                let range = newStart..<newEnd
-                arr.append(subStr[range])
+                if temp != nil{
+                    let start = temp.characters.index(of: "(")!
+                    let end = temp.characters.index(of: ")")!
+                    let subStr = temp[start..<end]
+                    let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+                    let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
+                    let range = newStart..<newEnd
+                    arr.append(subStr[range])
+                }
             }
             return arr
         }
         //let stringvalue = String(arr)
         //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
         //print(output.stringValue)
+        
     }
     //
     func sizeOfSoftware(AppName : String, position : Array<Int>) -> Array<String>{
@@ -160,11 +162,13 @@ class ScreenShot : NSObject {
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //have error
         if (error != nil) {
             print("error: \(String(describing: error))")
             let empty = [String]()
             return empty
         }
+        //don't have error
         else{
             for i in 1..<3{
                 let temp = String(describing: output.atIndex(i)?.int32Value)

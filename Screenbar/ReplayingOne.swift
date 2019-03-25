@@ -1624,9 +1624,7 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            //PhotoNameArray contains file path + file name
-                            //print(PhotoNameArray)
-                            var reverse : [String] = Array(tem.reversed())
+                           var reverse : [String] = Array(tem.reversed())
                            PhotoNameArray += reverse
                         } catch {
                             print(error)

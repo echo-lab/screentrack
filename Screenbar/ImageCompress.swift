@@ -25,6 +25,8 @@ class ImageCompress : NSObject{
 
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
+//        let a = image.size.width
+//        let b = image.size.height
       //  print( "print 0 " + String(describing: image.size.width) + "/+" + String(describing: image.size.height))
         image.draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.sourceOver, fraction: CGFloat(1))
         newImage.unlockFocus()
