@@ -18,6 +18,9 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var InforFour: NSTextField!
     @IBOutlet weak var InforFive: NSTextField!
     
+    @IBOutlet var showCroppedImage: NSImageView!
+    
+    @IBOutlet weak var croppedButton: NSButtonCell!
     
     @IBOutlet weak var FilePathOrURL: NSTextField!
     @IBOutlet weak var PageTitalOrFileName: NSTextField!
@@ -43,12 +46,18 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var imageButtonNext: NSButton!
     @IBOutlet weak var imageButtonPrevious: NSButton!
     @IBOutlet weak var ButtonOfPlay: NSButton!
+    
     var photonumber = 0
     var PhotoNameList = [String]()
     
     let GetListOfFilesHandler = FindScreenShot()
     
     var playImageTimer = Timer()
+    
+    
+    let croppedImagePopover = NSPopover()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1709,6 +1718,7 @@ class TimeLapseMethodWindow: NSViewController {
     }
     // end of PreviousVideoClickButton
     @IBAction func NextVideoClickButton(_ sender: Any) {
+        
         Slider.doubleValue = Slider.maxValue
         let temp = Int(Slider.doubleValue)
         //print(PhotoNameList)
@@ -1768,15 +1778,21 @@ class TimeLapseMethodWindow: NSViewController {
     //
     //"/Users/donghanhu/Documents/Reflect/2019-3-14-2/Screenshot-03.14,15:40:35.jpg"
 
+    open var windowController: NSWindowController?
+    var sub1WindowController: NSWindowController?
+    
+    var boolValue = false
+    
     @IBAction func CropImageClick(_ sender: Any) {
         //Slider.doubleValue = Slider.maxValue
+        
         let temp = Int(Slider.doubleValue)
-        if PhotoNameList != []{
+        if PhotoNameList != [] && boolValue == false{
             let photoname = PhotoNameList[temp]
             //photoname is the path of screenshots
             let nsImage = NSImage(contentsOfFile: photoname)
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-            ImageDisplayArea.image = nsImage
+            //ImageDisplayArea.image = nsImage
             let RelatedInformationHandler = RelatedInformation()
             let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
             let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
@@ -1793,79 +1809,94 @@ class TimeLapseMethodWindow: NSViewController {
             var forth = 0
             //var arrayOfBound = ["0", "0", "0", "0"]
             let arrayOfBound = DicMessage["bound"]
+            //code here, crush
+            print(arrayOfBound)
             if arrayOfBound != nil{
                 let boundInfor = arrayOfBound as! [String]
-                first = Int(boundInfor[0])! / ratio
-                second = Int(boundInfor[1])! / ratio
-                third = Int(boundInfor[2])! / ratio
-                forth = Int(boundInfor[3])! / ratio
+                print(boundInfor)
+                if boundInfor != [] {
+                    first = Int(boundInfor[0])! / ratio
+                    second = Int(boundInfor[1])! / ratio
+                    third = Int(boundInfor[2])! / ratio
+                    forth = Int(boundInfor[3])! / ratio
+                    let heightOfSoftware = forth - second
+                    let widthOfSoftware = third - first
+                    let cropimage = NSImage(contentsOfFile: photoname)
+                    //let afterCropImage : NSImage = cropimage.cropping(to:rect)!
+                    
+                    //            cropimage?.lockFocus()
+                    var destSize = NSMakeSize(CGFloat(third), CGFloat(forth))
+                    //            var newImage = NSImage(size: destSize)
+                    //            newImage.lockFocus()
+                    let xPosition = first
+                    let yPosition = second
+                    
+                    //            print(destSize.height)
+                    //            print(destSize.width)
+                    //            print(cropimage!.size.height)
+                    //            print(cropimage!.size.width)
+                    
+                    let newImage = cropimage?.cgImage(forProposedRect: nil, context: nil, hints: nil)
+                    //newImage is cfImage
+                    //            print(newImage?.width)
+                    //            print(newImage?.height)
+                    
+                    let cropZone = CGRect(x: CGFloat(xPosition * 2), y: CGFloat(yPosition * 2), width: CGFloat(widthOfSoftware * 2), height: CGFloat(heightOfSoftware * 2))
+                    
+                    //let cropZone = CGRect(x: 0, y: 0, width: 720, height: 100)
+                    //左上角坐标
+                    
+                    // cgimage.size is double of nsimag.size
+                    
+                    let cutImageRef : CGImage = newImage!.cropping(to:cropZone)!
+                    //            let a = cutImageRef.width / 2
+                    //            let b = cutImageRef.height / 2
+                    let newNSImage = NSImage(cgImage: cutImageRef, size: NSSize(width: cutImageRef.width, height: cutImageRef.height))
+                    ImageDisplayArea.image = newNSImage
+                    boolValue = true
+                    croppedButton.title = "Undo"
+                }
+                else {
+                    let alert = NSAlert.init()
+                    alert.messageText = "Hello"
+                    alert.informativeText = "Can't crop this image with invalid information"
+                    alert.addButton(withTitle: "OK")
+                    //alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                }
             }
 //            print(first)
 //            print(second)
 //            print(third)
 //            print(forth)
-            let heightOfSoftware = forth - second
-            let widthOfSoftware = third - first
-            let cropimage = NSImage(contentsOfFile: photoname)
-            //let afterCropImage : NSImage = cropimage.cropping(to:rect)!
-            
-//            cropimage?.lockFocus()
-            var destSize = NSMakeSize(CGFloat(third), CGFloat(forth))
-//            var newImage = NSImage(size: destSize)
-//            newImage.lockFocus()
-            let xPosition = first
-            let yPosition = second
 
-//            print(destSize.height)
-//            print(destSize.width)
-//            print(cropimage!.size.height)
-//            print(cropimage!.size.width)
+//            showCroppedImage.display()
+//            showCroppedImage.imageScaling = .scaleProportionallyUpOrDown
+//            showCroppedImage.image = newNSImage
             
-            let newImage = cropimage?.cgImage(forProposedRect: nil, context: nil, hints: nil)
-            //newImage is cfImage
-            print(newImage?.width)
-            print(newImage?.height)
+//            let imageView = NSImageView(image: newNSImage)
+//            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
+//            self.view.addSubview(imageView)
             
-            let cropZone = CGRect(x: CGFloat(xPosition * 2), y: CGFloat(yPosition * 2), width: CGFloat(widthOfSoftware * 2), height: CGFloat(heightOfSoftware * 2))
-            
-            //let cropZone = CGRect(x: 0, y: 0, width: 720, height: 100)
-            //左上角坐标
-            
-            // cgimage.size is double of nsimag.size
-            
-            let cutImageRef : CGImage = newImage!.cropping(to:cropZone)!
-//            let a = cutImageRef.width / 2
-//            let b = cutImageRef.height / 2
-            let newNSImage = NSImage(cgImage: cutImageRef, size: NSSize(width: cutImageRef.width, height: cutImageRef.height))
-            ImageDisplayArea.image = newNSImage
-            
-            //ImageDisplayArea.image = cutImageRef
-//            let originalImage = NSImage(contentsOfFile: photoname)
-//            let originalSize = originalImage?.size
-//            var sideSize : CGFloat = 0
-//            if(Int((originalSize?.width)!) > Int((originalSize?.height)!))
-//            {
-//                sideSize = (originalSize?.height)!
-//            }
-//            else
-//            {
-//                sideSize = (originalSize?.width)!
-//            }
-//            var originalImageRect : CGRect = CGRect(x: 0, y: 0, width: originalSize!.width, height: originalSize!.height)
-//
-//            guard let imageRef = originalImage?.cgImage(forProposedRect: &originalImageRect, context: nil, hints: nil) else { return }
-//
-//            let thumbnailRect = CGRect(x: ((originalSize?.width)! / 2 - sideSize / 2), y: ((originalSize?.height)! / 2 - sideSize / 2), width: sideSize, height: sideSize)
-//            let drawImage = imageRef.cropping(to: thumbnailRect);
-            
-            //let newImage = NSImage(cgImage: drawImage!, size: NSSize(width: SLIDE_WIDTH, height: SLIDE_HEIGHT))
+            //self.view.window?.close()
+
             
         }
+        else if PhotoNameList != [] && boolValue == true{
+            boolValue = false
+            croppedButton.title = "Crop"
+            let photoname = PhotoNameList[temp]
+            //photoname is the path of screenshots
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+        }
+        
         
         
     }
     //end of the function CropImageClick
-    
+
     
     
     //end of class

@@ -25,9 +25,11 @@
                 <outlet property="PreviousVideoImageButton" destination="XK0-qb-b01" id="VOK-Pw-leT"/>
                 <outlet property="Slider" destination="WfM-oC-KwL" id="cY6-2C-mzO"/>
                 <outlet property="SliderOfSpeed" destination="Tpe-HU-lK7" id="kPn-8n-Weq"/>
+                <outlet property="croppedButton" destination="z7x-9m-GHq" id="dGb-Ur-4IQ"/>
                 <outlet property="imageButtonNext" destination="532-hX-JKH" id="3Ba-7w-wRx"/>
                 <outlet property="imageButtonPlay" destination="kKX-62-gML" id="RHt-YE-FM0"/>
                 <outlet property="imageButtonPrevious" destination="wqL-cn-nQv" id="ybH-0P-HuP"/>
+                <outlet property="showCroppedImage" destination="IrL-Xv-ucB" id="M1I-xd-b0j"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -320,7 +322,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
                 <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ck5-Zy-V25">
-                    <rect key="frame" x="950" y="185" width="4" height="457"/>
+                    <rect key="frame" x="950" y="185" width="5" height="457"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88b-ce-xIQ">
@@ -335,9 +337,9 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nC-uu-h3Y">
-                    <rect key="frame" x="877" y="137" width="81" height="32"/>
+                    <rect key="frame" x="883" y="137" width="70" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="z7x-9m-GHq">
+                    <buttonCell key="cell" type="push" title="Crop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="z7x-9m-GHq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -357,5 +359,11 @@
             </subviews>
             <point key="canvasLocation" x="-111" y="52"/>
         </customView>
+        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IrL-Xv-ucB">
+            <rect key="frame" x="0.0" y="0.0" width="221" height="188"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="bRr-yd-Ymf"/>
+            <point key="canvasLocation" x="259" y="542"/>
+        </imageView>
     </objects>
 </document>

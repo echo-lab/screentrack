@@ -306,7 +306,7 @@ class MainWindowViewController: NSViewController {
         self.timerScreenshot.invalidate()
         self.timerCurrentAppList.invalidate()
         self.timerFrontmost.invalidate()
-        self.ChangeTitleOfButton("Capture automatic screenshot")
+        self.ChangeTitleOfButton("Click to start capturing screenshots")
         let AddingDataAfterStopingHandler = JsondataAfterTracking()
         AddingDataAfterStopingHandler.DataAfterRecording(filepath: URL(string: MyVariables.yourVariable)!)
 //        let domain = Bundle.main.bundleIdentifier!
