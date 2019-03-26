@@ -1469,6 +1469,7 @@ class ReplayingOne: NSViewController{
         for i in 0..<3{
             let theDate = GetYesterdayDate(date: date, Day: i)
             var SessionNumberForDays = [Int]()
+            var cur = [String]()
             //0,1,2 today, yesterday, and the day before yesterday
             if ReplayingOne.applicationDelegate.fileNameDictionary[theDate] == nil{
                 continue
@@ -1482,12 +1483,13 @@ class ReplayingOne: NSViewController{
                 }
                 else{
                     for j in 1..<length{
+                        var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
-                            var tem = [String]()
+                            
                             for j in 0..<number{
                                 
                                 if filelist[j].contains(".jpg"){
@@ -1496,16 +1498,18 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            var reverse : [String] = Array(tem.reversed())
-                            PhotoNameArray += reverse
+//                            var reverse : [String] = Array(tem.reversed())
+//                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
                         } catch {
                             print(error)
                         }
+                        cur += tem
                     }
                 }
             }
+            PhotoNameArray += cur.reversed()
             
         }
         
@@ -1534,6 +1538,7 @@ class ReplayingOne: NSViewController{
         for i in 0..<5{
             let theDate = GetYesterdayDate(date: date, Day: i)
             var SessionNumberForDays = [Int]()
+            var cur = [String]()
             //0,1,2 today, yesterday, and the day before yesterday
             if ReplayingOne.applicationDelegate.fileNameDictionary[theDate] == nil{
                 continue
@@ -1547,12 +1552,13 @@ class ReplayingOne: NSViewController{
                 }
                 else{
                     for j in 1..<length{
+                        var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
-                            var tem = [String]()
+                            
                             for j in 0..<number{
                                 if filelist[j].contains(".jpg"){
                                     let temp = Stringfilepath + "/" + filelist[j]
@@ -1560,15 +1566,17 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            var reverse : [String] = Array(tem.reversed())
-                            PhotoNameArray += reverse
+//                            var reverse : [String] = Array(tem.reversed())
+//                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
                         } catch {
                             print(error)
                         }
+                        cur += tem
                     }
                 }
+                PhotoNameArray += cur.reversed()
             }
           
         }
@@ -1598,6 +1606,7 @@ class ReplayingOne: NSViewController{
         for i in 0..<7{
             let theDate = GetYesterdayDate(date: date, Day: i)
             var SessionNumberForDays = [Int]()
+            var cur = [String]()
             //0,1,2 today, yesterday, and the day before yesterday
             if ReplayingOne.applicationDelegate.fileNameDictionary[theDate] == nil{
                 continue
@@ -1605,18 +1614,21 @@ class ReplayingOne: NSViewController{
             else{
                 SessionNumberForDays = ReplayingOne.applicationDelegate.fileNameDictionary[theDate] as! [Int]
                 let length = SessionNumberForDays.count
+                
                 if (length == 0){
                     let string = "the day of " + theDate + "is empty"
                     print(string)
                 }
                 else{
+                    
                     for j in 1..<length{
+                        var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                             let number = filelist.count
-                            var tem = [String]()
+                            //var tem = [String]()
                             for j in 0..<number{
                                 if filelist[j].contains(".jpg"){
                                     let temp = Stringfilepath + "/" + filelist[j]
@@ -1624,16 +1636,22 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                           var reverse : [String] = Array(tem.reversed())
-                           PhotoNameArray += reverse
+                            //this session in the temp
+//                           var reverse : [String] = Array(tem.reversed())
+//                           PhotoNameArray += reverse
                         } catch {
                             print(error)
                         }
+                        cur += tem
+                        //var reverse : [String] = Array(tem.reversed())
+                        //PhotoNameArray += reverse
                     }
+//                    var reverse : [String] = Array(tem.reversed())
+//                    PhotoNameArray += reverse
                 }
             }
-            
-        }
+            PhotoNameArray += cur.reversed()
+        }//end of for loop
         
         return PhotoNameArray.reversed() as [String]
     }
@@ -1761,7 +1779,7 @@ class ReplayingOne: NSViewController{
     }
     //
     func ReturnHour(str : String) -> Int{
-        print(str)
+        //print(str)
         let start = str.index(str.startIndex, offsetBy: 10)
         let end = str.index(str.endIndex, offsetBy: -6)
         let range = start..<end
