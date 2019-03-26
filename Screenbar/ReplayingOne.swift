@@ -1625,17 +1625,42 @@ class ReplayingOne: NSViewController{
                         var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
+                            
+                            let tempURL = NSURL(string: Stringfilepath)
+                            //                            let tempArray = fileSortByDate(path : tempURL as! URL)
+                            //                            print(tempArray)
+                            
                             //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                            let number = filelist.count
-                            //var tem = [String]()
-                            for j in 0..<number{
-                                if filelist[j].contains(".jpg"){
-                                    let temp = Stringfilepath + "/" + filelist[j]
-                                    //means it is a photo, instead of a json file
+                            
+                            let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                            
+                            let lalala = tempFileList.map { url in
+                                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                }
+                                .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                            //.map { $0.0 }
+                            //                            print("start")
+                            //                            print(lalala)
+                            //                            print("end")
+                            let count = lalala.count
+                            print(count)
+                            
+                            for k in 0..<count{
+                                if lalala[k].0.contains(".jpg"){
+                                    print(lalala[k])
+                                    let temp = Stringfilepath + "/" + lalala[k].0
                                     tem.append(temp)
                                 }
                             }
+                            
+//                            for j in 0..<number{
+//                                if filelist[j].contains(".jpg"){
+//                                    let temp = Stringfilepath + "/" + filelist[j]
+//                                    //means it is a photo, instead of a json file
+//                                    tem.append(temp)
+//                                }
+//                            }
                             //this session in the temp
 //                           var reverse : [String] = Array(tem.reversed())
 //                           PhotoNameArray += reverse
@@ -1807,7 +1832,25 @@ class ReplayingOne: NSViewController{
         print(mySubstring)
         return Int(mySubstring)!
     }
-    
+    //
+    func fileSortByDate(filepath : URL) -> [String]?{
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        if let urlArray = try? FileManager.default.contentsOfDirectory(at: filepath,
+                                                                       includingPropertiesForKeys: [.contentModificationDateKey],
+                                                                       options:.skipsHiddenFiles)
+        {
+            
+            return urlArray.map { url in
+                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date.distantPast)
+                }
+                .sorted(by: { $0.1 > $1.1 }) // sort descending modification dates
+                .map { $0.0 } // extract file names
+            
+        }
+        else{
+            return nil
+        }
+    }
     
     //end of the class
 }

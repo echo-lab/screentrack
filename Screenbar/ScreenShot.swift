@@ -131,7 +131,7 @@ class ScreenShot : NSObject {
             return sizeTemp
         }
         else{
-            var arr = ["0", "0", "0", "0"]
+            var arr = [String]()
             for i in 1..<5{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
                 //arr = arr +

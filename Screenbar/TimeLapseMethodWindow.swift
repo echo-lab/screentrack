@@ -1820,16 +1820,6 @@ class TimeLapseMethodWindow: NSViewController {
 //            print(destSize.width)
 //            print(cropimage!.size.height)
 //            print(cropimage!.size.width)
-//            cropimage?.draw(in: NSMakeRect(0, 0, cropimage!.size.width, cropimage!.size.height), from: NSMakeRect(0, 0, cropimage!.size.width, cropimage!.size.height), operation: NSCompositingOperation.sourceOver, fraction: CGFloat(1))
-//            cropimage?.draw(in: NSMakeRect(CGFloat(xPosition), CGFloat(yPosition), CGFloat(widthOfSoftware), CGFloat(heightOfSoftware)), from: NSMakeRect(0, 0, cropimage!.size.width, cropimage!.size.height), operation: NSCompositingOperation.sourceOver, fraction: CGFloat(1))
-//            newImage.unlockFocus()
-//            newImage.size = destSize
-//            ImageDisplayArea.image = newImage
-            //cropimage.unlockFocus()
-            //view.subviews(newImage)
-//            let imageView = NSImageView()
-//            imageView.image = newImage
-//            self.view.addSubview(imageView)
             
             let newImage = cropimage?.cgImage(forProposedRect: nil, context: nil, hints: nil)
             //newImage is cfImage
