@@ -73,10 +73,25 @@ class ReplayingOne: NSViewController{
                 do {
                     //filelist contain all names of the file in this folder
                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                    let tempURL = NSURL(string: Stringfilepath)
+                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                    let lalala = tempFileList.map { url in
+                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                        }
+                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                    let count = lalala.count
+//                    for k in 0..<count{
+//                        if lalala[k].0.contains(".jpg"){
+//                            print(lalala[k])
+//                            let temp = Stringfilepath + "/" + lalala[k].0
+//                            tem.append(temp)
+//                        }
+//                    }
+
                     let number = filelist.count
-                    for j in 0..<number{
-                        if filelist[j].contains(".jpg"){
-                            let temp = Stringfilepath + "/" + filelist[j]
+                    for k in 0..<count{
+                        if lalala[k].0.contains(".jpg"){
+                            let temp = Stringfilepath + "/" + lalala[k].0
                             //means it is a photo, instead of a json file
                             PhotoNameArray.append(temp)
                         }
@@ -160,12 +175,20 @@ class ReplayingOne: NSViewController{
                                 //need to code
                                 do {
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    let tempURL = NSURL(string: Stringfilepath)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                let temp = Stringfilepath + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + lalala[k].0
                                                 //PhotoNameArray.append(temp)
                                                 
                                                 tem.append(temp)
@@ -184,11 +207,21 @@ class ReplayingOne: NSViewController{
                             //read all photo out in this json file
                             do {
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                let tempURL = NSURL(string: Stringfilepath)
+                                let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                let lalala = tempFileList.map { url in
+                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                    }
+                                    .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                let count = lalala.count
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                //let number = filelist.count
                                 var tem = [String]()
-                                for j in 0..<number{
-                                    if filelist[j].contains(".jpg"){
-                                        let temp = Stringfilepath + "/" + filelist[j]
+                                for k in 0..<count{
+                                    if lalala[k].0.contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
                                         //PhotoNameArray.append(temp)
@@ -238,13 +271,23 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
                     //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
-                        //filelist contain all names of the file in this folder
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        let tempURL = NSURL(string: Stringfilepath)
+                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                        let lalala = tempFileList.map { url in
+                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                            }
+                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                        let count = lalala.count
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        //filelist contain all names of the file in this folder
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        //let number = filelist.count
                         var tem = [String]()
-                        for j in 0..<number{
-                            if filelist[j].contains(".jpg"){
-                                let temp = Stringfilepath + "/" + filelist[j]
+                        for k in 0..<count{
+                            if lalala[k].0.contains(".jpg"){
+                                let temp = Stringfilepath + "/" + lalala[k].0
                                 tem.append(temp)
                                 //means it is a photo, instead of a json file
                                 //PhotoNameArray.append(temp)
@@ -305,13 +348,21 @@ class ReplayingOne: NSViewController{
                                     //read screenshot
                                     //need to code
                                     do {
+                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                        let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                        let lalala = tempFileList.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                            }
+                                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                        let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
                                         var tem = [String]()
-                                        for j in 0..<number{
-                                            if filelist[j].contains(".jpg"){
-                                                if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                    let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                        for k in 0..<count{
+                                            if lalala[k].0.contains(".jpg"){
+                                                if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                    let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     //PhotoNameArray.append(temp)
                                                     tem.append(temp)
                                                 }
@@ -328,12 +379,21 @@ class ReplayingOne: NSViewController{
                             }else if (hourOfStartTime == hourOfPastTime){
                                 //read all photo out in this json file
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             //PhotoNameArray.append(temp)
                                             tem.append(temp)
@@ -430,13 +490,23 @@ class ReplayingOne: NSViewController{
                                 //read screenshot
                                 //need to code
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepath)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                let temp = Stringfilepath + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
                                                 
                                                 //PhotoNameArray.append(temp)
@@ -454,12 +524,22 @@ class ReplayingOne: NSViewController{
                         }else if (hourOfStartTime == hourOfPastTime){
                             //read all photo out in this json file
                             do {
+                                let tempURL = NSURL(string: Stringfilepath)
+                                let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                let lalala = tempFileList.map { url in
+                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                    }
+                                    .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                //lalala[k].0.contains(".jpg")
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                //let number = filelist.count
                                 var tem = [String]()
-                                for j in 0..<number{
-                                    if filelist[j].contains(".jpg"){
-                                        let temp = Stringfilepath + "/" + filelist[j]
+                                for k in 0..<count{
+                                    if lalala[k].0.contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         //PhotoNameArray.append(temp)
                                         tem.append(temp)
@@ -510,12 +590,22 @@ class ReplayingOne: NSViewController{
                     //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
                         //filelist contain all names of the file in this folder
+                        let tempURL = NSURL(string: Stringfilepath)
+                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                        let lalala = tempFileList.map { url in
+                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                            }
+                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                        let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        //lalala[k].0.contains(".jpg")
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        //let number = filelist.count
                         var tem = [String]()
-                        for j in 0..<number{
-                            if filelist[j].contains(".jpg"){
-                                let temp = Stringfilepath + "/" + filelist[j]
+                        for k in 0..<count{
+                            if lalala[k].0.contains(".jpg"){
+                                let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
                                 //PhotoNameArray.append(temp)
@@ -576,13 +666,23 @@ class ReplayingOne: NSViewController{
                                     //read screenshot
                                     //need to code
                                     do {
+                                        let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                        let lalala = tempFileList.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                            }
+                                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                        let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        //lalala[k].0.contains(".jpg")
+                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                        //let number = filelist.count
                                         var tem = [String]()
-                                        for j in 0..<number{
-                                            if filelist[j].contains(".jpg"){
-                                                if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                    let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                        for k in 0..<count{
+                                            if lalala[k].0.contains(".jpg"){
+                                                if (DealWithScreenShotName(str :  lalala[k].0) >= hourOfPastTime) {
+                                                    let temp = Stringfilepathofyesterday + "/" +  lalala[k].0
                                                     //PhotoNameArray.append(temp)
                                                     tem.append(temp)
                                                 }
@@ -599,12 +699,22 @@ class ReplayingOne: NSViewController{
                             }else if (hourOfStartTime == hourOfPastTime){
                                 //read all photo out in this json file
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             //PhotoNameArray.append(temp)
                                             tem.append(temp)
@@ -702,13 +812,23 @@ class ReplayingOne: NSViewController{
                                 //read screenshot
                                 //need to code
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepath)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                let temp = Stringfilepath + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
                                                 //PhotoNameArray.append(temp)
                                             }
@@ -725,12 +845,22 @@ class ReplayingOne: NSViewController{
                         }else if (hourOfStartTime == hourOfPastTime){
                             //read all photo out in this json file
                             do {
+                                let tempURL = NSURL(string: Stringfilepath)
+                                let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                let lalala = tempFileList.map { url in
+                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                    }
+                                    .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                //lalala[k].0.contains(".jpg")
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                //let number = filelist.count
                                 var tem = [String]()
-                                for j in 0..<number{
-                                    if filelist[j].contains(".jpg"){
-                                        let temp = Stringfilepath + "/" + filelist[j]
+                                for k in 0..<count{
+                                    if lalala[k].0.contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
                                         //PhotoNameArray.append(temp)
@@ -780,13 +910,23 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
                     //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
-                        //filelist contain all names of the file in this folder
+                        let tempURL = NSURL(string: Stringfilepath)
+                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                        let lalala = tempFileList.map { url in
+                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                            }
+                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                        let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        //lalala[k].0.contains(".jpg")
+                        //filelist contain all names of the file in this folder
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        //let number = filelist.count
                         var tem = [String]()
-                        for j in 0..<number{
-                            if filelist[j].contains(".jpg"){
-                                let temp = Stringfilepath + "/" + filelist[j]
+                        for k in 0..<count{
+                            if lalala[k].0.contains(".jpg"){
+                                let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
                                 //PhotoNameArray.append(temp)
@@ -846,13 +986,23 @@ class ReplayingOne: NSViewController{
                                     //read screenshot
                                     //need to code
                                     do {
+                                        let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                        let lalala = tempFileList.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                            }
+                                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                        let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        //lalala[k].0.contains(".jpg")
+                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                        //let number = filelist.count
                                         var tem = [String]()
-                                        for j in 0..<number{
-                                            if filelist[j].contains(".jpg"){
-                                                if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                    let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                        for k in 0..<count{
+                                            if lalala[k].0.contains(".jpg"){
+                                                if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                    let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     tem.append(temp)
                                                     //PhotoNameArray.append(temp)
                                                 }
@@ -869,12 +1019,22 @@ class ReplayingOne: NSViewController{
                             }else if (hourOfStartTime == hourOfPastTime){
                                 //read all photo out in this json file
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             tem.append(temp)
                                             //PhotoNameArray.append(temp)
@@ -970,13 +1130,23 @@ class ReplayingOne: NSViewController{
                                 //read screenshot
                                 //need to code
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepath)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                let temp = Stringfilepath + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
                                                 //PhotoNameArray.append(temp)
                                             }
@@ -993,12 +1163,22 @@ class ReplayingOne: NSViewController{
                         }else if (hourOfStartTime == hourOfPastTime){
                             //read all photo out in this json file
                             do {
+                                let tempURL = NSURL(string: Stringfilepath)
+                                let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                let lalala = tempFileList.map { url in
+                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                    }
+                                    .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                //lalala[k].0.contains(".jpg")
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                //let number = filelist.count
                                 var tem = [String]()
-                                for j in 0..<number{
-                                    if filelist[j].contains(".jpg"){
-                                        let temp = Stringfilepath + "/" + filelist[j]
+                                for k in 0..<count{
+                                    if lalala[k].0.contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
                                         //PhotoNameArray.append(temp)
@@ -1048,13 +1228,23 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
                     //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
-                        //filelist contain all names of the file in this folder
+                        let tempURL = NSURL(string: Stringfilepath)
+                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                        let lalala = tempFileList.map { url in
+                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                            }
+                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                        let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        //lalala[k].0.contains(".jpg")
+                        //filelist contain all names of the file in this folder
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        //let number = filelist.count
                         var tem = [String]()
-                        for j in 0..<number{
-                            if filelist[j].contains(".jpg"){
-                                let temp = Stringfilepath + "/" + filelist[j]
+                        for k in 0..<count{
+                            if lalala[k].0.contains(".jpg"){
+                                let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
                                 //PhotoNameArray.append(temp)
@@ -1114,13 +1304,24 @@ class ReplayingOne: NSViewController{
                                     //read screenshot
                                     //need to code
                                     do {
+                                        let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                        let lalala = tempFileList.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                            }
+                                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                        let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        //lalala[k].0.contains(".jpg")
+//                                        let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+//                                        let number = filelist.count
                                         var tem = [String]()
-                                        for j in 0..<number{
-                                            if filelist[j].contains(".jpg"){
-                                                if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                    let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                        //filelist[j]
+                                        for k in 0..<count{
+                                            if lalala[k].0.contains(".jpg"){
+                                                if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                    let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     tem.append(temp)
                                                     //PhotoNameArray.append(temp)
                                                 }
@@ -1137,12 +1338,22 @@ class ReplayingOne: NSViewController{
                             }else if (hourOfStartTime == hourOfPastTime){
                                 //read all photo out in this json file
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             tem.append(temp)
                                             //PhotoNameArray.append(temp)
@@ -1237,13 +1448,23 @@ class ReplayingOne: NSViewController{
                                 //read screenshot
                                 //need to code
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepath)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                let temp = Stringfilepath + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
                                                 //PhotoNameArray.append(temp)
                                             }
@@ -1260,12 +1481,22 @@ class ReplayingOne: NSViewController{
                         }else if (hourOfStartTime == hourOfPastTime){
                             //read all photo out in this json file
                             do {
+                                let tempURL = NSURL(string: Stringfilepath)
+                                let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                let lalala = tempFileList.map { url in
+                                    (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                    }
+                                    .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
+                                //lalala[k].0.contains(".jpg")
+                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                //let number = filelist.count
                                 var tem = [String]()
-                                for j in 0..<number{
-                                    if filelist[j].contains(".jpg"){
-                                        let temp = Stringfilepath + "/" + filelist[j]
+                                for k in 0..<count{
+                                    if lalala[k].0.contains(".jpg"){
+                                        let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
                                         //PhotoNameArray.append(temp)
@@ -1318,13 +1549,23 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
                     //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
-                        //filelist contain all names of the file in this folder
+                        let tempURL = NSURL(string: Stringfilepath)
+                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                        let lalala = tempFileList.map { url in
+                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                            }
+                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                        let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
+                        //lalala[k].0.contains(".jpg")
+                        //filelist contain all names of the file in this folder
+                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                        //let number = filelist.count
                         var tem = [String]()
-                        for j in 0..<number{
-                            if filelist[j].contains(".jpg"){
-                                let temp = Stringfilepath + "/" + filelist[j]
+                        for k in 0..<count{
+                            if lalala[k].0.contains(".jpg"){
+                                let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
                                 //PhotoNameArray.append(temp)
@@ -1384,13 +1625,23 @@ class ReplayingOne: NSViewController{
                                     //read screenshot
                                     //need to code
                                     do {
+                                        let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                        let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                        let lalala = tempFileList.map { url in
+                                            (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                            }
+                                            .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                        let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
+                                        //lalala[k].0.contains(".jpg")
+                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                        //let number = filelist.count
                                         var tem = [String]()
-                                        for j in 0..<number{
-                                            if filelist[j].contains(".jpg"){
-                                                if (DealWithScreenShotName(str : filelist[j]) >= hourOfPastTime) {
-                                                    let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                        for k in 0..<count{
+                                            if lalala[k].0.contains(".jpg"){
+                                                if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
+                                                    let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     tem.append(temp)
                                                     //PhotoNameArray.append(temp)
                                                 }
@@ -1407,12 +1658,22 @@ class ReplayingOne: NSViewController{
                             }else if (hourOfStartTime == hourOfPastTime){
                                 //read all photo out in this json file
                                 do {
+                                    let tempURL = NSURL(string: Stringfilepathofyesterday)
+                                    let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                                    let lalala = tempFileList.map { url in
+                                        (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                        }
+                                        .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                                    let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
+                                    //lalala[k].0.contains(".jpg")
+                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
+                                    //let number = filelist.count
                                     var tem = [String]()
-                                    for j in 0..<number{
-                                        if filelist[j].contains(".jpg"){
-                                            let temp = Stringfilepathofyesterday + "/" + filelist[j]
+                                    for k in 0..<count{
+                                        if lalala[k].0.contains(".jpg"){
+                                            let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             tem.append(temp)
                                             //PhotoNameArray.append(temp)
@@ -1486,18 +1747,35 @@ class ReplayingOne: NSViewController{
                         var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
-                            //filelist contain all names of the file in this folder
+                            let tempURL = NSURL(string: Stringfilepath)
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                            let number = filelist.count
+                            let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                            let lalala = tempFileList.map { url in
+                                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                }
+                                .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                            let count = lalala.count
+                            //print(count)
                             
-                            for j in 0..<number{
-                                
-                                if filelist[j].contains(".jpg"){
-                                    let temp = Stringfilepath + "/" + filelist[j]
-                                    //means it is a photo, instead of a json file
+                            for k in 0..<count{
+                                if lalala[k].0.contains(".jpg"){
+                                    print(lalala[k])
+                                    let temp = Stringfilepath + "/" + lalala[k].0
                                     tem.append(temp)
                                 }
                             }
+                            //filelist contain all names of the file in this folder
+ //                           let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+//                            let number = filelist.count
+//
+//                            for j in 0..<number{
+//
+//                                if filelist[j].contains(".jpg"){
+//                                    let temp = Stringfilepath + "/" + filelist[j]
+//                                    //means it is a photo, instead of a json file
+//                                    tem.append(temp)
+//                                }
+//                            }
 //                            var reverse : [String] = Array(tem.reversed())
 //                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
@@ -1555,17 +1833,35 @@ class ReplayingOne: NSViewController{
                         var tem = [String]()
                         let Stringfilepath = Defaultpath().absoluteString + theDate + "-" + String(j)
                         do {
-                            //filelist contain all names of the file in this folder
+                            let tempURL = NSURL(string: Stringfilepath)
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                            let number = filelist.count
+                            let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
                             
-                            for j in 0..<number{
-                                if filelist[j].contains(".jpg"){
-                                    let temp = Stringfilepath + "/" + filelist[j]
-                                    //means it is a photo, instead of a json file
+                            let lalala = tempFileList.map { url in
+                                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                }
+                                .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                            let count = lalala.count
+                            print(count)
+                            
+                            for k in 0..<count{
+                                if lalala[k].0.contains(".jpg"){
+                                    print(lalala[k])
+                                    let temp = Stringfilepath + "/" + lalala[k].0
                                     tem.append(temp)
                                 }
                             }
+                            //filelist contain all names of the file in this folder
+//                            let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+//                            let number = filelist.count
+//
+//                            for j in 0..<number{
+//                                if filelist[j].contains(".jpg"){
+//                                    let temp = Stringfilepath + "/" + filelist[j]
+//                                    //means it is a photo, instead of a json file
+//                                    tem.append(temp)
+//                                }
+//                            }
 //                            var reverse : [String] = Array(tem.reversed())
 //                            PhotoNameArray += reverse
                             //PhotoNameArray contains file path + file name
@@ -1627,25 +1923,13 @@ class ReplayingOne: NSViewController{
                         do {
                             
                             let tempURL = NSURL(string: Stringfilepath)
-                            //                            let tempArray = fileSortByDate(path : tempURL as! URL)
-                            //                            print(tempArray)
-                            
-                            //filelist contain all names of the file in this folder
                             let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                            
                             let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
-                            
                             let lalala = tempFileList.map { url in
                                 (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
                                 }
                                 .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
-                            //.map { $0.0 }
-                            //                            print("start")
-                            //                            print(lalala)
-                            //                            print("end")
                             let count = lalala.count
-                            print(count)
-                            
                             for k in 0..<count{
                                 if lalala[k].0.contains(".jpg"){
                                     print(lalala[k])
