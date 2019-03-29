@@ -439,7 +439,11 @@ class classify : NSObject{
             let empty = "empty"
             return empty
         }
-        else { return (output.stringValue?.description)!}
+        else {
+            //let tem = output.stringValue?.
+            return (output.stringValue?.description)!
+            
+        }
         //return (output.stringValue?.description)!
     }
     //preview open file name

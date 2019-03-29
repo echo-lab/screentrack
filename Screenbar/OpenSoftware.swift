@@ -48,12 +48,24 @@ class OpenSoftware : NSObject{
         }
         else if category == "Productivity"{
             if urlAndPath != nil {
-                let first = "tell application \""
-                let second = "\" \n open \""
-                let third = "\" \n end tell"
-                let final = first + name + second + urlAndPath + third
-                AppleScript(script: final)
-                makeFrontmost(name : name)
+                //urlAndPath is String
+                if (FileManager.default.fileExists(atPath: urlAndPath)){
+                    let first = "tell application \""
+                    let second = "\" \n open \""
+                    let third = "\" \n end tell"
+                    let final = first + name + second + urlAndPath + third
+                    AppleScript(script: final)
+                    makeFrontmost(name : name)
+                }
+                else{
+                    let alert = NSAlert.init()
+                    alert.messageText = "Hello"
+                    alert.informativeText = "no file found"
+                    alert.addButton(withTitle: "OK")
+                    //alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                }
+                
             }
             else {
                 let first = "tell application \""
@@ -66,12 +78,29 @@ class OpenSoftware : NSObject{
         }
         else if category == "Preview"{
             if urlAndPath.count > 7{
-                let first = "tell application \""
-                let second = "\" \n open \""
-                let third = "\" \n end tell"
-                let final = first + name + second + stringSub(url : urlAndPath) + third
-                AppleScript(script: final)
-                makeFrontmost(name : name)
+                //code here
+                let start = urlAndPath.index(urlAndPath.startIndex, offsetBy: 7)
+                let end = urlAndPath.index(urlAndPath.endIndex, offsetBy: 0)
+                let range = start..<end
+                let tempUrl = urlAndPath[range]
+                if(FileManager.default.fileExists(atPath: tempUrl)){
+                    let first = "tell application \""
+                    let second = "\" \n open \""
+                    let third = "\" \n end tell"
+                    let final = first + name + second + tempUrl + third
+                    AppleScript(script: final)
+                    makeFrontmost(name : name)
+                    
+                }
+                else{
+                    let alert = NSAlert.init()
+                    alert.messageText = "Hello"
+                    alert.informativeText = "no file found"
+                    alert.addButton(withTitle: "OK")
+                    //alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                }
+               
             }
             else {
                 let first = "tell application \""
@@ -84,11 +113,25 @@ class OpenSoftware : NSObject{
         }
         else if category == "Adobe Acrobat Reader DC"{
             if urlAndPath.count > 7{
-                let first = "tell application \"Adobe Acrobat Reader DC\" \n activate \n open \""
-                let second = "\" \n end tell"
-                let final = first + stringSub(url: urlAndPath) + second
-                AppleScript(script: final)
-                makeFrontmost(name: "Acrobat Reader")
+                let start = urlAndPath.index(urlAndPath.startIndex, offsetBy: 7)
+                let end = urlAndPath.index(urlAndPath.endIndex, offsetBy: 0)
+                let range = start..<end
+                let tempUrl = urlAndPath[range]
+                if (FileManager.default.fileExists(atPath: tempUrl)){
+                    let first = "tell application \"Adobe Acrobat Reader DC\" \n activate \n open \""
+                    let second = "\" \n end tell"
+                    let final = first + tempUrl + second
+                    AppleScript(script: final)
+                    makeFrontmost(name: "Acrobat Reader")
+                }
+                else{
+                    let alert = NSAlert.init()
+                    alert.messageText = "Hello"
+                    alert.informativeText = "no file found"
+                    alert.addButton(withTitle: "OK")
+                    alert.runModal()
+                }
+               
             }
             else{
                 let first = "tell application \"Adobe Acrobat Reader DC\" \n activate \n end tell"

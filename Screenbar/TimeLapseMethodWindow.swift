@@ -608,7 +608,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     //
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
-        if (InforFour.stringValue != "null") && (FilePathOrURL.stringValue == "FilePath"){
+        if (InforFour.stringValue != "null") && (FilePathOrURL.stringValue == "File Path"){
             let errorHandler = classify()
             let first = "set thePath to POSIX file \""
             let second = "\" \n tell application \"Finder\" to reveal thePath"
