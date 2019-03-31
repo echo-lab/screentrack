@@ -23,7 +23,8 @@ class OpenSoftware : NSObject{
                                            "Xcode"                   : "Productivity",
                                            "Microsoft Word"          : "Productivity",
                                            "Microsoft Excel"         : "Productivity",
-                                           "Microsoft PowerPoint"    : "Productivity"
+                                           "Microsoft PowerPoint"    : "Productivity",
+                                           "TextEdit"                : "TextEdit"
         
     ]
     
@@ -110,6 +111,40 @@ class OpenSoftware : NSObject{
                 makeFrontmost(name : name)
             }
            
+        }
+        else if category == "TextEdit"{
+            if urlAndPath.count > 7{
+                //code here
+                let start = urlAndPath.index(urlAndPath.startIndex, offsetBy: 7)
+                let end = urlAndPath.index(urlAndPath.endIndex, offsetBy: 0)
+                let range = start..<end
+                let tempUrl = urlAndPath[range]
+                if(FileManager.default.fileExists(atPath: tempUrl)){
+                    let first = "tell application \""
+                    let second = "\" \n open \""
+                    let third = "\" \n end tell"
+                    let final = first + name + second + tempUrl + third
+                    AppleScript(script: final)
+                    makeFrontmost(name : name)
+                    
+                }
+                else{
+                    let alert = NSAlert.init()
+                    alert.messageText = "Hello"
+                    alert.informativeText = "no file found"
+                    alert.addButton(withTitle: "OK")
+                    //alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                }
+                
+            }
+            else {
+                let first = "tell application \""
+                let second = "\" \n activate \n end tell"
+                let final = first + name + second
+                AppleScript(script: final)
+                makeFrontmost(name : name)
+            }
         }
         else if category == "Adobe Acrobat Reader DC"{
             if urlAndPath.count > 7{

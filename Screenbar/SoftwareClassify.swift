@@ -27,7 +27,8 @@ class classify : NSObject{
                                                "Microsoft Excel"         : "6",
                                                "Microsoft PowerPoint"    : "6",
                                                "Acrobat Reader"          : "6",
-                                               "Eclipse"                 : "6"
+                                               "Eclipse"                 : "6",
+                                               "TextEdit"                : "7"
     ]
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
@@ -370,7 +371,60 @@ class classify : NSObject{
             }
         }
         else if number == "7"{
-
+            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
+                                               "PhotoName"     : ScreenshotName,
+                                               "FilePath"      : TextEditFilePath(),
+                                               "FileName"      : TextEditFileName(),
+                                               "category"      : "Productivity",
+                                               "bound"         : BoundInfor
+                
+                //"open-frontmost-website":
+            ]
+            do {
+                //var error : NSError?
+                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+                // here "decoded" is of type `Any`, decoded from JSON data
+                // you can now cast it with the right type
+                let current_path = "file://" + jpath.absoluteString
+                //url is the json file
+                let url = URL(string: current_path as String)
+                var fileSize : UInt64
+                do {
+                    //return [FileAttributeKey : Any]
+                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    fileSize = attr[FileAttributeKey.size] as! UInt64
+                    if fileSize == 0{
+                        print("json file is empty")
+                        try jsonData.write(to: url!, options : .atomic)
+                    }
+                    else{
+                        //print("json file has other data inside")
+                        let rawData : NSData = try! NSData(contentsOf: url!)
+                        do{
+                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
+                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
+                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
+                            //print(jsonarray)
+                            jsonarray.append(dictionary)
+                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
+                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                                file.write(jsonData)
+                                file.closeFile()
+                            }
+                            
+                        }catch {print(error)}
+                        
+                        //try jsonData.write(to: url!, options : .atomic)
+                    }
+                } catch {
+                    print("Error: \(error)")
+                }
+            }
+            catch{
+                print(Error.self)
+            }
         }
         //could not identify this software name into any catogoriy
         else{
@@ -422,7 +476,51 @@ class classify : NSObject{
         
         // end of this function
     }
-    
+    //
+    func TextEditFilePath() -> String{
+        let MyAppleScript = "tell application \"System Events\" \n tell process \"TextEdit\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            writeError(error : error!)
+            print("error: \(String(describing: error))")
+        }
+        if output.stringValue == nil{
+            let empty = "empty"
+            return empty
+        }
+        else {
+            //let tem = output.stringValue?.
+            return (output.stringValue?.description)!
+            
+        }
+
+    }
+    //
+    func TextEditFileName() -> String{
+        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
+        let first = "tell application \"System Events\" \n tell process"
+        let second = "\"TextEdit\" \n "
+        let third = "set fileName to name of window 1 \n end tell \n end tell"
+        let final = first + second + third
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: final)
+        //let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            writeError(error : error!)
+            print("error: \(String(describing: error))")
+        }
+        if output.stringValue == nil{
+            let empty = "empty"
+            return empty
+        }
+        else { return (output.stringValue?.description)!}
+    }
+    //
     //preview opened file path
     func PreviewFilePath() -> String{
         
