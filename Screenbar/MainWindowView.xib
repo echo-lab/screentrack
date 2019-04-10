@@ -129,9 +129,9 @@
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-uC-Yve">
-                    <rect key="frame" x="18" y="50" width="256" height="19"/>
+                    <rect key="frame" x="18" y="50" width="256" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="995.18353174603169" tickMarkPosition="above" sliderType="linear" id="x5I-6o-PHs">
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="995.18353174603169" tickMarkPosition="above" numberOfTickMarks="7" sliderType="linear" id="x5I-6o-PHs">
                         <connections>
                             <action selector="CompressSilder:" target="-2" id="sOf-BE-msA"/>
                         </connections>

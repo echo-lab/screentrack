@@ -86,7 +86,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oUk-fj-RPz">
-                    <rect key="frame" x="703" y="121" width="234" height="94"/>
+                    <rect key="frame" x="697" y="128" width="234" height="94"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="xvn-Ho-J2R">
                         <font key="font" metaFont="system"/>
@@ -299,7 +299,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9b-KQ-aqb">
-                    <rect key="frame" x="854" y="605" width="98" height="32"/>
+                    <rect key="frame" x="860" y="137" width="98" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <buttonCell key="cell" type="push" title="Open File" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kxf-KT-Yrw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -325,19 +325,8 @@
                     <rect key="frame" x="950" y="185" width="5" height="457"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88b-ce-xIQ">
-                    <rect key="frame" x="769" y="363" width="177" height="32"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <buttonCell key="cell" type="push" title="Open Enclosing Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47b-uV-sVa">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="TimeIntervalCheckButton:" target="-2" id="4nP-tV-eKk"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nC-uu-h3Y">
-                    <rect key="frame" x="883" y="137" width="70" height="32"/>
+                    <rect key="frame" x="615" y="137" width="70" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Crop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="z7x-9m-GHq">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -356,6 +345,17 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88b-ce-xIQ">
+                    <rect key="frame" x="684" y="137" width="177" height="32"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <buttonCell key="cell" type="push" title="Open Enclosing Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="47b-uV-sVa">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="TimeIntervalCheckButton:" target="-2" id="4nP-tV-eKk"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-111" y="52"/>
         </customView>

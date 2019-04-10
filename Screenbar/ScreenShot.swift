@@ -135,7 +135,7 @@ class ScreenShot : NSObject {
             for i in 1..<5{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
                 //arr = arr +
-                if temp != nil{
+                if temp != nil || temp != "nil"{
                     let start = temp.characters.index(of: "(")!
                     let end = temp.characters.index(of: ")")!
                     let subStr = temp[start..<end]
@@ -143,6 +143,9 @@ class ScreenShot : NSObject {
                     let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
                     let range = newStart..<newEnd
                     arr.append(subStr[range])
+                }
+                else{
+                    
                 }
             }
             return arr
