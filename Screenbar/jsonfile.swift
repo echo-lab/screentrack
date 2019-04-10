@@ -62,7 +62,8 @@ class json: NSObject{
             [
                 "name of session"   : NameofSession,
                 "StartTime"         : date24,
-                "Information"       : ArrayOfDictionary
+                "Information"       : ArrayOfDictionary,
+                "EndTime"           : date24
         ]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.prettyPrinted)
