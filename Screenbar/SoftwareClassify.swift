@@ -19,7 +19,7 @@ class classify : NSObject{
     var ClassDictionary : [String : String] = ["Preview"                 : "1",
                                                "Pages"                   : "2",
                                                "Numbers"                 : "2",
-                                               "Keynots"                 : "2",
+                                               "Keynote"                 : "2",
                                                "Xcode"                   : "3",
                                                "Google Chrome"           : "4",
                                                "Safari"                  : "5",

@@ -15,6 +15,7 @@ class errorFile : NSObject{
         let fileManager = FileManager.default
         var isDirectory: ObjCBool = false
         // creating a .json file in the Documents folder
+        let aaa = jsonFilePath.absoluteString
         if !fileManager.fileExists(atPath: (jsonFilePath.absoluteString), isDirectory: &isDirectory) {
             let created = fileManager.createFile(atPath: (jsonFilePath.absoluteString), contents: nil, attributes: nil)
             if created {
