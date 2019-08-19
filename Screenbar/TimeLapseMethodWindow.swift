@@ -11,6 +11,7 @@ import Cocoa
 class TimeLapseMethodWindow: NSViewController {
 
     @IBOutlet weak var ImageDisplayArea: NSImageView!
+    @IBOutlet weak var openEnclosingFolderButton: NSButtonCell!
     
     @IBOutlet weak var InforOne: NSTextField!
     @IBOutlet weak var InforTwo: NSTextField!
@@ -40,6 +41,8 @@ class TimeLapseMethodWindow: NSViewController {
     
     @IBOutlet weak var PreviousVideoImageButton: NSButton!
     
+    @IBOutlet weak var datePick: NSDatePicker!
+    @IBOutlet weak var confirmButtonForDatePick: NSButton!
     
     @IBOutlet weak var CloseWindowButton: NSButton!
     @IBOutlet weak var imageButtonPlay: NSButton!
@@ -57,16 +60,20 @@ class TimeLapseMethodWindow: NSViewController {
     
     let croppedImagePopover = NSPopover()
     
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         DefaultInformationDisplay()
         DefaultDisplayToday()
         MultiLineOfPastTime.stringValue = ""
         MultiLineOfCurrentTime.stringValue = ""
         DefaultComboMenu()
         imageButtonSet()
+        //ImageDisplayArea.layer?.borderWidth = 0.5
+        
+        //confirmButtonForDatePick.frame.size.height = 100
         // Do view setup here.
     }
     
@@ -96,6 +103,7 @@ class TimeLapseMethodWindow: NSViewController {
     }
     //
     func DefaultDisplayToday(){
+        openEnclosingFolderButton.isEnabled = true
         let ReplayingOneHandler = ReplayingOne()
         PhotoNameList = ReplayingOneHandler.FetchPhotoToday() as! [String]
         if PhotoNameList.count == 0{
@@ -139,6 +147,7 @@ class TimeLapseMethodWindow: NSViewController {
             else if DicMessage["FrontmostPageUrl"] != nil{
                 FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
@@ -179,6 +188,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     //
     func DefaultImageDisplay(){
+        openEnclosingFolderButton.isEnabled = true
         if DisplayLatestPic() == ""{
             let defaultImage = NSImage(named : "DefaultDisplayImage")
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
@@ -214,6 +224,7 @@ class TimeLapseMethodWindow: NSViewController {
             else if DicMessage["FrontmostPageUrl"] != nil{
                 FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
@@ -261,6 +272,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     //
     @IBAction func SliderAction(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
         let index = Int((sender as AnyObject).doubleValue)
         if PhotoNameList != []{
             let photoname = PhotoNameList[index]
@@ -306,6 +318,7 @@ class TimeLapseMethodWindow: NSViewController {
             else if DicMessage["FrontmostPageUrl"] != nil{
                 FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
@@ -429,6 +442,7 @@ class TimeLapseMethodWindow: NSViewController {
     //
     
     @IBAction func imageButtonPreviousClick(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
         let temp = Int(Slider.doubleValue)
         //print(temp)
         if temp > 0 {
@@ -463,6 +477,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page Url"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -484,6 +499,7 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     @IBAction func imageButtonNextClick(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
         let temp = Int(Slider.doubleValue)
         //print(temp)
         if temp < Int(Slider.maxValue) {
@@ -519,6 +535,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -747,6 +764,7 @@ class TimeLapseMethodWindow: NSViewController {
 //        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
     }
     func imagePlay(){
+        openEnclosingFolderButton.isEnabled = true
         let temp = Int(Slider.doubleValue)
         
         if SliderOfSpeed.floatValue != speedOfSlider{
@@ -782,6 +800,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -823,7 +842,9 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     
+    
     @IBAction func MenuBoxOptionAction(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
         let timeinterval = ComboBoxOfMenu.stringValue
         if (timeinterval == "recent 1 hour"){
             let ReplayingOneHandler = ReplayingOne()
@@ -874,6 +895,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -944,6 +966,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1011,6 +1034,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1079,6 +1103,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1151,6 +1176,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1222,6 +1248,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1297,6 +1324,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1365,6 +1393,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1434,6 +1463,7 @@ class TimeLapseMethodWindow: NSViewController {
                 else if DicMessage["FrontmostPageUrl"] != nil{
                     FilePathOrURL.stringValue = "Page URL"
                     InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                    openEnclosingFolderButton.isEnabled = false
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1663,6 +1693,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     
     @IBAction func PreviousVideoClickButton(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
         Slider.doubleValue = Slider.minValue
         let temp = Int(Slider.doubleValue)
         if PhotoNameList != []{
@@ -1696,6 +1727,7 @@ class TimeLapseMethodWindow: NSViewController {
             else if DicMessage["FrontmostPageUrl"] != nil{
                 FilePathOrURL.stringValue = "Page Url"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1718,7 +1750,7 @@ class TimeLapseMethodWindow: NSViewController {
     }
     // end of PreviousVideoClickButton
     @IBAction func NextVideoClickButton(_ sender: Any) {
-        
+        openEnclosingFolderButton.isEnabled = true
         Slider.doubleValue = Slider.maxValue
         let temp = Int(Slider.doubleValue)
         //print(PhotoNameList)
@@ -1754,6 +1786,7 @@ class TimeLapseMethodWindow: NSViewController {
             else if DicMessage["FrontmostPageUrl"] != nil{
                 FilePathOrURL.stringValue = "Page URL"
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
@@ -1897,7 +1930,153 @@ class TimeLapseMethodWindow: NSViewController {
     }
     //end of the function CropImageClick
 
-    
+    @IBAction func datePickFunction(_ sender: Any) {
+        //print(datePick.dateValue)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-M-dd"
+//        let result = dateFormatter.string(from: datePick.dateValue)
+//        //2019-10-13
+//
+//        let ReplayingOneHandler = ReplayingOne()
+//        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
+//        //print(PhotoNameList)
+//        let last = PhotoNameList.count - 1
+//        if PhotoNameList.count == 0{
+//            print("no photo recorded")
+//            let alert = NSAlert.init()
+//            alert.messageText = "Hello"
+//            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
+//            alert.addButton(withTitle: "OK")
+//            //alert.addButton(withTitle: "Cancel")
+//            alert.runModal()
+//        }else{
+//            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+//            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+//            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+//            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
+//            photonumber = PhotoNameList.count - 1
+//            SliderValueSet()
+//            Slider.doubleValue = Slider.maxValue
+//            let photoname = PhotoNameList[Int(Slider.maxValue)]
+//            let nsImage = NSImage(contentsOfFile: photoname)
+//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+//            ImageDisplayArea.image = nsImage
+//            let RelatedInformationHandler = RelatedInformation()
+//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+//            if DicMessage["SoftwareName"] != nil{
+//                //print(DicMessage["SoftwareName"])
+//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+//            }
+//            if DicMessage["PhotoName"] != nil{
+//                let photoNameString = DicMessage["PhotoName"] as! String
+//                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+//                InforTwo.stringValue = printTimeString
+//            }
+//            if DicMessage["category"] != nil{
+//                InforThree.stringValue = DicMessage["category"] as! String
+//            }
+//            if DicMessage["FilePath"] != nil{
+//                FilePathOrURL.stringValue = "File Path"
+//                InforFour.stringValue = DicMessage["FilePath"] as! String
+//            }
+//            else if DicMessage["FrontmostPageUrl"] != nil{
+//                FilePathOrURL.stringValue = "Page URL"
+//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+//            }
+//            else{
+//                FilePathOrURL.stringValue = "File Path or Page URL"
+//                InforFour.stringValue = "null"
+//            }
+//            if DicMessage["FrontmostPageTitle"] != nil{
+//                PageTitalOrFileName.stringValue = "Page Title"
+//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+//            }
+//            else if DicMessage["FileName"] != nil{
+//                PageTitalOrFileName.stringValue = "File Name"
+//                InforFive.stringValue = DicMessage["FileName"] as! String
+//            }
+//            else{
+//                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+//                InforFive.stringValue = "nil"
+//            }
+//        }
+//        print(result)
+    }
+    //end of the function datePickFunction
+    @IBAction func datePickConfirmButton(_ sender: Any) {
+        openEnclosingFolderButton.isEnabled = true
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-M-dd"
+        let result = dateFormatter.string(from: datePick.dateValue)
+        let ReplayingOneHandler = ReplayingOne()
+        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
+        let last = PhotoNameList.count - 1
+        if PhotoNameList.count == 0{
+            print("no photo recorded")
+            let alert = NSAlert.init()
+            alert.messageText = "Hello"
+            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
+            alert.addButton(withTitle: "OK")
+            //alert.addButton(withTitle: "Cancel")
+            alert.runModal()
+        }else{
+            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
+            photonumber = PhotoNameList.count - 1
+            SliderValueSet()
+            Slider.doubleValue = Slider.maxValue
+            let photoname = PhotoNameList[Int(Slider.maxValue)]
+            let nsImage = NSImage(contentsOfFile: photoname)
+            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+            ImageDisplayArea.image = nsImage
+            let RelatedInformationHandler = RelatedInformation()
+            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+            if DicMessage["SoftwareName"] != nil{
+                //print(DicMessage["SoftwareName"])
+                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+            }
+            if DicMessage["PhotoName"] != nil{
+                let photoNameString = DicMessage["PhotoName"] as! String
+                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+                InforTwo.stringValue = printTimeString
+            }
+            if DicMessage["category"] != nil{
+                InforThree.stringValue = DicMessage["category"] as! String
+            }
+            if DicMessage["FilePath"] != nil{
+                FilePathOrURL.stringValue = "File Path"
+                InforFour.stringValue = DicMessage["FilePath"] as! String
+            }
+            else if DicMessage["FrontmostPageUrl"] != nil{
+                FilePathOrURL.stringValue = "Page URL"
+                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                openEnclosingFolderButton.isEnabled = false
+            }
+            else{
+                FilePathOrURL.stringValue = "File Path or Page URL"
+                InforFour.stringValue = "null"
+            }
+            if DicMessage["FrontmostPageTitle"] != nil{
+                PageTitalOrFileName.stringValue = "Page Title"
+                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+            }
+            else if DicMessage["FileName"] != nil{
+                PageTitalOrFileName.stringValue = "File Name"
+                InforFive.stringValue = DicMessage["FileName"] as! String
+            }
+            else{
+                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+                InforFive.stringValue = "nil"
+            }
+        }
+    }
+    //end of the function datePickConfirmButton
     
     //end of class
 }

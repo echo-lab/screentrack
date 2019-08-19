@@ -26,6 +26,7 @@ class ReplayingOne: NSViewController{
     static var SessionNumberFor24Hour = [Int]()
     static var SessionNumberForToday = [Int]()
     static var SessionNumberForYesterday = [Int]()
+    static var SessionNumberForSomeDay = [Int]()
     //static var SessionNumberForDays = [Int]()
     
 //    override func viewDidLoad() {
@@ -2135,6 +2136,72 @@ class ReplayingOne: NSViewController{
             return nil
         }
     }
+    
+    
+    // coding here
+    func FetchSomeday(SomeDay : String) -> Array<Any>{
+        let Defaultpath = Settings.DefaultFolder
+        var PhotoNameArray = [String]()
+        let date = Date()
+        let calendar = Calendar.current
+        let currentTime = GetTimeOfCurrentTime(date : date)
+        let Initialsession = 1
+        for i in 0..<1{
+            //let theDate = GetYesterdayDate(date: date, Day: i)
+            var SessionNumberForDays = [Int]()
+            var cur = [String]()
+            //0,1,2 today, yesterday, and the day before yesterday
+            if ReplayingOne.applicationDelegate.fileNameDictionary[SomeDay] == nil{
+                continue
+            }
+            else{
+                SessionNumberForDays = ReplayingOne.applicationDelegate.fileNameDictionary[SomeDay] as! [Int]
+                let length = SessionNumberForDays.count
+                
+                if (length == 0){
+                    let string = "the day of " + SomeDay + "is empty"
+                    print(string)
+                }
+                else{
+                    
+                    for j in 1..<length{
+                        var tem = [String]()
+                        let Stringfilepath = Defaultpath().absoluteString + SomeDay + "-" + String(j)
+                        do {
+                            
+                            let tempURL = NSURL(string: Stringfilepath)
+                            let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                            let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+                            let lalala = tempFileList.map { url in
+                                (url.lastPathComponent, (try? url.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? Date.distantPast)
+                                }
+                                .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
+                            let count = lalala.count
+                            for k in 0..<count{
+                                if lalala[k].0.contains(".jpg"){
+                                    print(lalala[k])
+                                    let temp = Stringfilepath + "/" + lalala[k].0
+                                    tem.append(temp)
+                                }
+                            }
+                        } catch {
+                            print(error)
+                        }
+                        cur += tem
+                        //var reverse : [String] = Array(tem.reversed())
+                        //PhotoNameArray += reverse
+                    }
+                    //                    var reverse : [String] = Array(tem.reversed())
+                    //                    PhotoNameArray += reverse
+                }
+            }
+            PhotoNameArray += cur.reversed()
+        }//end of for loop
+        
+        return PhotoNameArray.reversed() as [String]
+    }
+    
+    
     
     //end of the class
 }

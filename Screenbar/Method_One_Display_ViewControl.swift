@@ -146,6 +146,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             }
             else if DicMessage["FrontmostPageUrl"] != nil{
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+                
             }
             else{
                 InforFour.stringValue = "null"
