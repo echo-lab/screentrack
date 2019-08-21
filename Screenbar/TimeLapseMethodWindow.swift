@@ -49,6 +49,7 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var imageButtonNext: NSButton!
     @IBOutlet weak var imageButtonPrevious: NSButton!
     @IBOutlet weak var ButtonOfPlay: NSButton!
+    @IBOutlet weak var cropButton: NSButton!
     
     var photonumber = 0
     var PhotoNameList = [String]()
@@ -64,7 +65,7 @@ class TimeLapseMethodWindow: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        cropButton.isHidden = true
         DefaultInformationDisplay()
         DefaultDisplayToday()
         MultiLineOfPastTime.stringValue = ""
