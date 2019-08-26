@@ -123,9 +123,13 @@ class ScreenShot : NSObject {
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //print(String(output.description))
         if (error != nil) {
-            print("error: \(String(describing: error))")
-            let positionTemp = positionOfSoftware(AppName : AppName)
-            let sizeTemp = sizeOfSoftware(AppName : AppName, position : positionTemp)
+            print("error for GetBoundOfFrontMostSoftware: \(String(describing: error))")
+            //let positionTemp = positionOfSoftware(AppName : AppName)
+            let positionTemp = [230, 108]
+            print("positionTemp")
+            print(positionTemp)
+            //let sizeTemp = sizeOfSoftware(AppName : AppName, position : positionTemp)
+            let sizeTemp = ["230", "108", "1210", "748"]
             print("sizeTemp")
             print(sizeTemp)
             return sizeTemp
@@ -167,7 +171,7 @@ class ScreenShot : NSObject {
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         //have error
         if (error != nil) {
-            print("error: \(String(describing: error))")
+            print("error for sizeOfSoftware: \(String(describing: error))")
             let empty = [String]()
             return empty
         }
@@ -227,7 +231,7 @@ class ScreenShot : NSObject {
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
-            print("error: \(String(describing: error))")
+            print("error for positionOfSoftware: \(String(describing: error))")
             let empty = [Int]()
             return empty
         }
