@@ -51,6 +51,10 @@ class TimeLapseMethodWindow: NSViewController {
     @IBOutlet weak var ButtonOfPlay: NSButton!
     @IBOutlet weak var cropButton: NSButton!
     
+    
+    @IBOutlet weak var staticCategoryText: NSTextField!
+    
+    
     var photonumber = 0
     var PhotoNameList = [String]()
     
@@ -66,12 +70,18 @@ class TimeLapseMethodWindow: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         cropButton.isHidden = true
+        InforThree.isHidden = true
+        staticCategoryText.isHidden = true
         DefaultInformationDisplay()
         DefaultDisplayToday()
         MultiLineOfPastTime.stringValue = ""
         MultiLineOfCurrentTime.stringValue = ""
         DefaultComboMenu()
         imageButtonSet()
+        
+        let now = Date()
+        datePick.dateValue = now
+        
         //ImageDisplayArea.layer?.borderWidth = 0.5
         
         //confirmButtonForDatePick.frame.size.height = 100
