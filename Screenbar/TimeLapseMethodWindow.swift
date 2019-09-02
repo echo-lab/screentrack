@@ -2019,9 +2019,13 @@ class TimeLapseMethodWindow: NSViewController {
     @IBAction func datePickConfirmButton(_ sender: Any) {
         openEnclosingFolderButton.isEnabled = true
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-M-dd"
+        dateFormatter.dateFormat = "yyyy-M-d"
+        //sleep(UInt32(1))
+        print(datePick.dateValue)
         let result = dateFormatter.string(from: datePick.dateValue)
+        print(result)
         let ReplayingOneHandler = ReplayingOne()
+        
         PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
         let last = PhotoNameList.count - 1
         if PhotoNameList.count == 0{
