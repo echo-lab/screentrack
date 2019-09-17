@@ -249,17 +249,58 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return counter
     }
     
+    //var sub1WindowController: NSWindowController?
+    
     func showMainWindow() {
+
         if let button = statusItem.button {
+            // main window opened, so close it
             if(self.mainWindowPopover.isShown) {
                 self.hideMainWindow(self)
             }
-            else {
+            //even minimazie, MyVariables.sub1WindowController?.showWindow(nil) still not nil
+            else if (MyVariables.sub1WindowController?.showWindow(nil) == nil && MyVariables.openedBool == true && self.mainWindowPopover.isShown == false){
+                print("==nil")
+                MyVariables.sub1WindowController?.showWindow(nil)
+            }
+                
+            // first open main window
+            else if (MyVariables.sub1WindowController?.showWindow(nil) == nil && MyVariables.openedBool == false && self.mainWindowPopover.isShown == false){
                 self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 eventMonitor?.start()
             }
+                
+            else if(MyVariables.sub1WindowController?.showWindow(nil) != nil && MyVariables.openedBool == true && self.mainWindowPopover.isShown == false){
+                print(MyVariables.sub1WindowController?.showWindow(nil) ?? "warning")
+                print(self.mainWindowPopover.isShown)
+                
+                self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+                eventMonitor?.start()
+                print("yyy")
+                
+
+            }
+                
+            else {
+                print("Beg")
+                print(MyVariables.sub1WindowController?.showWindow(nil))
+
+                print(self.mainWindowPopover.isShown)
+//                self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+//                eventMonitor?.start()
+                print("44444")
+                MyVariables.sub1WindowController?.showWindow(nil)
+            }
         }
     }
+    
+//    func doubleClickSimulator(){
+//        if let button = statusItem.button {
+//            if(self.mainWindowPopover.isShown) {
+//                self.hideMainWindow(self)
+//            }
+//        }
+//    }
     
     
     func hideMainWindow(_ sender: AnyObject?) {
@@ -361,5 +402,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // If we got here, it is time to quit.
         return .terminateNow
     }
+    
+    
 }
 

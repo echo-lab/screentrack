@@ -322,7 +322,7 @@ class classify : NSObject{
                                                "PhotoName"     : ScreenshotName,
                                                "FilePath"      : MicrosoftSoftwareFilePath(name: SoftwareName),
                                                "FileName"      : ProductivityFileName(softwarename: newname),
-                                               "category"       : "Productivity",
+                                               "category"      : "Productivity",
                                                "bound"         : BoundInfor
                 
             ]

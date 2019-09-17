@@ -136,22 +136,24 @@ class ScreenShot : NSObject {
         }
         else{
             var arr = [String]()
-            for i in 1..<5{
-                let temp = String(describing: output.atIndex(i)?.int32Value)
-                //arr = arr +
-                if temp != nil || temp != "nil"{
-                    let start = temp.characters.index(of: "(")!
-                    let end = temp.characters.index(of: ")")!
-                    let subStr = temp[start..<end]
-                    let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
-                    let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
-                    let range = newStart..<newEnd
-                    arr.append(subStr[range])
-                }
-                else{
-                    
-                }
-            }
+            arr = ["230", "108", "1210", "748"]
+            //need coding here,
+//            for i in 1..<5{
+//                let temp = String(describing: output.atIndex(i)?.int32Value)
+//                //arr = arr +
+//                if temp != nil || temp != "nil"{
+//                    let start = temp.characters.index(of: "(")!
+//                    let end = temp.characters.index(of: ")")!
+//                    let subStr = temp[start..<end]
+//                    let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
+//                    let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
+//                    let range = newStart..<newEnd
+//                    arr.append(subStr[range])
+//                }
+//                else{
+//
+//                }
+//            }
             return arr
         }
         //let stringvalue = String(arr)

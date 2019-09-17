@@ -13,6 +13,12 @@ struct MyVariables {
     static var yourVariable = "someString"
     static var jsonpath : URL = URL(string: "https://www.apple.com")!
     static var errorPath : URL = URL(string: "https://www.apple.com")!
+    
+//    static var windowHandler : NSViewController? = nil
+//    static var sub1Window : NSWindow? = nil
+    static var sub1WindowController : NSWindowController? = nil
+    
+    static var openedBool = false
 }
 
 let string = MyVariables.yourVariable
@@ -346,13 +352,25 @@ class MainWindowViewController: NSViewController {
     var sub1WindowController: NSWindowController?
     
     @IBAction func TimeLapseWindow(_ sender: Any) {
-        let Window_Handler : NSViewController = TimeLapseMethodWindow()
-        //let sub1ViewController = NSViewController(nibName: "TimeLapseMethodWindow", bundle: Bundle.main)
-        let sub1Window = NSWindow(contentViewController:  Window_Handler)
-        sub1WindowController = NSWindowController(window: sub1Window)
-        sub1WindowController?.showWindow(nil)
+        if (MyVariables.openedBool == false){
+            let windowHandler = TimeLapseMethodWindow()
+            let sub1Window = NSWindow(contentViewController: windowHandler)
+            MyVariables.sub1WindowController = NSWindowController(window: sub1Window)
+            MyVariables.sub1WindowController?.showWindow(nil)
+            MyVariables.openedBool = true
+        }
+        else{
+            MyVariables.sub1WindowController?.showWindow(nil)
+        }
+//
+//
+//        let Window_Handler : NSViewController = TimeLapseMethodWindow()
+//        let sub1Window = NSWindow(contentViewController:  Window_Handler)
+//        sub2WindowController = NSWindowController(window: sub1Window)
+//        MyVariables.openedBool = true
+//        sub2WindowController?.showWindow(nil)
         
-//        self.presentViewControllerAsModalWindow(Window_Handler)
+        
         self.view.window?.close()
     }
     
@@ -360,8 +378,8 @@ class MainWindowViewController: NSViewController {
         let Window_Handler : NSViewController = Method_One_Display_Window()
         //let sub1ViewController = NSViewController(nibName: "TimeLapseMethodWindow", bundle: Bundle.main)
         let sub1Window = NSWindow(contentViewController:  Window_Handler)
-        sub1WindowController = NSWindowController(window: sub1Window)
-        sub1WindowController?.showWindow(nil)
+        MyVariables.sub1WindowController = NSWindowController(window: sub1Window)
+        MyVariables.sub1WindowController?.showWindow(nil)
         self.view.window?.close()
     }
     

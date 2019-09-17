@@ -188,7 +188,7 @@ class ReplayingMethodTwo: NSViewController{
                                             }
                                         }
                                     }
-                                    var reverse : [String] = Array(tem.reversed())
+                                    let reverse : [String] = Array(tem.reversed())
                                     PhotoNameArray += reverse
                                 } catch {
                                     print(error)
@@ -234,7 +234,7 @@ class ReplayingMethodTwo: NSViewController{
                                         tem.append(temp)
                                     }
                                 }
-                                var reverse : [String] = Array(tem.reversed())
+                                let reverse : [String] = Array(tem.reversed())
                                 PhotoNameArray += reverse
                             } catch {
                                 print(error)
@@ -317,7 +317,7 @@ class ReplayingMethodTwo: NSViewController{
                         }
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
-                        var reverse : [String] = Array(tem.reversed())
+                        let reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                     } catch {
                         print(error)
@@ -404,7 +404,7 @@ class ReplayingMethodTwo: NSViewController{
                                                 }
                                             }
                                         }
-                                        var reverse : [String] = Array(tem.reversed())
+                                        let reverse : [String] = Array(tem.reversed())
                                         PhotoNameArray += reverse
                                     } catch {
                                         print(error)
@@ -448,7 +448,7 @@ class ReplayingMethodTwo: NSViewController{
                                             tem.append(temp)
                                         }
                                     }
-                                    var reverse : [String] = Array(tem.reversed())
+                                    let reverse : [String] = Array(tem.reversed())
                                     PhotoNameArray += reverse
                                 } catch {
                                     print(error)
@@ -486,7 +486,7 @@ class ReplayingMethodTwo: NSViewController{
         var PhotoNameArray = [String]()
         //var softwareNameArray = [String]()
         //var softwareNameCountArray = [Int]()
-        var dictionaryOfSoftware = [String : Int]()
+        _ = [String : Int]()
         let date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -577,7 +577,7 @@ class ReplayingMethodTwo: NSViewController{
                                             }
                                         }
                                     }
-                                    var reverse : [String] = Array(tem.reversed())
+                                    let reverse : [String] = Array(tem.reversed())
                                     PhotoNameArray += reverse
                                 } catch {
                                     print(error)
@@ -620,7 +620,7 @@ class ReplayingMethodTwo: NSViewController{
                                         tem.append(temp)
                                     }
                                 }
-                                var reverse : [String] = Array(tem.reversed())
+                                let reverse : [String] = Array(tem.reversed())
                                 PhotoNameArray += reverse
                             } catch {
                                 print(error)
@@ -700,7 +700,7 @@ class ReplayingMethodTwo: NSViewController{
                         }
                         //PhotoNameArray contains file path + file name
                         //print(PhotoNameArray)
-                        var reverse : [String] = Array(tem.reversed())
+                        let reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                     } catch {
                         print(error)
@@ -784,7 +784,7 @@ class ReplayingMethodTwo: NSViewController{
                                                 }
                                             }
                                         }
-                                        var reverse : [String] = Array(tem.reversed())
+                                        let reverse : [String] = Array(tem.reversed())
                                         PhotoNameArray += reverse
                                     } catch {
                                         print(error)
@@ -825,7 +825,7 @@ class ReplayingMethodTwo: NSViewController{
                                             tem.append(temp)
                                         }
                                     }
-                                    var reverse : [String] = Array(tem.reversed())
+                                    let reverse : [String] = Array(tem.reversed())
                                     PhotoNameArray += reverse
                                 } catch {
                                     print(error)
@@ -863,15 +863,15 @@ class ReplayingMethodTwo: NSViewController{
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        let month = calendar.component(.month, from: date)
-        let year = calendar.component(.year, from: date)
+        _ = calendar.component(.day, from: date)
+        _ = calendar.component(.month, from: date)
+        _ = calendar.component(.year, from: date)
         //let current = String(year) + "-" + String(month) + "-" + String(day)
-        let fileManager = FileManager.default
+        _ = FileManager.default
         //let yesterday = GetYesterdayDate(date : date, Day : 1)
         //let pastdate = GetDateOfPastTime(date : date, Hour : 8)
         //let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
-        let currentTime = GetTimeOfCurrentTime(date : date)
+        _ = GetTimeOfCurrentTime(date : date)
         //print(currentTime)
         //print("in fetch 3 hour function")
         
@@ -928,7 +928,7 @@ class ReplayingMethodTwo: NSViewController{
                             }
                             //PhotoNameArray contains file path + file name
                             //print(PhotoNameArray)
-                            var reverse : [String] = Array(tem.reversed())
+                            let reverse : [String] = Array(tem.reversed())
                             PhotoNameArray += reverse
                         } catch {
                             print(error)
@@ -969,7 +969,7 @@ class ReplayingMethodTwo: NSViewController{
             dateFormatter.timeStyle = DateFormatter.Style.medium
             let temp = (-1) * i
             let tempdate = Calendar.current.date(byAdding: .day, value: temp, to: Date())
-            var dateString = dateFormatter.string(from: tempdate!)
+            let dateString = dateFormatter.string(from: tempdate!)
             let final = dateFormatter.date(from: dateString)
             dateFormatter.dateFormat = "yyyy-M-d"
             let date24 = dateFormatter.string(from: final!)
@@ -983,7 +983,7 @@ class ReplayingMethodTwo: NSViewController{
         dateFormatter.timeStyle = DateFormatter.Style.medium
         let tempDayValue = (-1) * Day
         let tempdate = Calendar.current.date(byAdding: .day, value: tempDayValue, to: Date())
-        var dateString = dateFormatter.string(from: tempdate!)
+        let dateString = dateFormatter.string(from: tempdate!)
         let final = dateFormatter.date(from: dateString)
         dateFormatter.dateFormat = "yyyy-M-d"
         let date24 = dateFormatter.string(from: final!)
@@ -996,7 +996,7 @@ class ReplayingMethodTwo: NSViewController{
         dateFormatter.timeStyle = DateFormatter.Style.medium
         let tempHourValue = (-1) * Hour
         let tempdate = Calendar.current.date(byAdding: .hour, value: tempHourValue, to: Date())
-        var dateString = dateFormatter.string(from: tempdate!)
+        let dateString = dateFormatter.string(from: tempdate!)
         let final = dateFormatter.date(from: dateString)
         dateFormatter.dateFormat = "yyyy-M-d"
         let date24 = dateFormatter.string(from: final!)

@@ -50,7 +50,11 @@ class OpenSoftware : NSObject{
         else if category == "Productivity"{
             if urlAndPath != nil {
                 //urlAndPath is String
-                if (FileManager.default.fileExists(atPath: urlAndPath)){
+                //let filePath = url?.path
+                let temp = String(urlAndPath.dropFirst(7))
+                let newString = temp.replacingOccurrences(of: "%20", with: " ")
+                //let temp = "/Users/donghanhu/Desktop/Presentation1.pptx"
+                if (FileManager.default.fileExists(atPath: newString)){
                     let first = "tell application \""
                     let second = "\" \n open \""
                     let third = "\" \n end tell"

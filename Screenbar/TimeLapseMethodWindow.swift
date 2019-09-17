@@ -8,7 +8,7 @@
 import Cocoa
 @available(OSX 10.13, *)
 
-class TimeLapseMethodWindow: NSViewController {
+class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
 
     @IBOutlet weak var ImageDisplayArea: NSImageView!
     @IBOutlet weak var openEnclosingFolderButton: NSButtonCell!
@@ -61,13 +61,19 @@ class TimeLapseMethodWindow: NSViewController {
     let GetListOfFilesHandler = FindScreenShot()
     
     var playImageTimer = Timer()
+    var closeWindowTimer = Timer()
     
     
     let croppedImagePopover = NSPopover()
     
-
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        view.window?.delegate = self
+        
+    }
     
     override func viewDidLoad() {
+
         super.viewDidLoad()
         cropButton.isHidden = true
         InforThree.isHidden = true
@@ -82,15 +88,26 @@ class TimeLapseMethodWindow: NSViewController {
         let now = Date()
         datePick.dateValue = now
         
+        
+        
         //ImageDisplayArea.layer?.borderWidth = 0.5
         
         //confirmButtonForDatePick.frame.size.height = 100
         // Do view setup here.
+        
+    }
+
+    
+//
+    func windowWillClose(_ aNotification: Notification) {
+        print("windowWillClose")
+        MyVariables.openedBool = false
+        MyVariables.sub1WindowController = nil
     }
     
-    override func viewDidAppear() {
-//        self.timerCurrentTime = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.CurrentTime), userInfo: nil, repeats: true)
-    }
+//    override func viewDidAppear() {
+//        self.closeWindowTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.windowWillClose(_:)), userInfo: nil, repeats: true)
+//    }
     //end of viewDidAppear
     
     @objc func CurrentTime(){
@@ -725,6 +742,7 @@ class TimeLapseMethodWindow: NSViewController {
         }
         let start = name.characters.index(of: "-")
         let end = name.characters.index(of: "j")
+        
         let subStr = name[start..<end]
         let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
         let newEnd = subStr.index(subStr.endIndex, offsetBy : -1)
@@ -1496,7 +1514,9 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     @IBAction func CloseWindow(_ sender: Any) {
-         self.view.window?.windowController?.close()
+        self.view.window?.windowController?.close()
+        MyVariables.openedBool = false
+        MyVariables.sub1WindowController = nil
     }
     
     //end of the play function
@@ -2092,6 +2112,8 @@ class TimeLapseMethodWindow: NSViewController {
         }
     }
     //end of the function datePickConfirmButton
+
+    
     
     //end of class
 }
