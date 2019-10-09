@@ -16,8 +16,8 @@ class FrontmostApp : NSObject{
     public var CurrentFrontMostApp: String
     
     override init() {
-        let tempName = (NSWorkspace.shared().frontmostApplication?.localizedName)!
-        let URL = NSWorkspace.shared().frontmostApplication?.executableURL
+        let tempName = (NSWorkspace.shared.frontmostApplication?.localizedName)!
+        let URL = NSWorkspace.shared.frontmostApplication?.executableURL
         //let frontmostinfo = NSWorkspace.shared().frontmostApplication?.
         //print(frontmostinfo ?? "none")
         //print(tempName)
@@ -30,17 +30,17 @@ class FrontmostApp : NSObject{
     
     
     @available(OSX 10.13, *)
-    func DetectFrontMostApp() -> String{
+    @objc func DetectFrontMostApp() -> String{
         let ScreenshotHandler = ScreenShot()
         
-        let DetectFrontMostAppName = NSWorkspace.shared().frontmostApplication?.localizedName
+        let DetectFrontMostAppName = NSWorkspace.shared.frontmostApplication?.localizedName
         let characterSet = CharacterSet(charactersIn: "com.")
         let AfterTrimResult = DetectFrontMostAppName?.trimmingCharacters(in: characterSet)
         //print(AfterTrimResult ?? "nil result")
         if CurrentFrontMostApp != DetectFrontMostAppName {
         //if CurrentFrontMostApp != AfterTrimResult{
             //sleep(1.5)
-            let temp = NSWorkspace.shared().frontmostApplication?.localizedName
+            let temp = NSWorkspace.shared.frontmostApplication?.localizedName
             //if AfterTrimResult == temp {
             if DetectFrontMostAppName == temp {
                 ScreenshotHandler.take()
@@ -69,7 +69,7 @@ class FrontmostApp : NSObject{
 
     }
     func LocalNameOfFrontMostSoftware(){
-        let DetectFrontMost = NSWorkspace.shared().frontmostApplication?.localizedName
+        let DetectFrontMost = NSWorkspace.shared.frontmostApplication?.localizedName
         print(DetectFrontMost)
     }
 

@@ -8,7 +8,7 @@ import AppKit
 @available(OSX 10.13, *)
 
 class Settings : NSObject {
-    static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
+    static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     //static let appdelegateHandler = AppDelegate()
     
     //
@@ -227,7 +227,7 @@ class Settings : NSObject {
     @available(OSX 10.13, *)
     //save foldername from string: name
     static func SessionCounter(name: String){
-        let appDelegate = NSApplication.shared().delegate as! AppDelegate
+        let appDelegate = NSApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let newSession = NSEntityDescription.insertNewObject(forEntityName: "Session", into: context)
         newSession.setValue(name, forKey: "foldername")

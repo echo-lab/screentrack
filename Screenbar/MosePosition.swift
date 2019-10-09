@@ -13,7 +13,7 @@ class DetectMousePosition : NSEvent{
     
     
     var mouseLocation: NSPoint {
-        return NSEvent.mouseLocation()
+        return NSEvent.mouseLocation
     }
     
 //    var location: NSPoint {

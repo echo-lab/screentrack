@@ -11,11 +11,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
-    let statusItem = NSStatusBar.system().statusItem(withLength: -2)
+    let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
     var eventMonitor : EventMonitor?
     
-    static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
+    static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     static var SessionNumber = [Int]()
     
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
@@ -200,7 +200,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // set the image or icon on menubar
     func addImage() {
         if let button = statusItem.button {
-            button.image = NSImage(named: "ScreenbarIcon")
+            button.image = NSImage(named: NSImage.Name(rawValue: "ScreenbarIcon"))
             statusItem.alternateImage = button.image
             statusItem.highlightMode = true
             button.action = #selector(self.showMainWindow)
@@ -209,7 +209,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func changeicon(){
         if let button = statusItem.button {
-            button.image = NSImage(named: "recording")
+            button.image = NSImage(named: NSImage.Name(rawValue: "recording"))
             statusItem.alternateImage = button.image
             statusItem.highlightMode = true
             button.action = #selector(self.showMainWindow)
@@ -231,7 +231,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func initMainWindowPopover() {
-        self.mainWindowPopover.contentViewController = MainWindowViewController(nibName: "MainWindowView", bundle: nil)
+        self.mainWindowPopover.contentViewController = MainWindowViewController(nibName: NSNib.Name(rawValue: "MainWindowView"), bundle: nil)
     }
     
     func initEventMonitor() {
@@ -251,7 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     //var sub1WindowController: NSWindowController?
     
-    func showMainWindow() {
+    @objc func showMainWindow() {
 
         if let button = statusItem.button {
             // main window opened, so close it
@@ -352,7 +352,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } catch {
                 // Customize this code block to include application-specific recovery steps.
                 let nserror = error as NSError
-                NSApplication.shared().presentError(nserror)
+                NSApplication.shared.presentError(nserror)
             }
         }
     }

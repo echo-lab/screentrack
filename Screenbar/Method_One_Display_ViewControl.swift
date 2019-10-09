@@ -175,7 +175,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
     
     func DefaultImageDisplay(){
         if DisplayLatestPic() == ""{
-            let defaultImage = NSImage(named : "DefaultDisplayImage")
+            let defaultImage = NSImage(named : NSImage.Name(rawValue: "DefaultDisplayImage"))
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = defaultImage
         }
@@ -430,7 +430,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
 
     }
     
-    func printtext(){
+    @objc func printtext(){
         print("print text")
     }
     
@@ -520,7 +520,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         let alert = NSAlert()
         alert.messageText = question
         alert.informativeText = text
-        alert.alertStyle = NSAlertStyle.warning
+        alert.alertStyle = NSAlert.Style.warning
         alert.addButton(withTitle: "OK")
         //alert.addButton(withTitle: "Cancel")
         //return alert.runModal() == NSAlertFirstButtonReturn
@@ -859,8 +859,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         if DicMessage["PhotoName"] != nil{
             name = DicMessage["PhotoName"] as! String
         }
-        let start = name.characters.index(of: "-")
-        let end = name.characters.index(of: "j")
+        guard let start = name.characters.index(of: "-") else { return "error" }
+        guard let end = name.characters.index(of: "j") else { return "error" }
         let subStr = name[start..<end]
         let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
         let newEnd = subStr.index(subStr.endIndex, offsetBy : -1)
@@ -869,7 +869,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         //print(temp)
         
         
-        return temp
+        return String(temp)
         
     }
     

@@ -15,7 +15,7 @@ class CurrentApplicationData : NSObject{
     
     
     override init(){
-        for runningapp in NSWorkspace.shared().runningApplications{
+        for runningapp in NSWorkspace.shared.runningApplications{
             if let bundleIdentifier = runningapp.localizedName{
                 let characterSet = CharacterSet(charactersIn: ".com")
                 let AfterTrimResult = bundleIdentifier.trimmingCharacters(in: characterSet)
@@ -33,7 +33,7 @@ class CurrentApplicationData : NSObject{
         let screenshot = ScreenShot()
         //let RunningAppSet = NSMutableSet()
         //var str1 = ""
-        for runningApp in NSWorkspace.shared().runningApplications {
+        for runningApp in NSWorkspace.shared.runningApplications {
             if runningApp.isActive{
                 print(runningApp.localizedName)
                 print(String(describing: runningApp.executableURL))
