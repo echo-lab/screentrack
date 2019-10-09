@@ -1964,81 +1964,6 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     //end of the function CropImageClick
 
     @IBAction func datePickFunction(_ sender: Any) {
-        //print(datePick.dateValue)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-M-dd"
-//        let result = dateFormatter.string(from: datePick.dateValue)
-//        //2019-10-13
-//
-//        let ReplayingOneHandler = ReplayingOne()
-//        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
-//        //print(PhotoNameList)
-//        let last = PhotoNameList.count - 1
-//        if PhotoNameList.count == 0{
-//            print("no photo recorded")
-//            let alert = NSAlert.init()
-//            alert.messageText = "Hello"
-//            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
-//            alert.addButton(withTitle: "OK")
-//            //alert.addButton(withTitle: "Cancel")
-//            alert.runModal()
-//        }else{
-//            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-//            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-//            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-//            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-//            photonumber = PhotoNameList.count - 1
-//            SliderValueSet()
-//            Slider.doubleValue = Slider.maxValue
-//            let photoname = PhotoNameList[Int(Slider.maxValue)]
-//            let nsImage = NSImage(contentsOfFile: photoname)
-//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-//            ImageDisplayArea.image = nsImage
-//            let RelatedInformationHandler = RelatedInformation()
-//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
-//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
-//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-//            if DicMessage["SoftwareName"] != nil{
-//                //print(DicMessage["SoftwareName"])
-//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
-//            }
-//            if DicMessage["PhotoName"] != nil{
-//                let photoNameString = DicMessage["PhotoName"] as! String
-//                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
-//                InforTwo.stringValue = printTimeString
-//            }
-//            if DicMessage["category"] != nil{
-//                InforThree.stringValue = DicMessage["category"] as! String
-//            }
-//            if DicMessage["FilePath"] != nil{
-//                FilePathOrURL.stringValue = "File Path"
-//                InforFour.stringValue = DicMessage["FilePath"] as! String
-//            }
-//            else if DicMessage["FrontmostPageUrl"] != nil{
-//                FilePathOrURL.stringValue = "Page URL"
-//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
-//            }
-//            else{
-//                FilePathOrURL.stringValue = "File Path or Page URL"
-//                InforFour.stringValue = "null"
-//            }
-//            if DicMessage["FrontmostPageTitle"] != nil{
-//                PageTitalOrFileName.stringValue = "Page Title"
-//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
-//            }
-//            else if DicMessage["FileName"] != nil{
-//                PageTitalOrFileName.stringValue = "File Name"
-//                InforFive.stringValue = DicMessage["FileName"] as! String
-//            }
-//            else{
-//                PageTitalOrFileName.stringValue = "Page Tital or File Name"
-//                InforFive.stringValue = "nil"
-//            }
-//        }
-//        print(result)
-    }
-    //end of the function datePickFunction
-    @IBAction func datePickConfirmButton(_ sender: Any) {
         openEnclosingFolderButton.isEnabled = true
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-M-d"
@@ -2112,6 +2037,85 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 InforFive.stringValue = "nil"
             }
         }
+    }
+    //end of the function datePickFunction
+    @IBAction func datePickConfirmButton(_ sender: Any) {
+//        openEnclosingFolderButton.isEnabled = true
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-M-d"
+//        //sleep(UInt32(1))
+//        print(datePick.dateValue)
+//        let result = dateFormatter.string(from: datePick.dateValue)
+//        print(result)
+//        let ReplayingOneHandler = ReplayingOne()
+//
+//        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
+//        let last = PhotoNameList.count - 1
+//        if PhotoNameList.count == 0{
+//            print("no photo recorded")
+//            let alert = NSAlert.init()
+//            alert.messageText = "Hello"
+//            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
+//            alert.addButton(withTitle: "OK")
+//            //alert.addButton(withTitle: "Cancel")
+//            alert.runModal()
+//        }else{
+//            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+//            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+//            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+//            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
+//            photonumber = PhotoNameList.count - 1
+//            SliderValueSet()
+//            Slider.doubleValue = Slider.maxValue
+//            let photoname = PhotoNameList[Int(Slider.maxValue)]
+//            let nsImage = NSImage(contentsOfFile: photoname)
+//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+//            ImageDisplayArea.image = nsImage
+//            let RelatedInformationHandler = RelatedInformation()
+//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+//            if DicMessage["SoftwareName"] != nil{
+//                //print(DicMessage["SoftwareName"])
+//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+//            }
+//            if DicMessage["PhotoName"] != nil{
+//                let photoNameString = DicMessage["PhotoName"] as! String
+//                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+//                InforTwo.stringValue = printTimeString
+//            }
+//            if DicMessage["category"] != nil{
+//                InforThree.stringValue = DicMessage["category"] as! String
+//            }
+//            if DicMessage["FilePath"] != nil{
+//                FilePathOrURL.stringValue = "File Path"
+//                InforFour.stringValue = DicMessage["FilePath"] as! String
+//            }
+//            else if DicMessage["FrontmostPageUrl"] != nil{
+//                FilePathOrURL.stringValue = "Page URL"
+//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+//                openEnclosingFolderButton.isEnabled = false
+//            }
+//            else{
+//                FilePathOrURL.stringValue = "File Path or Page URL"
+//                InforFour.stringValue = "null"
+//            }
+//            if DicMessage["FrontmostPageTitle"] != nil{
+//                PageTitalOrFileName.stringValue = "Page Title"
+//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+//            }
+//            else if DicMessage["FileName"] != nil{
+//                PageTitalOrFileName.stringValue = "File Name"
+//                InforFive.stringValue = DicMessage["FileName"] as! String
+//            }
+//            else{
+//                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+//                InforFive.stringValue = "nil"
+//            }
+//        }
+        self.view.window?.windowController?.close()
+        MyVariables.openedBool = false
+        MyVariables.sub1WindowController = nil
     }
     //end of the function datePickConfirmButton
 
