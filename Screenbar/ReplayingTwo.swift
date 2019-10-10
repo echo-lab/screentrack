@@ -15,8 +15,8 @@ import CoreImage
 class ReplayingMethodTwo: NSViewController{
     
     
-    static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
-    static let applocationDelegateTemp : AppDelegate = NSApplication.shared().delegate as! AppDelegate
+    static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    static let applocationDelegateTemp : AppDelegate = NSApplication.shared.delegate as! AppDelegate
     static var SessionNumber = [Int]()
     static var SessionNumberForOneHour = [Int]()
     static var SessionNumberForThreeHour = [Int]()

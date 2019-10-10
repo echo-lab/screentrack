@@ -13,6 +13,8 @@ struct MyVariables {
     static var yourVariable = "someString"
     static var jsonpath : URL = URL(string: "https://www.apple.com")!
     static var errorPath : URL = URL(string: "https://www.apple.com")!
+    static var maxWidth = 0
+    static var initSecond = -1
     
 //    static var windowHandler : NSViewController? = nil
 //    static var sub1Window : NSWindow? = nil
@@ -21,6 +23,7 @@ struct MyVariables {
     static var openedBool = false
 }
 
+
 let string = MyVariables.yourVariable
 var jpath = MyVariables.jsonpath
 var erpath = MyVariables.errorPath
@@ -28,8 +31,8 @@ var erpath = MyVariables.errorPath
 
 
 @available(OSX 10.13, *)
-class MainWindowViewController: NSViewController {
-    static let applicationDelegate: AppDelegate = NSApplication.shared().delegate as! AppDelegate
+class MainWindowViewController: NSViewController, NSTextFieldDelegate {
+    static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var secondsTextBox: NSTextField!
     @IBOutlet weak var errorMessage: NSTextField!
@@ -42,11 +45,14 @@ class MainWindowViewController: NSViewController {
     @IBOutlet weak var TimeIntervalTwo: NSTextFieldCell!
     
     @IBOutlet weak var CompressionSlider: NSSlider!
+    @IBOutlet weak var compressionLabel: NSTextField!
     
+    @IBOutlet weak var estimatedInfor: NSTextField!
     
     // A timer that fires after a certain time interval has elapsed, sending a specified message to a target object
     @IBOutlet weak var CompressRateLabel: NSTextFieldCell!
     
+    @IBOutlet weak var dayLength: NSTextField!
     var timerScreenshot: Timer = Timer()
     @IBOutlet weak var DetectSwitchCheckButton: NSButton!
     var timerFrontmost: Timer = Timer()
@@ -69,7 +75,7 @@ class MainWindowViewController: NSViewController {
     
     
     var mouseLocation: NSPoint {
-        return NSEvent.mouseLocation()
+        return NSEvent.mouseLocation
     }
     var location: NSPoint {
         return window.mouseLocationOutsideOfEventStream
@@ -85,10 +91,25 @@ class MainWindowViewController: NSViewController {
         //self.setImageHeight()
         //self.setImageWidth()
         self.hideError()
+        //secondsTextBox.stringValue = "10.0"
         self.compressionSliderValueSet()
         //self.setPath()
+        compressionLabel.stringValue = "40.0%"
+        CompressionSlider.stringValue = String(CompressionSlider.minValue)
 
         //let defaults = UserDefaults.standard
+        
+        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        //print(imageSize)
+        let timeInterval = Double(secondsTextBox.stringValue)!
+        let timeSum = 60 / timeInterval * 480
+        //print(timeSum)
+        let day = Double(dayLength.stringValue)!
+        let totalStoreMB = timeSum * imageSize / 1024
+        let totalStoreGB = totalStoreMB * day / 1024
+        //print(totalStore)
+        //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
 
         self.setPlaySound()
 //        self.setImageSize()
@@ -102,10 +123,14 @@ class MainWindowViewController: NSViewController {
         
         
     }
-
+    override func controlTextDidChange(_ notification: Notification) {
+        if let textField = notification.object as? NSTextField {
+            print(textField.stringValue)
+            //do what you need here
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
 //            print("mouseLocation:", String(format: "%.1f, %.1f", self.mouseLocation.x, self.mouseLocation.y))
 //            print("windowLocation:", String(format: "%.1f, %.1f", self.location.x, self.location.y))
@@ -126,13 +151,31 @@ class MainWindowViewController: NSViewController {
 //        let LowerLeftCoordinateX = Int(self.mouseLocation.x) + Int(height!)/2 > 1440 ? 1440 : Int(self.mouseLocation.x) + Int(height!)/2
 //        let LowerLeftCoordinateY = Int(self.mouseLocation.y) - Int(width!)/2 < 0 ? 0 : Int(self.mouseLocation.y) - Int(width!)/2
         
-        
     }
     
     //slider from NSSliderCell
     @IBAction func CompressSilder(_ sender: NSSliderCell) {
+        let ratio = sender.doubleValue / Double(MyVariables.maxWidth)
+        let result = String(ratio * 100) + "%"
         
+        //let temp = Int(sender.doubleValue)
+        //print(temp)
         CompressRateLabel.stringValue = String(Int(sender.doubleValue))
+        //print(CompressRateLabel.stringValue)
+        compressionLabel.stringValue = result
+        let imageSize = sender.doubleValue * 950 / CompressionSlider.maxValue
+        //print(imageSize)
+        let timeInterval = Double(secondsTextBox.stringValue)!
+        let timeSum = 60 / timeInterval * 480
+        //print(timeSum)
+        let day = Double(dayLength.stringValue)!
+        let totalStoreMB = timeSum * imageSize / 1024
+        let totalStoreGB = totalStoreMB * day / 1024
+        //print(totalStore)
+        //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+        
+        
     }
     
     //
@@ -146,6 +189,8 @@ class MainWindowViewController: NSViewController {
     func setSeconds() {
         let seconds: Double? = Settings.getSecondsInterval()
         self.secondsTextBox.stringValue = String(seconds!)
+        
+        
     }
     
 //    func setImageHeight(){
@@ -160,13 +205,13 @@ class MainWindowViewController: NSViewController {
 
     // get the information of whether have sound or not
     func setPlaySound() {
-        self.playSound.state = Settings.getPlaySound()
+        self.playSound.state = NSControl.StateValue(rawValue: Settings.getPlaySound())
     }
     
     // show error
     // what error?
     func setDetectSwitch(){
-        self.DetectSwitchCheckButton.state = Settings.getDetectSwitch()
+        self.DetectSwitchCheckButton.state = NSControl.StateValue(rawValue: Settings.getDetectSwitch())
     }
     //
     
@@ -203,7 +248,7 @@ class MainWindowViewController: NSViewController {
     
     
     func close() {
-        let appDelegate : AppDelegate = NSApplication.shared().delegate as! AppDelegate
+        let appDelegate : AppDelegate = NSApplication.shared.delegate as! AppDelegate
         appDelegate.hideMainWindow(self)
     }
     
@@ -236,7 +281,7 @@ class MainWindowViewController: NSViewController {
         }
         else {
             self.hideError()
-            self.saveSettings(seconds, path: path, playSound: playSound, height: Int(height)!, DetectSwitchCheckButton: DetectSwitchCheckButton)
+            self.saveSettings(seconds, path: path, playSound: playSound.rawValue, height: Int(height)!, DetectSwitchCheckButton: DetectSwitchCheckButton.rawValue)
         }
         return success;
     }
@@ -287,7 +332,7 @@ class MainWindowViewController: NSViewController {
         //not take a screenshot at the start of the application
         //screenshotHandler.take()
         //useless
-        NotificationCenter.default.addObserver(self, selector: #selector(abd(notification:)), name:NSNotification.Name.NSApplicationDidBecomeActive, object: (Any).self)
+        //NotificationCenter.default.addObserver(self, selector: #selector(abd(notification:)), name:NSNotification.Name.NSApplicationDidHide.didBecomeActiveNotification, object: (Any).self)
         //
         self.timerScreenshot = Timer.scheduledTimer(timeInterval: seconds!, target: screenshotHandler, selector: #selector(ScreenShot.take), userInfo: nil, repeats: true)
         
@@ -301,7 +346,7 @@ class MainWindowViewController: NSViewController {
         //self.timerCurrentAppList = Timer.scheduledTimer(timeInterval: 3.0, target: currentappHandler, selector: #selector(CurrentApplicationData.CurrentApplicationInfo), userInfo: nil, repeats: true)
         //openfileinforHandler.OpenFileInfor()
         
-        self.ChangeTitleOfButton("Recording! Click to stopping automatic screenshot")
+        self.ChangeTitleOfButton("Recording! Stop")
     }
     //useless
     @objc func abd(notification: Notification){
@@ -312,7 +357,7 @@ class MainWindowViewController: NSViewController {
         self.timerScreenshot.invalidate()
         self.timerCurrentAppList.invalidate()
         self.timerFrontmost.invalidate()
-        self.ChangeTitleOfButton("Click to start capturing screenshots")
+        self.ChangeTitleOfButton("Click to start")
         let AddingDataAfterStopingHandler = JsondataAfterTracking()
         AddingDataAfterStopingHandler.DataAfterRecording(filepath: URL(string: MyVariables.yourVariable)!)
 //        let domain = Bundle.main.bundleIdentifier!
@@ -322,7 +367,7 @@ class MainWindowViewController: NSViewController {
     // Go to the folder that save the screenshots
     @IBAction func GoToTheFolder(_ sender: Any) {
 
-        NSWorkspace.shared().openFile(MyVariables.yourVariable)
+        NSWorkspace.shared.openFile(MyVariables.yourVariable)
         self.view.window?.close()
     }
     
@@ -339,11 +384,28 @@ class MainWindowViewController: NSViewController {
     //
     func compressionSliderValueSet(){
         let screen = NSScreen.main
-        let rect = screen()?.frame
+        //let temp = screen?.backingScaleFactor
+        let scale = Int((screen?.backingScaleFactor)!)
+//        print("scale")
+//        print(scale)
+        //print(temp)
+        
+        let rect = screen?.frame
+
         //let height = Int((rect?.size.height)!)
         let width = Int((rect?.size.width)!)
-        CompressionSlider.minValue = Double(width / 6)
-        CompressionSlider.maxValue = Double(width)
+        let height = Int((rect?.size.height)!)
+//        print(width)
+//        print(height)
+        let firstValue = width * scale
+        let secondValue = height * scale
+//        print(firstValue)
+//        print(secondValue)
+        CompressionSlider.minValue = Double(firstValue * 4 / 10)
+        //print(CompressionSlider.minValue)
+        CompressionSlider.maxValue = Double(firstValue)
+        MyVariables.maxWidth = firstValue
+        
     }
 
     //
@@ -388,8 +450,38 @@ class MainWindowViewController: NSViewController {
     // Quit this program
     @IBAction func ClickQuitButton(_ sender: Any) {
         //NSApplication.shared().terminate(self)
+        
         exit(0)
     }
     
+    
+    @IBAction func dayLengthTextField(_ sender: Any) {
+        //print(sender.self)
+        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        //print(imageSize)
+        let timeInterval = Double(secondsTextBox.stringValue)!
+        let timeSum = 60 / timeInterval * 480
+        //print(timeSum)
+        let day = Double(dayLength.stringValue)!
+        let totalStoreMB = timeSum * imageSize / 1024
+        let totalStoreGB = totalStoreMB * day / 1024
+        //print(totalStore)
+        //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+    }
+    
+    @IBAction func timeIntervalTextField(_ sender: Any) {
+        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        //print(imageSize)
+        let timeInterval = Double(secondsTextBox.stringValue)!
+        let timeSum = 60 / timeInterval * 480
+        //print(timeSum)
+        let day = Double(dayLength.stringValue)!
+        let totalStoreMB = timeSum * imageSize / 1024
+        let totalStoreGB = totalStoreMB * day / 1024
+        //print(totalStore)
+        //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+    }
     
 }

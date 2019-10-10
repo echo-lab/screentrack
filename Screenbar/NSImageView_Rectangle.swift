@@ -63,7 +63,7 @@ class NSImageView_Rectangle: NSImageView {
         let treeMap = TreeMap(withValues: tempValues)
         let treeMapRects = treeMap.tessellate(inRect: self.bounds)
 //        
-        let context = NSGraphicsContext.current()?.cgContext
+        let context = NSGraphicsContext.current?.cgContext
         let randomColorHandler = Colors()
         treeMapRects.forEach { (treeMapRect) in
             randomColorHandler.randomColor.setFill()

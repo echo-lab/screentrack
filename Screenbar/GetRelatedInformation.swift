@@ -30,7 +30,7 @@ class RelatedInformation{
         //photoname is the path of this photo
         //for example /Users/donghanhu/Documents/Reflect/2019-2-11-4/Screenshot-1.22.11 PM.jpg
         let keyword = String("/")
-        let array = photoname.indicesOf(string : keyword!)
+        let array = photoname.indicesOf(string : keyword)
         let length = array.count
         let endofstring = array[length - 1]
         let folderpath = photoname.prefix(endofstring)
@@ -42,7 +42,7 @@ class RelatedInformation{
     //return image name based on the image full path
     func BasedOnImagePathToFindtheImageName(photoname : String) -> String{
         let keyword = String("/")
-        let array = photoname.indicesOf(string : keyword!)
+        let array = photoname.indicesOf(string : keyword)
         let length = array.count
         let endofstring = array[length - 1]
         let pathlength = photoname.count

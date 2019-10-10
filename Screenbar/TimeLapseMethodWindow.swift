@@ -69,12 +69,14 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     override func viewWillAppear() {
         super.viewWillAppear()
         view.window?.delegate = self
+         self.view.window?.title = "ScreenTrack"
         
     }
     
     override func viewDidLoad() {
 
         super.viewDidLoad()
+       
         cropButton.isHidden = true
         InforThree.isHidden = true
         staticCategoryText.isHidden = true
@@ -122,11 +124,11 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     
     //
     func imageButtonSet(){
-        imageButtonPrevious.image = NSImage(named: "Previous")
-        imageButtonNext.image   = NSImage(named: "Next")
-        imageButtonPlay.image = NSImage(named: "PlayIcon")
-        NextVideoImageButton.image = NSImage(named: "nextvideo")
-        PreviousVideoImageButton.image = NSImage(named: "previousvideo")
+        imageButtonPrevious.image = NSImage(named: NSImage.Name(rawValue: "Previous"))
+        imageButtonNext.image   = NSImage(named: NSImage.Name(rawValue: "Next"))
+        imageButtonPlay.image = NSImage(named: NSImage.Name(rawValue: "PlayIcon"))
+        NextVideoImageButton.image = NSImage(named: NSImage.Name(rawValue: "nextvideo"))
+        PreviousVideoImageButton.image = NSImage(named: NSImage.Name(rawValue: "previousvideo"))
         
     }
     //
@@ -200,7 +202,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     }
     //end of DefaultDisplayToday()
     func DefaultNoPhotoRecordedDisplay(){
-        let defaultImage = NSImage(named : "No_Image_Available")
+        let defaultImage = NSImage(named : NSImage.Name(rawValue: "No_Image_Available"))
         ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
         ImageDisplayArea.image = defaultImage
     }
@@ -218,7 +220,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     func DefaultImageDisplay(){
         openEnclosingFolderButton.isEnabled = true
         if DisplayLatestPic() == ""{
-            let defaultImage = NSImage(named : "DefaultDisplayImage")
+            let defaultImage = NSImage(named : NSImage.Name(rawValue: "DefaultDisplayImage"))
             ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
             ImageDisplayArea.image = defaultImage
         }
@@ -644,7 +646,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         let alert = NSAlert()
         alert.messageText = question
         alert.informativeText = text
-        alert.alertStyle = NSAlertStyle.warning
+        alert.alertStyle = NSAlert.Style.warning
         alert.addButton(withTitle: "OK")
         //alert.addButton(withTitle: "Cancel")
         //return alert.runModal() == NSAlertFirstButtonReturn
@@ -740,8 +742,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         if DicMessage["PhotoName"] != nil{
             name = DicMessage["PhotoName"] as! String
         }
-        let start = name.characters.index(of: "-")
-        let end = name.characters.index(of: "j")
+        guard let start = name.characters.index(of: "-") else { return "error" }
+        guard let end = name.characters.index(of: "j") else { return "error" }
         
         let subStr = name[start..<end]
         let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
@@ -752,7 +754,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         
         
         //print(temp)
-        return temp
+        return String(temp)
     }
     // end of TimeSubstringFromPhotoName()
     
@@ -777,7 +779,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         }
         else{
             //ButtonOfPlay.title = "Pause"
-            imageButtonPlay.image = NSImage(named : "PauseIcon")
+            imageButtonPlay.image = NSImage(named : NSImage.Name(rawValue: "PauseIcon"))
             self.startPlaying()
         }
     }
@@ -792,7 +794,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         self.playImageTimer = Timer.scheduledTimer(timeInterval: TimeInterval(speed), target: self, selector: #selector(self.imagePlay), userInfo: nil, repeats: repeatBool)
 //        self.playImageTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.printtext), userInfo: nil, repeats: true)
     }
-    func imagePlay(){
+    @objc func imagePlay(){
         openEnclosingFolderButton.isEnabled = true
         let temp = Int(Slider.doubleValue)
         
@@ -851,7 +853,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         }
         else {
             self.playImageTimer.invalidate()
-            imageButtonPlay.image = NSImage(named : "PlayIcon")
+            imageButtonPlay.image = NSImage(named : NSImage.Name(rawValue: "PlayIcon"))
             //ButtonOfPlay.title = "play end"
         }
     }
@@ -860,7 +862,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     }
     func stopPlaying(){
         self.playImageTimer.invalidate()
-        imageButtonPlay.image = NSImage(named : "PlayIcon")
+        imageButtonPlay.image = NSImage(named : NSImage.Name(rawValue: "PlayIcon"))
         //ButtonOfPlay.title = "play"
     }
     
@@ -1575,7 +1577,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             "30"    : "30th",
             "31"    : "31st"
         ]
-        let dayName = dictionaryForDay[dayDigit!]
+        let dayName = dictionaryForDay[dayDigit]
         
         let timeIndex = str.index(str.endIndex, offsetBy : -8)
         let timeDigit = String(str[timeIndex...])
@@ -1653,12 +1655,12 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             "06"    : "June",
             "07"    : "Jul",
             "08"    : "Aug",
-            "09"    : "Sept",
+            "09"    : "2019, September",
             "10"    : "Oct",
             "11"    : "Nove",
             "12"    : "Dec"
         ]
-        let monthName = dictionary[monthDigit!]
+        let monthName = dictionary[monthDigit]
         
         let dayIndexStart = str.index(str.startIndex, offsetBy : 15)
         let datIndexEnd = str.index(str.endIndex, offsetBy : -13)
@@ -1696,7 +1698,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             "30"    : "30th",
             "31"    : "31st"
         ]
-        let dayName = dictionaryForDay[dayDigit!]
+        let dayName = dictionaryForDay[dayDigit]
         
         //let timeIndex = str.index(str.endIndex, offsetBy : -8)
         //let timeDigit = String(str[timeIndex...])
@@ -1863,7 +1865,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
             //InformationDisplayArea.stringValue = DicMessage.description
             let screen = NSScreen.main
-            let rect = screen()?.frame
+            let rect = screen?.frame
             let width = Int((rect?.size.width)!)
             let height = Int((rect?.size.height)!)
             let ratio = width / Int(nsImage!.size.width)
@@ -1962,81 +1964,6 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     //end of the function CropImageClick
 
     @IBAction func datePickFunction(_ sender: Any) {
-        //print(datePick.dateValue)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-M-dd"
-//        let result = dateFormatter.string(from: datePick.dateValue)
-//        //2019-10-13
-//
-//        let ReplayingOneHandler = ReplayingOne()
-//        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
-//        //print(PhotoNameList)
-//        let last = PhotoNameList.count - 1
-//        if PhotoNameList.count == 0{
-//            print("no photo recorded")
-//            let alert = NSAlert.init()
-//            alert.messageText = "Hello"
-//            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
-//            alert.addButton(withTitle: "OK")
-//            //alert.addButton(withTitle: "Cancel")
-//            alert.runModal()
-//        }else{
-//            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
-//            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
-//            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
-//            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
-//            photonumber = PhotoNameList.count - 1
-//            SliderValueSet()
-//            Slider.doubleValue = Slider.maxValue
-//            let photoname = PhotoNameList[Int(Slider.maxValue)]
-//            let nsImage = NSImage(contentsOfFile: photoname)
-//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
-//            ImageDisplayArea.image = nsImage
-//            let RelatedInformationHandler = RelatedInformation()
-//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
-//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
-//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
-//            if DicMessage["SoftwareName"] != nil{
-//                //print(DicMessage["SoftwareName"])
-//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
-//            }
-//            if DicMessage["PhotoName"] != nil{
-//                let photoNameString = DicMessage["PhotoName"] as! String
-//                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
-//                InforTwo.stringValue = printTimeString
-//            }
-//            if DicMessage["category"] != nil{
-//                InforThree.stringValue = DicMessage["category"] as! String
-//            }
-//            if DicMessage["FilePath"] != nil{
-//                FilePathOrURL.stringValue = "File Path"
-//                InforFour.stringValue = DicMessage["FilePath"] as! String
-//            }
-//            else if DicMessage["FrontmostPageUrl"] != nil{
-//                FilePathOrURL.stringValue = "Page URL"
-//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
-//            }
-//            else{
-//                FilePathOrURL.stringValue = "File Path or Page URL"
-//                InforFour.stringValue = "null"
-//            }
-//            if DicMessage["FrontmostPageTitle"] != nil{
-//                PageTitalOrFileName.stringValue = "Page Title"
-//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
-//            }
-//            else if DicMessage["FileName"] != nil{
-//                PageTitalOrFileName.stringValue = "File Name"
-//                InforFive.stringValue = DicMessage["FileName"] as! String
-//            }
-//            else{
-//                PageTitalOrFileName.stringValue = "Page Tital or File Name"
-//                InforFive.stringValue = "nil"
-//            }
-//        }
-//        print(result)
-    }
-    //end of the function datePickFunction
-    @IBAction func datePickConfirmButton(_ sender: Any) {
         openEnclosingFolderButton.isEnabled = true
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-M-d"
@@ -2110,6 +2037,85 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 InforFive.stringValue = "nil"
             }
         }
+    }
+    //end of the function datePickFunction
+    @IBAction func datePickConfirmButton(_ sender: Any) {
+//        openEnclosingFolderButton.isEnabled = true
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-M-d"
+//        //sleep(UInt32(1))
+//        print(datePick.dateValue)
+//        let result = dateFormatter.string(from: datePick.dateValue)
+//        print(result)
+//        let ReplayingOneHandler = ReplayingOne()
+//
+//        PhotoNameList = ReplayingOneHandler.FetchSomeday(SomeDay: result) as! [String]
+//        let last = PhotoNameList.count - 1
+//        if PhotoNameList.count == 0{
+//            print("no photo recorded")
+//            let alert = NSAlert.init()
+//            alert.messageText = "Hello"
+//            alert.informativeText = "No photo recorded from this day, this image is the last screenshot"
+//            alert.addButton(withTitle: "OK")
+//            //alert.addButton(withTitle: "Cancel")
+//            alert.runModal()
+//        }else{
+//            let startTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[0])
+//            let endTime = TimeSubstringFromPhotoName( ScreenshotName : PhotoNameList[last])
+//            MultiLineOfCurrentTime.stringValue = monthChange(str: endTime)
+//            MultiLineOfPastTime.stringValue = monthChange(str : startTime)
+//            photonumber = PhotoNameList.count - 1
+//            SliderValueSet()
+//            Slider.doubleValue = Slider.maxValue
+//            let photoname = PhotoNameList[Int(Slider.maxValue)]
+//            let nsImage = NSImage(contentsOfFile: photoname)
+//            ImageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
+//            ImageDisplayArea.image = nsImage
+//            let RelatedInformationHandler = RelatedInformation()
+//            let JsonFilePath = RelatedInformationHandler.BasedOnImagePathToFindJsonFile(photoname: photoname)
+//            let ImageName = RelatedInformationHandler.BasedOnImagePathToFindtheImageName(photoname: photoname)
+//            let DicMessage = RelatedInformationHandler.BasedOnJsonPath(jsonpath : JsonFilePath, screenshot : ImageName)
+//            if DicMessage["SoftwareName"] != nil{
+//                //print(DicMessage["SoftwareName"])
+//                InforOne.stringValue = DicMessage["SoftwareName"] as! String
+//            }
+//            if DicMessage["PhotoName"] != nil{
+//                let photoNameString = DicMessage["PhotoName"] as! String
+//                let printTimeString = PhotonameChangeToTime(photoNameString: photoNameString)
+//                InforTwo.stringValue = printTimeString
+//            }
+//            if DicMessage["category"] != nil{
+//                InforThree.stringValue = DicMessage["category"] as! String
+//            }
+//            if DicMessage["FilePath"] != nil{
+//                FilePathOrURL.stringValue = "File Path"
+//                InforFour.stringValue = DicMessage["FilePath"] as! String
+//            }
+//            else if DicMessage["FrontmostPageUrl"] != nil{
+//                FilePathOrURL.stringValue = "Page URL"
+//                InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
+//                openEnclosingFolderButton.isEnabled = false
+//            }
+//            else{
+//                FilePathOrURL.stringValue = "File Path or Page URL"
+//                InforFour.stringValue = "null"
+//            }
+//            if DicMessage["FrontmostPageTitle"] != nil{
+//                PageTitalOrFileName.stringValue = "Page Title"
+//                InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
+//            }
+//            else if DicMessage["FileName"] != nil{
+//                PageTitalOrFileName.stringValue = "File Name"
+//                InforFive.stringValue = DicMessage["FileName"] as! String
+//            }
+//            else{
+//                PageTitalOrFileName.stringValue = "Page Tital or File Name"
+//                InforFive.stringValue = "nil"
+//            }
+//        }
+        self.view.window?.windowController?.close()
+        MyVariables.openedBool = false
+        MyVariables.sub1WindowController = nil
     }
     //end of the function datePickConfirmButton
 

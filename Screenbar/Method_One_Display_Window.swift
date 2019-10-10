@@ -75,7 +75,7 @@ class Method_One_Display_Window: NSViewController{
     //end of defaultDisplay()
     //
     func DefaultNoPhotoRecordedDisplay(){
-        let defaultImage = NSImage(named : "No_Image_Available")
+        let defaultImage = NSImage(named : NSImage.Name(rawValue: "No_Image_Available"))
         imageDisplayArea.imageScaling = .scaleProportionallyUpOrDown
         imageDisplayArea.image = defaultImage
     }
@@ -157,7 +157,7 @@ class Method_One_Display_Window: NSViewController{
             let treeMapRects = treeMap.tessellate(inRect: testImageView.bounds)
             let size = testImageView.bounds
             //let context = NSGraphicsContext.current()?.cgContext
-            let context = NSGraphicsContext.current()?.cgContext
+            let context = NSGraphicsContext.current?.cgContext
             let randomColorHandler = Colors()
             let fillColor = NSColor(red: 0.5, green: 0.0, blue: 0.5, alpha: 1.0)
             let number = treeMapRects.count
