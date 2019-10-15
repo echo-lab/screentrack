@@ -28,6 +28,10 @@ struct mouseActivities {
     static var keyboardDirty = false
 }
 
+struct imageSize {
+    static var maxSize = 0
+}
+
 
 let string = MyVariables.yourVariable
 var jpath = MyVariables.jsonpath
@@ -115,8 +119,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         CompressionSlider.stringValue = String(CompressionSlider.minValue)
 
         //let defaults = UserDefaults.standard
-        
-        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        let temp = Double(imageSize.maxSize)
+        let imageSize = CompressionSlider.doubleValue * temp / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
@@ -165,7 +169,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         CompressRateLabel.stringValue = String(Int(sender.doubleValue))
         //print(CompressRateLabel.stringValue)
         compressionLabel.stringValue = result
-        let imageSize = sender.doubleValue * 950 / CompressionSlider.maxValue
+        let temp1 = Double(imageSize.maxSize)
+        let imageSize = sender.doubleValue * temp1 / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
@@ -406,6 +411,9 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let secondValue = height * scale
         print(firstValue)
         print(secondValue)
+        let temp = 950 * firstValue * secondValue
+        imageSize.maxSize = temp / (2880 * 1800)
+        print("max image size:" + String(imageSize.maxSize))
         CompressionSlider.minValue = Double(firstValue * 4 / 10)
         //print(CompressionSlider.minValue)
         CompressionSlider.maxValue = Double(firstValue)
@@ -462,7 +470,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func dayLengthTextField(_ sender: Any) {
         //print(sender.self)
-        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        let temp = Double(imageSize.maxSize)
+        let imageSize = CompressionSlider.doubleValue * temp / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
@@ -476,7 +485,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func timeIntervalTextField(_ sender: Any) {
-        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        let temp = Double(imageSize.maxSize)
+        let imageSize = CompressionSlider.doubleValue * temp / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
@@ -489,7 +499,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
     }
     @IBAction func timeIntervalActionSecond(_ sender: NSTextField) {
-        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        let temp = Double(imageSize.maxSize)
+        let imageSize = CompressionSlider.doubleValue * temp / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
