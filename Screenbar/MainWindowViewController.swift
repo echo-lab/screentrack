@@ -23,6 +23,11 @@ struct MyVariables {
     static var openedBool = false
 }
 
+struct mouseActivities {
+    static var scrollDirty = false
+    static var keyboardDirty = false
+}
+
 
 let string = MyVariables.yourVariable
 var jpath = MyVariables.jsonpath
@@ -57,6 +62,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var DetectSwitchCheckButton: NSButton!
     var timerFrontmost: Timer = Timer()
     var timerCurrentAppList: Timer = Timer()
+    var timerScroll: Timer = Timer()
+    
     
     //var observerFrontmost:
     
@@ -69,6 +76,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     let jsonfileHandler = json()
     let errorfileHandler = errorFile()
     let appdelegateHandler = AppDelegate()
+    let activitiesHandler = activitiesDetection()
     
 
     lazy var window: NSWindow = self.view.window!
@@ -84,6 +92,15 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     var observers = [NSKeyValueObservation]()
     
     @IBOutlet weak var CaptureScreenshot: NSButton!
+    //detect scrolling action, but now, only works in small area
+    override func scrollWheel(with event: NSEvent) {
+        if event.scrollingDeltaY > 0{
+            print(event.scrollingDeltaY)
+        }
+        else {
+            print("scrollinDeltaY is 0")
+        }
+    }
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -109,7 +126,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let totalStoreGB = totalStoreMB * day / 1024
         //print(totalStore)
         //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
-        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
 
         self.setPlaySound()
 //        self.setImageSize()
@@ -131,32 +148,17 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
-//            print("mouseLocation:", String(format: "%.1f, %.1f", self.mouseLocation.x, self.mouseLocation.y))
-//            print("windowLocation:", String(format: "%.1f, %.1f", self.location.x, self.location.y))
-//            return $0
-//        }
-//        NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved]) { _ in
-//            self.mouseLocation == NSEvent.mouseLocation()
-//            print(String(format: "%.0f, %.0f", self.mouseLocation.x, self.mouseLocation.y))
-//        }
-        
-        //let height = Settings.TimeIntervalSecondTwoGet()
-        //let width = Settings.TimeIntervalSecondTwoGet()
-        
-        //upperrightpoint coordinate
-//        let UpperRightCoordinateX = Int(self.mouseLocation.x) - Int(height!)/2 < 0 ? 0 : Int(self.mouseLocation.x) - Int(height!)/2
-//        let UpperRightCoordinateY = Int(self.mouseLocation.y) + Int(width!)/2 > 900 ? 900 : Int(self.mouseLocation.y) + Int(width!)/2
-//        //lowerleftpoint coordinate
-//        let LowerLeftCoordinateX = Int(self.mouseLocation.x) + Int(height!)/2 > 1440 ? 1440 : Int(self.mouseLocation.x) + Int(height!)/2
-//        let LowerLeftCoordinateY = Int(self.mouseLocation.y) - Int(width!)/2 < 0 ? 0 : Int(self.mouseLocation.y) - Int(width!)/2
         
     }
+    
+
     
     //slider from NSSliderCell
     @IBAction func CompressSilder(_ sender: NSSliderCell) {
         let ratio = sender.doubleValue / Double(MyVariables.maxWidth)
-        let result = String(ratio * 100) + "%"
+        let temp = String(format: "%.1f", ratio * 100)
+        let result = temp + "%"
+        //let result = String(ratio * 100) + "%"
         
         //let temp = Int(sender.doubleValue)
         //print(temp)
@@ -173,7 +175,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let totalStoreGB = totalStoreMB * day / 1024
         //print(totalStore)
         //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
-        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
         
         
     }
@@ -301,9 +303,9 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
             //print(Settings.getPath())
             let date = Date()
             let calendar = Calendar.current
-            let day = calendar.component(.day, from: date)
-            let month = calendar.component(.month, from: date)
-            let year = calendar.component(.year, from: date)
+//            let day = calendar.component(.day, from: date)
+//            let month = calendar.component(.month, from: date)
+//            let year = calendar.component(.year, from: date)
             //let current = String(year) + "-" + String(month) + "-" + String(day)
             //var SessionNumber = MainWindowViewController.applicationDelegate.fileNameDictionary[current] as! [Int]
             //print("this is the session number that is already sotred before create path")
@@ -341,6 +343,9 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         if (Settings.getDetectSwitch() == 1){
             self.timerFrontmost = Timer.scheduledTimer(timeInterval: 3.0, target: frontmostappHandler, selector: #selector(FrontmostApp.DetectFrontMostApp), userInfo: nil, repeats: true)
         }
+        
+        //self.timerScroll = Timer.scheduledTimer(timeInterval: 1.0, target: activitiesHandler, selector: #selector(activitiesDetection.detectScrolling), userInfo: nil, repeats: true)
+        
         //print("running apps")
         
         //self.timerCurrentAppList = Timer.scheduledTimer(timeInterval: 3.0, target: currentappHandler, selector: #selector(CurrentApplicationData.CurrentApplicationInfo), userInfo: nil, repeats: true)
@@ -395,12 +400,12 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         //let height = Int((rect?.size.height)!)
         let width = Int((rect?.size.width)!)
         let height = Int((rect?.size.height)!)
-//        print(width)
-//        print(height)
+        print(width)
+        print(height)
         let firstValue = width * scale
         let secondValue = height * scale
-//        print(firstValue)
-//        print(secondValue)
+        print(firstValue)
+        print(secondValue)
         CompressionSlider.minValue = Double(firstValue * 4 / 10)
         //print(CompressionSlider.minValue)
         CompressionSlider.maxValue = Double(firstValue)
@@ -467,7 +472,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let totalStoreGB = totalStoreMB * day / 1024
         //print(totalStore)
         //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
-        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
     }
     
     @IBAction func timeIntervalTextField(_ sender: Any) {
@@ -481,7 +486,20 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let totalStoreGB = totalStoreMB * day / 1024
         //print(totalStore)
         //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
-        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.3f",totalStoreGB) + "GB"
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
+    }
+    @IBAction func timeIntervalActionSecond(_ sender: NSTextField) {
+        let imageSize = CompressionSlider.doubleValue * 950 / CompressionSlider.maxValue
+        //print(imageSize)
+        let timeInterval = Double(secondsTextBox.stringValue)!
+        let timeSum = 60 / timeInterval * 480
+        //print(timeSum)
+        let day = Double(dayLength.stringValue)!
+        let totalStoreMB = timeSum * imageSize / 1024
+        let totalStoreGB = totalStoreMB * day / 1024
+        //print(totalStore)
+        //let timeInterval = 60 / Double(secondsTextBox.stringValue) * 60 * 8 * imageSize / 1024 / 1024
+        estimatedInfor.stringValue = "Estimated disk space: " + String(format: "%.1f",totalStoreGB) + "GB"
     }
     
 }

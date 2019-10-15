@@ -11,9 +11,12 @@ class ScreenShot : NSObject {
     
     lazy var dateFormatter = DateFormatter();
     let ImageCompressHandler = ImageCompress()
-    
+    let activitiesHandler = activitiesDetection()
     
     @objc @available(OSX 10.13, *)
+    
+
+    
     func take() {
         
         let xLocation = Int(NSEvent.mouseLocation.x)
@@ -63,6 +66,8 @@ class ScreenShot : NSObject {
             
             task.launch() // asynchronous call.
             task.waitUntilExit()
+            mouseActivities.keyboardDirty = false
+            mouseActivities.scrollDirty = false
             //print("after screenshot")
             let FrontmostApphandler = FrontmostApp()
             print(FrontmostApphandler.CurrentFrontMostApp)

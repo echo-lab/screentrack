@@ -14,6 +14,7 @@
 		3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DA791FE1CDBC45C00F60252 /* Assets.xcassets */; };
 		3DA792021CDBC45C00F60252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA792001CDBC45C00F60252 /* MainMenu.xib */; };
 		3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */; };
+		D95ED0052353DA16004DB16A /* activitiesDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ED0042353DA16004DB16A /* activitiesDetection.swift */; };
 		EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03B5AA218CF32100023472 /* MosePosition.swift */; };
 		EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F54F32230A1920040CB4F /* OpenSoftware.swift */; };
 		EA138824222DC9A400F51DB9 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA138823222DC9A400F51DB9 /* CurrentTime.swift */; };
@@ -56,6 +57,7 @@
 		3DA792011CDBC45C00F60252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3DA792031CDBC45C00F60252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
+		D95ED0042353DA16004DB16A /* activitiesDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activitiesDetection.swift; sourceTree = "<group>"; };
 		EA03B5AA218CF32100023472 /* MosePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosePosition.swift; sourceTree = "<group>"; };
 		EA0F54F32230A1920040CB4F /* OpenSoftware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSoftware.swift; sourceTree = "<group>"; };
 		EA138823222DC9A400F51DB9 /* CurrentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTime.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				EAF0DAD02236EDB800533A9C /* TimeLapseMethodWindow.swift */,
 				EAF0DAD12236EDB800533A9C /* TimeLapseMethodWindow.xib */,
 				EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */,
+				D95ED0042353DA16004DB16A /* activitiesDetection.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				3D1C2F331CE2670400FB8AB8 /* Settings.swift in Sources */,
 				EA7F953F2240217900BCC397 /* ReplayingTwo.swift in Sources */,
 				EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */,
+				D95ED0052353DA16004DB16A /* activitiesDetection.swift in Sources */,
 				3DA791FD1CDBC45C00F60252 /* AppDelegate.swift in Sources */,
 				EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */,
 				EAF0DAD22236EDB800533A9C /* TimeLapseMethodWindow.swift in Sources */,

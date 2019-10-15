@@ -7,7 +7,8 @@ import CoreData
 
 @available(OSX 10.13, *)
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+//subtitied nsobject with nsviewcontroller
+class AppDelegate: NSViewController, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
@@ -19,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var SessionNumber = [Int]()
     
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
+
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.addImage()
@@ -159,6 +161,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         //defaults.setValue("60.0", forKey: handler.secondsTextBox.stringValue)
         
     }
+    
 
     func applicationWillResignActive(_ notification: Notification) {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
