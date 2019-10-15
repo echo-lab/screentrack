@@ -169,8 +169,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         CompressRateLabel.stringValue = String(Int(sender.doubleValue))
         //print(CompressRateLabel.stringValue)
         compressionLabel.stringValue = result
-        let temp1 = Double(imageSize.maxSize)
-        let imageSize = sender.doubleValue * temp1 / CompressionSlider.maxValue
+        let maxSize = Double(imageSize.maxSize)
+        let imageSize = sender.doubleValue * maxSize / CompressionSlider.maxValue
         //print(imageSize)
         let timeInterval = Double(secondsTextBox.stringValue)!
         let timeSum = 60 / timeInterval * 480
