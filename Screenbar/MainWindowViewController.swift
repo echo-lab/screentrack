@@ -97,15 +97,15 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     @IBOutlet weak var CaptureScreenshot: NSButton!
     //detect scrolling action, but now, only works in small area
-    override func scrollWheel(with event: NSEvent) {
-        if event.scrollingDeltaY > 0{
-            print(event.scrollingDeltaY)
-        }
-        else {
-            print("scrollinDeltaY is 0")
-        }
-    }
-    
+//    override func scrollWheel(with event: NSEvent) {
+//        if event.scrollingDeltaY > 0{
+//            print(event.scrollingDeltaY)
+//        }
+//        else {
+//            print("scrollinDeltaY is 0")
+//        }
+//    }
+//    
     override func viewWillAppear() {
         super.viewWillAppear()
         self.setSeconds()

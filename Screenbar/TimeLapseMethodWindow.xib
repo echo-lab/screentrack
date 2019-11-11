@@ -98,7 +98,7 @@
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KQN-RB-glH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent">s</string>
+                        <string key="keyEquivalent">q</string>
                     </buttonCell>
                     <connections>
                         <action selector="imageButtonPlay:" target="-2" id="Uhx-SC-3GW"/>
@@ -142,7 +142,7 @@
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wPk-cV-nl4">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent"></string>
+                        <string key="keyEquivalent">d</string>
                     </buttonCell>
                     <connections>
                         <action selector="imageButtonNextClick:" target="-2" id="wLL-1e-HpJ"/>
@@ -199,7 +199,7 @@
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QwI-9u-pGm">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent"></string>
+                        <string key="keyEquivalent">w</string>
                         <connections>
                             <action selector="PreviousVideoClickButton:" target="-2" id="UJi-g8-7ay"/>
                         </connections>
@@ -211,7 +211,7 @@
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4NT-RW-o8y">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent"></string>
+                        <string key="keyEquivalent">a</string>
                     </buttonCell>
                     <connections>
                         <action selector="imageButtonPreviousClick:" target="-2" id="4Ob-3S-yBN"/>
@@ -334,7 +334,7 @@
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="btY-bR-tG0">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent"></string>
+                        <string key="keyEquivalent">s</string>
                     </buttonCell>
                     <connections>
                         <action selector="NextVideoClickButton:" target="-2" id="HbF-xT-os7"/>

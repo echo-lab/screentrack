@@ -19,6 +19,9 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     static var SessionNumber = [Int]()
     
+    var timerScroll: Timer = Timer()
+    //var eventHandler  = activitiesDetection()
+    
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
 
     
@@ -158,8 +161,14 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
         //let defaults = UserDefaults.standard
         let handler = MainWindowViewController()
         
+        NSEvent.addGlobalMonitorForEvents(matching: .scrollWheel, handler: keyDown)
+
         //defaults.setValue("60.0", forKey: handler.secondsTextBox.stringValue)
         
+    }
+    func keyDown(event: NSEvent!){
+        print("scroll whell")
+        //return event
     }
     
 

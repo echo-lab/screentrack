@@ -10,21 +10,19 @@ import Cocoa
 
 class activitiesDetection: NSViewController {
     
-    override func scrollWheel(with event: NSEvent) {
-        //super.scrollWheel(with: event)
-        if event.scrollingDeltaY > 0{
-            print("wheel scrolled")
-        }
+//    override func scrollWheel(with event: NSEvent) {
+//        //super.scrollWheel(with: event)
+//        if event.scrollingDeltaY > 0{
+//            print("wheel scrolled")
+//        }
+//    }
+//
+//    @objc func detectScrolling(sender: NSEvent) {
+//        //print(sender.scrollingDeltaY)
+//        print("buttonNumber")
+//        print(sender.buttonNumber)
+//    }
 
-
-    }
-    
-    @objc func detectScrolling(sender: NSEvent) {
-        //print(sender.scrollingDeltaY)
-        print("buttonNumber")
-        print(sender.buttonNumber)
-    }
-    
     
     
 }
