@@ -154,7 +154,7 @@ class classify : NSObject{
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
                                                "PhotoName"             : ScreenshotName,
                                                "FilePath"              : ProductivityFilePath(softwarename : newname),
-                                               "FileName"              : ProductivityFileName(softwarename: newname),
+                                               "FileName"              : XcodeFileName(softwarename: newname),
                                                "category"              : "Coding",
                                                "bound"                 : BoundInfor
             ]
@@ -596,12 +596,30 @@ class classify : NSObject{
         //return (output.stringValue?.description)!
         
     }
+    func XcodeFileName(softwarename : String) -> (String){
+        let first = "tell application \"Xcode\" \n set fileName to name of window 1 \n end tell"
+        var error: NSDictionary?
+        let scriptObject = NSAppleScript(source: first)
+        //let scriptObject = NSAppleScript(source: MyAppleScript)
+        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        //print(output.stringValue)
+        if (error != nil) {
+            writeError(error : error!)
+            print("error: \(String(describing: error))")
+        }
+        if output.stringValue == nil{
+            let empty = "empty"
+            return empty
+        }
+        else { return (output.stringValue?.description)!}
+    }
     //return the file name of these productivity
     func ProductivityFileName(softwarename : String) -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
-        let first = " tell application \"System Events\" \n tell process \""
+        let first = "tell application \"System Events\" \n tell process \""
         let third = "\" \n set fileName to name of window 1 \n end tell \n end tell"
         let final = first + softwarename + third
+        print("final for Xcode", final)
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         //let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -688,6 +706,7 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
+
     //microsoft software file path
     func MicrosoftSoftwareFilePath(name : String) -> String{
         

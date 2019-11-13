@@ -49,6 +49,7 @@ class ScreenShot : NSObject {
             //arguments.append(Settings.getPath().path + "/Screenshot-" + dateString + ".jpg")
             arguments.append(MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg")
             //set the task's arguments
+            print("arguments", arguments)
             task.arguments = arguments
             //print(arguments)
             let OriginialimageName = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
