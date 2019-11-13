@@ -32,6 +32,7 @@
 		EA8AF31A2208BAE800D343E3 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */; };
 		EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */; };
 		EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */; };
+		EAB7F45A237B5F4600BF53B4 /* deleteFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7F459237B5F4600BF53B4 /* deleteFolder.swift */; };
 		EADAA23321E6791100CC2AAD /* SoftwareClassify.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */; };
 		EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */; };
 		EAE1D50F2211F5E8009253D1 /* GetRelatedInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */; };
@@ -74,6 +75,7 @@
 		EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingOne.swift; sourceTree = "<group>"; };
 		EAB71BAA222877FF00DCEC17 /* FindTheLatestScreenShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTheLatestScreenShot.swift; sourceTree = "<group>"; };
+		EAB7F459237B5F4600BF53B4 /* deleteFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deleteFolder.swift; sourceTree = "<group>"; };
 		EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareClassify.swift; sourceTree = "<group>"; };
 		EADE0A2022164B7A00C9D4C5 /* NSImageView_Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageView_Rectangle.swift; sourceTree = "<group>"; };
 		EAE1D50E2211F5E8009253D1 /* GetRelatedInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRelatedInformation.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				EAF0DAD12236EDB800533A9C /* TimeLapseMethodWindow.xib */,
 				EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */,
 				D95ED0042353DA16004DB16A /* activitiesDetection.swift */,
+				EAB7F459237B5F4600BF53B4 /* deleteFolder.swift */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
 				EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */,
 				EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */,
+				EAB7F45A237B5F4600BF53B4 /* deleteFolder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

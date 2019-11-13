@@ -15,6 +15,7 @@ struct MyVariables {
     static var errorPath : URL = URL(string: "https://www.apple.com")!
     static var maxWidth = 0
     static var initSecond = -1
+    static var rootFolderPath = URL(string: "")
     
 //    static var windowHandler : NSViewController? = nil
 //    static var sub1Window : NSWindow? = nil
@@ -47,6 +48,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var errorMessage: NSTextField!
     //@IBOutlet weak var path: NSPathControl!
     var path = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
+    
     @IBOutlet weak var playSound: NSButton!
     
     //following are the height and width set of the scale of the image
@@ -81,6 +83,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     let errorfileHandler = errorFile()
     let appdelegateHandler = AppDelegate()
     let activitiesHandler = activitiesDetection()
+    let deleteFoldersHandler = deleteFolders()
     
 
     lazy var window: NSWindow = self.view.window!
@@ -152,6 +155,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //deleteFoldersHandler.getFolderPath(dayLength: dayLength.stringValue)
         
     }
     
@@ -239,6 +243,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         //print("in savesetting")
         //print(path)
         Settings.setPath(path)
+        MyVariables.rootFolderPath = path
+        //print("path:", path)
         Settings.setPlaySound(playSound)
         Settings.setImageCompressHeight(height)
         Settings.setDetectSwitch(DetectSwitchCheckButton)
@@ -261,12 +267,14 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     //click start capture button
     @IBAction func CaptureScreenshots(_ sender: Any) {
+        //deleteFoldersHandler.listFiles(rootpath: MyVariables.rootFolderPath!, dayLength: dayLength.stringValue)
         if(self.saveSettings()) {
 //            Settings.getPath().path is the name of json file
 //            print("json file path")
 //            print(Settings.getPath())
 //            Settings.PathCreate()
 //            jsonfileHandler.createjson(filepath: URL(string: MyVariables.yourVariable)!)
+            deleteFoldersHandler.listFiles(rootpath: MyVariables.rootFolderPath!, dayLength: dayLength.stringValue)
             self.automaticScreenshot()
             //self.close()
         }
