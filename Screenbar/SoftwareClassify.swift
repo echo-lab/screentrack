@@ -38,6 +38,7 @@ class classify : NSObject{
             //            print(PreviewFilePath())
             //            print(PreviewFileName())
             //            print(jpath.absoluteURL)
+            print("nothing")
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
                                                "FilePath"      : PreviewFilePath(),
