@@ -29,23 +29,15 @@ class CurrentApplicationData : NSObject{
     
     @available(OSX 10.13, *)
     @objc func CurrentApplicationInfo(){
-        //print(NSWorkspace.shared.runningApplications)
         let screenshot = ScreenShot()
-        //let RunningAppSet = NSMutableSet()
-        //var str1 = ""
         for runningApp in NSWorkspace.shared.runningApplications {
             if runningApp.isActive{
                 print(runningApp.localizedName)
                 print(String(describing: runningApp.executableURL))
             }
             if let bundleIdentifier = runningApp.localizedName {
-                //NSLog(bundleIdentifier)
-                //str1.append(bundleIdentifier)
                 let characterSet = CharacterSet(charactersIn: ".com")
                 let AfterTrimResult = bundleIdentifier.trimmingCharacters(in: characterSet)
-               
-                //put into hashset
-                
                 if InitialSet.contains(AfterTrimResult){
                 }
                 else {

@@ -12,29 +12,24 @@ import AppKit
 
 @available(OSX 10.13, *)
 
+// this class is for compressing the screenshot
+
 class ImageCompress : NSObject{
     
     func resize(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
         
         // set the destination image size
-        //print("work")
-        //print(image.size.width, image.size.height)
         let w = wi
         let h = hei
         let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
-
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
-//        let a = image.size.width
-//        let b = image.size.height
-      //  print( "print 0 " + String(describing: image.size.width) + "/+" + String(describing: image.size.height))
+        
         image.draw(in: NSMakeRect(0, 0, destSize.width, destSize.height), from: NSMakeRect(0, 0, image.size.width, image.size.height), operation: NSCompositingOperation.sourceOver, fraction: CGFloat(1))
         newImage.unlockFocus()
         newImage.size = destSize
-        //print( "print 1" + String(describing: newImage.size.width) + "/+" + String(describing: newImage.size.height))
-        //print("print 3:" + fullpath)
+        // characterSet is not being used currently
         let characterSet = CharacterSet(charactersIn: " ")
-        _ = fullpath.trimmingCharacters(in: characterSet)
         if newImage.pngWrite(to: URL(fileURLWithPath: fullpath), options: .atomic) {
             print("File saved")
         }
@@ -42,8 +37,7 @@ class ImageCompress : NSObject{
             print("File saved failed")
         }
     }
-    
-    
+
     //end of Imagge compression class
 }
 
@@ -55,19 +49,22 @@ extension NSImage {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
         return bitmapImage.representation(using: .png, properties: [:])
     }
+    
     func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
         do {
             try pngData?.write(to: url, options: options)
             return true
         } catch {
+            
             print(error)
             return false
         }
     }
     
     func resize_two(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
-        
     }
+    
+    
 }
 
 

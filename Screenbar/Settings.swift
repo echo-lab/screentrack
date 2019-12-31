@@ -9,9 +9,6 @@ import AppKit
 
 class Settings : NSObject {
     static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
-    //static let appdelegateHandler = AppDelegate()
-    
-    //
     static var secondsKey = "seconds"
     static var pathKey = "savePath"
     static var playSoundKey = "playSound"
@@ -19,21 +16,18 @@ class Settings : NSObject {
     static var TimeIntervalSecond = "intervalseconds"
     //width
     static var TimeIntervalSecondTwo = "intervalsecondstwo"
-    //
     static var detectSwitchKey = "detectSwitch"
-    
     static var ImageHeight = "height"
     static var ImageWidth = "width"
     static var SessionKey = "session"
-    
     static var SessionNumber = [Int]()
     
-    // default value of timeinervalsecond
+    // set the default value of timeinervalsecond
     static func TimeIntervalSecondTwoSet(_ intervalsecondstwo: Double?){
-        //
         let defaults = UserDefaults.standard
         defaults.set(intervalsecondstwo!, forKey: secondsKey)
     }
+    
     // get the value of TimerIntercalSecond
     static func TimeIntervalSecondTwoGet() -> Double?{
         let defaults = UserDefaults.standard
@@ -45,12 +39,12 @@ class Settings : NSObject {
     }
     
     
-    // default value of timeinervalsecond
+    // set default value of timeinervalsecond
     static func TimeIntervalSecondSet(_ intervalseconds: Double?){
-        //
         let defaults = UserDefaults.standard
         defaults.set(intervalseconds!, forKey: secondsKey)
     }
+    
     // get the value of TimerIntercalSecond
     static func TimeIntervalSecondGet() -> Double?{
         let defaults = UserDefaults.standard
@@ -66,6 +60,7 @@ class Settings : NSObject {
         let defaults = UserDefaults.standard
         defaults.set(height!, forKey: ImageHeight)
     }
+    
     static func getImageCompressHeight() -> Int?{
         let deaults = UserDefaults.standard
         let height: Int? = deaults.integer(forKey: ImageHeight)
@@ -74,7 +69,6 @@ class Settings : NSObject {
 
     static func getImageCompressWidth() -> Int?{
         let width = (getImageCompressHeight()! * 900) / 1440
-        //print("hight now : " + String(width))
         return width
     }
 
@@ -89,12 +83,8 @@ class Settings : NSObject {
     static func getSecondsInterval() -> Double? {
         // set the defalut as standard
         let defaults = UserDefaults.standard
-        //
         let seconds: Double? = defaults.double(forKey: secondsKey)
         // if the input is null, then set to 1.0 second as defalult
-//        if(seconds == nil) {
-//            seconds = 60.0
-//        }
         //return the setted second result
         return seconds
     }
@@ -104,15 +94,16 @@ class Settings : NSObject {
         let defaults = UserDefaults.standard
         defaults.set(path, forKey: pathKey)
     }
+    
+    //set the default folder path
     static func DefaultFolder() -> URL{
         let defaultpath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
-        //print("default file path")
-        //print(defaultpath!)
         return defaultpath!
     }
     
     // return a URL value as storage path
     @available(OSX 10.13, *)
+    
     //create the foler path
     static func PathCreate(){
         let path = DefaultFolder()
@@ -124,16 +115,12 @@ class Settings : NSObject {
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day)
-        // after the second click(or more clicks), here has one bug
         SessionNumber = applicationDelegate.fileNameDictionary[current] as! [Int]
-        //print("this is the session number that is already sotred")
-        //print(SessionNumber)
         let length = SessionNumber.count
         if SessionNumber[length - 1] == 0 {
             //if the first and only number is 0
             //save a new number "1" into plist
             SessionNumber.append(Int(1))
-            
             applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
             //create a new folder and return this folder path
             let temp = url + current + "-" + String(1)
@@ -177,12 +164,13 @@ class Settings : NSObject {
         }
     }
     
+    // change the string format to the url format
     static func GettingPathFromStringToURL(str: String) -> URL{
         let finalurl = NSURL(string: str)
         return finalurl! as URL
     }
     
-    
+    // to get whether hace sound or not
     static func setPlaySound(_ state: Int?) {
         let defaults = UserDefaults.standard
         defaults.set(state, forKey: playSoundKey)
@@ -197,12 +185,17 @@ class Settings : NSObject {
             state = 0;
         }
         return state!;
+        //end of set play sound or not
     }
-    //end of set play sound or not
+    
+
+    //set the swithch detection function
     static func setDetectSwitch(_ state: Int?){
         let defaults = UserDefaults.standard
         defaults.set(state, forKey: detectSwitchKey)
     }
+    
+    //
     static func getDetectSwitch() -> Int{
         let defaults = UserDefaults.standard
         var state : Int? = defaults.integer(forKey: detectSwitchKey)
@@ -218,6 +211,7 @@ class Settings : NSObject {
         let defaults = UserDefaults.standard
         defaults.set(0, forKey: SessionKey)
     }
+    
     static func getSession() -> Int{
         let defaults = UserDefaults.standard
         let counter : Int? = defaults.integer(forKey: SessionKey)
@@ -239,7 +233,6 @@ class Settings : NSObject {
             print("Core data foldername failed")
         }
     }
-    //using plist
     
     
 }

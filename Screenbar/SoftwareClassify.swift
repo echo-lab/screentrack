@@ -13,9 +13,6 @@ import CoreData
 
 class classify : NSObject{
 
-//    static var Category_one = ["apple.Preview"]
-//    static var Category_two = ["Pages", "Numbers", "Keynotes", "Xcode"]
-//    static var Category_three = ["Google Chrome"]
     var ClassDictionary : [String : String] = ["Preview"                 : "1",
                                                "Pages"                   : "2",
                                                "Numbers"                 : "2",
@@ -33,11 +30,9 @@ class classify : NSObject{
     @available(OSX 10.13, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
         let number = ClassDictionary[SoftwareName]
+        
+        // preview
         if number == "1" {
-            //print("apple Preview")
-            //            print(PreviewFilePath())
-            //            print(PreviewFileName())
-            //            print(jpath.absoluteURL)
             print("nothing")
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
@@ -46,10 +41,8 @@ class classify : NSObject{
                                                "category"      : "Productivity",
                                                "bound"         : BoundInfor
                 
-                //"open-frontmost-website":
             ]
             do {
-                //var error : NSError?
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 // here "decoded" is of type `Any`, decoded from JSON data
@@ -59,7 +52,6 @@ class classify : NSObject{
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -67,13 +59,11 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -83,8 +73,7 @@ class classify : NSObject{
                             }
                             
                         }catch {print(error)}
-                        
-                        //try jsonData.write(to: url!, options : .atomic)
+
                     }
                 } catch {
                     print("Error: \(error)")
@@ -95,6 +84,7 @@ class classify : NSObject{
             }
         }
         
+        // unmbers， pages, and keynote
         else if number == "2"{
             //substring the software name here
             let newname = SoftwareName.replacingOccurrences(of: "apple.iWork.", with: "")
@@ -114,7 +104,6 @@ class classify : NSObject{
 
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -122,14 +111,12 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -137,19 +124,18 @@ class classify : NSObject{
                                 file.write(jsonData)
                                 file.closeFile()
                             }
-                            
                         }catch {print(error)}
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
                 }
-                
             }
             catch{
                 print(Error.self)
             }
         }
+            
+        // Xcode
         else if number == "3"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
@@ -167,7 +153,6 @@ class classify : NSObject{
                 
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -175,14 +160,12 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -190,27 +173,21 @@ class classify : NSObject{
                                 file.write(jsonData)
                                 file.closeFile()
                             }
-                            
                         }catch {print(error)}
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
                 }
-                
             }
             catch{
                 print(Error.self)
             }
         }
-        //for google chrome, now
-        else if number == "4" {
-            //let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
             
+        // chrome
+        else if number == "4" {
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
                                                "PhotoName"             : ScreenshotName,
-                                               //"file-path": ProductivityFilePath(softwarename : newname),
-                                               //"file-name": ProductivityFileName(softwarename: newname)
                                                "FrontmostPageUrl"     : BrowserFirstPageURL(),
                                                "FrontmostPageTitle"   : BrowserFirstPageTitle(),
                                                "category"               : "Browser",
@@ -224,7 +201,6 @@ class classify : NSObject{
                 
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -232,14 +208,12 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -249,7 +223,6 @@ class classify : NSObject{
                             }
                             
                         }catch {print(error)}
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
@@ -261,7 +234,9 @@ class classify : NSObject{
             }
             
         }
-        //apple.Safari
+            
+            
+        // Safari
         else if number == "5"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.", with: "")
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
@@ -279,7 +254,6 @@ class classify : NSObject{
                 
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -287,14 +261,12 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -304,7 +276,6 @@ class classify : NSObject{
                             }
                             
                         }catch {print(error)}
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
@@ -335,7 +306,6 @@ class classify : NSObject{
                 
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -343,14 +313,12 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         //read insdie data out
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -358,9 +326,7 @@ class classify : NSObject{
                                 file.write(jsonData)
                                 file.closeFile()
                             }
-                            
                         }catch {print(error)}
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
@@ -371,6 +337,8 @@ class classify : NSObject{
                 print(Error.self)
             }
         }
+            
+        // for textedit
         else if number == "7"{
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
@@ -378,8 +346,7 @@ class classify : NSObject{
                                                "FileName"      : TextEditFileName(),
                                                "category"      : "Productivity",
                                                "bound"         : BoundInfor
-                
-                //"open-frontmost-website":
+
             ]
             do {
                 //var error : NSError?
@@ -392,7 +359,6 @@ class classify : NSObject{
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -400,13 +366,11 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            //print(jsonarray)
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -416,8 +380,6 @@ class classify : NSObject{
                             }
                             
                         }catch {print(error)}
-                        
-                        //try jsonData.write(to: url!, options : .atomic)
                     }
                 } catch {
                     print("Error: \(error)")
@@ -427,6 +389,7 @@ class classify : NSObject{
                 print(Error.self)
             }
         }
+            
         //could not identify this software name into any catogoriy
         else{
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
@@ -442,7 +405,6 @@ class classify : NSObject{
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    //return [FileAttributeKey : Any]
                     let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
@@ -450,7 +412,6 @@ class classify : NSObject{
                         try jsonData.write(to: url!, options : .atomic)
                     }
                     else{
-                        //print("json file has other data inside")
                         let rawData : NSData = try! NSData(contentsOf: url!)
                         do{
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
@@ -477,13 +438,13 @@ class classify : NSObject{
         
         // end of this function
     }
-    //
+    
+    // get the file path of text edit
     func TextEditFilePath() -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"TextEdit\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -493,15 +454,15 @@ class classify : NSObject{
             return empty
         }
         else {
-            //let tem = output.stringValue?.
             return (output.stringValue?.description)!
             
         }
 
     }
-    //
+    
+    // get the text edit file name
     func TextEditFileName() -> String{
-        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
+//        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process"
         let second = "\"TextEdit\" \n "
         let third = "set fileName to name of window 1 \n end tell \n end tell"
@@ -521,7 +482,8 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
-    //
+
+    
     //preview opened file path
     func PreviewFilePath() -> String{
         
@@ -529,7 +491,6 @@ class classify : NSObject{
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -539,25 +500,21 @@ class classify : NSObject{
             return empty
         }
         else {
-            //let tem = output.stringValue?.
             return (output.stringValue?.description)!
             
         }
-        //return (output.stringValue?.description)!
     }
-    //preview open file name
+    
+    // get the file name of the preview
     func PreviewFileName() -> String{
-        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
+//        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process"
         let second = "\"Preview\" \n "
         let third = "set fileName to name of window 1 \n end tell \n end tell"
         let final = first + second + third
-        
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
-        //let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -567,43 +524,34 @@ class classify : NSObject{
             return empty
         }
         else { return (output.stringValue?.description)!}
-        //return (output.stringValue?.description)!
     }
     
-    //pages, Numbers, Keynots, Xcode
+    //pages, Numbers, Keynots, Xcode file path
     func ProductivityFilePath(softwarename : String) -> String{
-        //example is Pages
-        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
+//        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
         let first = "tell application \""
         let second = "\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \""
         let third = "\" to return "
         let final = first + softwarename + second + softwarename + third
         var error: NSDictionary?
-        //let scriptObject = NSAppleScript(source: MyAppleScript)
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
         }
-        //print(output.stringValue)
-        //print(output.stringValue?.description)
         if output.stringValue == nil{
             let empty = "empty"
             return empty
         }
         else { return (output.stringValue?.description)!}
-        //return (output.stringValue?.description)!
         
     }
     func XcodeFileName(softwarename : String) -> (String){
         let first = "tell application \"Xcode\" \n set fileName to name of window 1 \n end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: first)
-        //let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -614,7 +562,9 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
-    //return the file name of these productivity
+    
+    
+    //return the file name of these productivity applications
     func ProductivityFileName(softwarename : String) -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process \""
@@ -623,9 +573,7 @@ class classify : NSObject{
         print("final for Xcode", final)
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
-        //let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -635,16 +583,14 @@ class classify : NSObject{
             return empty
         }
         else { return (output.stringValue?.description)!}
-        //return (output.stringValue?.description)!
     }
     
-    //return the browser first active page url
+    //return the browser first active page's url
     func BrowserFirstPageURL() -> String{
         let MyAppleScript = "tell application \"Google Chrome\" to return URL of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -654,15 +600,14 @@ class classify : NSObject{
             return empty
         }
         else { return (output.stringValue?.description)!}
-        //return output.stringValue!
     }
-    //return the browser first active page title
+    
+    //return the browser first active page's title
     func BrowserFirstPageTitle() -> String{
         let MyAppleScript = "tell application \"Google Chrome\" to return title of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -673,13 +618,13 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
-    //return the browser first active page title of Safari
+    
+    //return the browser first active page title of the Safari
     func SafariBrowserFirstPageTitle() -> String{
         let MyAppleScript = "tell application \"Safari\" to return name of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -690,13 +635,13 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
+    
     //return the browser first active page url of Safari
     func SafariBrowserFirstPageURL() -> String{
         let MyAppleScript = "tell application \"Safari\" to return URL of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -708,31 +653,29 @@ class classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
 
-    //microsoft software file path
+    //return the  microsoft software file path
     func MicrosoftSoftwareFilePath(name : String) -> String{
         
-        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
+//        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process \""
         let second = "\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         let final = first + name + second
         var error: NSDictionary?
-        //let scriptObject = NSAppleScript(source: MyAppleScript)
+        print("applescript",final)
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(output.stringValue)
         if (error != nil) {
             writeError(error : error!)
-            print("error: \(String(describing: error))")
+            print(" file path error: \(String(describing: error))")
         }
         if output.stringValue == nil{
             let empty = "empty"
             return empty
         }
         else { return (output.stringValue?.description)!}
-        //return (output.stringValue?.description)!
     }
     
-    //
+    // return the write error
     func writeError(error : NSDictionary){
         let path = "file://" + erpath.absoluteString
         let URLpath = NSURL(string : path)
@@ -745,7 +688,6 @@ class classify : NSObject{
         catch {
         }
     }
-    
     
     //end of the class
 }

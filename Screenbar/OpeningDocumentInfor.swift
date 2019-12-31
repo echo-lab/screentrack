@@ -9,14 +9,9 @@
 import Foundation
 import Cocoa
 
-
+// this class is not being used currently, for chrome
 class openfile: NSObject{
-    
-
-
     func chrome(){
-        //let myAppleScript = "tell application \"Google Chrome\" to return URL of active tab of front window"
-        //let myAppleScript = "tell application \"Pages\" \n tell front document to set fpath to its file as alias \n set thisfile to POSIX path of fpath \n return thisfile \n end tell"
         let myAppleScript = "tell application \"Google Chrome\" \n return URL of active tab of first window \n end tell"
        
         var error: NSDictionary?

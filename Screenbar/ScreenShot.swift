@@ -22,48 +22,30 @@ class ScreenShot : NSObject {
         let xLocation = Int(NSEvent.mouseLocation.x)
         let yLocation = Int(NSEvent.mouseLocation.y)
         if (xLocation == mouseLocationInformation.mouseX && yLocation == mouseLocationInformation.mouseY){
-            print("same mouse location for x and y")
+            print("mouse did not move since last screenshot taken, no new image save this time")
         }
         else{
             // dataString is the vaule store current data
             let dateString = self.getDate()
-            // new task euqal to Process()
             let task = Process()
             //set launchpath "screencapture"
-            //this is used for screencapture
             task.launchPath = "/usr/sbin/screencapture"
-            
-            // this is a chaging string with different setting
             var arguments = [String]();
             
-            // whether have sound or not
             // ==0, dont play sound
             
             if(Settings.getPlaySound() == 0) {
                 arguments.append("-x")
             }
-            
-            // set the screenshot name
-            // using the getpath funcion in Setting.swift
-            //MyVariables.yourVariable
-            //arguments.append(Settings.getPath().path + "/Screenshot-" + dateString + ".jpg")
+
             arguments.append(MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg")
-            //set the task's arguments
-            print("arguments", arguments)
+
             task.arguments = arguments
-            //print(arguments)
+            //arguments save all arguments for the screenshot
+            
             let OriginialimageName = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
             _ = " \"" +  MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg" + " \""
             let OriginialimageNameFullPath = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
-            
-            //        let OriginialimageName = Settings.getPath().path + "/Screenshot-" + dateString + ".jpg"
-            //        _ = " \"" +  Settings.getPath().path + "/Screenshot-" + dateString + ".jpg" + " \""
-            //        let OriginialimageNameFullPath =   Settings.getPath().path + "/Screenshot-" + dateString + ".jpg"
-            
-            //print("file name is :" + OriginialimageName)
-            //launch the task
-            
-            //classify different software
             
             task.launch() // asynchronous call.
             task.waitUntilExit()
@@ -76,22 +58,15 @@ class ScreenShot : NSObject {
             let softwareclassifyHandler = classify()
             //classify different software running
             let photoname = "/Screenshot-" + dateString + ".jpg"
-            //        softwareclassifyHandler.SoftwareDetect(SoftwareName: FrontmostApphandler.CurrentFrontMostApp, ScreenshotName : photoname)
-            
-            //print(GetBoundOfFrontMostSoftware())
+
             let CurrentFrontName = FrontmostApphandler.CurrentFrontMostApp
             let bound = GetBoundOfFrontMostSoftware(AppName : CurrentFrontName)
             softwareclassifyHandler.SoftwareBasedOnCategory(SoftwareName : CurrentFrontName, ScreenshotName : photoname, BoundInfor : bound)
-            //let temphandelr = FrontmostApp()
-            //temphandelr.windowlocation()
-            //print(URL(fileURLWithPath: OriginialimageName))
+
             let Newimage = NSImage(contentsOf: URL(fileURLWithPath: OriginialimageName))
-            //print(Newimage?.size.height)
-            //let Newimage = NSImage(byReferencing: URL(fileURLWithPath: OriginialimageName))
-            let urlStr : NSString = OriginialimageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) as! NSString
-            
-            //        let urlStr : NSString = OriginialimageNameFullPath.addingPercentEscapes(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))! as NSString
-            
+
+            let urlStr : NSString = OriginialimageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
+
             let url = URL(string: urlStr as String)
             ImageCompressHandler.resize(image: Newimage!
                 , imagenameaddress:url!
@@ -99,11 +74,7 @@ class ScreenShot : NSObject {
                 , hei: Settings.getImageCompressWidth()!/2
                 , wi: Settings.getImageCompressHeight()!/2
             )
-            //        catch{
-            //            let errorHandler = errorFile()
-            //            errorHandler.writeError(error : error as! NSDictionary)
-            //        }
-            
+
             mouseLocationInformation.mouseX = xLocation
             mouseLocationInformation.mouseY = yLocation
         }
@@ -114,79 +85,38 @@ class ScreenShot : NSObject {
     // getDate function, return a string value
     private func getDate() -> String {
         let date = Date()
-        
         self.dateFormatter.dateStyle = DateFormatter.Style.none
         self.dateFormatter.timeStyle = DateFormatter.Style.medium
-        //self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         let dateString = self.dateFormatter.string(from: date)
-        //print(dateString)
-        //5:06:52 PM
-        //let calendar = Calendar.current
-        
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "h:mm:ss a"
-//        let final = dateFormatter.date(from: dateString)
-//        dateFormatter.dateFormat = "M.d,HH:mm:ss"
-//        let date24 = dateFormatter.string(from: final!)
-        //print(date24)
-        //print(date24)
-        
-        //dateString = dateString.replacingOccurrences(of: ":", with: ".", options: NSString.CompareOptions.literal, range: nil)
-        //return dateString;
         return dateString
     }
-    //
     
+    // get the bound of the front most software
+    // now hard code into the json file
     func GetBoundOfFrontMostSoftware(AppName : String) -> Array<String>{
-        //let MyAppleScript = tell application "Preview" to get the bounds of the front window
         let first = "tell application \""
         let second = "\" to get the bounds of the front window"
         let final = first + AppName + second
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //print(String(output.description))
         if (error != nil) {
             print("error for GetBoundOfFrontMostSoftware: \(String(describing: error))")
-            //let positionTemp = positionOfSoftware(AppName : AppName)
             let positionTemp = [230, 108]
-            print("positionTemp")
-            print(positionTemp)
-            //let sizeTemp = sizeOfSoftware(AppName : AppName, position : positionTemp)
+            print("positionTemp", positionTemp)
             let sizeTemp = ["230", "108", "1210", "748"]
-            print("sizeTemp")
-            print(sizeTemp)
+            print("sizeTemp", sizeTemp)
             return sizeTemp
         }
         else{
             var arr = [String]()
             arr = ["230", "108", "1210", "748"]
-            //need coding here,
-//            for i in 1..<5{
-//                let temp = String(describing: output.atIndex(i)?.int32Value)
-//                //arr = arr +
-//                if temp != nil || temp != "nil"{
-//                    let start = temp.characters.index(of: "(")!
-//                    let end = temp.characters.index(of: ")")!
-//                    let subStr = temp[start..<end]
-//                    let newStart = subStr.index(subStr.startIndex, offsetBy: 1)
-//                    let newEnd = subStr.index(subStr.endIndex, offsetBy : 0)
-//                    let range = newStart..<newEnd
-//                    arr.append(subStr[range])
-//                }
-//                else{
-//
-//                }
-//            }
             return arr
         }
-        //let stringvalue = String(arr)
-        //<NSAppleEventDescriptor: [ 0, 23, 1439, 828 ]>
-        //print(output.stringValue)
-        
     }
-    //
+    
+    // get the size of the software
     func sizeOfSoftware(AppName : String, position : Array<Int>) -> Array<String>{
         var result = [String]()
         var arr = [Int]()
@@ -196,17 +126,14 @@ class ScreenShot : NSObject {
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
-        //have error
         if (error != nil) {
             print("error for sizeOfSoftware: \(String(describing: error))")
             let empty = [String]()
             return empty
         }
-        //don't have error
         else{
             for i in 1..<3{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
-                //arr = arr +
                 let start = temp.characters.index(of: "(")!
                 let end = temp.characters.index(of: ")")!
                 let subStr = temp[start..<end]
@@ -215,13 +142,11 @@ class ScreenShot : NSObject {
                 let range = newStart..<newEnd
                 arr.append(Int(subStr[range])!)
             }
-            //return arr
         }
         let screen = NSScreen.main
         let rect = screen?.frame
         let height = Int((rect?.size.height)!)
         let width = Int((rect?.size.width)!)
-        
         var tempThreeFactor = arr[0] + position[0]
         var tempFourFactor = arr[1] + position[1]
         if tempThreeFactor > width{
@@ -242,14 +167,13 @@ class ScreenShot : NSObject {
         else{
             result.append(String(position[1]))
         }
-        //result.append(String(position[0]))
-        //result.append(String(position[1]))
         result.append(String(tempThreeFactor))
         result.append(String(tempFourFactor))
         return result
    
     }
     
+    //  get the position of the current software
     func positionOfSoftware(AppName : String) -> Array<Int>{
         let first = "tell application \"System Events\" to tell application process \""
         let second = "\" \n get position of window 1 \n end tell"
@@ -266,7 +190,6 @@ class ScreenShot : NSObject {
             var arr = [Int]()
             for i in 1..<3{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
-                //arr = arr +
                 let start = temp.characters.index(of: "(")!
                 let end = temp.characters.index(of: ")")!
                 let subStr = temp[start..<end]
@@ -279,6 +202,7 @@ class ScreenShot : NSObject {
         }
     }
     // end of positionOfSoftware()
+    
     
     
     //end of the class
