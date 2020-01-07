@@ -10,6 +10,8 @@ import Foundation
 import Cocoa
 
 // this class is not being used currently, for chrome
+// an example of obtaining the active tab of first window in chrome
+
 class openfile: NSObject{
     func chrome(){
         let myAppleScript = "tell application \"Google Chrome\" \n return URL of active tab of first window \n end tell"
@@ -19,7 +21,7 @@ class openfile: NSObject{
         if let scriptObject = NSAppleScript(source: myAppleScript) {
             if let output: NSAppleEventDescriptor = scriptObject.executeAndReturnError(
                 &error) {
-                print(output.stringValue)
+                print("the current active tab of first window in chrome is: ", output.stringValue)
             } else if (error != nil) {
                 print("error: \(error)")
             }

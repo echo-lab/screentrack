@@ -8,7 +8,8 @@
 
 import Foundation
 class json: NSObject{
-    //create a json file
+    
+    //create a json file to save all meta data inside
     func createjson(filepath: URL) -> URL{
         let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let documentsDirectoryPath = filepath
@@ -30,7 +31,12 @@ class json: NSObject{
         }
         return jsonFilePath
     }
-    //write some start information into json file
+    
+    
+    // write some start information into json file
+    // currently, I need to write something into it while creating a new json file
+    
+    
     func WriteInitialData(Filepath : String){
         let date = Date()
         let calendar = Calendar.current
@@ -53,11 +59,18 @@ class json: NSObject{
                 "Introduction" : "Hello, world"
         ]
         let NameofSession = Filepath.replacingOccurrences(of: "/test.json", with: "")
+        
 //        let SessionNameOfDictionary : [String : Any] = [
 //            "name of session" : NameofSession
 //        ]
             
         ArrayOfDictionary.append(dictionary)
+        
+        // name of the session: the number of session created today
+        // start time: the time starting to recording
+        // end time: the time that ending to recording for this specific session
+        // informaiton: meta data for each screenshot
+        
         var temp : [String : Any] =
             [
                 "name of session"   : NameofSession,
@@ -67,12 +80,10 @@ class json: NSObject{
         ]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.prettyPrinted)
-//        let jsonDataName = try! JSONSerialization.data(withJSONObject: SessionNameOfDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
         if FileManager.default.fileExists(atPath: Filepath){
             var err:NSError?
             if let fileHandle = FileHandle(forWritingAtPath: Filepath){
                 fileHandle.write(jsonData)
-                //fileHandle.write(jsonDataName)
                 fileHandle.closeFile()
             }
             else {
@@ -83,6 +94,7 @@ class json: NSObject{
         
     }
     
+    // write meta data into json file
     
     func writejsonfile(FilePath: URL, SoftwareName: String, OpenFilePath: String, WebsiteAddress: String){
         var jsonData: NSData!
@@ -94,9 +106,7 @@ class json: NSObject{
         } catch let error as NSError {
             print("Array to JSON conversion failed: \(error.localizedDescription)")
         }
-        
-        // Write that JSON to the file created earlier
-        //let jsonFilePath = NSURL(FilePath)
+
         do {
             let file = try FileHandle(forWritingTo: FilePath)
             file.write(jsonData as Data)

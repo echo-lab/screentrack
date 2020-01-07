@@ -12,6 +12,10 @@ import CoreImage
 
 @available(OSX 10.13, *)
 
+// this swift file is coded for retrieving screenshots and meta data for later displaying
+// but currently, we abondanded the method of retrieving screenshots based on different day intervals, like 3 days or 5 days.
+// we retrieve images by day, like Jan 5th.
+// hence, we only used function to retrieve information for one specific day
 
 class ReplayingOne: NSViewController{
 
@@ -36,10 +40,14 @@ class ReplayingOne: NSViewController{
 
     
     @available(OSX 10.13, *)
+    
+    // get all images from today
     func FetchPhotoToday() -> Array<Any>{
         
         let Defaultpath = Settings.DefaultFolder
-        // Documnet/Refolecor
+        
+        // Documnet/Reflect
+        
         let date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -47,7 +55,6 @@ class ReplayingOne: NSViewController{
         let year = calendar.component(.year, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day)
         let Initialsession = 1
-        //let CurrentURLpath = NSURL(string : Defaultpath().absoluteString + current)
         ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
         //SessionNumber is now an Int array containing, for example: 0, 1, 2, 3, 4
         //length is the number of session, now is 5
@@ -60,7 +67,6 @@ class ReplayingOne: NSViewController{
         }
         //let first = 1
         let last = length - 1
-        //print(last)
         // last = 4
         if last == 0{
             
@@ -98,7 +104,6 @@ class ReplayingOne: NSViewController{
                         }
                     }
                     //PhotoNameArray contains file path + file name
-                    //print(PhotoNameArray)
                 } catch {
                     print(error)
                 }
@@ -111,8 +116,8 @@ class ReplayingOne: NSViewController{
         return PhotoNameArray
     }
     
-    //@IBAction func replayone(_ sender: Any) {
-    //}
+
+    // fetch images from last one hour, not being used currently
     func FetchOneHours() -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -129,10 +134,8 @@ class ReplayingOne: NSViewController{
         print("here")
         print(pasttime)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
         let Initialsession = 1
-        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
+
         // past date is the same as today
         if (pastdate == current){
             ReplayingOne.SessionNumberForOneHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
@@ -148,7 +151,6 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(last)
                     let jsonFilePath = Stringfilepath + "/" + "test.json"
                     //josnfile path
-                    //let URLfilepath = NSURL(string : Stringfilepath)
                     do{
                         //into the folder
                         let timeOfStart = BasedonJsonFilePathReadStartTime(jsonpath : jsonFilePath)
@@ -183,15 +185,13 @@ class ReplayingOne: NSViewController{
                                         }
                                         .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
                                     let count = lalala.count
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
+                                    // number is not being used currently
                                     let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + lalala[k].0
-                                                //PhotoNameArray.append(temp)
-                                                
                                                 tem.append(temp)
                                             }
                                         }
@@ -255,9 +255,6 @@ class ReplayingOne: NSViewController{
         else{
             ReplayingOne.SessionNumberForToday = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
             let lengthoftoday = ReplayingOne.SessionNumberForToday.count
-            //var PhotoNameArray = [String]()
-            //let fileManager = FileManager.default
-            //let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
             if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
                 print("today, you have not started recording")
             }
@@ -283,8 +280,6 @@ class ReplayingOne: NSViewController{
                         //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
                         //filelist contain all names of the file in this folder
-                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                        //let number = filelist.count
                         var tem = [String]()
                         for k in 0..<count{
                             if lalala[k].0.contains(".jpg"){
@@ -303,8 +298,8 @@ class ReplayingOne: NSViewController{
                     }
                 }
             }
-            //second yesterday
-            print(yesterday)
+            // second yesterday
+            // print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
                 return PhotoNameArray.reversed() as [String]
             }
@@ -431,6 +426,8 @@ class ReplayingOne: NSViewController{
     //
     //
 
+    // fetch all images from last 3 hours.
+    // last three hours may contains yesterday's recording
     func FetchThreeHours() -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -445,10 +442,7 @@ class ReplayingOne: NSViewController{
         let pastdate = GetDateOfPastTime(date : date, Hour : 3)
         let pasttime = GetTimeOfPastTime(date: date, Hour: 3)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
         let Initialsession = 1
-        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
         // past date is the same as today
         if (pastdate == current){
             ReplayingOne.SessionNumberForThreeHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
@@ -464,7 +458,6 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(last)
                     let jsonFilePath = Stringfilepath + "/" + "test.json"
                     //josnfile path
-                    //let URLfilepath = NSURL(string : Stringfilepath)
                     do{
                         //into the folder
                         let timeOfStart = BasedonJsonFilePathReadStartTime(jsonpath : jsonFilePath)
@@ -509,8 +502,6 @@ class ReplayingOne: NSViewController{
                                             if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
-                                                
-                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
@@ -534,15 +525,11 @@ class ReplayingOne: NSViewController{
                                 let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
-                                //lalala[k].0.contains(".jpg")
-                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                //let number = filelist.count
                                 var tem = [String]()
                                 for k in 0..<count{
                                     if lalala[k].0.contains(".jpg"){
                                         let temp = Stringfilepath + "/" + lalala[k].0
-                                        //means it is a photo, instead of a json file
-                                        //PhotoNameArray.append(temp)
+                                        //meaning it is a photo, instead of a json file
                                         tem.append(temp)
                                     }
                                 }
@@ -600,9 +587,6 @@ class ReplayingOne: NSViewController{
                         let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
-                        //lalala[k].0.contains(".jpg")
-                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                        //let number = filelist.count
                         var tem = [String]()
                         for k in 0..<count{
                             if lalala[k].0.contains(".jpg"){
@@ -613,7 +597,6 @@ class ReplayingOne: NSViewController{
                             }
                         }
                         //PhotoNameArray contains file path + file name
-                        //print(PhotoNameArray)
                         var reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                     } catch {
@@ -621,8 +604,8 @@ class ReplayingOne: NSViewController{
                     }
                 }
             }
-            //second yesterday
-            print(yesterday)
+            
+            //second part: yesterday
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
                 
                 return PhotoNameArray.reversed() as [String]
@@ -709,9 +692,6 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
@@ -764,11 +744,8 @@ class ReplayingOne: NSViewController{
         let yesterday = GetYesterdayDate(date : date, Day : 1)
         let pastdate = GetDateOfPastTime(date : date, Hour : 5)
         let pasttime = GetTimeOfPastTime(date: date, Hour: 5)
-        print("here")
-        print(pasttime)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 5 hour function")
         let Initialsession = 1
         //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
         // past date is the same as today
@@ -822,16 +799,12 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
-                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
@@ -855,16 +828,12 @@ class ReplayingOne: NSViewController{
                                 let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
-                                //lalala[k].0.contains(".jpg")
-                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                //let number = filelist.count
                                 var tem = [String]()
                                 for k in 0..<count{
                                     if lalala[k].0.contains(".jpg"){
                                         let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
-                                        //PhotoNameArray.append(temp)
                                     }
                                 }
                                 var reverse : [String] = Array(tem.reversed())
@@ -894,9 +863,6 @@ class ReplayingOne: NSViewController{
         else{
             ReplayingOne.SessionNumberForToday = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
             let lengthoftoday = ReplayingOne.SessionNumberForToday.count
-            //var PhotoNameArray = [String]()
-            //let fileManager = FileManager.default
-            //let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
             if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
                 print("today, you have not started recording")
             }
@@ -920,29 +886,25 @@ class ReplayingOne: NSViewController{
                         let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
-                        //lalala[k].0.contains(".jpg")
                         //filelist contain all names of the file in this folder
-                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                        //let number = filelist.count
                         var tem = [String]()
                         for k in 0..<count{
                             if lalala[k].0.contains(".jpg"){
                                 let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
-                                //PhotoNameArray.append(temp)
                             }
                         }
                         var reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
-                        //print(PhotoNameArray)
                     } catch {
                         print(error)
                     }
                 }
             }
-            //second yesterday
+            
+            //second psrt: yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
                 return PhotoNameArray.reversed() as [String]
@@ -996,16 +958,12 @@ class ReplayingOne: NSViewController{
                                         let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
-                                        //lalala[k].0.contains(".jpg")
-                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                        //let number = filelist.count
                                         var tem = [String]()
                                         for k in 0..<count{
                                             if lalala[k].0.contains(".jpg"){
                                                 if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     tem.append(temp)
-                                                    //PhotoNameArray.append(temp)
                                                 }
                                             }
                                         }
@@ -1029,9 +987,6 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
@@ -1068,7 +1023,8 @@ class ReplayingOne: NSViewController{
         
         return PhotoNameArray.reversed() as [String]
     }
-    //
+    
+    // fetch all screenshots from the last 8 hours
     func FetchEightHours() -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -1085,10 +1041,8 @@ class ReplayingOne: NSViewController{
         print("here")
         print(pasttime)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 8 hour function")
         let Initialsession = 1
-        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
         // past date is the same as today
         if (pastdate == current){
             ReplayingOne.SessionNumberForEightHour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
@@ -1104,7 +1058,6 @@ class ReplayingOne: NSViewController{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(last)
                     let jsonFilePath = Stringfilepath + "/" + "test.json"
                     //josnfile path
-                    //let URLfilepath = NSURL(string : Stringfilepath)
                     do{
                         //into the folder
                         let timeOfStart = BasedonJsonFilePathReadStartTime(jsonpath : jsonFilePath)
@@ -1140,16 +1093,12 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
-                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
@@ -1173,16 +1122,12 @@ class ReplayingOne: NSViewController{
                                 let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
-                                //lalala[k].0.contains(".jpg")
-                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                //let number = filelist.count
                                 var tem = [String]()
                                 for k in 0..<count{
                                     if lalala[k].0.contains(".jpg"){
                                         let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
-                                        //PhotoNameArray.append(temp)
                                     }
                                 }
                                 var reverse : [String] = Array(tem.reversed())
@@ -1212,9 +1157,6 @@ class ReplayingOne: NSViewController{
         else{
             ReplayingOne.SessionNumberForToday = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
             let lengthoftoday = ReplayingOne.SessionNumberForToday.count
-            //var PhotoNameArray = [String]()
-            //let fileManager = FileManager.default
-            //let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
             if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
                 print("today, you have not started recording")
             }
@@ -1227,7 +1169,6 @@ class ReplayingOne: NSViewController{
             }else{
                 for i in 1...lastoftoday{
                     let Stringfilepath = Defaultpath().absoluteString + current + "-" + String(i)
-                    //let URLfilepath = NSURL(string : Stringfilepath)
                     do {
                         let tempURL = NSURL(string: Stringfilepath)
                         let tempFileList = try FileManager.default.contentsOfDirectory(at: tempURL! as URL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
@@ -1238,29 +1179,25 @@ class ReplayingOne: NSViewController{
                         let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
-                        //lalala[k].0.contains(".jpg")
                         //filelist contain all names of the file in this folder
-                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                        //let number = filelist.count
                         var tem = [String]()
                         for k in 0..<count{
                             if lalala[k].0.contains(".jpg"){
                                 let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
-                                //PhotoNameArray.append(temp)
                             }
                         }
                         var reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
-                        //print(PhotoNameArray)
                     } catch {
                         print(error)
                     }
                 }
             }
-            //second yesterday
+            
+            //second part: yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil{
                 return PhotoNameArray.reversed() as [String]
@@ -1314,9 +1251,6 @@ class ReplayingOne: NSViewController{
                                         let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
-                                        //lalala[k].0.contains(".jpg")
-//                                        let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-//                                        let number = filelist.count
                                         var tem = [String]()
                                         //filelist[j]
                                         for k in 0..<count{
@@ -1324,7 +1258,6 @@ class ReplayingOne: NSViewController{
                                                 if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                     let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                                     tem.append(temp)
-                                                    //PhotoNameArray.append(temp)
                                                 }
                                             }
                                         }
@@ -1348,16 +1281,12 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             tem.append(temp)
-                                            //PhotoNameArray.append(temp)
                                         }
                                     }
                                     var reverse : [String] = Array(tem.reversed())
@@ -1387,10 +1316,9 @@ class ReplayingOne: NSViewController{
         
         return PhotoNameArray.reversed() as [String]
     }
-    //
-   
     //end of 8 hours
-    //
+    
+    // fetch last 24 hours for all recorded screenshots
     func Fetch24Hours() -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -1405,10 +1333,8 @@ class ReplayingOne: NSViewController{
         let pastdate = GetDateOfPastTime(date : date, Hour : 24)
         let pasttime = GetTimeOfPastTime(date: date, Hour: 24)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 24 hours function")
         let Initialsession = 1
-        //ReplayingOne.SessionNumber = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
         // past date is the same as today
         if (pastdate == current){
             ReplayingOne.SessionNumberFor24Hour = ReplayingOne.applicationDelegate.fileNameDictionary[pastdate] as! [Int]
@@ -1458,16 +1384,12 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             if (DealWithScreenShotName(str : lalala[k].0) >= hourOfPastTime) {
                                                 let temp = Stringfilepath + "/" + lalala[k].0
                                                 tem.append(temp)
-                                                //PhotoNameArray.append(temp)
                                             }
                                         }
                                     }
@@ -1491,16 +1413,12 @@ class ReplayingOne: NSViewController{
                                 let count = lalala.count
                                 let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                                 let number = filelist.count
-                                //lalala[k].0.contains(".jpg")
-                                //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                                //let number = filelist.count
                                 var tem = [String]()
                                 for k in 0..<count{
                                     if lalala[k].0.contains(".jpg"){
                                         let temp = Stringfilepath + "/" + lalala[k].0
                                         //means it is a photo, instead of a json file
                                         tem.append(temp)
-                                        //PhotoNameArray.append(temp)
                                     }
                                 }
                                 var reverse : [String] = Array(tem.reversed())
@@ -1530,12 +1448,9 @@ class ReplayingOne: NSViewController{
         else{
             //code here
             //check yesterday and today
-            //first today
+            //first part: today
             ReplayingOne.SessionNumberForToday = ReplayingOne.applicationDelegate.fileNameDictionary[current] as! [Int]
             let lengthoftoday = ReplayingOne.SessionNumberForToday.count
-            //var PhotoNameArray = [String]()
-            //let fileManager = FileManager.default
-            //let temppath = Defaultpath().absoluteString + current + "-" + String(Initialsession)
             if (!fileManager.fileExists(atPath: Defaultpath().absoluteString + current + "-" + String(Initialsession))){
                 print("today, you have not started recording")
             }
@@ -1559,29 +1474,24 @@ class ReplayingOne: NSViewController{
                         let count = lalala.count
                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
                         let number = filelist.count
-                        //lalala[k].0.contains(".jpg")
                         //filelist contain all names of the file in this folder
-                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-                        //let number = filelist.count
                         var tem = [String]()
                         for k in 0..<count{
                             if lalala[k].0.contains(".jpg"){
                                 let temp = Stringfilepath + "/" + lalala[k].0
                                 //means it is a photo, instead of a json file
                                 tem.append(temp)
-                                //PhotoNameArray.append(temp)
                             }
                         }
                         var reverse : [String] = Array(tem.reversed())
                         PhotoNameArray += reverse
                         //PhotoNameArray contains file path + file name
-                        //print(PhotoNameArray)
                     } catch {
                         print(error)
                     }
                 }
             }
-            //second yesterday
+            //second part: yesterday
             print(yesterday)
             if ReplayingOne.applicationDelegate.fileNameDictionary[yesterday] == nil {
                 return PhotoNameArray.reversed() as [String]
@@ -1635,9 +1545,6 @@ class ReplayingOne: NSViewController{
                                         let count = lalala.count
                                         let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                         let number = filelist.count
-                                        //lalala[k].0.contains(".jpg")
-                                        //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                        //let number = filelist.count
                                         var tem = [String]()
                                         for k in 0..<count{
                                             if lalala[k].0.contains(".jpg"){
@@ -1668,16 +1575,12 @@ class ReplayingOne: NSViewController{
                                     let count = lalala.count
                                     let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
                                     let number = filelist.count
-                                    //lalala[k].0.contains(".jpg")
-                                    //let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepathofyesterday)
-                                    //let number = filelist.count
                                     var tem = [String]()
                                     for k in 0..<count{
                                         if lalala[k].0.contains(".jpg"){
                                             let temp = Stringfilepathofyesterday + "/" + lalala[k].0
                                             //means it is a photo, instead of a json file
                                             tem.append(temp)
-                                            //PhotoNameArray.append(temp)
                                         }
                                     }
                                     var reverse : [String] = Array(tem.reversed())
@@ -1709,7 +1612,7 @@ class ReplayingOne: NSViewController{
         return PhotoNameArray.reversed() as [String]
     }
     
-    //
+    // get all recordings from last three days
     func FetchThreeday() -> Array<Any> {
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -1720,12 +1623,10 @@ class ReplayingOne: NSViewController{
         let year = calendar.component(.year, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day)
         let fileManager = FileManager.default
-        //let yesterday = GetYesterdayDate(date : date, Day : 1)
         let pastdate = GetDateOfPastTime(date : date, Hour : 8)
         let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 3 days recordings function")
         
         let Initialsession = 1
         for i in 0..<3{
@@ -1756,7 +1657,6 @@ class ReplayingOne: NSViewController{
                                 }
                                 .sorted(by: { $1.1 > $0.1 }) // sort descending modification dates
                             let count = lalala.count
-                            //print(count)
                             
                             for k in 0..<count{
                                 if lalala[k].0.contains(".jpg"){
@@ -1765,22 +1665,6 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            //filelist contain all names of the file in this folder
- //                           let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-//                            let number = filelist.count
-//
-//                            for j in 0..<number{
-//
-//                                if filelist[j].contains(".jpg"){
-//                                    let temp = Stringfilepath + "/" + filelist[j]
-//                                    //means it is a photo, instead of a json file
-//                                    tem.append(temp)
-//                                }
-//                            }
-//                            var reverse : [String] = Array(tem.reversed())
-//                            PhotoNameArray += reverse
-                            //PhotoNameArray contains file path + file name
-                            //print(PhotoNameArray)
                         } catch {
                             print(error)
                         }
@@ -1795,7 +1679,7 @@ class ReplayingOne: NSViewController{
         return PhotoNameArray.reversed() as [String]
     }
     
-    //
+    // function to fetch last 5 days' recordings and screenshots
     func FetchFiveday() -> Array<Any> {
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -1806,12 +1690,9 @@ class ReplayingOne: NSViewController{
         let year = calendar.component(.year, from: date)
         //let current = String(year) + "-" + String(month) + "-" + String(day)
         let fileManager = FileManager.default
-        //let yesterday = GetYesterdayDate(date : date, Day : 1)
-        //let pastdate = GetDateOfPastTime(date : date, Hour : 8)
-        //let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
+
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 5 days function")
         
         let Initialsession = 1
         for i in 0..<5{
@@ -1852,21 +1733,6 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            //filelist contain all names of the file in this folder
-//                            let filelist = try FileManager.default.contentsOfDirectory(atPath: Stringfilepath)
-//                            let number = filelist.count
-//
-//                            for j in 0..<number{
-//                                if filelist[j].contains(".jpg"){
-//                                    let temp = Stringfilepath + "/" + filelist[j]
-//                                    //means it is a photo, instead of a json file
-//                                    tem.append(temp)
-//                                }
-//                            }
-//                            var reverse : [String] = Array(tem.reversed())
-//                            PhotoNameArray += reverse
-                            //PhotoNameArray contains file path + file name
-                            //print(PhotoNameArray)
                         } catch {
                             print(error)
                         }
@@ -1881,7 +1747,7 @@ class ReplayingOne: NSViewController{
         return PhotoNameArray.reversed() as[String]
     }
     
-    //
+    // get last 7 days' recordings and screenshots
     func FetchSevenday() -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -1890,14 +1756,9 @@ class ReplayingOne: NSViewController{
         let day = calendar.component(.day, from: date)
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date)
-        //let current = String(year) + "-" + String(month) + "-" + String(day)
         let fileManager = FileManager.default
-        //let yesterday = GetYesterdayDate(date : date, Day : 1)
-        //let pastdate = GetDateOfPastTime(date : date, Hour : 8)
-        //let pasttime = GetTimeOfPastTime(date: date, Hour: 8)
         let currentTime = GetTimeOfCurrentTime(date : date)
-        //print(currentTime)
-        //print("in fetch 3 hour function")
+        //print("in fetch 7 days function")
         
         let Initialsession = 1
         for i in 0..<7{
@@ -1938,26 +1799,13 @@ class ReplayingOne: NSViewController{
                                     tem.append(temp)
                                 }
                             }
-                            
-//                            for j in 0..<number{
-//                                if filelist[j].contains(".jpg"){
-//                                    let temp = Stringfilepath + "/" + filelist[j]
-//                                    //means it is a photo, instead of a json file
-//                                    tem.append(temp)
-//                                }
-//                            }
-                            //this session in the temp
-//                           var reverse : [String] = Array(tem.reversed())
-//                           PhotoNameArray += reverse
+
                         } catch {
                             print(error)
                         }
                         cur += tem
-                        //var reverse : [String] = Array(tem.reversed())
-                        //PhotoNameArray += reverse
+
                     }
-//                    var reverse : [String] = Array(tem.reversed())
-//                    PhotoNameArray += reverse
                 }
             }
             PhotoNameArray += cur.reversed()
@@ -1965,6 +1813,7 @@ class ReplayingOne: NSViewController{
         
         return PhotoNameArray.reversed() as [String]
     }
+    
     // get the current time
     //useless, change to following two functions
     func PastTimeFewHoursAgo( valueOfHour : Int) -> String {
@@ -1982,9 +1831,9 @@ class ReplayingOne: NSViewController{
         //hour, minute, and second
         //dateFormatter.dateFormat = "HH"
         let date24 = dateFormatter.string(from: final!)
-        //print(date24)
         return date24
     }
+    
     //
     func GetDateSeveralDaysAgo(day : Int) -> Array<String>{
         var arrayOfDay = [String]()
@@ -1995,7 +1844,6 @@ class ReplayingOne: NSViewController{
             let temp = (-1) * i
             let tempdate = Calendar.current.date(byAdding: .day, value: temp, to: Date())
             var dateString = dateFormatter.string(from: tempdate!)
-            //print(dateString)
             //dateFormatter.dateFormat = "h:mm:ss a"
             let final = dateFormatter.date(from: dateString)
             dateFormatter.dateFormat = "yyyy-M-d"
@@ -2017,6 +1865,7 @@ class ReplayingOne: NSViewController{
         let date24 = dateFormatter.string(from: final!)
         return date24
     }
+    
     // get the time of severl hours ago
     func GetDateOfPastTime( date : Date, Hour : Int) -> String {
 
@@ -2027,7 +1876,6 @@ class ReplayingOne: NSViewController{
         let tempHourValue = (-1) * Hour
         let tempdate = Calendar.current.date(byAdding: .hour, value: tempHourValue, to: Date())
         var dateString = dateFormatter.string(from: tempdate!)
-        //print(dateString)
         //dateFormatter.dateFormat = "h:mm:ss a"
         let final = dateFormatter.date(from: dateString)
         dateFormatter.dateFormat = "yyyy-M-d"
@@ -2035,7 +1883,9 @@ class ReplayingOne: NSViewController{
         //print(date24)
         return date24
     }
-    //the time
+    
+    
+    //get the time of past, several hours ago
     func GetTimeOfPastTime( date : Date, Hour : Int) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -2049,7 +1899,8 @@ class ReplayingOne: NSViewController{
         let date24 = dateFormatter.string(from: final!)
         return date24
     }
-    //
+    
+    // get the time of the current time
     func GetTimeOfCurrentTime( date : Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -2062,6 +1913,7 @@ class ReplayingOne: NSViewController{
         let date24 = dateFormatter.string(from: final!)
         return date24
     }
+    
     //based on json file path to get start time as string
     func BasedonJsonFilePathReadStartTime(jsonpath : String) -> String{
         let rawData : NSData = try! NSData(contentsOf: URL(fileURLWithPath: jsonpath))
@@ -2074,6 +1926,8 @@ class ReplayingOne: NSViewController{
         }catch{print(error)}
         return startTime
     }
+    
+    // based on json file path to read the end time
     func BasedonJsonFilePathReadEndTime(jsonpath : String) -> String{
         let rawData : NSData = try! NSData(contentsOf: URL(fileURLWithPath: jsonpath))
         var endTime = ""
@@ -2087,7 +1941,8 @@ class ReplayingOne: NSViewController{
         }catch{print(error)}
         return endTime
     }
-    //
+    
+    // return the hour
     func ReturnHour(str : String) -> Int{
         //print(str)
         let start = str.index(str.startIndex, offsetBy: 10)
@@ -2097,7 +1952,9 @@ class ReplayingOne: NSViewController{
         print(mySubstring)
         return Int(mySubstring)!
     }
-    //
+    
+    
+    // return the minute
     func ReturnMinute(str : String) -> Int{
         print(str)
         let start = str.index(str.startIndex, offsetBy: 13)
@@ -2107,8 +1964,10 @@ class ReplayingOne: NSViewController{
         print(mySubstring)
         return Int(mySubstring)!
     }
+    
+    // handle screenshot name
+    // hardcoded, because now we have a formatted name of screenshot
     func DealWithScreenShotName(str : String) -> Int{
-        //print("in 3 hours")
         print(str)
         let start = str.index(str.startIndex, offsetBy: 17)
         let end = str.index(str.endIndex, offsetBy: -10)
@@ -2117,7 +1976,8 @@ class ReplayingOne: NSViewController{
         print(mySubstring)
         return Int(mySubstring)!
     }
-    //
+    
+    // sort files by date
     func fileSortByDate(filepath : URL) -> [String]?{
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         if let urlArray = try? FileManager.default.contentsOfDirectory(at: filepath,
@@ -2138,7 +1998,8 @@ class ReplayingOne: NSViewController{
     }
     
     
-    // coding here
+    // get the screeenshots recorded on some day
+    // now, we are using this method as the main function by selecting the data
     func FetchSomeday(SomeDay : String) -> Array<Any>{
         let Defaultpath = Settings.DefaultFolder
         var PhotoNameArray = [String]()
@@ -2188,11 +2049,8 @@ class ReplayingOne: NSViewController{
                             print(error)
                         }
                         cur += tem
-                        //var reverse : [String] = Array(tem.reversed())
-                        //PhotoNameArray += reverse
+
                     }
-                    //                    var reverse : [String] = Array(tem.reversed())
-                    //                    PhotoNameArray += reverse
                 }
             }
             PhotoNameArray += cur.reversed()

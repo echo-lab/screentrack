@@ -34,7 +34,6 @@ class FrontmostApp : NSObject{
         let DetectFrontMostAppName = NSWorkspace.shared.frontmostApplication?.localizedName
         let characterSet = CharacterSet(charactersIn: "com.")
         let AfterTrimResult = DetectFrontMostAppName?.trimmingCharacters(in: characterSet)
-        // print(AfterTrimResult ?? "nil result")
         if CurrentFrontMostApp != DetectFrontMostAppName {
             let temp = NSWorkspace.shared.frontmostApplication?.localizedName
             if DetectFrontMostAppName == temp {

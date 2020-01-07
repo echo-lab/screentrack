@@ -6,6 +6,13 @@
 //  Copyright © 2019 Christian Engvall. All rights reserved.
 //
 
+// this swift file and class is used to classify various applicaitons into different classes
+// due to different catefories, we would like to obtain different meta data
+// currently, we have 7 different categoires
+// works for about at least 12 kinds of software or applications
+
+
+
 import Foundation
 import Cocoa
 import CoreData
@@ -31,7 +38,7 @@ class classify : NSObject{
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
         let number = ClassDictionary[SoftwareName]
         
-        // preview
+        // this category is for "preview" software
         if number == "1" {
             print("nothing")
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
@@ -76,7 +83,7 @@ class classify : NSObject{
 
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("preview Error: \(error)")
                 }
             }
             catch{
@@ -84,7 +91,7 @@ class classify : NSObject{
             }
         }
         
-        // unmbers， pages, and keynote
+        // this category is fro the unmbers， pages, and keynote
         else if number == "2"{
             //substring the software name here
             let newname = SoftwareName.replacingOccurrences(of: "apple.iWork.", with: "")
@@ -127,7 +134,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("pages, numbers, and keynotes Error: \(error)")
                 }
             }
             catch{
@@ -135,7 +142,7 @@ class classify : NSObject{
             }
         }
             
-        // Xcode
+        // this category is for the Xcode
         else if number == "3"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
@@ -176,7 +183,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("xcode Error: \(error)")
                 }
             }
             catch{
@@ -184,7 +191,7 @@ class classify : NSObject{
             }
         }
             
-        // chrome
+        // this category is for the chrome
         else if number == "4" {
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
                                                "PhotoName"             : ScreenshotName,
@@ -225,7 +232,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("chrome Error: \(error)")
                 }
                 
             }
@@ -236,7 +243,8 @@ class classify : NSObject{
         }
             
             
-        // Safari
+        // this category is for the Safari
+        // different from the chrome
         else if number == "5"{
             let newname = SoftwareName.replacingOccurrences(of: "apple.", with: "")
             let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
@@ -278,7 +286,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("safari Error: \(error)")
                 }
                 
             }
@@ -286,7 +294,8 @@ class classify : NSObject{
                 print(Error.self)
             }
         }
-        // for microsoft productivty software
+            
+        // this category is for microsoft productivty software
         else if number == "6"{
             let newname = SoftwareName.replacingOccurrences(of: "icrosoft.", with: "")
             let fullname = "Microsoft " + newname
@@ -329,7 +338,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("microsoft software Error: \(error)")
                 }
                 
             }
@@ -338,7 +347,7 @@ class classify : NSObject{
             }
         }
             
-        // for textedit
+        // this category is for textedit
         else if number == "7"{
             let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
                                                "PhotoName"     : ScreenshotName,
@@ -382,7 +391,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("textedit Error: \(error)")
                 }
             }
             catch{
@@ -428,7 +437,7 @@ class classify : NSObject{
                         }catch {print(error)}
                     }
                 } catch {
-                    print("Error: \(error)")
+                    print("other uncategorized software Error: \(error)")
                 }
             }
             catch{
@@ -507,7 +516,9 @@ class classify : NSObject{
     
     // get the file name of the preview
     func PreviewFileName() -> String{
+        
 //        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
+        
         let first = "tell application \"System Events\" \n tell process"
         let second = "\"Preview\" \n "
         let third = "set fileName to name of window 1 \n end tell \n end tell"
@@ -528,7 +539,9 @@ class classify : NSObject{
     
     //pages, Numbers, Keynots, Xcode file path
     func ProductivityFilePath(softwarename : String) -> String{
+        
 //        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
+        
         let first = "tell application \""
         let second = "\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \""
         let third = "\" to return "
@@ -547,6 +560,8 @@ class classify : NSObject{
         else { return (output.stringValue?.description)!}
         
     }
+    
+    //Xcode opened file name 
     func XcodeFileName(softwarename : String) -> (String){
         let first = "tell application \"Xcode\" \n set fileName to name of window 1 \n end tell"
         var error: NSDictionary?
