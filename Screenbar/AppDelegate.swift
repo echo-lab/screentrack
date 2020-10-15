@@ -8,12 +8,13 @@ import CoreData
 @available(OSX 10.13, *)
 @NSApplicationMain
 //subtitied nsobject with nsviewcontroller
-class AppDelegate: NSViewController, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
     let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
+    
     var eventMonitor : EventMonitor?
     
     static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
@@ -28,7 +29,7 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.addImage()
         self.initMainWindowPopover()
-        self.initEventMonitor()
+        // self.initEventMonitor()
         self.UserDefaultsReset()
         //self.SessionCounter(counter: 0)
         print("launch")
@@ -161,7 +162,7 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
         //let defaults = UserDefaults.standard
         let handler = MainWindowViewController()
         
-        NSEvent.addGlobalMonitorForEvents(matching: .scrollWheel, handler: keyDown)
+        // NSEvent.addGlobalMonitorForEvents(matching: .scrollWheel, handler: keyDown)
 
         //defaults.setValue("60.0", forKey: handler.secondsTextBox.stringValue)
         
@@ -245,7 +246,7 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     func initMainWindowPopover() {
         self.mainWindowPopover.contentViewController = MainWindowViewController(nibName: NSNib.Name(rawValue: "MainWindowView"), bundle: nil)
     }
-    
+
     func initEventMonitor() {
         eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown]) { [unowned self] event in
             if self.mainWindowPopover.isShown {

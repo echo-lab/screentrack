@@ -18,10 +18,13 @@ class deleteFolders{
     
     func getFolderPath(dayLength: String) -> Date{
         let dayLengthInt = Int(dayLength)! * (-1)
-        print("dayLength:", dayLength)
+        // the day length to save all screenshot is:
+        //  print("dayLength:", dayLength)
         let toDate = Date()
         let fromDate = Calendar.current.date(byAdding:  .day, value: dayLengthInt, to: toDate)
-        print("fromDate", fromDate)
+        
+        // the date format is:
+        // print("fromDate", fromDate)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium

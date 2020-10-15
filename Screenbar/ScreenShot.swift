@@ -12,6 +12,8 @@ class ScreenShot : NSObject {
     lazy var dateFormatter = DateFormatter();
     let ImageCompressHandler = ImageCompress()
     let activitiesHandler = activitiesDetection()
+    let settingHandler = Settings()
+    
     
     @objc @available(OSX 10.13, *)
     
@@ -24,7 +26,24 @@ class ScreenShot : NSObject {
         if (xLocation == mouseLocationInformation.mouseX && yLocation == mouseLocationInformation.mouseY){
             print("mouse did not move since last screenshot taken, no new image save this time")
         }
+            
+            
         else{
+            // dayInformation is the day of today's screenshot
+            let dateForDay = Date()
+            let calendar = Calendar.current
+            let dayInformation = calendar.component(.day, from: dateForDay)
+            let dayInformaionInt = Int(dayInformation)
+            print("dayInformationInt: ", dayInformation)
+            if dayInformaionInt != MyVariables.todayDate {
+                // create a new folder and json file
+                // change the path to save the screenshot
+                //
+                // settingHandler.
+                Settings.PathCreate()
+                
+            }
+            
             // dataString is the vaule store current data
             let dateString = self.getDate()
             let task = Process()
@@ -44,7 +63,7 @@ class ScreenShot : NSObject {
             //arguments save all arguments for the screenshot
             
             let OriginialimageName = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
-            _ = " \"" +  MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg" + " \""
+            // _ = " \"" +  MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg" + " \""
             let OriginialimageNameFullPath = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
             
             task.launch() // asynchronous call.
@@ -89,6 +108,7 @@ class ScreenShot : NSObject {
         self.dateFormatter.timeStyle = DateFormatter.Style.medium
         self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
         let dateString = self.dateFormatter.string(from: date)
+        
         return dateString
     }
     

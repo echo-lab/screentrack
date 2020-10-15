@@ -589,6 +589,8 @@ class classify : NSObject{
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
         let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        
+        print("test string", runApplescript(applescript: final))
         if (error != nil) {
             writeError(error : error!)
             print("error: \(String(describing: error))")
@@ -599,6 +601,24 @@ class classify : NSObject{
         }
         else { return (output.stringValue?.description)!}
     }
+    
+    func runApplescript(applescript : String) -> String{
+           var error: NSDictionary?
+           let scriptObject = NSAppleScript(source: applescript)
+           let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+           // print("output", output)
+           if (error != nil) {
+               print("error: \(String(describing: error))")
+           }
+           if output.stringValue == nil{
+               let empty = "the result is empty"
+               return empty
+           }
+           else {
+               return (output.stringValue?.description)!
+               
+           }
+       }
     
     //return the browser first active page's url
     func BrowserFirstPageURL() -> String{

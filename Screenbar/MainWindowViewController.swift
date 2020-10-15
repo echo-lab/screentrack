@@ -10,6 +10,7 @@ protocol buttonchange {
 
 // global variable of file path
 struct MyVariables {
+    
     static var yourVariable = "someString"
     static var jsonpath : URL = URL(string: "https://www.apple.com")!
     static var errorPath : URL = URL(string: "https://www.apple.com")!
@@ -18,6 +19,7 @@ struct MyVariables {
     static var rootFolderPath = URL(string: "")
     static var sub1WindowController : NSWindowController? = nil
     static var openedBool = false
+    static var todayDate : Int!
 }
 
 struct mouseActivities {
@@ -115,6 +117,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // print(MyVariables.yourVariable)
         //code here for view did load
     }
     
@@ -288,15 +291,21 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         let rect = screen?.frame
         let width = Int((rect?.size.width)!)
         let height = Int((rect?.size.height)!)
-        print(width)
-        print(height)
+        
+        // the width of the screen is:
+        // print(width)
+        // the height of the screen is:
+        // print(height)
         let firstValue = width * scale
         let secondValue = height * scale
-        print(firstValue)
-        print(secondValue)
+        // the resolution of the screen of the width is:
+        
+        // print(firstValue)
+        // the resolution of the screen of the height is:
+        // print(secondValue)
         let temp = 950 * firstValue * secondValue
         imageSize.maxSize = temp / (2880 * 1800)
-        print("max image size:" + String(imageSize.maxSize))
+        // print("max image size:" + String(imageSize.maxSize))
         CompressionSlider.minValue = Double(firstValue * 4 / 10)
         CompressionSlider.maxValue = Double(firstValue)
         MyVariables.maxWidth = firstValue

@@ -149,7 +149,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 
             }
             else{
-                InforFour.stringValue = "null"
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
@@ -158,7 +159,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
-                InforFive.stringValue = "nil"
+                // InforFive.stringValue = "nil"
+                // InforFive.stringValue = "Not Available"
             }
             
         }
@@ -205,7 +207,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
-                InforFour.stringValue = "null"
+                // InforFour.stringValue = "null"
+                InforFour.stringValue = "Not Available"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
@@ -214,7 +217,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
-                InforFive.stringValue = "nil"
+                InforFive.stringValue = "Not Available"
+                // InforFive.stringValue = "nil"
             }
         }
         
@@ -298,7 +302,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
         }
         else{
-            InforFour.stringValue = "null"
+            
+            InforFour.stringValue = "Not Available"
+            // InforFour.stringValue = "null"
         }
         if DicMessage["FrontmostPageTitle"] != nil{
             InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
@@ -307,7 +313,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
             InforFive.stringValue = DicMessage["FileName"] as! String
         }
         else{
-            InforFive.stringValue = "nil"
+            InforFive.stringValue = "Not Available"
+            // InforFive.stringValue = "nil"
         }
         
         
@@ -345,7 +352,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
-                InforFour.stringValue = "null"
+                
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
@@ -354,7 +363,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
-                InforFive.stringValue = "nil"
+                InforFive.stringValue = "Not Available"
+                // InforFive.stringValue = "nil"
             }
         }
     }
@@ -391,7 +401,9 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFour.stringValue = DicMessage["FrontmostPageUrl"] as! String
             }
             else{
-                InforFour.stringValue = "null"
+                
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 InforFive.stringValue = DicMessage["FrontmostPageTitle"] as! String
@@ -400,7 +412,8 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
                 InforFive.stringValue = DicMessage["FileName"] as! String
             }
             else{
-                InforFive.stringValue = "nil"
+                InforFive.stringValue = "Not Available"
+                // InforFive.stringValue = "nil"
             }
         }
         

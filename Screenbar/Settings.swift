@@ -115,6 +115,7 @@ class Settings : NSObject {
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day)
+        MyVariables.todayDate = day
         SessionNumber = applicationDelegate.fileNameDictionary[current] as! [Int]
         let length = SessionNumber.count
         if SessionNumber[length - 1] == 0 {
@@ -124,8 +125,8 @@ class Settings : NSObject {
             applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
             //create a new folder and return this folder path
             let temp = url + current + "-" + String(1)
-            print("temp in creatpath func")
-            print(temp)
+            print("temp in creatpath func, temp is: ", temp)
+            // print(temp)
             let finalpath = NSURL(string: temp)
             do
             {
@@ -147,8 +148,8 @@ class Settings : NSObject {
             applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
             //create a new floder and return this folder path
             let temp = url + current + "-" + String(new)
-            print("temp in creatpath func")
-            print(temp)
+            print("temp in creatpath func, temp: ", temp)
+            // print(temp)
             let finalpath = NSURL(string: temp)
             do
             {

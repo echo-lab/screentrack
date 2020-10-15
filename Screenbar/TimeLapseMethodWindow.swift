@@ -181,7 +181,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
-                InforFour.stringValue = "null"
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 PageTitalOrFileName.stringValue = "Page Title"
@@ -194,7 +195,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                InforFive.stringValue = "nil"
+                InforFive.stringValue = "Not Available"
+                // InforFive.stringValue = "nil"
             }
             
         }
@@ -258,7 +260,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
-                InforFour.stringValue = "null"
+                
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             
             if DicMessage["FrontmostPageTitle"] != nil{
@@ -271,7 +275,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                InforFive.stringValue = "nil"
+                
+                InforFive.stringValue = "Not Available"
+                // InforFive.stringValue = "nil"
             }
         }
     }
@@ -352,7 +358,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 FilePathOrURL.stringValue = "File Path or Page URL"
-                InforFour.stringValue = "null"
+                InforFour.stringValue = "Not Available"
+                // InforFour.stringValue = "null"
             }
             if DicMessage["FrontmostPageTitle"] != nil{
                 PageTitalOrFileName.stringValue = "Page Title"
@@ -364,7 +371,10 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
             }
             else{
                 PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                InforFive.stringValue = "nil"
+                
+                InforFive.stringValue = "null"
+                
+                // InforFive.stringValue = "nil"
             }
         }
         else{
@@ -511,7 +521,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -523,7 +534,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -569,7 +582,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -581,7 +595,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -835,7 +850,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -847,7 +863,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFour.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -930,7 +947,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -942,7 +961,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
                 
             }
@@ -1001,7 +1022,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1013,7 +1036,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -1069,7 +1094,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1081,6 +1108,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
+                    InforFive.stringValue = "Not Available"
                     InforFive.stringValue = "nil"
                 }
             }
@@ -1138,7 +1166,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1150,7 +1179,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
             
@@ -1211,7 +1241,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1223,7 +1254,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
             
@@ -1283,7 +1315,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1295,7 +1329,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
             //let RelatedInformationHandler = RelatedInformation()
@@ -1359,7 +1394,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1371,7 +1407,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -1428,7 +1465,9 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1440,7 +1479,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue  = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
@@ -1498,7 +1538,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     FilePathOrURL.stringValue = "File Path or Page URL"
-                    InforFour.stringValue = "null"
+                    InforFour.stringValue = "Not Available"
+                    // InforFour.stringValue = "null"
                 }
                 if DicMessage["FrontmostPageTitle"] != nil{
                     PageTitalOrFileName.stringValue = "Page Title"
@@ -1510,7 +1551,8 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
                 }
                 else{
                     PageTitalOrFileName.stringValue = "Page Tital or File Name"
-                    InforFive.stringValue = "nil"
+                    InforFive.stringValue = "Not Available"
+                    // InforFive.stringValue = "nil"
                 }
             }
         }
