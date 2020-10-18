@@ -9,6 +9,7 @@ import AppKit
 
 class Settings : NSObject {
     static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    
     static var secondsKey = "seconds"
     static var pathKey = "savePath"
     static var playSoundKey = "playSound"
@@ -136,7 +137,7 @@ class Settings : NSObject {
             {
                 print("Unable to create directory \(error.debugDescription)")
             }
-            MyVariables.yourVariable = temp
+            UserData.screenshotStoragePath = temp
             //return finalpath! as URL
         }
         else{
@@ -159,7 +160,7 @@ class Settings : NSObject {
             {
                 print("Unable to create directory \(error.debugDescription)")
             }
-            MyVariables.yourVariable = temp
+            UserData.screenshotStoragePath = temp
             //return finalpath! as URL
         }
     }

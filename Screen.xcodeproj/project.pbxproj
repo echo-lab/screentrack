@@ -14,6 +14,9 @@
 		3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DA791FE1CDBC45C00F60252 /* Assets.xcassets */; };
 		3DA792021CDBC45C00F60252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA792001CDBC45C00F60252 /* MainMenu.xib */; };
 		3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */; };
+		8713EC4A2537A473004772DF /* ScreenshoIntervalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */; };
+		8713EC4D2537A4F0004772DF /* ScreenshotIntervalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */; };
+		872947F82537C65600CD4FF8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872947F72537C65600CD4FF8 /* UserData.swift */; };
 		D95ED0052353DA16004DB16A /* activitiesDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ED0042353DA16004DB16A /* activitiesDetection.swift */; };
 		EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03B5AA218CF32100023472 /* MosePosition.swift */; };
 		EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F54F32230A1920040CB4F /* OpenSoftware.swift */; };
@@ -58,6 +61,9 @@
 		3DA792011CDBC45C00F60252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3DA792031CDBC45C00F60252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
+		8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshoIntervalCell.xib; sourceTree = "<group>"; };
+		8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotIntervalCell.swift; sourceTree = "<group>"; };
+		872947F72537C65600CD4FF8 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		D95ED0042353DA16004DB16A /* activitiesDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activitiesDetection.swift; sourceTree = "<group>"; };
 		EA03B5AA218CF32100023472 /* MosePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosePosition.swift; sourceTree = "<group>"; };
 		EA0F54F32230A1920040CB4F /* OpenSoftware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSoftware.swift; sourceTree = "<group>"; };
@@ -116,6 +122,8 @@
 				3D1C2F2A1CE235AF00FB8AB8 /* MainWindowView.xib */,
 				EA8AF31722079CA200D343E3 /* method_one.xib */,
 				EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */,
+				8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */,
+				8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 				3DA791FE1CDBC45C00F60252 /* Assets.xcassets */,
 				3DA792031CDBC45C00F60252 /* Info.plist */,
 				EA2C56C621FE481900178AFF /* folderName.plist */,
+				872947F72537C65600CD4FF8 /* UserData.swift */,
 			);
 			path = Screenbar;
 			sourceTree = "<group>";
@@ -257,6 +266,7 @@
 			files = (
 				EA8AF31822079CA200D343E3 /* method_one.xib in Resources */,
 				EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */,
+				8713EC4A2537A473004772DF /* ScreenshoIntervalCell.xib in Resources */,
 				3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */,
 				3D1C2F2C1CE235AF00FB8AB8 /* MainWindowView.xib in Resources */,
 				EAF0DAD32236EDB800533A9C /* TimeLapseMethodWindow.xib in Resources */,
@@ -293,6 +303,7 @@
 				EA15F6622241CC8600C5657C /* TreeMap.swift in Sources */,
 				EAF5EFE1220E3C2900BDBF7D /* Method_One_Display_Window.swift in Sources */,
 				3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */,
+				872947F82537C65600CD4FF8 /* UserData.swift in Sources */,
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,
 				EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */,
 				EA15F6642241CCAE00C5657C /* RandomColor.swift in Sources */,
@@ -300,6 +311,7 @@
 				EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */,
 				EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */,
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
+				8713EC4D2537A4F0004772DF /* ScreenshotIntervalCell.swift in Sources */,
 				EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */,
 				EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */,
 				EAB7F45A237B5F4600BF53B4 /* deleteFolder.swift in Sources */,

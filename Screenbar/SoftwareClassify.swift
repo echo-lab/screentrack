@@ -54,12 +54,12 @@ class classify : NSObject{
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 // here "decoded" is of type `Any`, decoded from JSON data
                 // you can now cast it with the right type
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 //url is the json file
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -74,7 +74,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -106,12 +106,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
 
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -127,7 +127,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -155,12 +155,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -176,7 +176,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -203,12 +203,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -224,7 +224,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -257,12 +257,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -278,7 +278,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -310,12 +310,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -331,7 +331,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -363,12 +363,12 @@ class classify : NSObject{
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 // here "decoded" is of type `Any`, decoded from JSON data
                 // you can now cast it with the right type
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 //url is the json file
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -383,7 +383,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -409,12 +409,12 @@ class classify : NSObject{
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + jpath.absoluteString
+                let current_path = "file://" + UserData.jsonPath.absoluteString
                 //url is the json file
                 let url = URL(string: current_path as String)
                 var fileSize : UInt64
                 do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: jpath.absoluteString)
+                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
                     fileSize = attr[FileAttributeKey.size] as! UInt64
                     if fileSize == 0{
                         print("json file is empty")
@@ -429,7 +429,7 @@ class classify : NSObject{
                             jsonarray.append(dictionary)
                             jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
                             let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                                 file.write(jsonData)
                                 file.closeFile()
                             }
@@ -692,7 +692,7 @@ class classify : NSObject{
     
     // return the write error
     func writeError(error : NSDictionary){
-        let path = "file://" + erpath.absoluteString
+        let path = "file://" + UserData.errorPath.absoluteString
         let URLpath = NSURL(string : path)
         let currentTime = Date().description(with: .current)
         let errorDescription = error.description

@@ -22,21 +22,8 @@ class Method_One_Display_Window: NSViewController{
     let replayingMethodTwoHandler = ReplayingMethodTwo()
     
     var dictionaryTemp = [String: Int]()
-    
-    
-//    var mouseLocation: NSPoint {
-//        return NSEvent.mouseLocation()
-//    }
-//    var location: NSPoint {
-//        return window.mouseLocationOutsideOfEventStream
-//    }
 
     override func viewDidLoad() {
-        //super.viewDidLoad()
-        //defaultDisplay()
-        
-        //DefaultComboMenu()
-        //print("this is window")
         
     }
     //view appear after load

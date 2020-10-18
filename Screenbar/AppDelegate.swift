@@ -271,19 +271,19 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
                 self.hideMainWindow(self)
             }
             //even minimazie, MyVariables.sub1WindowController?.showWindow(nil) still not nil
-            else if (MyVariables.sub1WindowController?.showWindow(nil) == nil && MyVariables.openedBool == true && self.mainWindowPopover.isShown == false){
+            else if (UserData.TimelapseWindowController?.showWindow(nil) == nil && UserData.timelapseWindowIsOpen == true && self.mainWindowPopover.isShown == false){
                 print("==nil")
-                MyVariables.sub1WindowController?.showWindow(nil)
+                UserData.TimelapseWindowController?.showWindow(nil)
             }
                 
             // first open main window
-            else if (MyVariables.sub1WindowController?.showWindow(nil) == nil && MyVariables.openedBool == false && self.mainWindowPopover.isShown == false){
+            else if (UserData.TimelapseWindowController?.showWindow(nil) == nil && UserData.timelapseWindowIsOpen == false && self.mainWindowPopover.isShown == false){
                 self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
                 eventMonitor?.start()
             }
                 
-            else if(MyVariables.sub1WindowController?.showWindow(nil) != nil && MyVariables.openedBool == true && self.mainWindowPopover.isShown == false){
-                print(MyVariables.sub1WindowController?.showWindow(nil) ?? "warning")
+            else if(UserData.TimelapseWindowController?.showWindow(nil) != nil && UserData.timelapseWindowIsOpen == true && self.mainWindowPopover.isShown == false){
+                print(UserData.TimelapseWindowController?.showWindow(nil) ?? "warning")
                 print(self.mainWindowPopover.isShown)
                 
                 self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
@@ -295,13 +295,13 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
                 
             else {
                 print("Beg")
-                print(MyVariables.sub1WindowController?.showWindow(nil))
+                print(UserData.TimelapseWindowController?.showWindow(nil))
 
                 print(self.mainWindowPopover.isShown)
 //                self.mainWindowPopover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
 //                eventMonitor?.start()
                 print("44444")
-                MyVariables.sub1WindowController?.showWindow(nil)
+                UserData.TimelapseWindowController?.showWindow(nil)
             }
         }
     }

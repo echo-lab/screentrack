@@ -32,7 +32,7 @@ class errorFile : NSObject{
     //
     
     func writeError(error : NSDictionary){
-        let path = "file://" + erpath.absoluteString
+        let path = "file://" + UserData.errorPath.absoluteString
         let URLpath = NSURL(string : path)
         let currentTime = Date().description(with: .current)
         let errorDescription = error.description
