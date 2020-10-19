@@ -30,7 +30,7 @@ class ReplayingMethodTwo: NSViewController{
     //
     func FetchPhotoToday() -> Dictionary<String, Int>{
         var dictionaryTemp = [String: Int]()
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         let date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -93,7 +93,7 @@ class ReplayingMethodTwo: NSViewController{
     //
     func FetchOneHours() -> Dictionary<String, Int>{
         var dictionaryTemp = [String: Int]()
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         //var softwareNameArray = [String]()
         //var softwareNameCountArray = [Int]()
@@ -482,7 +482,7 @@ class ReplayingMethodTwo: NSViewController{
     //
     func FetchThreeHours() -> Dictionary<String, Int>{
         var dictionaryTemp = [String: Int]()
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         //var softwareNameArray = [String]()
         //var softwareNameCountArray = [Int]()
@@ -859,7 +859,7 @@ class ReplayingMethodTwo: NSViewController{
     //
     func FetchSevenday() -> Dictionary<String, Int>{
         var dictionaryTemp = [String: Int]()
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current

@@ -812,7 +812,7 @@ class Method_One_Display_ViewControl: NSViewController, NSTextViewDelegate {
         }
         else{
             //print(stringArray![0])
-            let Defaultpath = Settings.DefaultFolder
+            let Defaultpath = Settings.getUserDefaultFolderPath
             let displayImageFolder = Defaultpath().absoluteString + stringArray![0]
             print(displayImageFolder)
             let picPath = GetListOfFilesHandler.GetLatestImage(path: URL(string : displayImageFolder)!)

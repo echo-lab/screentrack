@@ -10,18 +10,18 @@ import AppKit
 class Settings : NSObject {
     static let applicationDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     
-    static var secondsKey = "seconds"
-    static var pathKey = "savePath"
-    static var playSoundKey = "playSound"
+    static let secondsKey = "seconds"
+    static let pathKey = "savePath"
+    static let playSoundKey = "playSound"
     //height
-    static var TimeIntervalSecond = "intervalseconds"
+    static let screenshotInterval = "intervalseconds"
     //width
     static var TimeIntervalSecondTwo = "intervalsecondstwo"
     static var detectSwitchKey = "detectSwitch"
     static var ImageHeight = "height"
     static var ImageWidth = "width"
     static var SessionKey = "session"
-    static var SessionNumber = [Int]()
+    static var sessionNumberArray = [Int]()
     
     // set the default value of timeinervalsecond
     static func TimeIntervalSecondTwoSet(_ intervalsecondstwo: Double?){
@@ -96,73 +96,50 @@ class Settings : NSObject {
         defaults.set(path, forKey: pathKey)
     }
     
-    //set the default folder path
-    static func DefaultFolder() -> URL{
-        let defaultpath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
-        return defaultpath!
+    //MARK: getUserDefaultFolderPath
+    static func getUserDefaultFolderPath() -> URL {
+        var defaultPath = URL(string: NSHomeDirectory())!
+        
+        if let _defaultPath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/") {
+            defaultPath = _defaultPath
+        }
+        
+        return defaultPath
     }
     
-    // return a URL value as storage path
     @available(OSX 10.13, *)
-    
-    //create the foler path
-    static func PathCreate(){
-        let path = DefaultFolder()
+    static func createUserStorageDirectory() -> Bool {
+        let path = getUserDefaultFolderPath()
         let url = path.absoluteString
-        print(url)
         let date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
         let month = calendar.component(.month, from: date)
         let year = calendar.component(.year, from: date)
         let current = String(year) + "-" + String(month) + "-" + String(day)
-        SessionNumber = applicationDelegate.fileNameDictionary[current] as! [Int]
-        let length = SessionNumber.count
-        if SessionNumber[length - 1] == 0 {
-            //if the first and only number is 0
-            //save a new number "1" into plist
-            SessionNumber.append(Int(1))
-            applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
-            //create a new folder and return this folder path
-            let temp = url + current + "-" + String(1)
-            print("temp in creatpath func")
-            print(temp)
-            let finalpath = NSURL(string: temp)
-            do
-            {
-                try FileManager.default.createDirectory(atPath: finalpath!.path!, withIntermediateDirectories: true, attributes: nil)
-                print("create folder successed")
-            }
-            catch let error as NSError
-            {
-                print("Unable to create directory \(error.debugDescription)")
-            }
-            UserData.screenshotStoragePath = temp
-            //return finalpath! as URL
+        
+        if let _sessionNumberArray = applicationDelegate.fileNameDictionary[current] as? [Int] {
+            sessionNumberArray = _sessionNumberArray
         }
-        else{
-            //the last number is not 0
-            //save a new number "+1" into plist
-            let new = SessionNumber[length - 1] + 1
-            SessionNumber.append(new)
-            applicationDelegate.fileNameDictionary.setValue(SessionNumber, forKey: current)
-            //create a new floder and return this folder path
-            let temp = url + current + "-" + String(new)
-            print("temp in creatpath func")
-            print(temp)
-            let finalpath = NSURL(string: temp)
-            do
-            {
-                try FileManager.default.createDirectory(atPath: finalpath!.path!, withIntermediateDirectories: true, attributes: nil)
-                print("create folder successed")
-            }
-            catch let error as NSError
-            {
-                print("Unable to create directory \(error.debugDescription)")
-            }
-            UserData.screenshotStoragePath = temp
-            //return finalpath! as URL
+        
+        let length = sessionNumberArray.count
+        
+        let newSessionNumber = sessionNumberArray[length - 1] == 0 ? 1 : sessionNumberArray[length - 1] + 1
+        let screenshotStoragePath = url + current + "-" + String(newSessionNumber)
+        
+        applicationDelegate.fileNameDictionary.setValue(sessionNumberArray, forKey: current)
+        
+        let finalPath = NSURL(string: screenshotStoragePath)
+        
+        do {
+            try FileManager.default.createDirectory(atPath: finalPath!.path!, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            print("Unable to create directory \(error.debugDescription)")
+            return false
         }
+        
+        UserData.screenshotStoragePath = screenshotStoragePath
+        return true
     }
     
     // change the string format to the url format

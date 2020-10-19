@@ -237,9 +237,6 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     //user default reset
     func UserDefaultsReset(){
         let domain = Bundle.main.bundleIdentifier!
-        
-        //UserDefaults.standard.removePersistentDomain(forName: domain)
-        //UserDefaults.standard.removePersistentDomain(forName: "pathKey")
     }
     
     func initMainWindowPopover() {

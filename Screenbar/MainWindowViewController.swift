@@ -42,8 +42,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     var timerFrontmost: Timer = Timer()
     
     let frontmostAppHandler = FrontmostApp()
-    let jsonfileHandler = json()
-    let errorfileHandler = errorFile()
+    let jsonFileHandler = JSONFileHandler()
+    let errorFileHandler = ErrorFileHandler()
     let deleteFoldersHandler = deleteFolders()
     
     override func viewWillAppear() {
@@ -129,7 +129,10 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
             self.stopAutomaticScreenShot()
         } else {
             self.close()
-            Settings.PathCreate()
+            if Settings.createUserStorageDirectory() {
+                UserData.jsonPath = jsonFileHandler.createJSONFile(at: URL(string: UserData.screenshotStoragePath))
+                UserData.errorPath = errorFileHandler.createErrorFile(at: URL(string: UserData.screenshotStoragePath))
+            }
             self.startAutomaticScreenshot()
         }
     }

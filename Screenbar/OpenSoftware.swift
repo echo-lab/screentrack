@@ -11,7 +11,7 @@ import AppKit
 
 
 class OpenSoftware : NSObject{
-    let errorHandler = errorFile()
+    let errorHandler = ErrorFileHandler()
     
     var dictionary : [String : String] = [ "Google Chrome"           : "Browser",
                                            "Safari"                  : "Browser",

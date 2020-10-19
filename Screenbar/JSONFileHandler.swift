@@ -7,37 +7,33 @@
 //
 
 import Foundation
-class json: NSObject{
+class JSONFileHandler: NSObject{
     
-    //create a json file to save all meta data inside
-    func createjson(filepath: URL) -> URL{
-        let documentsDirectoryPathString = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        let documentsDirectoryPath = filepath
-        let jsonFilePath = documentsDirectoryPath.appendingPathComponent("test.json")
+    func createJSONFile(at path: URL?) -> URL {
+        
+        var jsonFilePath = URL(string: NSHomeDirectory())!
+        if let _jsonFilePath = path?.appendingPathComponent("errorFile.txt") {
+            jsonFilePath = _jsonFilePath
+        }
+//        let jsonFilePath = path.appendingPathComponent("test.json")
         let fileManager = FileManager.default
         var isDirectory: ObjCBool = false
-        // creating a .json file in the Documents folder
+        
         if !fileManager.fileExists(atPath: (jsonFilePath.absoluteString), isDirectory: &isDirectory) {
+            
             let created = fileManager.createFile(atPath: (jsonFilePath.absoluteString), contents: nil, attributes: nil)
+            
             if created {
-                print("Json file created ")
-                WriteInitialData(Filepath: (jsonFilePath.absoluteString))
-                
+                initJSONFileWithData(atPath: (jsonFilePath.absoluteString))
             } else {
-                print("Couldn't create json file for some reason")
+                print("Error while creating a JSON file at path: \(String(describing: path))")
             }
-        } else {
-            print("File already exists")
         }
+        
         return jsonFilePath
     }
     
-    
-    // write some start information into json file
-    // currently, I need to write something into it while creating a new json file
-    
-    
-    func WriteInitialData(Filepath : String){
+    private func initJSONFileWithData(atPath path : String){
         let date = Date()
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -58,7 +54,7 @@ class json: NSObject{
             [
                 "Introduction" : "Hello, world"
         ]
-        let NameofSession = Filepath.replacingOccurrences(of: "/test.json", with: "")
+        let NameofSession = path.replacingOccurrences(of: "/test.json", with: "")
         
 //        let SessionNameOfDictionary : [String : Any] = [
 //            "name of session" : NameofSession
@@ -80,9 +76,9 @@ class json: NSObject{
         ]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: temp, options: JSONSerialization.WritingOptions.prettyPrinted)
-        if FileManager.default.fileExists(atPath: Filepath){
+        if FileManager.default.fileExists(atPath: path){
             var err:NSError?
-            if let fileHandle = FileHandle(forWritingAtPath: Filepath){
+            if let fileHandle = FileHandle(forWritingAtPath: path){
                 fileHandle.write(jsonData)
                 fileHandle.closeFile()
             }

@@ -14,7 +14,7 @@ class FindScreenShot : NSObject{
     //.contentModificationDateKey
     func GetListOfFiles() -> [String]?{
         let fileManager = FileManager.default
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         //Defaultpaht is a URL
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
@@ -35,7 +35,7 @@ class FindScreenShot : NSObject{
     
     func GetLatestImage(path : URL) -> [String]?{
         let fileManager = FileManager.default
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         //Defaultpaht is a URL
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
