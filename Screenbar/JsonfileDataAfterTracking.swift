@@ -39,7 +39,7 @@ class JsondataAfterTracking : NSObject{
         //write this dictionary into json file
         do{
             let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-            let current_path = "file://" + jpath.absoluteString
+            let current_path = "file://" + UserData.jsonPath.absoluteString
             //url is the json file
             let url = URL(string: current_path as String)
             //var fileSize : UInt64
@@ -61,7 +61,7 @@ class JsondataAfterTracking : NSObject{
                 
 //                let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
                 let jsonData = try! JSONSerialization.data(withJSONObject : dictionaryOfReturnedJsonData, options: JSONSerialization.WritingOptions.prettyPrinted)
-                if let file = FileHandle(forWritingAtPath : jpath.absoluteString) {
+                if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
                     file.write(jsonData)
                     file.closeFile()
                 }

@@ -38,14 +38,14 @@ class ScreenShot : NSObject {
                 arguments.append("-x")
             }
 
-            arguments.append(MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg")
+            arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
 
             task.arguments = arguments
             //arguments save all arguments for the screenshot
             
-            let OriginialimageName = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
-            _ = " \"" +  MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg" + " \""
-            let OriginialimageNameFullPath = MyVariables.yourVariable + "/Screenshot-" + dateString + ".jpg"
+            let OriginialimageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+            _ = " \"" +  UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg" + " \""
+            let OriginialimageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
             
             task.launch() // asynchronous call.
             task.waitUntilExit()

@@ -14,17 +14,20 @@
 		3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DA791FE1CDBC45C00F60252 /* Assets.xcassets */; };
 		3DA792021CDBC45C00F60252 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA792001CDBC45C00F60252 /* MainMenu.xib */; };
 		3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */; };
+		8713EC4A2537A473004772DF /* ScreenshoIntervalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */; };
+		8713EC4D2537A4F0004772DF /* ScreenshotIntervalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */; };
+		872947F82537C65600CD4FF8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872947F72537C65600CD4FF8 /* UserData.swift */; };
 		D95ED0052353DA16004DB16A /* activitiesDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95ED0042353DA16004DB16A /* activitiesDetection.swift */; };
 		EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03B5AA218CF32100023472 /* MosePosition.swift */; };
 		EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0F54F32230A1920040CB4F /* OpenSoftware.swift */; };
 		EA138824222DC9A400F51DB9 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA138823222DC9A400F51DB9 /* CurrentTime.swift */; };
 		EA15F6622241CC8600C5657C /* TreeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15F6612241CC8600C5657C /* TreeMap.swift */; };
 		EA15F6642241CCAE00C5657C /* RandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15F6632241CCAE00C5657C /* RandomColor.swift */; };
-		EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */; };
+		EA1A5D7421EC3D9A00B0C842 /* JSONFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A5D7321EC3D9A00B0C842 /* JSONFileHandler.swift */; };
 		EA20985D222203F7001BD0FB /* JsonfileDataAfterTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */; };
 		EA2C56C721FE481900178AFF /* folderName.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA2C56C621FE481900178AFF /* folderName.plist */; };
 		EA30174A224334F800BBEDDC /* MainWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1C2F291CE235AF00FB8AB8 /* MainWindowViewController.swift */; };
-		EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */; };
+		EA306AD9223AE41E002BB88B /* ErrorFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA306AD8223AE41E002BB88B /* ErrorFileHandler.swift */; };
 		EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */; };
 		EA43246021892EBF00DBA7A6 /* FrontMostApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */; };
 		EA7F953F2240217900BCC397 /* ReplayingTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7F953E2240217900BCC397 /* ReplayingTwo.swift */; };
@@ -58,16 +61,19 @@
 		3DA792011CDBC45C00F60252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3DA792031CDBC45C00F60252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
+		8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScreenshoIntervalCell.xib; sourceTree = "<group>"; };
+		8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotIntervalCell.swift; sourceTree = "<group>"; };
+		872947F72537C65600CD4FF8 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		D95ED0042353DA16004DB16A /* activitiesDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = activitiesDetection.swift; sourceTree = "<group>"; };
 		EA03B5AA218CF32100023472 /* MosePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosePosition.swift; sourceTree = "<group>"; };
 		EA0F54F32230A1920040CB4F /* OpenSoftware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSoftware.swift; sourceTree = "<group>"; };
 		EA138823222DC9A400F51DB9 /* CurrentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTime.swift; sourceTree = "<group>"; };
 		EA15F6612241CC8600C5657C /* TreeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMap.swift; sourceTree = "<group>"; };
 		EA15F6632241CCAE00C5657C /* RandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColor.swift; sourceTree = "<group>"; };
-		EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonfile.swift; sourceTree = "<group>"; };
+		EA1A5D7321EC3D9A00B0C842 /* JSONFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFileHandler.swift; sourceTree = "<group>"; };
 		EA20985C222203F7001BD0FB /* JsonfileDataAfterTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonfileDataAfterTracking.swift; sourceTree = "<group>"; };
 		EA2C56C621FE481900178AFF /* folderName.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = folderName.plist; sourceTree = "<group>"; };
-		EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateErrorFile.swift; sourceTree = "<group>"; };
+		EA306AD8223AE41E002BB88B /* ErrorFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorFileHandler.swift; sourceTree = "<group>"; };
 		EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplication.swift; sourceTree = "<group>"; };
 		EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontMostApplication.swift; sourceTree = "<group>"; };
 		EA7F953E2240217900BCC397 /* ReplayingTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayingTwo.swift; sourceTree = "<group>"; };
@@ -116,6 +122,8 @@
 				3D1C2F2A1CE235AF00FB8AB8 /* MainWindowView.xib */,
 				EA8AF31722079CA200D343E3 /* method_one.xib */,
 				EA8AF3192208BAE800D343E3 /* Storyboard.storyboard */,
+				8713EC492537A473004772DF /* ScreenshoIntervalCell.xib */,
+				8713EC4C2537A4F0004772DF /* ScreenshotIntervalCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -132,7 +140,6 @@
 				EAE57E982197C9DD001C90B0 /* ImageCompress.swift */,
 				EAF9A03A21C04DAD0071DDCD /* OpeningDocumentInfor.swift */,
 				EADAA23221E6791100CC2AAD /* SoftwareClassify.swift */,
-				EA1A5D7321EC3D9A00B0C842 /* jsonfile.swift */,
 				EAF9CE3F21FBA54B0024739D /* SessionNameCoreData.xcdatamodeld */,
 				EA8AF31B2208DEDB00D343E3 /* ReplayingOne.swift */,
 				EAF5EFD7220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift */,
@@ -144,7 +151,6 @@
 				EA0F54F32230A1920040CB4F /* OpenSoftware.swift */,
 				EAF0DAD02236EDB800533A9C /* TimeLapseMethodWindow.swift */,
 				EAF0DAD12236EDB800533A9C /* TimeLapseMethodWindow.xib */,
-				EA306AD8223AE41E002BB88B /* CreateErrorFile.swift */,
 				D95ED0042353DA16004DB16A /* activitiesDetection.swift */,
 				EAB7F459237B5F4600BF53B4 /* deleteFolder.swift */,
 			);
@@ -175,11 +181,22 @@
 				3D1C2F311CE2661600FB8AB8 /* Library */,
 				3D1C2F301CE265BA00FB8AB8 /* Views */,
 				3DA791FC1CDBC45C00F60252 /* AppDelegate.swift */,
+				87733894253D33700018F6AC /* Handlers */,
 				3DA791FE1CDBC45C00F60252 /* Assets.xcassets */,
 				3DA792031CDBC45C00F60252 /* Info.plist */,
 				EA2C56C621FE481900178AFF /* folderName.plist */,
+				872947F72537C65600CD4FF8 /* UserData.swift */,
 			);
 			path = Screenbar;
+			sourceTree = "<group>";
+		};
+		87733894253D33700018F6AC /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				EA1A5D7321EC3D9A00B0C842 /* JSONFileHandler.swift */,
+				EA306AD8223AE41E002BB88B /* ErrorFileHandler.swift */,
+			);
+			name = Handlers;
 			sourceTree = "<group>";
 		};
 		EA0F54F2222F09700040CB4F /* Method two */ = {
@@ -257,6 +274,7 @@
 			files = (
 				EA8AF31822079CA200D343E3 /* method_one.xib in Resources */,
 				EAF5EFDA220E2A2B00BDBF7D /* Method_One_Display_ViewControl.xib in Resources */,
+				8713EC4A2537A473004772DF /* ScreenshoIntervalCell.xib in Resources */,
 				3DA791FF1CDBC45C00F60252 /* Assets.xcassets in Resources */,
 				3D1C2F2C1CE235AF00FB8AB8 /* MainWindowView.xib in Resources */,
 				EAF0DAD32236EDB800533A9C /* TimeLapseMethodWindow.xib in Resources */,
@@ -284,7 +302,7 @@
 				EAF0DAD22236EDB800533A9C /* TimeLapseMethodWindow.swift in Sources */,
 				EADE0A2122164B7A00C9D4C5 /* NSImageView_Rectangle.swift in Sources */,
 				EA43245E2188E60600DBA7A6 /* CurrentApplication.swift in Sources */,
-				EA1A5D7421EC3D9A00B0C842 /* jsonfile.swift in Sources */,
+				EA1A5D7421EC3D9A00B0C842 /* JSONFileHandler.swift in Sources */,
 				EAB71BAB222877FF00DCEC17 /* FindTheLatestScreenShot.swift in Sources */,
 				EAF5EFD9220E2A2B00BDBF7D /* Method_One_Display_ViewControl.swift in Sources */,
 				EA138824222DC9A400F51DB9 /* CurrentTime.swift in Sources */,
@@ -293,13 +311,15 @@
 				EA15F6622241CC8600C5657C /* TreeMap.swift in Sources */,
 				EAF5EFE1220E3C2900BDBF7D /* Method_One_Display_Window.swift in Sources */,
 				3DB4D6B11CDCED5C001F5011 /* ScreenShot.swift in Sources */,
+				872947F82537C65600CD4FF8 /* UserData.swift in Sources */,
 				EA8AF31C2208DEDB00D343E3 /* ReplayingOne.swift in Sources */,
-				EA306AD9223AE41E002BB88B /* CreateErrorFile.swift in Sources */,
+				EA306AD9223AE41E002BB88B /* ErrorFileHandler.swift in Sources */,
 				EA15F6642241CCAE00C5657C /* RandomColor.swift in Sources */,
 				EA30174A224334F800BBEDDC /* MainWindowViewController.swift in Sources */,
 				EAF9A03B21C04DAD0071DDCD /* OpeningDocumentInfor.swift in Sources */,
 				EA0F54F42230A1920040CB4F /* OpenSoftware.swift in Sources */,
 				EA03B5AB218CF32100023472 /* MosePosition.swift in Sources */,
+				8713EC4D2537A4F0004772DF /* ScreenshotIntervalCell.swift in Sources */,
 				EAF9CE4121FBA54B0024739D /* SessionNameCoreData.xcdatamodeld in Sources */,
 				EAE57E992197C9DD001C90B0 /* ImageCompress.swift in Sources */,
 				EAB7F45A237B5F4600BF53B4 /* deleteFolder.swift in Sources */,

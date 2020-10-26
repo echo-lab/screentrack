@@ -44,7 +44,7 @@ class ReplayingOne: NSViewController{
     // get all images from today
     func FetchPhotoToday() -> Array<Any>{
         
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         
         // Documnet/Reflect
         
@@ -119,7 +119,7 @@ class ReplayingOne: NSViewController{
 
     // fetch images from last one hour, not being used currently
     func FetchOneHours() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -429,7 +429,7 @@ class ReplayingOne: NSViewController{
     // fetch all images from last 3 hours.
     // last three hours may contains yesterday's recording
     func FetchThreeHours() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -732,7 +732,7 @@ class ReplayingOne: NSViewController{
     }
     //
     func FetchFiveHours() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -1026,7 +1026,7 @@ class ReplayingOne: NSViewController{
     
     // fetch all screenshots from the last 8 hours
     func FetchEightHours() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -1320,7 +1320,7 @@ class ReplayingOne: NSViewController{
     
     // fetch last 24 hours for all recorded screenshots
     func Fetch24Hours() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -1614,7 +1614,7 @@ class ReplayingOne: NSViewController{
     
     // get all recordings from last three days
     func FetchThreeday() -> Array<Any> {
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -1681,7 +1681,7 @@ class ReplayingOne: NSViewController{
     
     // function to fetch last 5 days' recordings and screenshots
     func FetchFiveday() -> Array<Any> {
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -1749,7 +1749,7 @@ class ReplayingOne: NSViewController{
     
     // get last 7 days' recordings and screenshots
     func FetchSevenday() -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
@@ -2001,7 +2001,7 @@ class ReplayingOne: NSViewController{
     // get the screeenshots recorded on some day
     // now, we are using this method as the main function by selecting the data
     func FetchSomeday(SomeDay : String) -> Array<Any>{
-        let Defaultpath = Settings.DefaultFolder
+        let Defaultpath = Settings.getUserDefaultFolderPath
         var PhotoNameArray = [String]()
         let date = Date()
         let calendar = Calendar.current
