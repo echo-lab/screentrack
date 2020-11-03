@@ -10,7 +10,7 @@ import Foundation
 import AppKit
 import Cocoa
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class FrontmostApp : NSObject{
     
     public var CurrentFrontMostApp: String
@@ -27,7 +27,7 @@ class FrontmostApp : NSObject{
     }
     
     
-    @available(OSX 10.13, *)
+    @available(OSX 10.15, *)
     @objc func DetectFrontMostApp() -> String{
         let ScreenshotHandler = ScreenShot()
         

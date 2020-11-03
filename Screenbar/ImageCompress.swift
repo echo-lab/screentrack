@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 import AppKit
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 
 // this class is for compressing the screenshot
 

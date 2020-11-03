@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 
 class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
 

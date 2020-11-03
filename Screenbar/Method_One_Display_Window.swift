@@ -7,9 +7,7 @@
 
 import Cocoa
 
-@available(OSX 10.13, *)
-
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class Method_One_Display_Window: NSViewController{
 
     @IBOutlet weak var menuBoxOutlet: NSComboBox!

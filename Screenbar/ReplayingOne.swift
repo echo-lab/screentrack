@@ -10,7 +10,7 @@ import Cocoa
 import Foundation
 import CoreImage
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 
 // this swift file is coded for retrieving screenshots and meta data for later displaying
 // but currently, we abondanded the method of retrieving screenshots based on different day intervals, like 3 days or 5 days.
@@ -39,7 +39,7 @@ class ReplayingOne: NSViewController{
 //    }
 
     
-    @available(OSX 10.13, *)
+    @available(OSX 10.15, *)
     
     // get all images from today
     func FetchPhotoToday() -> Array<Any>{

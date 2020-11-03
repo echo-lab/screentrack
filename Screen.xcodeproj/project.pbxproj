@@ -133,7 +133,6 @@
 			children = (
 				3DB4D6B01CDCED5C001F5011 /* ScreenShot.swift */,
 				3D1C2F2D1CE2546900FB8AB8 /* EventMonitor.swift */,
-				3D1C2F321CE2670400FB8AB8 /* Settings.swift */,
 				EA43245D2188E60600DBA7A6 /* CurrentApplication.swift */,
 				EA43245F21892EBF00DBA7A6 /* FrontMostApplication.swift */,
 				EA03B5AA218CF32100023472 /* MosePosition.swift */,
@@ -178,14 +177,14 @@
 			children = (
 				EA0F54F2222F09700040CB4F /* Method two */,
 				3D1C2F2F1CE265A500FB8AB8 /* Controllers */,
-				3D1C2F311CE2661600FB8AB8 /* Library */,
+				87D3BAAF2547755400A7EABB /* UserData */,
+				87733894253D33700018F6AC /* Handlers */,
 				3D1C2F301CE265BA00FB8AB8 /* Views */,
 				3DA791FC1CDBC45C00F60252 /* AppDelegate.swift */,
-				87733894253D33700018F6AC /* Handlers */,
+				3D1C2F311CE2661600FB8AB8 /* Library */,
 				3DA791FE1CDBC45C00F60252 /* Assets.xcassets */,
 				3DA792031CDBC45C00F60252 /* Info.plist */,
 				EA2C56C621FE481900178AFF /* folderName.plist */,
-				872947F72537C65600CD4FF8 /* UserData.swift */,
 			);
 			path = Screenbar;
 			sourceTree = "<group>";
@@ -197,6 +196,15 @@
 				EA306AD8223AE41E002BB88B /* ErrorFileHandler.swift */,
 			);
 			name = Handlers;
+			sourceTree = "<group>";
+		};
+		87D3BAAF2547755400A7EABB /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				872947F72537C65600CD4FF8 /* UserData.swift */,
+				3D1C2F321CE2670400FB8AB8 /* Settings.swift */,
+			);
+			name = UserData;
 			sourceTree = "<group>";
 		};
 		EA0F54F2222F09700040CB4F /* Method two */ = {

@@ -1,42 +1,31 @@
 import Foundation
 import AppKit
 
-struct  mouseLocationInformation {
+struct mouseLocationInformation {
     static var mouseX = -1
     static var mouseY = -1
 }
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class ScreenShot : NSObject {
     
-    lazy var dateFormatter = DateFormatter();
-    let ImageCompressHandler = ImageCompress()
+    lazy var dateFormatter = DateFormatter()
+    let imageCompressionHandler = ImageCompress()
     let activitiesHandler = activitiesDetection()
     
-    @objc @available(OSX 10.13, *)
-    
-
-    
+    @objc @available(OSX 10.15, *)
     func take() {
-        
         let xLocation = Int(NSEvent.mouseLocation.x)
         let yLocation = Int(NSEvent.mouseLocation.y)
-        if (xLocation == mouseLocationInformation.mouseX && yLocation == mouseLocationInformation.mouseY){
+        if xLocation == mouseLocationInformation.mouseX && yLocation == mouseLocationInformation.mouseY {
             print("mouse did not move since last screenshot taken, no new image save this time")
-        }
-        else{
+        } else {
             // dataString is the vaule store current data
             let dateString = self.getDate()
             let task = Process()
             //set launchpath "screencapture"
             task.launchPath = "/usr/sbin/screencapture"
-            var arguments = [String]();
-            
-            // ==0, dont play sound
-            
-            if(Settings.getPlaySound() == 0) {
-                arguments.append("-x")
-            }
+            var arguments = [String]()
 
             arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
 
@@ -68,11 +57,11 @@ class ScreenShot : NSObject {
             let urlStr : NSString = OriginialimageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
 
             let url = URL(string: urlStr as String)
-            ImageCompressHandler.resize(image: Newimage!
-                , imagenameaddress:url!
-                , fullpath: OriginialimageNameFullPath
-                , hei: Settings.getImageCompressWidth()!/2
-                , wi: Settings.getImageCompressHeight()!/2
+            imageCompressionHandler.resize(image: Newimage!,
+                                           imagenameaddress:url!,
+                                           fullpath: OriginialimageNameFullPath,
+                                           hei: Settings.getImageCompressWidth()!/2,
+                                           wi: Settings.getImageCompressHeight()!/2
             )
 
             mouseLocationInformation.mouseX = xLocation
