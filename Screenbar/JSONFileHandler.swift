@@ -12,10 +12,9 @@ class JSONFileHandler: NSObject{
     func createJSONFile(at path: URL?) -> URL {
         
         var jsonFilePath = URL(string: NSHomeDirectory())!
-        if let _jsonFilePath = path?.appendingPathComponent("errorFile.txt") {
+        if let _jsonFilePath = path?.appendingPathComponent("test.json") {
             jsonFilePath = _jsonFilePath
         }
-//        let jsonFilePath = path.appendingPathComponent("test.json")
         let fileManager = FileManager.default
         var isDirectory: ObjCBool = false
         

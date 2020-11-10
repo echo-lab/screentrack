@@ -7,7 +7,7 @@
 
 import Foundation
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class FindScreenShot : NSObject{
     
     //the first is the latest folder

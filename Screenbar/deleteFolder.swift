@@ -11,7 +11,7 @@ import AppKit
 //path: /Users/donghanhu/Documents/Reflect/
 
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class deleteFolders{
     
     var path = "/Users/donghanhu/Documents/Reflect/"

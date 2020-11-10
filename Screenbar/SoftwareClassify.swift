@@ -34,7 +34,7 @@ class classify : NSObject{
                                                "Eclipse"                 : "6",
                                                "TextEdit"                : "7"
     ]
-    @available(OSX 10.13, *)
+    @available(OSX 10.15, *)
     func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
         let number = ClassDictionary[SoftwareName]
         

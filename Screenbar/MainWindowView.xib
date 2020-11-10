@@ -8,8 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsViewController" customModule="Reflector" customModuleProvider="target">
             <connections>
-                <outlet property="CaptureScreenshot" destination="rTx-F5-rC0" id="56q-V9-5yR"/>
-                <outlet property="DetectSwitchCheckButton" destination="Cln-Xn-w6y" id="Qsl-xI-yed"/>
                 <outlet property="compressionLabel" destination="d2t-G3-0Qa" id="ey6-5Q-PVL"/>
                 <outlet property="compressionRateSlider" destination="gM7-uC-Yve" id="Qsd-QI-Fun"/>
                 <outlet property="compressionRateTextField" destination="d2t-G3-0Qa" id="QIJ-Em-4Ex"/>
@@ -40,7 +38,7 @@
                         <accessibility identifier="CaptureScreenshotButton"/>
                     </buttonCell>
                     <connections>
-                        <action selector="CaptureScreenshots:" target="-2" id="c9J-1S-qnS"/>
+                        <action selector="recordOnClick:" target="-2" id="cQ3-mf-16n"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" tag="60" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOM-73-XWU">
@@ -70,11 +68,11 @@
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-uC-Yve">
-                    <rect key="frame" x="17" y="116" width="275" height="28"/>
+                    <rect key="frame" x="23" y="116" width="263" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="4ic-ni-AFN"/>
                     </constraints>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="240" tickMarkPosition="above" numberOfTickMarks="13" allowsTickMarkValuesOnly="YES" sliderType="linear" id="x5I-6o-PHs"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="240" maxValue="1440" doubleValue="240" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="linear" id="x5I-6o-PHs"/>
                     <connections>
                         <action selector="compressionRateOnSlide:" target="-2" id="mtk-GD-Mad"/>
                     </connections>
@@ -100,10 +98,10 @@
                     <buttonCell key="cell" type="bevel" title="Quit" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="tsg-mI-2Mx">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
+                        <connections>
+                            <action selector="quitButtonOnClick:" target="-2" id="0eA-be-bef"/>
+                        </connections>
                     </buttonCell>
-                    <connections>
-                        <action selector="quitButtonClicked:" target="-2" id="JOB-CW-45T"/>
-                    </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="d2t-G3-0Qa">
                     <rect key="frame" x="232" y="182" width="54" height="20"/>
@@ -173,16 +171,8 @@
                         <constraint firstAttribute="height" constant="1" id="kww-Rv-1UK"/>
                     </constraints>
                 </box>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cln-Xn-w6y">
-                    <rect key="frame" x="35" y="-50" width="188" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="  Detect switching software" bezelStyle="regularSquare" imagePosition="left" inset="2" id="OXS-mR-cTe">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kIg-5D-2bc">
-                    <rect key="frame" x="25" y="81" width="194" height="20"/>
+                    <rect key="frame" x="25" y="81" width="122" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="SIC-Z1-d2Q"/>
                     </constraints>
@@ -195,7 +185,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KEe-L8-rwD">
-                    <rect key="frame" x="25" y="51" width="199" height="20"/>
+                    <rect key="frame" x="25" y="51" width="86" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="GWi-yw-vJb"/>
                     </constraints>
@@ -212,7 +202,6 @@
                 <constraint firstAttribute="trailing" secondItem="RgD-1p-1Z8" secondAttribute="trailing" constant="10" id="48N-VG-fLa"/>
                 <constraint firstItem="gJB-Ww-24X" firstAttribute="top" secondItem="Q4Z-R7-c3j" secondAttribute="bottom" constant="10" id="6O8-vd-ehz"/>
                 <constraint firstAttribute="trailing" secondItem="d2t-G3-0Qa" secondAttribute="trailing" constant="10" id="7nR-Ew-V4U"/>
-                <constraint firstItem="yEW-OT-5vD" firstAttribute="top" secondItem="iOM-73-XWU" secondAttribute="bottom" constant="10" id="B18-gp-oZ0"/>
                 <constraint firstAttribute="trailing" secondItem="gM7-uC-Yve" secondAttribute="trailing" constant="10" id="BUQ-iu-DsB"/>
                 <constraint firstAttribute="trailing" secondItem="yEW-OT-5vD" secondAttribute="trailing" constant="10" id="BYc-V6-TXC"/>
                 <constraint firstAttribute="trailing" secondItem="IUt-w7-3cK" secondAttribute="trailing" constant="10" id="CBf-YO-Fnj"/>
@@ -221,12 +210,11 @@
                 <constraint firstItem="G3Z-Mu-elF" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="IkF-a7-73X"/>
                 <constraint firstItem="kb5-8u-HLX" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="10" id="JAm-9z-orm"/>
                 <constraint firstAttribute="trailing" secondItem="LUn-wv-iG7" secondAttribute="trailing" constant="10" id="LRe-Pp-gdT"/>
-                <constraint firstItem="KEe-L8-rwD" firstAttribute="top" secondItem="kIg-5D-2bc" secondAttribute="bottom" constant="10" id="OvV-C4-G7s"/>
                 <constraint firstItem="RgD-1p-1Z8" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="QTI-6b-mpS"/>
                 <constraint firstItem="IUt-w7-3cK" firstAttribute="leading" secondItem="3LC-Z1-AsH" secondAttribute="trailing" constant="10" id="SRl-EL-seC"/>
                 <constraint firstItem="LUn-wv-iG7" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="Sl7-ei-ZHx"/>
+                <constraint firstItem="yEW-OT-5vD" firstAttribute="top" secondItem="KEe-L8-rwD" secondAttribute="top" id="Sw2-88-GNd"/>
                 <constraint firstItem="gM7-uC-Yve" firstAttribute="top" secondItem="3LC-Z1-AsH" secondAttribute="bottom" constant="10" id="VQK-26-crU"/>
-                <constraint firstItem="iOM-73-XWU" firstAttribute="leading" secondItem="kIg-5D-2bc" secondAttribute="trailing" constant="15" id="WE8-xr-iov"/>
                 <constraint firstItem="iOM-73-XWU" firstAttribute="top" secondItem="LUn-wv-iG7" secondAttribute="bottom" constant="10" id="Xal-Ab-NWD"/>
                 <constraint firstAttribute="bottom" secondItem="gJB-Ww-24X" secondAttribute="bottom" constant="10" id="Y8Y-iZ-04G"/>
                 <constraint firstAttribute="trailing" secondItem="Q4Z-R7-c3j" secondAttribute="trailing" constant="10" id="a3v-UP-fDs"/>
@@ -235,9 +223,8 @@
                 <constraint firstItem="RgD-1p-1Z8" firstAttribute="top" secondItem="rTx-F5-rC0" secondAttribute="bottom" constant="10" id="cbY-RX-cLJ"/>
                 <constraint firstItem="d2t-G3-0Qa" firstAttribute="top" secondItem="RgD-1p-1Z8" secondAttribute="bottom" constant="10" id="dAH-04-pI1"/>
                 <constraint firstItem="3LC-Z1-AsH" firstAttribute="top" secondItem="G3Z-Mu-elF" secondAttribute="bottom" constant="10" id="dvE-nT-vCp"/>
-                <constraint firstItem="yEW-OT-5vD" firstAttribute="leading" secondItem="KEe-L8-rwD" secondAttribute="trailing" constant="10" id="gr1-Xr-dY0"/>
+                <constraint firstItem="Q4Z-R7-c3j" firstAttribute="top" secondItem="KEe-L8-rwD" secondAttribute="bottom" constant="10" id="eDw-1L-pRD"/>
                 <constraint firstAttribute="trailing" secondItem="rTx-F5-rC0" secondAttribute="trailing" constant="10" id="h3K-Ms-3Yp"/>
-                <constraint firstItem="Q4Z-R7-c3j" firstAttribute="top" secondItem="KEe-L8-rwD" secondAttribute="bottom" constant="10" id="hzq-aQ-mTi"/>
                 <constraint firstAttribute="trailing" secondItem="gJB-Ww-24X" secondAttribute="trailing" constant="10" id="jNJ-uP-gko"/>
                 <constraint firstItem="rTx-F5-rC0" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="lFc-Ix-kYu"/>
                 <constraint firstItem="Q4Z-R7-c3j" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="ofm-Id-EMM"/>
@@ -248,8 +235,9 @@
                 <constraint firstAttribute="trailing" secondItem="kb5-8u-HLX" secondAttribute="trailing" constant="10" id="uBK-bh-o2l"/>
                 <constraint firstItem="kb5-8u-HLX" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="25" id="ueG-5u-RJm"/>
                 <constraint firstItem="IUt-w7-3cK" firstAttribute="top" secondItem="G3Z-Mu-elF" secondAttribute="bottom" constant="10" id="yYv-tF-Qd7"/>
+                <constraint firstItem="KEe-L8-rwD" firstAttribute="top" secondItem="kIg-5D-2bc" secondAttribute="bottom" constant="10" id="zXs-ce-QHm"/>
             </constraints>
-            <point key="canvasLocation" x="-3212" y="-239.5"/>
+            <point key="canvasLocation" x="-3212" y="-201"/>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="tHd-At-aMH"/>
         <button verticalHuggingPriority="750" id="yQQ-Ag-zD1">

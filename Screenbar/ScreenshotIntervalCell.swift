@@ -7,7 +7,7 @@
 
 import AppKit
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 class ScreenshotIntervalViewController: NSViewController {
     
     static let identifer = "ScreenshotIntervalCell"

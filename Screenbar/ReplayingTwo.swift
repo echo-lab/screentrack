@@ -10,7 +10,7 @@ import Cocoa
 import CoreImage
 
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 
 class ReplayingMethodTwo: NSViewController{
     

@@ -9,7 +9,7 @@ import Cocoa
 import AppKit
 import Foundation
 
-@available(OSX 10.13, *)
+@available(OSX 10.15, *)
 
 class NSImageView_Rectangle: NSImageView {
     var SumOfDictionary : Int = 0

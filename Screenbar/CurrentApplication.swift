@@ -27,7 +27,7 @@ class CurrentApplicationData : NSObject{
         }
     }
     
-    @available(OSX 10.13, *)
+    @available(OSX 10.15, *)
     @objc func CurrentApplicationInfo(){
         let screenshot = ScreenShot()
         for runningApp in NSWorkspace.shared.runningApplications {

@@ -5,11 +5,29 @@
 //  Created by Li on 10/14/20.
 //
 
+import Combine
 import Foundation
 import AppKit
 
+@available(OSX 10.15, *)
+final class UserObservableData {
+    
+    public var recording = false
+    
+    public func startRecording() {
+        recording = true
+        print(recording)
+    }
+    
+    public func stopRecording() {
+        recording = false
+        print(recording)
+    }
+}
+
 // global variable of file path
 struct UserData {
+    
     //File path to the image storage directory:~/Documents/Reflect/[date]
     static var screenshotStoragePath = String()
     
