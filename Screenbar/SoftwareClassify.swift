@@ -10,482 +10,35 @@ import Foundation
 import Cocoa
 import CoreData
 
-let categoryDictionary: [String: Int] = [
-    "Preview"                 : 1,
-    "Pages"                   : 2,
-    "Numbers"                 : 2,
-    "Keynote"                 : 2,
-    "Xcode"                   : 3,
-    "Google Chrome"           : 4,
-    "Safari"                  : 5,
-    "Microsoft Word"          : 6,
-    "Microsoft Excel"         : 6,
-    "Microsoft PowerPoint"    : 6,
-    "Acrobat Reader"          : 6,
-    "Eclipse"                 : 6,
-    "TextEdit"                : 7
-]
-
-//let dictionary: [String : Any] = [
-//    "SoftwareName"          : softwareName,
-//    "PhotoName"             : screenshotName,
-//    "FrontmostPageUrl"      : BrowserFirstPageURL(),
-//    "FrontmostPageTitle"    : BrowserFirstPageTitle(),
-//    "category"               : "Browser",
-//    "bound"                  : BoundInfor
-//]
-
-//let dictionary: [String : Any] = [
-//    "SoftwareName"          : softwareName,
-//    "PhotoName"             : screenshotName,
-//    "FrontmostPageUrl"      : SafariBrowserFirstPageURL(),
-//    "FrontmostPageTitle"    : SafariBrowserFirstPageTitle(),
-//    "category"              : "Browser",
-//    "bound"                 : BoundInfor
-//]
-
-//let dictionary: [String : Any] = [
-//    "SoftwareName"  : softwareName,
-//    "PhotoName"     : screenshotName,
-//    "FilePath"      : MicrosoftSoftwareFilePath(name: softwareName),
-//    "FileName"      : ProductivityFileName(softwarename: newname),
-//    "category"      : "Productivity",
-//    "bound"         : BoundInfor
-//]
-
-//let dictionary: [String : Any] = [
-//    "SoftwareName"  : softwareName,
-//    "PhotoName"     : screenshotName,
-//    "FilePath"      : TextEditFilePath(),
-//    "FileName"      : TextEditFileName(),
-//    "category"      : "Productivity",
-//    "bound"         : BoundInfor
-//]
-
-//let dictionary: [String: Any] = [
-//    "SoftwareName"  : softwareName,
-//    "PhotoName"     : screenshotName,
-//    "category"      : "Dont know",
-//    "bound"         : BoundInfor
-//]
-
-class Classify : NSObject{
+class Classify: NSObject {
+    
+    let categoryDictionary: [String: Int] = [
+        "Preview"                 : 1,
+        "Pages"                   : 2,
+        "Numbers"                 : 2,
+        "Keynote"                 : 2,
+        "Xcode"                   : 3,
+        "Google Chrome"           : 4,
+        "Safari"                  : 5,
+        "Microsoft Word"          : 6,
+        "Microsoft Excel"         : 6,
+        "Microsoft PowerPoint"    : 6,
+        "Acrobat Reader"          : 6,
+        "Eclipse"                 : 6,
+        "TextEdit"                : 7
+    ]
+    
     @available(OSX 10.15, *)
-    func SoftwareBasedOnCategory(softwareName : String, screenshotName : String, bound : [String]) {
+    func SoftwareBasedOnCategory(softwareName: String, screenshotName: String, bound: [String]) {
         let categoryNumber = categoryDictionary[softwareName]
         
-        var dictionary: [String: Any] = [
-            "softwareName": screenshotName,
-            "photoName": screenshotName,
-            "bound": bound
-        ]
+        let metaDataDictionary = createMetaDataDictionary(byCategory: categoryNumber ?? 0, softwareName: softwareName, screenshotName: screenshotName, bound: bound)
         
-        switch categoryNumber {
-        case 1:
-            dictionary["filePath"] = PreviewFilePath()
-            dictionary["fileName"] = PreviewFileName()
-            dictionary["category"] = "Productivity"
-        case 2:
-            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.iWork.", with: "")
-            dictionary["filePath"] = getProductivityFilePath(softwarename: formattedSoftwareName)
-            dictionary["fileName"] = getProductivityFilename(softwarename: formattedSoftwareName)
-            dictionary["category"] = "Productivity"
-        case 3:
-            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            dictionary["filePath"] = getProductivityFilename(softwarename: formattedSoftwareName)
-            dictionary["fileName"] = XcodeFileName(softwarename: formattedSoftwareName)
-            dictionary["category"] = "Coding"
-        default:
-            dictionary["category"] = "None"
-        }
-        
-        //MARK: Preview
-        if categoryNumber == 1 {
-            let dictionary: [String: Any] = [
-                "SoftwareName"  : softwareName,
-                "PhotoName"     : screenshotName,
-                "FilePath"      : PreviewFilePath(),
-                "FileName"      : PreviewFileName(),
-                "category"      : "Productivity"
-            ]
-            
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let url = URL(string: "file://" + UserData.jsonPath.absoluteString as String)
-                var fileSize: UInt64
-                
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    
-                    if fileSize == 0 {
-                        try jsonData.write(to: url!, options: .atomic)
-                    } else {
-                        let rawData: NSData = try! NSData(contentsOf: url!)
-                        do {
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                        } catch {
-                            print(error)
-                        }
-                    }
-                } catch {
-                    print("Preview Category Error: \(error)")
-                }
-            }
-        }
-        
-        //MARK: Number, Pages, Keynote
-        else if categoryNumber == 2 {
-            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.iWork.", with: "")
-            
-            let dictionary: [String : Any] = [
-                "SoftwareName"  : softwareName,
-                "PhotoName"     : screenshotName,
-                "FilePath"      : getProductivityFilePath(softwarename : formattedSoftwareName),
-                "FileName"      : getProductivityFilename(softwarename: formattedSoftwareName),
-                "category"      : "Productivity"
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                let url = URL(string: current_path as String)
-
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        //read insdie data out
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("pages, numbers, and keynotes Error: \(error)")
-                }
-            }
-        }
-            
-        //MARK: Xcode
-        else if categoryNumber == 3 {
-            let newname = softwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
-                                               "PhotoName"             : screenshotName,
-                                               "FilePath"              : getProductivityFilePath(softwarename : newname),
-                                               "FileName"              : XcodeFileName(softwarename: newname),
-                                               "category"              : "Coding",
-                                               "bound"                 : bound
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                let url = URL(string: current_path as String)
-                
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        //read insdie data out
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("xcode Error: \(error)")
-                }
-            }
-            catch{
-                print(Error.self)
-            }
-        }
-            
-        //MARK: Google Chrome
-        else if categoryNumber == 4 {
-            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
-                                               "PhotoName"             : screenshotName,
-                                               "FrontmostPageUrl"     : BrowserFirstPageURL(),
-                                               "FrontmostPageTitle"   : BrowserFirstPageTitle(),
-                                               "category"               : "Browser",
-                                               "bound"                  : bound
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                let url = URL(string: current_path as String)
-                
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        //read insdie data out
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                            
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("chrome Error: \(error)")
-                }
-                
-            }
-        }
-            
-            
-        //MARK: Safari
-        else if categoryNumber == 5 {
-            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
-                                               "PhotoName"             : screenshotName,
-                                               "FrontmostPageUrl"     : SafariBrowserFirstPageURL(),
-                                               "FrontmostPageTitle"   : SafariBrowserFirstPageTitle(),
-                                               "category"               : "Browser",
-                                               "bound"                  : bound
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                let url = URL(string: current_path as String)
-                
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        //read insdie data out
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                            
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("safari Error: \(error)")
-                }
-                
-            }
-        }
-            
-        //MARK: Microsoft Productivity
-        // this category is for microsoft productivty software
-        else if categoryNumber == 6 {
-            let newname = softwareName.replacingOccurrences(of: "icrosoft.", with: "")
-            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
-                                               "PhotoName"     : screenshotName,
-                                               "FilePath"      : MicrosoftSoftwareFilePath(name: softwareName),
-                                               "FileName"      : getProductivityFilename(softwarename: newname),
-                                               "category"      : "Productivity",
-                                               "bound"         : bound
-                
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                let url = URL(string: current_path as String)
-                
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        //read insdie data out
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("microsoft software Error: \(error)")
-                }
-                
-            }
-        }
-            
-        
-        //MARK: Text Edit
-        // this category is for textedit
-        else if categoryNumber == 7 {
-            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
-                                               "PhotoName"     : screenshotName,
-                                               "FilePath"      : TextEditFilePath(),
-                                               "FileName"      : TextEditFileName(),
-                                               "category"      : "Productivity",
-                                               "bound"         : bound
-
-            ]
-            do {
-                //var error : NSError?
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                // here "decoded" is of type `Any`, decoded from JSON data
-                // you can now cast it with the right type
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                //url is the json file
-                let url = URL(string: current_path as String)
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                            
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("textedit Error: \(error)")
-                }
-            }
-            catch{
-                print(Error.self)
-            }
-        }
-            
-        
-        //MARK: Unidentified Category
-        //could not identify this software name into any catogoriy
-        else {
-            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
-                                               "PhotoName"     : screenshotName,
-                                               "category"      : "Dont know",
-                                               "bound"         : bound
-            ]
-            do {
-                let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                //url is the json file
-                let url = URL(string: current_path as String)
-                var fileSize : UInt64
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-                    fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
-                            let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
-                            let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
-                            var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
-                            jsonarray.append(dictionary)
-                            jsonDataDictionary?.setValue(jsonarray, forKey: "Information")
-                            let jsonData = try! JSONSerialization.data(withJSONObject : jsonDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                            if let file = FileHandle(forWritingAtPath : UserData.jsonPath.absoluteString) {
-                                file.write(jsonData)
-                                file.closeFile()
-                            }
-                            
-                        }catch {print(error)}
-                    }
-                } catch {
-                    print("other uncategorized software Error: \(error)")
-                }
-            }
-            catch{
-                print(Error.self)
-            }
-        }
-        
-        // end of this function
+        writeToJSONFile(withMetaDataDictionary: metaDataDictionary)
     }
     
-    // get the file path of text edit
-    func TextEditFilePath() -> String{
+    //MARK: getTextEditFilePath
+    func getTextEditFilePath() -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"TextEdit\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -500,13 +53,11 @@ class Classify : NSObject{
         }
         else {
             return (output.stringValue?.description)!
-            
         }
-
     }
     
-    // get the text edit file name
-    func TextEditFileName() -> String{
+    //MARK: getTextEditFileName
+    func getTextEditFileName() -> String{
 //        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process"
         let second = "\"TextEdit\" \n "
@@ -521,16 +72,16 @@ class Classify : NSObject{
             writeError(error : error!)
             print("error: \(String(describing: error))")
         }
+        
         if output.stringValue == nil{
-            let empty = "empty"
-            return empty
+            return "none"
+        } else {
+            return (output.stringValue?.description)!
         }
-        else { return (output.stringValue?.description)!}
     }
-
     
-    //preview opened file path
-    func PreviewFilePath() -> String{
+    //MARK: getPreviewFilePath
+    func getPreviewFilePath() -> String{
         
         let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         var error: NSDictionary?
@@ -550,8 +101,8 @@ class Classify : NSObject{
         }
     }
     
-    // get the file name of the preview
-    func PreviewFileName() -> String{
+    //MARK: getPreviewFileName
+    func getPreviewFileName() -> String{
         
 //        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set fileName to name of window 1 \n end tell \n end tell"
         
@@ -573,7 +124,7 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    //pages, Numbers, Keynots, Xcode file path
+    //MARK: getProductivityFilePath
     func getProductivityFilePath(softwarename : String) -> String{
         
 //        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
@@ -597,8 +148,8 @@ class Classify : NSObject{
         
     }
     
-    //Xcode opened file name 
-    func XcodeFileName(softwarename : String) -> (String){
+    //MARK: getXcodeFilename
+    func getXcodeFilename(softwarename : String) -> (String){
         let first = "tell application \"Xcode\" \n set fileName to name of window 1 \n end tell"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: first)
@@ -614,10 +165,9 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    
-    //return the file name of these productivity applications
+    //MARK: getProductivityFilename
     func getProductivityFilename(softwarename : String) -> String{
-        let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
+//        let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process \""
         let third = "\" \n set fileName to name of window 1 \n end tell \n end tell"
         let final = first + softwarename + third
@@ -636,8 +186,8 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    //return the browser first active page's url
-    func BrowserFirstPageURL() -> String{
+    //MARK: getGoogleChromeFirstPageURL
+    func getGoogleChromeFirstPageURL() -> String{
         let MyAppleScript = "tell application \"Google Chrome\" to return URL of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -653,8 +203,8 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    //return the browser first active page's title
-    func BrowserFirstPageTitle() -> String{
+    //MARK: getGoogleChromeFirstPageTitle
+    func getGoogleChromeFirstPageTitle() -> String{
         let MyAppleScript = "tell application \"Google Chrome\" to return title of active tab of first window"
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -670,8 +220,8 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    //return the browser first active page title of the Safari
-    func SafariBrowserFirstPageTitle() -> String{
+    //MARK: getSafariFirstPageTitle
+    func getSafariFirstPageTitle() -> String{
         let MyAppleScript = "tell application \"Safari\" to return name of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -687,8 +237,8 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
     
-    //return the browser first active page url of Safari
-    func SafariBrowserFirstPageURL() -> String{
+    //MARK: getSafariBrowserFirstPageURL
+    func getSafariBrowserFirstPageURL() -> String{
         let MyAppleScript = "tell application \"Safari\" to return URL of front document "
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: MyAppleScript)
@@ -704,9 +254,8 @@ class Classify : NSObject{
         else { return (output.stringValue?.description)!}
     }
 
-    //return the  microsoft software file path
-    func MicrosoftSoftwareFilePath(name : String) -> String{
-        
+    //MARK: getMicrosoftSoftwareFilePath
+    func getMicrosoftSoftwareFilePath(name : String) -> String{
 //        let MyAppleScript = "tell application \"System Events\" \n tell process \"Preview\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process \""
         let second = "\" \n set thefile to value of attribute \"AXDocument\" of window 1 \n end tell \n end tell"
@@ -733,14 +282,106 @@ class Classify : NSObject{
         let currentTime = Date().description(with: .current)
         let errorDescription = error.description
         let result = currentTime + "\n" + errorDescription
+        
         do {
-            try result.write(to: URLpath as! URL, atomically: false, encoding: .utf8)
-        }
-        catch {
+            try result.write(to: URLpath! as URL, atomically: false, encoding: .utf8)
+        } catch {
+            
         }
     }
     
-    //end of the class
-}
+    //MARK: createDictionary
+    private func createMetaDataDictionary(byCategory categoryNumber: Int, softwareName: String, screenshotName: String, bound: [String]) -> [String: Any] {
+        var dictionary: [String: Any] = [
+            "softwareName": softwareName,
+            "photoName": screenshotName,
+            "bound": bound
+        ]
+        
+        switch categoryNumber {
+        case 1:
+            dictionary["filePath"] = getPreviewFilePath()
+            dictionary["fileName"] = getPreviewFileName()
+            dictionary["category"] = "Productivity"
+        case 2:
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.iWork.", with: "")
+            dictionary["filePath"] = getProductivityFilePath(softwarename: formattedSoftwareName)
+            dictionary["fileName"] = getProductivityFilename(softwarename: formattedSoftwareName)
+            dictionary["category"] = "Productivity"
+        case 3:
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.dt.", with: "")
+            dictionary["filePath"] = getProductivityFilename(softwarename: formattedSoftwareName)
+            dictionary["fileName"] = getXcodeFilename(softwarename: formattedSoftwareName)
+            dictionary["category"] = "Coding"
+        case 4:
+            dictionary["frontMostPageURL"] = getGoogleChromeFirstPageURL()
+            dictionary["frontMostPageTitle"] = getGoogleChromeFirstPageTitle()
+            dictionary["category"] = "Browser"
+        case 5:
+            dictionary["frontMostPageURL"] = getSafariBrowserFirstPageURL()
+            dictionary["frontMostPageTitle"] = getSafariFirstPageTitle()
+            dictionary["category"] = "Browser"
+        case 6:
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "icrosoft.", with: "")
+            dictionary["filePath"] = getMicrosoftSoftwareFilePath(name: softwareName)
+            dictionary["fileName"] = getProductivityFilename(softwarename: formattedSoftwareName)
+            dictionary["category"] = "Productivity"
+        case 7:
+            dictionary["filePath"] = getTextEditFilePath()
+            dictionary["fileName"] = getTextEditFileName()
+            dictionary["category"] = "Productivity"
+        default:
+            dictionary["category"] = "None"
+        }
+        
+        return dictionary
+    }
+    
+    //MARK: writeToJSONFile
+    private func writeToJSONFile(withMetaDataDictionary metaDataDictionary: [String: Any]) {
+        
+        do {
+            let metaDataJSON = try JSONSerialization.data(withJSONObject: metaDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let attribute = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
+            
+            var fileSize: UInt64 = UInt64()
+            var jsonPathURL: URL = URL(string: NSHomeDirectory())!
+            
+            if let _fileSize = attribute[FileAttributeKey.size] as? UInt64 {
+                fileSize = _fileSize
+            }
+            
+            if let _jsonPathURL = URL(string: "file://" + UserData.jsonPath.absoluteString) {
+                jsonPathURL = _jsonPathURL
+            }
+            
+            try fileSize == 0 ? metaDataJSON.write(to: jsonPathURL, options: .atomic) : readJSONFileAndUpdate(jsonPathURL: jsonPathURL, metaDataDictionary: metaDataDictionary)
+        } catch {
+            print("Error writing metadata to JSON file: \(metaDataDictionary)")
+        }
+    }   //End of writeToJSONFile()
+    
+    private func readJSONFileAndUpdate(jsonPathURL: URL, metaDataDictionary: [String: Any]) throws {
+        let rawData: NSData = try NSData(contentsOf: jsonPathURL)
+        let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as?  NSDictionary
+        
+        if let dictionaryOfReturnedJsonData = jsonDataDictionary as? [String: AnyObject] {
+            var jsonArray: [[String: Any]] = [[String: Any]()]
+            
+            if let _jsonArray = dictionaryOfReturnedJsonData["Information"] as? [[String: Any]] {
+                jsonArray = _jsonArray
+            }
+            
+            jsonArray.append(metaDataDictionary)
+            jsonDataDictionary?.setValue(jsonArray, forKey: "Information")
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonDataDictionary as Any, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
+                file.write(jsonData)
+                file.closeFile()
+            }
+        }
+    }   //End of readJSONFileAndUpdate()
+}   //End of Classify
 
 
