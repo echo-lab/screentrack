@@ -42,7 +42,7 @@ class CurrentApplicationData : NSObject{
                 }
                 else {
                     InitialSet.add(AfterTrimResult)
-                    screenshot.take()
+                    screenshot.takeScreenshot()
                 }
             }
             

@@ -8,94 +8,79 @@ struct mouseLocationInformation {
 
 @available(OSX 10.15, *)
 class ScreenShot : NSObject {
-    
-    lazy var dateFormatter = DateFormatter()
     let imageCompressionHandler = ImageCompress()
-    let activitiesHandler = activitiesDetection()
     
     @objc @available(OSX 10.15, *)
-    func take() {
+    func takeScreenshot() {
         let xLocation = Int(NSEvent.mouseLocation.x)
         let yLocation = Int(NSEvent.mouseLocation.y)
-        if xLocation == mouseLocationInformation.mouseX && yLocation == mouseLocationInformation.mouseY {
-            print("mouse did not move since last screenshot taken, no new image save this time")
-        } else {
-            // dataString is the vaule store current data
-            let dateString = self.getDate()
+        if xLocation != mouseLocationInformation.mouseX || yLocation != mouseLocationInformation.mouseY {
+            
+            let dateString = getCurrentDateFormatted()
+            
             let task = Process()
-            //set launchpath "screencapture"
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]()
-
             arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
-
             task.arguments = arguments
-            //arguments save all arguments for the screenshot
             
-            let OriginialimageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
-            _ = " \"" +  UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg" + " \""
-            let OriginialimageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+            let originalImageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+            let originalImageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
             
-            task.launch() // asynchronous call.
+            task.launch()
             task.waitUntilExit()
+            
             mouseActivities.keyboardDirty = false
             mouseActivities.scrollDirty = false
-            //print("after screenshot")
-            let FrontmostApphandler = FrontmostApp()
-            print(FrontmostApphandler.CurrentFrontMostApp)
             
-            let softwareclassifyHandler = classify()
-            //classify different software running
             let photoname = "/Screenshot-" + dateString + ".jpg"
+            let currentFrontMostApplication = FrontmostApp().CurrentFrontMostApp
+            let bound = getBoundOfFrontMostApplication(application : currentFrontMostApplication)
+            Classify().SoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
 
-            let CurrentFrontName = FrontmostApphandler.CurrentFrontMostApp
-            let bound = GetBoundOfFrontMostSoftware(AppName : CurrentFrontName)
-            softwareclassifyHandler.SoftwareBasedOnCategory(SoftwareName : CurrentFrontName, ScreenshotName : photoname, BoundInfor : bound)
+            let image = NSImage(contentsOf: URL(fileURLWithPath: originalImageName))
 
-            let Newimage = NSImage(contentsOf: URL(fileURLWithPath: OriginialimageName))
-
-            let urlStr : NSString = OriginialimageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
+            let urlStr : NSString = originalImageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
 
             let url = URL(string: urlStr as String)
-            imageCompressionHandler.resize(image: Newimage!,
+            imageCompressionHandler.resize(image: image!,
                                            imagenameaddress:url!,
-                                           fullpath: OriginialimageNameFullPath,
+                                           fullpath: originalImageNameFullPath,
                                            hei: Settings.getImageCompressWidth()!/2,
                                            wi: Settings.getImageCompressHeight()!/2
             )
-
             mouseLocationInformation.mouseX = xLocation
             mouseLocationInformation.mouseY = yLocation
         }
-
-        
     }
     
     // getDate function, return a string value
-    private func getDate() -> String {
-        let date = Date()
-        self.dateFormatter.dateStyle = DateFormatter.Style.none
-        self.dateFormatter.timeStyle = DateFormatter.Style.medium
-        self.dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
-        let dateString = self.dateFormatter.string(from: date)
-        return dateString
+    private func getCurrentDateFormatted() -> String {
+        let dateFormatter = DateFormatter()
+        let currentDate = Date()
+        dateFormatter.dateStyle = DateFormatter.Style.none
+        dateFormatter.timeStyle = DateFormatter.Style.medium
+        dateFormatter.dateFormat = "MM.dd,HH:mm:ss"
+        return dateFormatter.string(from: currentDate)
     }
     
     // get the bound of the front most software
     // now hard code into the json file
-    func GetBoundOfFrontMostSoftware(AppName : String) -> Array<String>{
+    func getBoundOfFrontMostApplication(application : String) -> Array<String>{
         let first = "tell application \""
         let second = "\" to get the bounds of the front window"
-        let final = first + AppName + second
+        let final = first + application + second
         var error: NSDictionary?
         let scriptObject = NSAppleScript(source: final)
-        let output: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
+        let _: NSAppleEventDescriptor = scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
             print("error for GetBoundOfFrontMostSoftware: \(String(describing: error))")
-            let positionTemp = [230, 108]
-            print("positionTemp", positionTemp)
+//            let positionTemp = [230, 108]
+//            print("positionTemp", positionTemp)
+            //MARK: TODO - hard coded?
+            //MARK: TODO - some applications do not have bounds - optional bounds value implementation
             let sizeTemp = ["230", "108", "1210", "748"]
-            print("sizeTemp", sizeTemp)
+//            print("sizeTemp", sizeTemp)
             return sizeTemp
         }
         else{
@@ -119,8 +104,7 @@ class ScreenShot : NSObject {
             print("error for sizeOfSoftware: \(String(describing: error))")
             let empty = [String]()
             return empty
-        }
-        else{
+        } else {
             for i in 1..<3{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
                 let start = temp.characters.index(of: "(")!
@@ -174,8 +158,7 @@ class ScreenShot : NSObject {
             print("error for positionOfSoftware: \(String(describing: error))")
             let empty = [Int]()
             return empty
-        }
-        else{
+        } else {
             var arr = [Int]()
             for i in 1..<3{
                 let temp = String(describing: output.atIndex(i)?.int32Value)
@@ -190,10 +173,5 @@ class ScreenShot : NSObject {
             return arr
         }
     }
-    // end of positionOfSoftware()
-    
-    
-    
-    //end of the class
 }
 

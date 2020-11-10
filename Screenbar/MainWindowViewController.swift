@@ -156,7 +156,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         screenshotCounter = Timer.scheduledTimer(
             timeInterval: Settings.getScreenshotInterval()!,
             target: ScreenShot(),
-            selector: #selector(ScreenShot().take),
+            selector: #selector(ScreenShot().takeScreenshot),
             userInfo: nil,
             repeats: true)
     }

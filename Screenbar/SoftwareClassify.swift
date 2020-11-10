@@ -6,68 +6,124 @@
 //  Copyright © 2019 Christian Engvall. All rights reserved.
 //
 
-// this swift file and class is used to classify various applicaitons into different classes
-// due to different catefories, we would like to obtain different meta data
-// currently, we have 7 different categoires
-// works for about at least 12 kinds of software or applications
-
-
-
 import Foundation
 import Cocoa
 import CoreData
 
+let categoryDictionary: [String: Int] = [
+    "Preview"                 : 1,
+    "Pages"                   : 2,
+    "Numbers"                 : 2,
+    "Keynote"                 : 2,
+    "Xcode"                   : 3,
+    "Google Chrome"           : 4,
+    "Safari"                  : 5,
+    "Microsoft Word"          : 6,
+    "Microsoft Excel"         : 6,
+    "Microsoft PowerPoint"    : 6,
+    "Acrobat Reader"          : 6,
+    "Eclipse"                 : 6,
+    "TextEdit"                : 7
+]
 
-class classify : NSObject{
+//let dictionary: [String : Any] = [
+//    "SoftwareName"          : softwareName,
+//    "PhotoName"             : screenshotName,
+//    "FrontmostPageUrl"      : BrowserFirstPageURL(),
+//    "FrontmostPageTitle"    : BrowserFirstPageTitle(),
+//    "category"               : "Browser",
+//    "bound"                  : BoundInfor
+//]
 
-    var ClassDictionary : [String : String] = ["Preview"                 : "1",
-                                               "Pages"                   : "2",
-                                               "Numbers"                 : "2",
-                                               "Keynote"                 : "2",
-                                               "Xcode"                   : "3",
-                                               "Google Chrome"           : "4",
-                                               "Safari"                  : "5",
-                                               "Microsoft Word"          : "6",
-                                               "Microsoft Excel"         : "6",
-                                               "Microsoft PowerPoint"    : "6",
-                                               "Acrobat Reader"          : "6",
-                                               "Eclipse"                 : "6",
-                                               "TextEdit"                : "7"
-    ]
+//let dictionary: [String : Any] = [
+//    "SoftwareName"          : softwareName,
+//    "PhotoName"             : screenshotName,
+//    "FrontmostPageUrl"      : SafariBrowserFirstPageURL(),
+//    "FrontmostPageTitle"    : SafariBrowserFirstPageTitle(),
+//    "category"              : "Browser",
+//    "bound"                 : BoundInfor
+//]
+
+//let dictionary: [String : Any] = [
+//    "SoftwareName"  : softwareName,
+//    "PhotoName"     : screenshotName,
+//    "FilePath"      : MicrosoftSoftwareFilePath(name: softwareName),
+//    "FileName"      : ProductivityFileName(softwarename: newname),
+//    "category"      : "Productivity",
+//    "bound"         : BoundInfor
+//]
+
+//let dictionary: [String : Any] = [
+//    "SoftwareName"  : softwareName,
+//    "PhotoName"     : screenshotName,
+//    "FilePath"      : TextEditFilePath(),
+//    "FileName"      : TextEditFileName(),
+//    "category"      : "Productivity",
+//    "bound"         : BoundInfor
+//]
+
+//let dictionary: [String: Any] = [
+//    "SoftwareName"  : softwareName,
+//    "PhotoName"     : screenshotName,
+//    "category"      : "Dont know",
+//    "bound"         : BoundInfor
+//]
+
+class Classify : NSObject{
     @available(OSX 10.15, *)
-    func SoftwareBasedOnCategory(SoftwareName : String, ScreenshotName : String, BoundInfor : [String]){
-        let number = ClassDictionary[SoftwareName]
+    func SoftwareBasedOnCategory(softwareName : String, screenshotName : String, bound : [String]) {
+        let categoryNumber = categoryDictionary[softwareName]
         
-        // this category is for "preview" software
-        if number == "1" {
-            print("nothing")
-            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
-                                               "PhotoName"     : ScreenshotName,
-                                               "FilePath"      : PreviewFilePath(),
-                                               "FileName"      : PreviewFileName(),
-                                               "category"      : "Productivity",
-                                               "bound"         : BoundInfor
-                
+        var dictionary: [String: Any] = [
+            "softwareName": screenshotName,
+            "photoName": screenshotName,
+            "bound": bound
+        ]
+        
+        switch categoryNumber {
+        case 1:
+            dictionary["filePath"] = PreviewFilePath()
+            dictionary["fileName"] = PreviewFileName()
+            dictionary["category"] = "Productivity"
+        case 2:
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.iWork.", with: "")
+            dictionary["filePath"] = getProductivityFilePath(softwarename: formattedSoftwareName)
+            dictionary["fileName"] = getProductivityFilename(softwarename: formattedSoftwareName)
+            dictionary["category"] = "Productivity"
+        case 3:
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.dt.", with: "")
+            dictionary["filePath"] = getProductivityFilename(softwarename: formattedSoftwareName)
+            dictionary["fileName"] = XcodeFileName(softwarename: formattedSoftwareName)
+            dictionary["category"] = "Coding"
+        default:
+            dictionary["category"] = "None"
+        }
+        
+        //MARK: Preview
+        if categoryNumber == 1 {
+            let dictionary: [String: Any] = [
+                "SoftwareName"  : softwareName,
+                "PhotoName"     : screenshotName,
+                "FilePath"      : PreviewFilePath(),
+                "FileName"      : PreviewFileName(),
+                "category"      : "Productivity"
             ]
+            
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-                // here "decoded" is of type `Any`, decoded from JSON data
-                // you can now cast it with the right type
-                let current_path = "file://" + UserData.jsonPath.absoluteString
-                //url is the json file
-                let url = URL(string: current_path as String)
-                var fileSize : UInt64
+                let url = URL(string: "file://" + UserData.jsonPath.absoluteString as String)
+                var fileSize: UInt64
+                
                 do {
                     let attr = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
+                    
                     fileSize = attr[FileAttributeKey.size] as! UInt64
-                    if fileSize == 0{
-                        print("json file is empty")
-                        try jsonData.write(to: url!, options : .atomic)
-                    }
-                    else{
-                        let rawData : NSData = try! NSData(contentsOf: url!)
-                        do{
+                    
+                    if fileSize == 0 {
+                        try jsonData.write(to: url!, options: .atomic)
+                    } else {
+                        let rawData: NSData = try! NSData(contentsOf: url!)
+                        do {
                             let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers)as? NSDictionary
                             let dictionaryOfReturnedJsonData = jsonDataDictionary as! Dictionary<String, AnyObject>
                             var jsonarray = dictionaryOfReturnedJsonData["Information"] as! [[String : Any]]
@@ -78,34 +134,29 @@ class classify : NSObject{
                                 file.write(jsonData)
                                 file.closeFile()
                             }
-                            
-                        }catch {print(error)}
-
+                        } catch {
+                            print(error)
+                        }
                     }
                 } catch {
-                    print("preview Error: \(error)")
+                    print("Preview Category Error: \(error)")
                 }
-            }
-            catch{
-                print(Error.self)
             }
         }
         
-        // this category is fro the unmbers， pages, and keynote
-        else if number == "2"{
-            //substring the software name here
-            let newname = SoftwareName.replacingOccurrences(of: "apple.iWork.", with: "")
+        //MARK: Number, Pages, Keynote
+        else if categoryNumber == 2 {
+            let formattedSoftwareName = softwareName.replacingOccurrences(of: "apple.iWork.", with: "")
             
-            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
-                                               "PhotoName"     : ScreenshotName,
-                                               "FilePath"      : ProductivityFilePath(softwarename : newname),
-                                               "FileName"      : ProductivityFileName(softwarename: newname),
-                                               "category"      : "Productivity",
-                                               "bound"         : BoundInfor
+            let dictionary: [String : Any] = [
+                "SoftwareName"  : softwareName,
+                "PhotoName"     : screenshotName,
+                "FilePath"      : getProductivityFilePath(softwarename : formattedSoftwareName),
+                "FileName"      : getProductivityFilename(softwarename: formattedSoftwareName),
+                "category"      : "Productivity"
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
 
@@ -137,24 +188,20 @@ class classify : NSObject{
                     print("pages, numbers, and keynotes Error: \(error)")
                 }
             }
-            catch{
-                print(Error.self)
-            }
         }
             
-        // this category is for the Xcode
-        else if number == "3"{
-            let newname = SoftwareName.replacingOccurrences(of: "apple.dt.", with: "")
-            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
-                                               "PhotoName"             : ScreenshotName,
-                                               "FilePath"              : ProductivityFilePath(softwarename : newname),
+        //MARK: Xcode
+        else if categoryNumber == 3 {
+            let newname = softwareName.replacingOccurrences(of: "apple.dt.", with: "")
+            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
+                                               "PhotoName"             : screenshotName,
+                                               "FilePath"              : getProductivityFilePath(softwarename : newname),
                                                "FileName"              : XcodeFileName(softwarename: newname),
                                                "category"              : "Coding",
-                                               "bound"                 : BoundInfor
+                                               "bound"                 : bound
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
@@ -191,18 +238,17 @@ class classify : NSObject{
             }
         }
             
-        // this category is for the chrome
-        else if number == "4" {
-            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
-                                               "PhotoName"             : ScreenshotName,
+        //MARK: Google Chrome
+        else if categoryNumber == 4 {
+            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
+                                               "PhotoName"             : screenshotName,
                                                "FrontmostPageUrl"     : BrowserFirstPageURL(),
                                                "FrontmostPageTitle"   : BrowserFirstPageTitle(),
                                                "category"               : "Browser",
-                                               "bound"                  : BoundInfor
+                                               "bound"                  : bound
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
@@ -236,27 +282,20 @@ class classify : NSObject{
                 }
                 
             }
-            catch{
-                print(Error.self)
-            }
-            
         }
             
             
-        // this category is for the Safari
-        // different from the chrome
-        else if number == "5"{
-            let newname = SoftwareName.replacingOccurrences(of: "apple.", with: "")
-            let dictionary : [String : Any] = ["SoftwareName"          : SoftwareName,
-                                               "PhotoName"             : ScreenshotName,
+        //MARK: Safari
+        else if categoryNumber == 5 {
+            let dictionary : [String : Any] = ["SoftwareName"          : softwareName,
+                                               "PhotoName"             : screenshotName,
                                                "FrontmostPageUrl"     : SafariBrowserFirstPageURL(),
                                                "FrontmostPageTitle"   : SafariBrowserFirstPageTitle(),
                                                "category"               : "Browser",
-                                               "bound"                  : BoundInfor
+                                               "bound"                  : bound
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
@@ -290,26 +329,22 @@ class classify : NSObject{
                 }
                 
             }
-            catch{
-                print(Error.self)
-            }
         }
             
+        //MARK: Microsoft Productivity
         // this category is for microsoft productivty software
-        else if number == "6"{
-            let newname = SoftwareName.replacingOccurrences(of: "icrosoft.", with: "")
-            let fullname = "Microsoft " + newname
-            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
-                                               "PhotoName"     : ScreenshotName,
-                                               "FilePath"      : MicrosoftSoftwareFilePath(name: SoftwareName),
-                                               "FileName"      : ProductivityFileName(softwarename: newname),
+        else if categoryNumber == 6 {
+            let newname = softwareName.replacingOccurrences(of: "icrosoft.", with: "")
+            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
+                                               "PhotoName"     : screenshotName,
+                                               "FilePath"      : MicrosoftSoftwareFilePath(name: softwareName),
+                                               "FileName"      : getProductivityFilename(softwarename: newname),
                                                "category"      : "Productivity",
-                                               "bound"         : BoundInfor
+                                               "bound"         : bound
                 
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-                let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
                 let current_path = "file://" + UserData.jsonPath.absoluteString
                 let url = URL(string: current_path as String)
                 
@@ -342,19 +377,18 @@ class classify : NSObject{
                 }
                 
             }
-            catch{
-                print(Error.self)
-            }
         }
             
+        
+        //MARK: Text Edit
         // this category is for textedit
-        else if number == "7"{
-            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
-                                               "PhotoName"     : ScreenshotName,
+        else if categoryNumber == 7 {
+            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
+                                               "PhotoName"     : screenshotName,
                                                "FilePath"      : TextEditFilePath(),
                                                "FileName"      : TextEditFileName(),
                                                "category"      : "Productivity",
-                                               "bound"         : BoundInfor
+                                               "bound"         : bound
 
             ]
             do {
@@ -399,12 +433,14 @@ class classify : NSObject{
             }
         }
             
+        
+        //MARK: Unidentified Category
         //could not identify this software name into any catogoriy
-        else{
-            let dictionary : [String : Any] = ["SoftwareName"  : SoftwareName,
-                                               "PhotoName"     : ScreenshotName,
+        else {
+            let dictionary : [String : Any] = ["SoftwareName"  : softwareName,
+                                               "PhotoName"     : screenshotName,
                                                "category"      : "Dont know",
-                                               "bound"         : BoundInfor
+                                               "bound"         : bound
             ]
             do {
                 let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -538,7 +574,7 @@ class classify : NSObject{
     }
     
     //pages, Numbers, Keynots, Xcode file path
-    func ProductivityFilePath(softwarename : String) -> String{
+    func getProductivityFilePath(softwarename : String) -> String{
         
 //        let MyAppleScript = "tell application \"Pages\" \n activate \n tell front document to set fpath to its file as alias \n set ctime to creation date of (info for fpath) \n set thisfile to POSIX path of fpath \n return thisfile \n end tell \n tell application \"Pages\" to return"
         
@@ -580,7 +616,7 @@ class classify : NSObject{
     
     
     //return the file name of these productivity applications
-    func ProductivityFileName(softwarename : String) -> String{
+    func getProductivityFilename(softwarename : String) -> String{
         let MyAppleScript = "tell application \"System Events\" \n tell process \"Pages\" \n set fileName to name of window 1 \n end tell \n end tell"
         let first = "tell application \"System Events\" \n tell process \""
         let third = "\" \n set fileName to name of window 1 \n end tell \n end tell"
