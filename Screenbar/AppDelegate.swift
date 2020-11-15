@@ -15,7 +15,6 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
     var eventMonitor : EventMonitor?
-    var userObservableData = UserObservableData()
     
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
     

@@ -43,12 +43,20 @@ class ScreenShot : NSObject {
             let urlStr : NSString = originalImageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
 
             let url = URL(string: urlStr as String)
-            imageCompressionHandler.resize(image: image!,
-                                           imagenameaddress:url!,
-                                           fullpath: originalImageNameFullPath,
-                                           hei: Settings.getImageCompressWidth()!/2,
-                                           wi: Settings.getImageCompressHeight()!/2
-            )
+            
+            if let screen = NSScreen.main {
+                let rect = screen.frame
+                let height = rect.size.height
+                let width = rect.size.width
+                
+                imageCompressionHandler.resize(
+                    image: image!,
+                    imageNameAddress: url!,
+                    imageFullPath: originalImageNameFullPath,
+                    toHeight: Settings.getImageCompressionHeight() ?? Int(height),
+                    toWidth: Settings.getImageCompressionWidth() ?? Int(width)
+                )
+            }
             mouseLocationInformation.mouseX = xLocation
             mouseLocationInformation.mouseY = yLocation
         }

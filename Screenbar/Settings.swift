@@ -10,35 +10,65 @@ class Settings : NSObject {
     static let screenshotIntervalKey = "seconds"
     static let storageDaysKey = "storageDays"
     static var detectSwitchKey = "detectSwitch"
-    static var imageCompressionRateKey = "height"
-    static var imageWidth = "width"
     static var sessionNumberArray = [Int]()
     
+    static var imageCompressionRateKey = "compressionRate"
+    static var imageCompressionRateHeightKey = "compressedHeight"
+    static var imageCompressionRateWidthKey = "compressedWidth"
+    
+    
+    //MARK: Screenshot Interval
     static func setScreenshotInterval(to newScreenshotInterval: Int) {
-//        if let newScreenshotInterval = _newScreenshotInterval {
-            UserDefaults.standard.set(newScreenshotInterval, forKey: screenshotIntervalKey)
-//        }
+        UserDefaults.standard.set(newScreenshotInterval, forKey: screenshotIntervalKey)
     }
     
     static func getScreenshotInterval() -> Double? {
         return UserDefaults.standard.double(forKey: screenshotIntervalKey)
     }
     
-    static func setImageCompressionRate(to _newCompressionRate: Int?) {
-        if let newCompressionRate = _newCompressionRate {
-            UserDefaults.standard.set(newCompressionRate, forKey: imageCompressionRateKey)
+    //MARK: Image Compression Rate
+    static func setImageCompressionRate(to newCompressionRate: Int) {
+        UserDefaults.standard.set(newCompressionRate, forKey: imageCompressionRateKey)
+        
+        if getImageCompressionRate() != nil && getImageCompressionHeight() != nil && getImageCompressionWidth() != nil {
+            let compressionRate = Double(getImageCompressionRate()!)
+            let compressionPercentage = compressionRate / 100.0
+            
+            if let screen = NSScreen.main {
+                let rect = screen.frame
+                let height = rect.size.height
+                let width = rect.size.width
+                
+                let compressedHeight = Float(height) * Float(compressionPercentage)
+                let compressedWidth = Float(width) * Float(compressionPercentage)
+                
+                setImageCompressionHeight(to: Int(compressedHeight))
+                setImageCompressionWidth(to: Int(compressedWidth))
+            }
         }
     }
     
-    static func getImageCompressHeight() -> Int?{
-        let deaults = UserDefaults.standard
-        let height: Int? = deaults.integer(forKey: imageCompressionRateKey)
-        return height
+    static func getImageCompressionRate() -> Int? {
+        return UserDefaults.standard.integer(forKey: imageCompressionRateKey)
+    }
+    
+    //MARK: Image Compression Height
+    static func setImageCompressionHeight(to height: Int) {
+        UserDefaults.standard.set(height, forKey: imageCompressionRateHeightKey)
+    }
+    
+    static func getImageCompressionHeight() -> Int? {
+        return UserDefaults.standard.integer(forKey: imageCompressionRateHeightKey)
     }
 
-    static func getImageCompressWidth() -> Int?{
-        let width = (getImageCompressHeight()! * 900) / 1440
-        return width
+    
+    //MARK: Image Compression Width
+    static func setImageCompressionWidth(to width: Int) {
+        UserDefaults.standard.set(width, forKey: imageCompressionRateWidthKey)
+    }
+    
+    static func getImageCompressionWidth() -> Int? {
+        return UserDefaults.standard.integer(forKey: imageCompressionRateWidthKey)
     }
     
     //MARK: getUserDefaultFolderPath

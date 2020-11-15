@@ -9,22 +9,6 @@ import Combine
 import Foundation
 import AppKit
 
-@available(OSX 10.15, *)
-final class UserObservableData {
-    
-    public var recording = false
-    
-    public func startRecording() {
-        recording = true
-        print(recording)
-    }
-    
-    public func stopRecording() {
-        recording = false
-        print(recording)
-    }
-}
-
 // global variable of file path
 struct UserData {
     

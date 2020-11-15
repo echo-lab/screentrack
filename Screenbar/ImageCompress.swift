@@ -16,13 +16,11 @@ import AppKit
 
 class ImageCompress : NSObject{
     
-    func resize(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
+    func resize(image: NSImage, imageNameAddress: URL, imageFullPath: String, toHeight: Int, toWidth:  Int){
         
-        // set the final image size
-        let w = wi
-        let h = hei
-        // w = wide, h = height
-        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
+        let finalWidth = toWidth
+        let finalHeight = toHeight
+        let destSize = NSMakeSize(CGFloat(finalWidth), CGFloat(finalHeight))
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
         
@@ -30,13 +28,9 @@ class ImageCompress : NSObject{
         newImage.unlockFocus()
         newImage.size = destSize
         
-        // characterSet is not being used currently
-        let characterSet = CharacterSet(charactersIn: " ")
-        
-        if newImage.pngWrite(to: URL(fileURLWithPath: fullpath), options: .atomic) {
+        if newImage.pngWrite(to: URL(fileURLWithPath: imageFullPath), options: .atomic) {
             print("File saved successfully after resizing and compression")
-        }
-        else {
+        } else {
             print("File failed to save successfully after resizing and compression")
         }
     }
