@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 import CoreData
 
-class Classify: NSObject {
+class SoftwareClassifier: NSObject {
     
     let categoryDictionary: [String: Int] = [
         "Preview"                 : 1,
@@ -29,7 +29,7 @@ class Classify: NSObject {
     ]
     
     @available(OSX 10.15, *)
-    func SoftwareBasedOnCategory(softwareName: String, screenshotName: String, bound: [String]) {
+    func writeSoftwareBasedOnCategory(softwareName: String, screenshotName: String, bound: [String]) {
         let categoryNumber = categoryDictionary[softwareName]
         
         let metaDataDictionary = createMetaDataDictionary(byCategory: categoryNumber ?? 0, softwareName: softwareName, screenshotName: screenshotName, bound: bound)
@@ -341,31 +341,59 @@ class Classify: NSObject {
     private func writeToJSONFile(withMetaDataDictionary metaDataDictionary: [String: Any]) {
         
         do {
-            let metaDataJSON = try JSONSerialization.data(withJSONObject: metaDataDictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
-            let attribute = try FileManager.default.attributesOfItem(atPath: UserData.jsonPath.absoluteString)
-            
-            var fileSize: UInt64 = UInt64()
             var jsonPathURL: URL = URL(string: NSHomeDirectory())!
-            
-            if let _fileSize = attribute[FileAttributeKey.size] as? UInt64 {
-                fileSize = _fileSize
-            }
             
             if let _jsonPathURL = URL(string: "file://" + UserData.jsonPath.absoluteString) {
                 jsonPathURL = _jsonPathURL
             }
             
-            try fileSize == 0 ? metaDataJSON.write(to: jsonPathURL, options: .atomic) : readJSONFileAndUpdate(jsonPathURL: jsonPathURL, metaDataDictionary: metaDataDictionary)
+            try updateJSONFile(at: jsonPathURL, with: metaDataDictionary)
         } catch {
             print("Error writing metadata to JSON file: \(metaDataDictionary)")
         }
     }   //End of writeToJSONFile()
     
-    private func readJSONFileAndUpdate(jsonPathURL: URL, metaDataDictionary: [String: Any]) throws {
+    private func updateJSONFile(at path: URL, with data: [String: Any]) throws {
+        let rawData: NSData = try NSData(contentsOf: path)
+        if let jsonDataArray = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String: Any]] {
+            
+            //EMTPY JSON FILE
+            if jsonDataArray.count == 0 {
+                let startTime = DateFormatter.localizedString(
+                    from: Date(),
+                    dateStyle: .short,
+                    timeStyle: .short
+                )
+                
+                let newSessionData: [String: Any] = [
+                    "startTime": startTime,
+                    "images": [data]
+                ]
+                
+                let newJSONData = try JSONSerialization.data(withJSONObject: newSessionData, options: JSONSerialization.WritingOptions.prettyPrinted)
+                
+                if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
+                    file.write(newJSONData)
+                    file.closeFile()
+                }
+            } else {
+                print("NON-EMPTY JSON FILE")
+            }
+        }
+    }
+    
+    private func readJSONFileAndUpdate(at jsonPathURL: URL, withNewData metaDataDictionary: [String: Any]) throws {
+//        print("readJSONFileAndUpdate:")
+//        print("at: \(jsonPathURL)")
+//        print("with: \(metaDataDictionary)")
         let rawData: NSData = try NSData(contentsOf: jsonPathURL)
-        let jsonDataDictionary = try JSONSerialization.jsonObject(with : rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as?  NSDictionary
+        let jsonDataDictionary = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as?  NSDictionary
         
-        if let dictionaryOfReturnedJsonData = jsonDataDictionary as? [String: AnyObject] {
+        print("rawData: \(rawData)")
+//        print("jsonDataDictionary: \(jsonDataDictionary)")
+        
+        if let dictionaryOfReturnedJsonData = jsonDataDictionary as? [String: Any] {
+            print("HERE")
             var jsonArray: [[String: Any]] = [[String: Any]()]
             
             if let _jsonArray = dictionaryOfReturnedJsonData["Information"] as? [[String: Any]] {

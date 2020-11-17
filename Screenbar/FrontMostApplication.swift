@@ -29,7 +29,7 @@ class FrontmostApp : NSObject{
     
     @available(OSX 10.15, *)
     @objc func DetectFrontMostApp() -> String{
-        let ScreenshotHandler = ScreenShot()
+        let ScreenshotHandler = ScreenshotTaker()
         
         let DetectFrontMostAppName = NSWorkspace.shared.frontmostApplication?.localizedName
         let characterSet = CharacterSet(charactersIn: "com.")

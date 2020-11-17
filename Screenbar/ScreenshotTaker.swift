@@ -1,20 +1,18 @@
 import Foundation
 import AppKit
 
-struct mouseLocationInformation {
-    static var mouseX = -1
-    static var mouseY = -1
-}
+var mouseXPosition = -1
+var mouseYPosition = -1
 
 @available(OSX 10.15, *)
-class ScreenShot : NSObject {
-    let imageCompressionHandler = ImageCompress()
+class ScreenshotTaker : NSObject {
+    let imageCompressor = ImageCompressor()
     
     @objc @available(OSX 10.15, *)
     func takeScreenshot() {
         let xLocation = Int(NSEvent.mouseLocation.x)
         let yLocation = Int(NSEvent.mouseLocation.y)
-        if xLocation != mouseLocationInformation.mouseX || yLocation != mouseLocationInformation.mouseY {
+        if xLocation != mouseXPosition || yLocation != mouseYPosition {
             
             let dateString = getCurrentDateFormatted()
             
@@ -36,7 +34,7 @@ class ScreenShot : NSObject {
             let photoname = "/Screenshot-" + dateString + ".jpg"
             let currentFrontMostApplication = FrontmostApp().CurrentFrontMostApp
             let bound = getBoundOfFrontMostApplication(application : currentFrontMostApplication)
-            Classify().SoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
+            SoftwareClassifier().writeSoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
 
             let image = NSImage(contentsOf: URL(fileURLWithPath: originalImageName))
 
@@ -49,16 +47,18 @@ class ScreenShot : NSObject {
                 let height = rect.size.height
                 let width = rect.size.width
                 
-                imageCompressionHandler.resize(
+                imageCompressor.resize(
                     image: image!,
                     imageNameAddress: url!,
                     imageFullPath: originalImageNameFullPath,
-                    toHeight: Settings.getImageCompressionHeight() ?? Int(height),
-                    toWidth: Settings.getImageCompressionWidth() ?? Int(width)
+                    to: [
+                        Settings.getImageCompressionHeight() ?? Int(height),
+                        Settings.getImageCompressionWidth() ?? Int(width)
+                    ]
                 )
             }
-            mouseLocationInformation.mouseX = xLocation
-            mouseLocationInformation.mouseY = yLocation
+            mouseXPosition = xLocation
+            mouseYPosition = yLocation
         }
     }
     

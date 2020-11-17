@@ -11,15 +11,12 @@ import Cocoa
 import AppKit
 
 @available(OSX 10.15, *)
-
-// this class is for compressing the screenshot
-
-class ImageCompress : NSObject{
+class ImageCompressor : NSObject{
     
-    func resize(image: NSImage, imageNameAddress: URL, imageFullPath: String, toHeight: Int, toWidth:  Int){
+    func resize(image: NSImage, imageNameAddress: URL, imageFullPath: String, to size: [Int]) {
         
-        let finalWidth = toWidth
-        let finalHeight = toHeight
+        let finalWidth = size[1]
+        let finalHeight = size[0]
         let destSize = NSMakeSize(CGFloat(finalWidth), CGFloat(finalHeight))
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
@@ -34,17 +31,9 @@ class ImageCompress : NSObject{
             print("File failed to save successfully after resizing and compression")
         }
     }
-
-    //end of Imagge compression class
 }
 
-
-
-
 extension NSImage {
-    
-    // resize and compress to .png format.
-    //less stoage space needed
     var pngData: Data? {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
         return bitmapImage.representation(using: .png, properties: [:])
@@ -55,16 +44,10 @@ extension NSImage {
             try pngData?.write(to: url, options: options)
             return true
         } catch {
-            
-            print("png data failed to write, the error is: ", error)
+            print("PNG data failed to write with error: ", error)
             return false
         }
     }
-    
-    func resize_two(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
-    }
-    
-    
 }
 
 

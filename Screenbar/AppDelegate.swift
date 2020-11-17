@@ -59,7 +59,7 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
                     print(error.localizedDescription)
                 }
             }
-            print("filename plist file already exist")
+//            print("filename plist file already exist")
         }
         
         let dictionaryFromFile: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInDocumentDirectory)

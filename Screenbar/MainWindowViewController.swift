@@ -111,14 +111,14 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     func automaticScreenshot() {
         if screenshotCounter.isValid {  //Currently recording
-            self.stopAutomaticScreenShot()
+            stopAutomaticScreenShot()
         } else {    //Start recording
-            self.close()
             if Settings.createUserStorageDirectory() {
                 UserData.jsonPath = jsonFileHandler.createJSONFile(at: URL(string: UserData.screenshotStoragePath))
                 UserData.errorPath = errorFileHandler.createErrorFile(at: URL(string: UserData.screenshotStoragePath))
             }
-            self.startAutomaticScreenshot()
+            startAutomaticScreenshot()
+            close()
         }
     }
     
@@ -129,8 +129,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     private func initScreenshotCounter() {
         screenshotCounter = Timer.scheduledTimer(
             timeInterval: Settings.getScreenshotInterval()!,
-            target: ScreenShot(),
-            selector: #selector(ScreenShot().takeScreenshot),
+            target: ScreenshotTaker(),
+            selector: #selector(ScreenshotTaker().takeScreenshot),
             userInfo: nil,
             repeats: true)
     }
