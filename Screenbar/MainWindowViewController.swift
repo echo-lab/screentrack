@@ -10,6 +10,8 @@ struct mouseActivities {
     static var keyboardDirty = false
 }
 
+var newSession = true
+
 //MARK: TODO - remove sliders
 //MARK: TODO - look into switching software detection screenshot bug
 
@@ -111,6 +113,7 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     func automaticScreenshot() {
         if screenshotCounter.isValid {  //Currently recording
+            newSession = true
             stopAutomaticScreenShot()
         } else {    //Start recording
             if Settings.createUserStorageDirectory() {

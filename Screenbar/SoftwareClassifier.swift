@@ -12,7 +12,7 @@ import CoreData
 
 class SoftwareClassifier: NSObject {
     
-    let categoryDictionary: [String: Int] = [
+    static let categoryDictionary: [String: Int] = [
         "Preview"                 : 1,
         "Pages"                   : 2,
         "Numbers"                 : 2,
@@ -30,7 +30,7 @@ class SoftwareClassifier: NSObject {
     
     @available(OSX 10.15, *)
     func writeSoftwareBasedOnCategory(softwareName: String, screenshotName: String, bound: [String]) {
-        let categoryNumber = categoryDictionary[softwareName]
+        let categoryNumber = SoftwareClassifier.categoryDictionary[softwareName]
         
         let metaDataDictionary = createMetaDataDictionary(byCategory: categoryNumber ?? 0, softwareName: softwareName, screenshotName: screenshotName, bound: bound)
         
@@ -358,27 +358,58 @@ class SoftwareClassifier: NSObject {
         if let jsonDataArray = try JSONSerialization.jsonObject(with: rawData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [[String: Any]] {
             
             //EMTPY JSON FILE
-            if jsonDataArray.count == 0 {
-                let startTime = DateFormatter.localizedString(
-                    from: Date(),
-                    dateStyle: .short,
-                    timeStyle: .short
-                )
-                
-                let newSessionData: [String: Any] = [
-                    "startTime": startTime,
-                    "images": [data]
-                ]
-                
-                let newJSONData = try JSONSerialization.data(withJSONObject: newSessionData, options: JSONSerialization.WritingOptions.prettyPrinted)
-                
-                if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
-                    file.write(newJSONData)
-                    file.closeFile()
+//            if jsonDataArray.count == 0 {
+//                let newSessionData: [String: Any] = [
+//                    "startTime": Date().description,
+//                    "images": [data]
+//                ]
+//
+//                let newJSONData = try JSONSerialization.data(withJSONObject: [newSessionData], options: JSONSerialization.WritingOptions.prettyPrinted)
+//
+//                if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
+//                    file.write(newJSONData)
+//                    file.closeFile()
+//                }
+//            } else {
+                if (newSession) {
+                    newSession = false
+                    
+                    var newDataArray = [[String: Any]]()
+                    for aSession in jsonDataArray {
+                        newDataArray.append(aSession)
+                    }
+                    
+                    let newSessionData: [String: Any] = [
+                        "startTime": Date().description,
+                        "images": [data]
+                    ]
+                    newDataArray.append(newSessionData)
+                    
+                    let newJSONData = try JSONSerialization.data(withJSONObject: newDataArray, options: JSONSerialization.WritingOptions.prettyPrinted)
+                    
+                    if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
+                        file.write(newJSONData)
+                        file.closeFile()
+                    }
+                } else {
+                    var newDataArray = [[String: Any]]()
+                    for aSession in jsonDataArray {
+                        newDataArray.append(aSession)
+                    }
+                    
+                    if var imagesDataArray = newDataArray[newDataArray.count - 1]["images"] as? [[String: Any]] {
+                        imagesDataArray.append(data)
+                        
+                        newDataArray[newDataArray.count - 1]["images"] = imagesDataArray
+                    }
+                    let newJSONData = try JSONSerialization.data(withJSONObject: newDataArray, options: JSONSerialization.WritingOptions.prettyPrinted)
+                    
+                    if let file = FileHandle(forWritingAtPath: UserData.jsonPath.absoluteString) {
+                        file.write(newJSONData)
+                        file.closeFile()
+                    }
                 }
-            } else {
-                print("NON-EMPTY JSON FILE")
-            }
+//            }
         }
     }
     

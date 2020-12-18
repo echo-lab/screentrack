@@ -10,56 +10,100 @@ class ScreenshotTaker : NSObject {
     
     @objc @available(OSX 10.15, *)
     func takeScreenshot() {
-        let xLocation = Int(NSEvent.mouseLocation.x)
-        let yLocation = Int(NSEvent.mouseLocation.y)
-        if xLocation != mouseXPosition || yLocation != mouseYPosition {
-            
-            let dateString = getCurrentDateFormatted()
-            
-            let task = Process()
-            task.launchPath = "/usr/sbin/screencapture"
-            var arguments = [String]()
-            arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
-            task.arguments = arguments
-            
-            let originalImageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
-            let originalImageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
-            
-            task.launch()
-            task.waitUntilExit()
-            
-            mouseActivities.keyboardDirty = false
-            mouseActivities.scrollDirty = false
-            
-            let photoname = "/Screenshot-" + dateString + ".jpg"
-            let currentFrontMostApplication = FrontmostApp().CurrentFrontMostApp
-            let bound = getBoundOfFrontMostApplication(application : currentFrontMostApplication)
-            SoftwareClassifier().writeSoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
+        let dateString = getCurrentDateFormatted()
+        
+        let task = Process()
+        task.launchPath = "/usr/sbin/screencapture"
+        var arguments = [String]()
+        arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
+        task.arguments = arguments
+        
+        let originalImageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+        let originalImageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+        
+        task.launch()
+        task.waitUntilExit()
+        
+        mouseActivities.keyboardDirty = false
+        mouseActivities.scrollDirty = false
+        
+        let photoname = "/Screenshot-" + dateString + ".jpg"
+        let currentFrontMostApplication = FrontmostApp().CurrentFrontMostApp
+        let bound = getBoundOfFrontMostApplication(application : currentFrontMostApplication)
+        SoftwareClassifier().writeSoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
 
-            let image = NSImage(contentsOf: URL(fileURLWithPath: originalImageName))
+        let image = NSImage(contentsOf: URL(fileURLWithPath: originalImageName))
 
-            let urlStr : NSString = originalImageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
+        let urlStr : NSString = originalImageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
 
-            let url = URL(string: urlStr as String)
-            
-            if let screen = NSScreen.main {
-                let rect = screen.frame
-                let height = rect.size.height
-                let width = rect.size.width
+        let url = URL(string: urlStr as String)
+        
+        if let screen = NSScreen.main {
+            let rect = screen.frame
+            let height = rect.size.height
+            let width = rect.size.width
                 
-                imageCompressor.resize(
-                    image: image!,
-                    imageNameAddress: url!,
-                    imageFullPath: originalImageNameFullPath,
-                    to: [
-                        Settings.getImageCompressionHeight() ?? Int(height),
-                        Settings.getImageCompressionWidth() ?? Int(width)
-                    ]
-                )
-            }
-            mouseXPosition = xLocation
-            mouseYPosition = yLocation
+            //MARK: todo - fix image force unwrap
+            imageCompressor.resize(
+                image: image!,
+                imageNameAddress: url!,
+                imageFullPath: originalImageNameFullPath,
+                to: [
+                    Settings.getImageCompressionHeight() ?? Int(height),
+                    Settings.getImageCompressionWidth() ?? Int(width)
+                ]
+            )
         }
+//        let xLocation = Int(NSEvent.mouseLocation.x)
+//        let yLocation = Int(NSEvent.mouseLocation.y)
+//        if xLocation != mouseXPosition || yLocation != mouseYPosition {
+//            let dateString = getCurrentDateFormatted()
+//
+//            let task = Process()
+//            task.launchPath = "/usr/sbin/screencapture"
+//            var arguments = [String]()
+//            arguments.append(UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg")
+//            task.arguments = arguments
+//
+//            let originalImageName = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+//            let originalImageNameFullPath = UserData.screenshotStoragePath + "/Screenshot-" + dateString + ".jpg"
+//
+//            task.launch()
+//            task.waitUntilExit()
+//
+//            mouseActivities.keyboardDirty = false
+//            mouseActivities.scrollDirty = false
+//
+//            let photoname = "/Screenshot-" + dateString + ".jpg"
+//            let currentFrontMostApplication = FrontmostApp().CurrentFrontMostApp
+//            let bound = getBoundOfFrontMostApplication(application : currentFrontMostApplication)
+//            SoftwareClassifier().writeSoftwareBasedOnCategory(softwareName : currentFrontMostApplication, screenshotName : photoname, bound : bound)
+//
+//            let image = NSImage(contentsOf: URL(fileURLWithPath: originalImageName))
+//
+//            let urlStr : NSString = originalImageNameFullPath.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! as NSString
+//
+//            let url = URL(string: urlStr as String)
+//
+//            if let screen = NSScreen.main {
+//                let rect = screen.frame
+//                let height = rect.size.height
+//                let width = rect.size.width
+//
+//                //MARK: todo - fix image force unwrap
+//                imageCompressor.resize(
+//                    image: image!,
+//                    imageNameAddress: url!,
+//                    imageFullPath: originalImageNameFullPath,
+//                    to: [
+//                        Settings.getImageCompressionHeight() ?? Int(height),
+//                        Settings.getImageCompressionWidth() ?? Int(width)
+//                    ]
+//                )
+//            }
+//            mouseXPosition = xLocation
+//            mouseYPosition = yLocation
+//        }
     }
     
     // getDate function, return a string value
