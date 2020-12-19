@@ -11,18 +11,13 @@ import Cocoa
 import AppKit
 
 @available(OSX 10.15, *)
-
-// this class is for compressing the screenshot
-
-class ImageCompress : NSObject{
+class ImageCompressor : NSObject{
     
-    func resize(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
+    func resize(image: NSImage, imageNameAddress: URL, imageFullPath: String, to size: [Int]) {
         
-        // set the final image size
-        let w = wi
-        let h = hei
-        // w = wide, h = height
-        let destSize = NSMakeSize(CGFloat(w), CGFloat(h))
+        let finalWidth = size[1]
+        let finalHeight = size[0]
+        let destSize = NSMakeSize(CGFloat(finalWidth), CGFloat(finalHeight))
         let newImage = NSImage(size: destSize)
         newImage.lockFocus()
         
@@ -30,27 +25,15 @@ class ImageCompress : NSObject{
         newImage.unlockFocus()
         newImage.size = destSize
         
-        // characterSet is not being used currently
-        let characterSet = CharacterSet(charactersIn: " ")
-        
-        if newImage.pngWrite(to: URL(fileURLWithPath: fullpath), options: .atomic) {
+        if newImage.pngWrite(to: URL(fileURLWithPath: imageFullPath), options: .atomic) {
             print("File saved successfully after resizing and compression")
-        }
-        else {
+        } else {
             print("File failed to save successfully after resizing and compression")
         }
     }
-
-    //end of Imagge compression class
 }
 
-
-
-
 extension NSImage {
-    
-    // resize and compress to .png format.
-    //less stoage space needed
     var pngData: Data? {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
         return bitmapImage.representation(using: .png, properties: [:])
@@ -61,16 +44,10 @@ extension NSImage {
             try pngData?.write(to: url, options: options)
             return true
         } catch {
-            
-            print("png data failed to write, the error is: ", error)
+            print("PNG data failed to write with error: ", error)
             return false
         }
     }
-    
-    func resize_two(image: NSImage,imagenameaddress :URL, fullpath: String, hei: Int, wi: Int){
-    }
-    
-    
 }
 
 

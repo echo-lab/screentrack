@@ -29,7 +29,7 @@ class CurrentApplicationData : NSObject{
     
     @available(OSX 10.15, *)
     @objc func CurrentApplicationInfo(){
-        let screenshot = ScreenShot()
+        let screenshot = ScreenshotTaker()
         for runningApp in NSWorkspace.shared.runningApplications {
             if runningApp.isActive{
                 print(runningApp.localizedName)
@@ -42,7 +42,7 @@ class CurrentApplicationData : NSObject{
                 }
                 else {
                     InitialSet.add(AfterTrimResult)
-                    screenshot.take()
+                    screenshot.takeScreenshot()
                 }
             }
             

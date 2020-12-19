@@ -10,6 +10,8 @@ struct mouseActivities {
     static var keyboardDirty = false
 }
 
+var newSession = true
+
 //MARK: TODO - remove sliders
 //MARK: TODO - look into switching software detection screenshot bug
 
@@ -17,53 +19,43 @@ struct mouseActivities {
 class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     
     //MARK: - Refactored Variables
-    
-//    @IBOutlet var screenshotIntervalLabel: NSTextField!
-//    @IBOutlet var storageDaysSlider: NSSlider!
-//    @IBOutlet var storageDaysLabel: NSTextField!
-    
     @IBOutlet var screenshotIntervalTextField: NSTextField!
     @IBOutlet var storageDaysTextField: NSTextField!
     @IBOutlet var recordButton: NSButton!
     @IBOutlet var estimatedDiskSpaceTextField: NSTextField!
     @IBOutlet var compressionRateSlider: NSSlider!
     @IBOutlet var compressionRateTextField: NSTextField!
-//    @IBOutlet var screenshotIntervalSlider: NSSlider!
     
     var screenshotInterval: Int?
     var compressionRate: Int?
     var screenshotCounter: Timer = Timer()
-    var screenshotStoragePath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
-    var imageMaxSize: Double = 0
+//    var screenshotStoragePath = URL(string: NSHomeDirectory() + "/Documents" + "/Reflect/")
     
     static let SLIDER_MIN_VALUE = 40
     static let SLIDER_MAX_VALUE = 100
     static let SLIDER_INIT_VALUE = 70
     
-    var userObservableData = UserObservableData()
+    //MARK: Handlers
+    let frontmostAppHandler = FrontmostApp()
+    let jsonFileHandler = JSONFileHandler()
+    let errorFileHandler = ErrorFileHandler()
+    let deleteFoldersHandler = deleteFolders()
     
     //MARK: - End of refactored variables
     
     
-    //MARK: - TODO: find out what do these do
+    //MARK: - TODO
     @IBOutlet weak var errorMessage: NSTextField!
     @IBOutlet weak var playSound: NSButton!
     @IBOutlet weak var DetectSwitchCheckButton: NSButton!
     
     var timerFrontmost: Timer = Timer()
     
-    let frontmostAppHandler = FrontmostApp()
-    let jsonFileHandler = JSONFileHandler()
-    let errorFileHandler = ErrorFileHandler()
-    let deleteFoldersHandler = deleteFolders()
-    
     override func viewWillAppear() {
         super.viewWillAppear()
         
         initialize()
         screenshotInterval = Int(Settings.getScreenshotInterval() ?? 0.0)
-//        screenshotIntervalLabel.stringValue = "\(screenshotInterval ?? 0)"
-//        storageDaysLabel.intValue = Settings.get
     }
     
     override func controlTextDidChange(_ notification: Notification) {
@@ -106,45 +98,30 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func recordOnClick(_ sender: Any) {
-        userObservableData.recording ? userObservableData.stopRecording() : userObservableData.startRecording()
-        
         saveSettings()
         deleteFoldersHandler.listFiles(rootpath: UserData.rootFolderPath, dayLength: storageDaysTextField.stringValue)
         automaticScreenshot()
     }
     
     func saveSettings() {
-//        if let screenshotInterval = Int(screenshotIntervalSlider.intValue) {
-//
-//            saveSettings(seconds: screenshotInterval, height: 0, DetectSwitchCheckButton: 0)
-//        }
-//        saveSettings(seconds: screenshotIntervalTextField.doubleValue, height: 0, DetectSwitchCheckButton: 0)
-//        if let _seconds = screenshotIntervalTextField.doubleValue {
-//            seconds = _seconds
-//        }
-//
-//        let DetectSwitchCheckButton = self.DetectSwitchCheckButton.state
-//
-//        if seconds == nil || seconds == 0 {
-//            errorMessage.isHidden = false
-//            success = false;
-//        } else {
-//            errorMessage.isHidden = true
-//            self.saveSettings(seconds: seconds, path: screenshotStoragePath, height: compressionRate ?? 50, DetectSwitchCheckButton: DetectSwitchCheckButton.rawValue)
-//        }
-//        return success;
+        let screenshotInterval = Int(screenshotIntervalTextField.intValue)
+        let compressionRate = Int(compressionRateSlider.intValue)
+        
+        Settings.setScreenshotInterval(to: screenshotInterval)
+        Settings.setImageCompressionRate(to: compressionRate)
     }
     
     func automaticScreenshot() {
-        if screenshotCounter.isValid {
-            self.stopAutomaticScreenShot()
-        } else {
-            self.close()
+        if screenshotCounter.isValid {  //Currently recording
+            newSession = true
+            stopAutomaticScreenShot()
+        } else {    //Start recording
             if Settings.createUserStorageDirectory() {
                 UserData.jsonPath = jsonFileHandler.createJSONFile(at: URL(string: UserData.screenshotStoragePath))
                 UserData.errorPath = errorFileHandler.createErrorFile(at: URL(string: UserData.screenshotStoragePath))
             }
-            self.startAutomaticScreenshot()
+            startAutomaticScreenshot()
+            close()
         }
     }
     
@@ -155,8 +132,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     private func initScreenshotCounter() {
         screenshotCounter = Timer.scheduledTimer(
             timeInterval: Settings.getScreenshotInterval()!,
-            target: ScreenShot(),
-            selector: #selector(ScreenShot().take),
+            target: ScreenshotTaker(),
+            selector: #selector(ScreenshotTaker().takeScreenshot),
             userInfo: nil,
             repeats: true)
     }
@@ -176,7 +153,8 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
 
     func stopAutomaticScreenShot() {
-        self.timerFrontmost.invalidate()
+        timerFrontmost.invalidate()
+        screenshotCounter.invalidate()
         updateRecordButtonLabel(to: "Record")
         let AddingDataAfterStopingHandler = JsondataAfterTracking()
         AddingDataAfterStopingHandler.DataAfterRecording(filepath: URL(string: UserData.screenshotStoragePath)!)
@@ -229,19 +207,10 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     }
     
     var screenshotIntervalPopover: NSPopover?
-    
-    private func initScreenshotIntervalPopover() {
-        print("INIT SCREENSHOT INTERVAL POPOVER")
-        screenshotIntervalPopover?.contentViewController = ScreenshotIntervalViewController(nibName: NSNib.Name(rawValue: "ScreenshotIntervalCell"), bundle: nil)
-        print(screenshotIntervalPopover == nil)
-    }
-    
     //MARK: COMPLETED
     
     //MARK: - initialize()
     private func initialize() {
-//        initScreenshotIntervalSlider()
-        
         initScreenshotIntervalTextField()
         initCompressionRateValues()
         initEstimatedDiskSpaceTextField()
@@ -255,13 +224,6 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
         compressionRateSlider.intValue = 70
         compressionRateTextField.stringValue = String(MainWindowViewController.SLIDER_INIT_VALUE) + "%"
     }
-    
-//    private func initScreenshotIntervalSlider() {
-//        screenshotIntervalSlider.minValue = 1
-//        screenshotIntervalSlider.maxValue = 60
-//        screenshotIntervalSlider.intValue = 10
-//    }
-    
     
     //MARK: - initScreenshotIntervalTextField
     private func initScreenshotIntervalTextField() {
@@ -291,7 +253,6 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
     //MARK: - updateEstimatedDiskSpaceTextField
     private func updateEstimatedDiskSpaceTextField() {
         let screenshotInterval = screenshotIntervalTextField.doubleValue
-//        let screenshotInterval = screenshotIntervalSlider.doubleValue
         let storageDays = storageDaysTextField.doubleValue
 
         let compressedImageRatio = compressionRateSlider.doubleValue / compressionRateSlider.maxValue
@@ -304,8 +265,4 @@ class MainWindowViewController: NSViewController, NSTextFieldDelegate {
 
         estimatedDiskSpaceTextField.stringValue = String(format: "%.1f", totalGB) + "GB"
     }
-    
-//    private func updateScreenshotIntervalLabel(to value: Int) {
-//        screenshotIntervalLabel.stringValue = "\(value)"
-//    }
 }

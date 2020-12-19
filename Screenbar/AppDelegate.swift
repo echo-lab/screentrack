@@ -15,7 +15,6 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: -2)
     let mainWindowPopover = NSPopover()
     var eventMonitor : EventMonitor?
-    var userObservableData = UserObservableData()
     
     var fileNameDictionary: NSMutableDictionary = NSMutableDictionary()
     
@@ -60,7 +59,7 @@ class AppDelegate: NSViewController, NSApplicationDelegate {
                     print(error.localizedDescription)
                 }
             }
-            print("filename plist file already exist")
+//            print("filename plist file already exist")
         }
         
         let dictionaryFromFile: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInDocumentDirectory)

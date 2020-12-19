@@ -482,7 +482,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
     
     @IBAction func TimeIntervalCheckButton(_ sender: Any) {
         if (InforFour.stringValue != "null") && (FilePathOrURL.stringValue == "File Path"){
-            let errorHandler = classify()
+            let errorHandler = SoftwareClassifier()
             let first = "set thePath to POSIX file \""
             let second = "\" \n tell application \"Finder\" to reveal thePath"
             let final = first + InforFour.stringValue + second
@@ -1479,7 +1479,7 @@ class TimeLapseMethodWindow: NSViewController, NSWindowDelegate {
         let scriptObject = NSAppleScript(source: first)
         scriptObject!.executeAndReturnError(&error)
         if (error != nil) {
-            let errorHandler = classify()
+            let errorHandler = SoftwareClassifier()
             errorHandler.writeError(error : error!)
             print("error: \(String(describing: error))")
         }

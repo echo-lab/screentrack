@@ -29,7 +29,7 @@ class FrontmostApp : NSObject{
     
     @available(OSX 10.15, *)
     @objc func DetectFrontMostApp() -> String{
-        let ScreenshotHandler = ScreenShot()
+        let ScreenshotHandler = ScreenshotTaker()
         
         let DetectFrontMostAppName = NSWorkspace.shared.frontmostApplication?.localizedName
         let characterSet = CharacterSet(charactersIn: "com.")
@@ -37,14 +37,14 @@ class FrontmostApp : NSObject{
         if CurrentFrontMostApp != DetectFrontMostAppName {
             let temp = NSWorkspace.shared.frontmostApplication?.localizedName
             if DetectFrontMostAppName == temp {
-                ScreenshotHandler.take()
+                ScreenshotHandler.takeScreenshot()
                 print(CurrentFrontMostApp)
                 print(DetectFrontMostAppName ?? "none")
                 print("frontmost app changed and caputre")
                 CurrentFrontMostApp = DetectFrontMostAppName!
             }
             else{
-                ScreenshotHandler.take()
+                ScreenshotHandler.takeScreenshot()
                 CurrentFrontMostApp = temp!
                 print(DetectFrontMostAppName ?? "none")
                 print("frontmost app changed and caputre")
